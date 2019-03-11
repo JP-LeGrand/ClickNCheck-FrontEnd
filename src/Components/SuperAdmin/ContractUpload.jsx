@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 
 class ContractUpload extends Component {
-    state = {  }
+    
     render() { 
-       // return (  );
+        return (
+            <form>
+                <h1 className="ui centered">Organisation Contract</h1>
+                <label>Organisation Contract</label>
+                <input type="file" id="OrganisationName" placeholder="Organisation Name"></input>
+                <input type="submit" value="Save and continue"></input>
+            </form>  
+        );
     }
 }
  
