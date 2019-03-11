@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import imgMain from '../../../Icons/main.svg';
+import imgMain from '../../../Assets/main.svg';
 import './Consent.scss';
 class Consent extends React.PureComponent {
     render() {
@@ -26,12 +26,12 @@ class Consent extends React.PureComponent {
                                 <li>check1</li>
                             </ul>
                             <ul >
-                                {/*
+                                {
                                     this.props.consentState.checks.map(
                                         function(index,name){
                                             return <li key={index} >{name}</li>;
                                         }
-                                    )*/
+                                    )
                                 }
                             </ul>
                         </strong>

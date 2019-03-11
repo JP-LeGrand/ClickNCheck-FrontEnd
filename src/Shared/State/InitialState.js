@@ -11,6 +11,22 @@ const InitialState = {
         canLogin: null,
         email: null,
         password: null,
+    },
+    forgotPasswordState:{
+        sendType:{
+            username: null,
+            password: null
+        },
+        idType: {
+            id: null,
+            passport: null
+        },
+        sendVia:{
+            sms: null,
+            email: null
+        },
+        cellPhone: null,
+        email: null
     }
 };
 

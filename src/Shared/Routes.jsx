@@ -10,10 +10,10 @@ const Routes = () => {
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact component={Home}/>
-                <Route render={() => <Redirect to="/"/>}/>
                 <Route path="/login" exact component={Login} />
                 <Route path="/candidate/consent" exact component={Consent} />
                 <Route path="/candidate/consented" exact component={Consented} />
+                <Route render={() => <Redirect to="/"/>}/>
             </Switch>
         </BrowserRouter>
     );
