@@ -1,0 +1,36 @@
+#left{
+	float: left;
+	margin-left: 20px
+}
+
+#right{
+	float: right;
+	margin-right: 20px
+}
+#center{
+	margin: auto 0;
+}
+footer{
+	background-color: #02529c;
+	text-align: center;
+}
+footer a{
+	font-size: 14px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 2.6;
+	letter-spacing: 0.6px;
+	text-align: center;
+	color: #ffffff;
+}
+footer a:hover{
+	font-size: 14px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 2.6;
+	letter-spacing: 0.6px;
+	text-align: center;
+	color: #ffffff;
+}
