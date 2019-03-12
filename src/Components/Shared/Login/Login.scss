@@ -1,5 +1,8 @@
-.forgotPassword {
-	
+.login {
+  #logo {
+    padding-top: 0px;
+  }
+  
   button {
     float: left;
     padding: 10px 46px;
@@ -13,83 +16,141 @@
     background-color: #0091d1;
     border-radius: 5px;
   }
-
-  	#via{
-		margin-top: 20px;
-	}
-
-	#btnSend{
-		margin-top: 20px;
-	}
-  .sendWhat div{
-	float: left;
-	display: block;
-    width: 450px;
-    height: 50px;
-    margin: 0 auto;
-    font-size: 20px;
+  
+  .createPassword {
+    margin-bottom: 0px;
   }
-  .sendWhat{
-	display: block;
-    width: 450px;
-    height: 50px;
-	margin: 0 auto;
-	margin-top: 30px;
-    font-size: 20px;
+  
+  label {
+    float: left;
   }
-  select{
-	  width: 100%
-  }
+  
   .error {
     margin-top: 0px;
     font-size: 15px;
     color: red;
   }
-.send{
-	float: left;
-}
-
+  
+  #heading {
+    color: #02529c;
+  }
+  
   .headSection {
     margin-bottom: 0px;
     height: 137px;
     background-color: white;
     text-align: center;
   }
-  .send label{
-	  margin-bottom: 100px;
+  
+  footer{
+    background-color: #02529c;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
+    text-align: center;
+    color: #e6e9ec;
   }
-
+  
+  footer div {
+    padding: 10.5px;
+    margin: 0px;
+    line-height: 100%;
+  }
+  
+  
+  
+  footer a{
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.6;
+    letter-spacing: 0.6px;
+    text-align: center;
+    color: #ffffff;
+  }
+  footer a:hover{
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 2.6;
+    letter-spacing: 0.6px;
+    text-align: center;
+    color: #ffffff;
+  }
+   
+  
+  input {
+    width: 400px;
+    border: 1px solid #ABADB3;
+    border-right: 0;
+    border-top: 0;
+    border-left: 0;
+    height: 30px;
+    font-size: 16px;
+    padding-left: 5px;
+  }
+  
+  input:focus {
+    outline: none;
+  }
+  
+  h1 {
+    margin-top: 0px;
+  }
+  
   .mainSection {
-	margin: 0 auto;
-	text-align: left;
+    margin: 0 auto;
     margin-bottom: 10px;
     padding-left: 5px;
     padding-right: 5px;
     min-width: 550px;
     max-width: fit-content;
-    height: 900px;
+    height: fit-content;
     background-color: #ffffff;
     -webkit-box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
-    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+            box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+    text-align: center;
     border: 1px solid lightgray;
   }
-
+  
   .form-group {
     display: block;
     width: 450px;
     height: 50px;
     margin: 0 auto;
     font-size: 20px;
+    padding-bottom: 25px;
+    margin-bottom: 33px;
   }
-
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  body {
+    font-family: HelveticaNeue;
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+  }
+  
+  label {
+    float: left;
+  }
+  
   .headSection img {
     height: 29px;
     width: 177px;
     margin-top: 72px;
     -o-object-fit: contain;
-    object-fit: contain;
+       object-fit: contain;
   }
-
+  
   .registrationHeading {
     text-align: center;
     height: 45px;
@@ -103,16 +164,19 @@
     color: #2b3844;
     padding-top: 28px;
   }
- 
+  
+  .registrationHeading .text-style-1 {
+    font-weight: bold;
+  }
+  
   .inp {
     position: relative;
     margin: auto;
     width: 100%;
     max-width: 280px;
-	margin-top: 16px;
-	margin-bottom: 16px;
+    margin-top: 16px;
   }
-
+  
   .inp .label {
     position: absolute;
     top: 16px;
@@ -126,13 +190,12 @@
     letter-spacing: 0.9px;
     color: #2b3844;
     -webkit-transform-origin: 0 0;
-    transform-origin: 0 0;
+            transform-origin: 0 0;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
   }
-
-  .inp input,
-  .inp select {
+  
+  .inp input, .inp select {
     -webkit-appearance: none;
     width: 471px;
     height: 48px;
@@ -153,30 +216,62 @@
     letter-spacing: 0.9px;
     color: #2b3844;
   }
-
-  .inp input:focus,
-  .inp select:focus {
+  
+  .inp input:focus, .inp select:focus {
     background: none;
     outline: none;
   }
-
+  
   .inp input:not(:placeholder-shown) + span {
     color: #2b3844;
     -webkit-transform: translateY(-26px) scale(0.75);
-    transform: translateY(-26px) scale(0.75);
+            transform: translateY(-26px) scale(0.75);
   }
-
+  
   .inp input:focus + span {
     -webkit-transform: translateY(-26px) scale(0.75);
-    transform: translateY(-26px) scale(0.75);
+            transform: translateY(-26px) scale(0.75);
   }
-
+  
   .inp input:focus + span + .border {
     -webkit-transform: scaleX(1);
-    transform: scaleX(1);
+            transform: scaleX(1);
   }
-
+  
   .inp select {
     -webkit-appearance: menulist;
   }
-}
+  
+  input[type="number"] {
+    -webkit-appearance: none;
+    margin: 10px;
+    display: inline-block;
+    width: 59px;
+    height: 59px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    margin-top: 60px;
+  }
+  /*# sourceMappingURL=admin.css.map */
+  .tabs {
+    margin-top: 44px;
+    border: 1px solid  #02529c;
+    border-radius: 8px;
+  }
+  
+  input[type="button"] {
+    color: white;
+    background-color: #0091d1;
+    width:165px;
+    height:50px;
+    border-radius: 8px;
+  
+  }
+  
+  input[type="file"]
+  {
+    width:331px;
+    margin: auto;
+  }
+} 
