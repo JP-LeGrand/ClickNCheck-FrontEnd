@@ -30,7 +30,8 @@ const InitialState = {
     },
     changePasswordState:{
         password:null,
-        passwordStrength:null
+        passwordStrength:null,
+        errorMessage:null
     }
 };
 

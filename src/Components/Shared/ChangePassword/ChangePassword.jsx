@@ -68,10 +68,10 @@ class ChangePassword extends React.PureComponent{
                   errorMessage = 'must contain small';
               }
               else if (numberCount < 1) {
-                  errorMessage = 'must contain number';
+                  errorMessage = 'must contain a number';
               }
               else if (symbolCount < 1) {
-                  errorMessage = 'must contain symbol';
+                  errorMessage = 'must contain a special character';
               }
               this.setState({
                   errorMessage
@@ -97,8 +97,9 @@ class ChangePassword extends React.PureComponent{
                           <label className="inp">
                               <input type="password" value={this.state.password} onChange={this.handleChange} placeholder="&nbsp;"/>
                               <span className="label">Password</span>
-                              <span className="border">{this.state.errorMessage}</span>
+                              <span className="border"></span>
                           </label>
+                          {this.state.errorMessage}
                           <label className="inp">
                               <input type="password" placeholder="&nbsp;"/>
                               <span className="label">Confirm Password</span>
@@ -118,7 +119,6 @@ ChangePassword.propTypes = {
     })
 };
 
-// eslint-disable-next-line no-unused-vars
 const mapStateToProps = (state) => {
     return {
         homeState: state.homeState
