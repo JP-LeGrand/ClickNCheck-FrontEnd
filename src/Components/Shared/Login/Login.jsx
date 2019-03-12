@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './Login.scss';
+import { BASE_URL, AUTHENTICATE_LOGIN, OTP_AUTHENTICATION } from '../../../Shared/Constants';
+import mainImg from '../../../Assets/main.svg';
 
 class Login extends React.PureComponent {
     constructor(props) {
@@ -26,7 +28,7 @@ class Login extends React.PureComponent {
     handleSubmit(event){
         event.preventDefault();
         let credentials = [ this.state.email, this.state.password ];
-        fetch('https://localhost:44347/api/authentication/login', {
+        fetch(BASE_URL + AUTHENTICATE_LOGIN , {
             method: 'POST',
             mode: 'cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -42,7 +44,7 @@ class Login extends React.PureComponent {
             .then(
                 response => {
                     localStorage.setItem('user_id', response);
-                    fetch('https://localhost:44347/api/authentication/otp', {
+                    fetch(BASE_URL + OTP_AUTHENTICATION, {
                         method: 'POST',
                         mode: 'cors', // no-cors, cors, *same-origin
                         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -74,7 +76,7 @@ class Login extends React.PureComponent {
         return (
             <div className="login">
                 <header className="headSection">
-                    <img src="../../../icons/main.svg"/>
+                    <img src={mainImg}/>
                 </header>
 
                 <div className="mainSection">

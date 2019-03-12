@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './Otp.scss';
+import { BASE_URL, CHECK_OTP } from '../../../Shared/Constants';
+import mainImg from '../../../Assets/main.svg';
 
 class Otp extends React.PureComponent {
     constructor(props) {
@@ -47,7 +49,7 @@ class Otp extends React.PureComponent {
             OTP: this.state.digit1 + '' + this.state.digit2 + '' + this.state.digit3 + '' + this.state.digit4 + '' + this.state.digit5
         };
         let user_otp = [ localStorage.getItem('user_id'),body.OTP ];
-        fetch('https://localhost:44347/api/authentication/checkOtp', {
+        fetch(BASE_URL + CHECK_OTP, {
             method: 'POST',
             mode: 'cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -67,7 +69,6 @@ class Otp extends React.PureComponent {
                     let one = 1;
                     let two = 2;
                     let three = 3;
-
                     sessionStorage.setItem('token', response[zero]);
                     sessionStorage.setItem('user_name', response[two]);
                     sessionStorage.setItem('user_img', response[three]);
@@ -91,9 +92,9 @@ class Otp extends React.PureComponent {
     
     render() {
         return (
-            <div classNameName="otp">
+            <div className="otp">
                 <header className="headSection">
-                    <img src="../../../icons/main.svg"/>
+                    <img src={mainImg} />
                 </header>
 
                 <div className="mainSection">
