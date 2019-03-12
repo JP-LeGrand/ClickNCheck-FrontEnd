@@ -9,5 +9,6 @@ export const ChangePasswordConstrants = {
     MinSpecialCount: 1,
     MinCapsCount: 1,
     MinNumberCount: 1,
-    MinSmallCount: 1
+    MinSmallCount: 1,
+    ScoreIncrement: 1
 };

@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './ChangePassword.scss';
 import imgMain from '../../../Assets/main.svg';
-import ChangePasswordConstrants from './ChangePasswordConstants';
+import { ChangePasswordConstrants } from './ChangePasswordConstants';
 class ChangePassword extends React.PureComponent{
     constructor(props) {
         super(props);
         this.state = {
             password: '',
+            confirmpassword:'',
             errorMessage: '',
             passwordStrength: '',
+            passwordMatchMessage:''
         };
     }
       measureStrength = (password) => {
@@ -24,7 +26,7 @@ class ChangePassword extends React.PureComponent{
           ];
           regexPositive.forEach((regex, index) => {
               if (new RegExp(regex).test(password)) {
-                  score +=1;
+                  score += ChangePasswordConstrants.ScoreIncrement;
               }
           });
           switch (score) {
@@ -49,29 +51,25 @@ class ChangePassword extends React.PureComponent{
       }
     
       validate = (e) => {
-          let password  = e.target.value;
+          let password = e.target.value;
           let errorMessage;
           let capsCount, smallCount, numberCount, symbolCount;
           if (password.length < ChangePasswordConstrants.MinPassLenght) {
               this.setState({
                   errorMessage: 'password must be min 8 char',
               });
-          }
-          else {
+          } else {
               capsCount = (password.match(/[A-Z]/g) || []).length;
               smallCount = (password.match(/[a-z]/g) || []).length;
               numberCount = (password.match(/[0-9]/g) || []).length;
               symbolCount = (password.match(/\W/g) || []).length;
               if (capsCount < ChangePasswordConstrants.MinCapsCount) {
                   errorMessage = 'must contain caps';
-              }
-              else if (smallCount < ChangePasswordConstrants.MinSmallCount) {
+              } else if (smallCount < ChangePasswordConstrants.MinSmallCount) {
                   errorMessage = 'must contain small';
-              }
-              else if (numberCount < ChangePasswordConstrants.MinNumberCount) {
+              } else if (numberCount < ChangePasswordConstrants.MinNumberCount) {
                   errorMessage = 'must contain a number';
-              }
-              else if (symbolCount < ChangePasswordConstrants.MinSpecialCount) {
+              } else if (symbolCount < ChangePasswordConstrants.MinSpecialCount) {
                   errorMessage = 'must contain a special character';
               }
               this.setState({
@@ -80,10 +78,28 @@ class ChangePassword extends React.PureComponent{
               this.measureStrength(password);
           }
       }
+
+      validatePasswordMatch = (e) =>{
+          let confirmPassword = e.target.value;
+          let passwordMatchMessage;
+          if (confirmPassword.length >= 1 && this.state.password.length >= 1 ){
+              if (confirmPassword !== this.state.password){
+                  passwordMatchMessage = 'passwords do not match';
+              }
+          }
+          this.setState({
+              passwordMatchMessage
+          });
+      }
     
       handleChange = (e) => {
           this.validate(e);
           this.setState({ password: e.target.value });
+      }
+      
+      handleConfirmChange = (e) =>{
+          this.validatePasswordMatch(e);
+          this.setState({ confirmpassword: e.target.value });
       }
       render(){
           return (
@@ -98,13 +114,14 @@ class ChangePassword extends React.PureComponent{
                           <label className="inp">
                               <input type="password" value={this.state.password} onChange={this.handleChange} placeholder="&nbsp;"/>
                               <span className="label">Password</span>
-                              <span className="border"></span>
+                              <span className="border"></span><br/>
+                              {this.state.errorMessage}
                           </label>
-                          {this.state.errorMessage}
                           <label className="inp">
-                              <input type="password" placeholder="&nbsp;"/>
+                              <input type="password" value={this.state.confirmpassword} onChange={this.handleConfirmChange} placeholder="&nbsp;"/>
                               <span className="label">Confirm Password</span>
-                              <span className="border"></span>
+                              <span className="border"></span><br/>
+                              {this.state.passwordMatchMessage}
                           </label>
                           <button id="btnSend" >Send</button>
                       </div>
@@ -122,7 +139,7 @@ ChangePassword.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        homeState: state.homeState
+        changePasswordState: this.state
     };
 };
 export default connect()(ChangePassword);
