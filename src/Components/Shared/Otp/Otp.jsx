@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './Otp.scss';
 import { BASE_URL, CHECK_OTP } from '../../../Shared/Constants';
+import mainImg from '../../../Assets/main.svg';
 
 class Otp extends React.PureComponent {
     constructor(props) {
@@ -68,7 +69,6 @@ class Otp extends React.PureComponent {
                     let one = 1;
                     let two = 2;
                     let three = 3;
-
                     sessionStorage.setItem('token', response[zero]);
                     sessionStorage.setItem('user_name', response[two]);
                     sessionStorage.setItem('user_img', response[three]);
@@ -92,9 +92,9 @@ class Otp extends React.PureComponent {
     
     render() {
         return (
-            <div classNameName="otp">
+            <div className="otp">
                 <header className="headSection">
-                    <img src="../../../icons/main.svg"/>
+                    <img src={mainImg} />
                 </header>
 
                 <div className="mainSection">

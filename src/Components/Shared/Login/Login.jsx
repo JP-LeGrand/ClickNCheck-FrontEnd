@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './Login.scss';
 import { BASE_URL, AUTHENTICATE_LOGIN, OTP_AUTHENTICATION } from '../../../Shared/Constants';
+import mainImg from '../../../Assets/main.svg';
 
 class Login extends React.PureComponent {
     constructor(props) {
@@ -75,7 +76,7 @@ class Login extends React.PureComponent {
         return (
             <div className="login">
                 <header className="headSection">
-                    <img src="../../../icons/main.svg"/>
+                    <img src={mainImg}/>
                 </header>
 
                 <div className="mainSection">
