@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './ChangePassword.scss';
 import imgMain from '../../../Assets/main.svg';
+import ChangePasswordConstrants from './ChangePasswordConstants';
 class ChangePassword extends React.PureComponent{
     constructor(props) {
         super(props);
@@ -27,16 +28,16 @@ class ChangePassword extends React.PureComponent{
               }
           });
           switch (score) {
-          case 0:
-          case 1:
+          case ChangePasswordConstrants.ReallyWeak:
+          case ChangePasswordConstrants.Weak:
               passwordStrength='weak';
               break;
-          case 2:
-          case 3:
+          case ChangePasswordConstrants.Good:
+          case ChangePasswordConstrants.ReallyGood:
               passwordStrength='good';
               break;
-          case 4:
-          case 5:
+          case ChangePasswordConstrants.Strong:
+          case ChangePasswordConstrants.ReallyStrong:
               passwordStrength='strong';        
               break;
           default:
@@ -51,7 +52,7 @@ class ChangePassword extends React.PureComponent{
           let password  = e.target.value;
           let errorMessage;
           let capsCount, smallCount, numberCount, symbolCount;
-          if (password.length < 8) {
+          if (password.length < ChangePasswordConstrants.MinPassLenght) {
               this.setState({
                   errorMessage: 'password must be min 8 char',
               });
@@ -61,16 +62,16 @@ class ChangePassword extends React.PureComponent{
               smallCount = (password.match(/[a-z]/g) || []).length;
               numberCount = (password.match(/[0-9]/g) || []).length;
               symbolCount = (password.match(/\W/g) || []).length;
-              if (capsCount < 1) {
+              if (capsCount < ChangePasswordConstrants.MinCapsCount) {
                   errorMessage = 'must contain caps';
               }
-              else if (smallCount < 1) {
+              else if (smallCount < ChangePasswordConstrants.MinSmallCount) {
                   errorMessage = 'must contain small';
               }
-              else if (numberCount < 1) {
+              else if (numberCount < ChangePasswordConstrants.MinNumberCount) {
                   errorMessage = 'must contain a number';
               }
-              else if (symbolCount < 1) {
+              else if (symbolCount < ChangePasswordConstrants.MinSpecialCount) {
                   errorMessage = 'must contain a special character';
               }
               this.setState({
