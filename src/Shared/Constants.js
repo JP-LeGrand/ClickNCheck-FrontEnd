@@ -14,3 +14,5 @@ export const RECRUITER_JOB_PROFILES = 'JobProfiles/recruiterJobs/';
 export const GET_ALL_JOB_PROFILE_CHECKS = 'JobProfiles/getAllChecks';
 export const AUTHENTICATE_LOGIN = 'authentication/login';
 export const CHECK_OTP = 'authentication/checkOtp';
+export const FORGOT_PASSWORD_EMAIL = 'authentication/ForgotPassword/email';
+export const FORGOT_PASSWORD_PHONE = 'authentication/ForgotPassword/phone';
