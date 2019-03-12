@@ -23,7 +23,7 @@ class ReviewChecks extends React.Component {
             </label>
           </div>
 
-          <div id="droppableContainer" droppable onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e)}>
+          <div id="droppableContainer" droppable="true" onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e)}>
             <div className="checkType">
               <h4>Credit</h4>
               <div id="vendor" draggable onDragStart={(e) => this.onDragStart(e)}>
@@ -31,7 +31,7 @@ class ReviewChecks extends React.Component {
               </div>
             </div>
           </div>
-          <div id="draggableContainer" droppable onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e)}>
+          <div id="draggableContainer" droppable="true" onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e)}>
             <div className="checkType">
               <h4>Criminal</h4>
               <div id="vendor" draggable  onDragStart={(e) => this.onDragStart(e)}>
