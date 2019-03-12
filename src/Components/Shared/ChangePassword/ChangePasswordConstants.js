@@ -10,5 +10,6 @@ export const ChangePasswordConstrants = {
     MinCapsCount: 1,
     MinNumberCount: 1,
     MinSmallCount: 1,
-    ScoreIncrement: 1
+    ScoreIncrement: 1,
+    Mincount: 1
 };

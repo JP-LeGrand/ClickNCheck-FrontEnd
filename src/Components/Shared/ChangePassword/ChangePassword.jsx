@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import './ChangePassword.scss';
 import imgMain from '../../../Assets/main.svg';
 import { ChangePasswordConstrants } from './ChangePasswordConstants';
+import { BASE_URL,CHANGE_PASSWORD } from '../../../Shared/Constants';
+
 class ChangePassword extends React.PureComponent{
     constructor(props) {
         super(props);
@@ -14,6 +16,10 @@ class ChangePassword extends React.PureComponent{
             passwordStrength: '',
             passwordMatchMessage:''
         };
+
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleConfirmChange = this.handleConfirmChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
       measureStrength = (password) => {
           let score = 0;
@@ -82,7 +88,7 @@ class ChangePassword extends React.PureComponent{
       validatePasswordMatch = (e) =>{
           let confirmPassword = e.target.value;
           let passwordMatchMessage;
-          if (confirmPassword.length >= 1 && this.state.password.length >= 1 ){
+          if (confirmPassword.length >= ChangePasswordConstrants.Mincount && this.state.password.length >= ChangePasswordConstrants.Mincount ){
               if (confirmPassword !== this.state.password){
                   passwordMatchMessage = 'passwords do not match';
               }
@@ -92,7 +98,7 @@ class ChangePassword extends React.PureComponent{
           });
       }
     
-      handleChange = (e) => {
+      handlePasswordChange = (e) => {
           this.validate(e);
           this.setState({ password: e.target.value });
       }
@@ -101,6 +107,31 @@ class ChangePassword extends React.PureComponent{
           this.validatePasswordMatch(e);
           this.setState({ confirmpassword: e.target.value });
       }
+
+      handleSubmit(event){
+          event.preventDefault();
+          fetch(BASE_URL+CHANGE_PASSWORD+localStorage.getItem('user_id'), {
+              method: 'POST',
+              mode: 'cors', // no-cors, cors, *same-origin
+              cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+              credentials: 'same-origin', // include, *same-origin, omit
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              redirect: 'manual', // manual, *follow, error
+              referrer: 'no-referrer', // no-referrer, *client
+              body: JSON.stringify(this.state.password), 
+          } )
+              .then(
+                  () => {
+                      window.redirect = '';
+                  },
+                  (error) => {
+                      alert(error);
+                  }
+              );
+      }
+
       render(){
           return (
               <div className="changePassword">
@@ -112,7 +143,7 @@ class ChangePassword extends React.PureComponent{
                       <div className="registrationHeading">Change Password</div>
                       <div className="sendWhat">
                           <label className="inp">
-                              <input type="password" value={this.state.password} onChange={this.handleChange} placeholder="&nbsp;"/>
+                              <input type="password" value={this.state.password} onChange={this.handlePasswordChange} placeholder="&nbsp;"/>
                               <span className="label">Password</span>
                               <span className="border"></span><br/>
                               {this.state.errorMessage}
@@ -123,7 +154,7 @@ class ChangePassword extends React.PureComponent{
                               <span className="border"></span><br/>
                               {this.state.passwordMatchMessage}
                           </label>
-                          <button id="btnSend" >Send</button>
+                          <button id="btnSend" onClick={this.handleSubmit} >Send</button>
                       </div>
                   </div>
               </div>
@@ -139,7 +170,7 @@ ChangePassword.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        changePasswordState: this.state
+        changePasswordState: state
     };
 };
 export default connect()(ChangePassword);
