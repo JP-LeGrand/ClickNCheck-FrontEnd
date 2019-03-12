@@ -27,6 +27,10 @@ const InitialState = {
         },
         cellPhone: null,
         email: null
+    },
+    changePasswordState:{
+        password:null,
+        passwordStrength:null
     }
 };
 
