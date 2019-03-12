@@ -31,11 +31,10 @@ body{
 }
 
 #draggableContainer{
-  float: left;
+  float:right;
   align-content: center;
-  margin-left: 67vw;
-  margin-top: -14vh;
   border: 1px solid #e6e9ec;
+  margin-right: 2vw;
   border-radius: 8px;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
 }
