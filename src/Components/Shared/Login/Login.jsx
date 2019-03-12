@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './Login.scss';
-import { Redirect } from 'react-router-dom'
 
 class Login extends React.PureComponent {
     constructor(props) {
@@ -25,22 +24,56 @@ class Login extends React.PureComponent {
     }
 
     handleSubmit(event){
-        this.props.history.push('../Components/SuperAdmin/AccountsPerson/AccountsPerson');
-        
-        /* let credentials = [ this.state.email, this.state.password ];
-        window.location.href = '../Components/SuperAdmin/AccountsPerson/AccountsPerson';
-            fetch('https://localhost:44347/api/authentication/login', {
+        //this.props.history.push('../Components/SuperAdmin/AccountsPerson/AccountsPerson');
+        alert(this.state.email);
+        event.preventDefault();
+        let credentials = [ this.state.email, this.state.password ];
+        // eslint-disable-next-line no-undef
+        fetch('https://localhost:44347/api/authentication/login', {
             method: 'POST',
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json',
+            // "Content-Type": "application/x-www-form-urlencoded",
             },
-            body: JSON.stringify(credentials)
-        })
-            .then( res => this.setState({ user_id: res }))
-            .then(window.location.href = '../Components/SuperAdmin/AccountsPerson/AccountsPerson');
-
-        event.preventDefault();*/
+            redirect: 'manual', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+            body: JSON.stringify(credentials), 
+        } )
+            .then((response) => response.json())  
+            .then(
+                response => {
+                    localStorage.setItem('user_id', response);
+                    fetch('https://localhost:44347/api/authentication/otp', {
+                        method: 'POST',
+                        mode: 'cors', // no-cors, cors, *same-origin
+                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                        credentials: 'same-origin', // include, *same-origin, omit
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        redirect: 'manual', // manual, *follow, error
+                        referrer: 'no-referrer', // no-referrer, *client
+                        body: JSON.stringify(response), 
+                    } )
+                        .then((response) => response.json())  
+                        .then(
+                            response => {
+                                alert(response);
+                                window.location = '/otp';
+                            },
+                            (error) => {
+                                alert(error);
+                            }     
+                        );
+                },
+                (error) => {
+                    alert(error);
+                }     
+            );
     } 
     
     render() {
@@ -55,7 +88,7 @@ class Login extends React.PureComponent {
                     <form onSubmit={this.handleSubmit}> 
                         <div className="form-group">
                             <label className="inp">
-                                <input placeholder="&nbsp;" name="email" onChange={this.handleChangeEmail} />
+                                <input placeholder="&nbsp;" name="email" value ={this.state.email} onChange={this.handleChangeEmail} />
                                 <span className="label">Email</span>
                                 <span className="border"></span>
                             </label>
@@ -63,7 +96,7 @@ class Login extends React.PureComponent {
 
                         <div className="form-group">
                             <label className="inp">
-                                <input placeholder="&nbsp;" type="password" name="password" onChange={this.handleChangePass} />
+                                <input placeholder="&nbsp;" type="password" name="password" value ={this.state.password} onChange={this.handleChangePass} />
                                 <span className="label">Enter Password</span>
                                 <span className="border"></span>
                             </label>
@@ -72,7 +105,7 @@ class Login extends React.PureComponent {
                         <p><a href="#">Forgot Password?</a></p>
 
                         <div className="form-group">
-                            <input type="submit" value="Login" />
+                            <button onClick={this.handleSubmit}>Login</button>
                         </div> 
                     </form>
                 </div>
