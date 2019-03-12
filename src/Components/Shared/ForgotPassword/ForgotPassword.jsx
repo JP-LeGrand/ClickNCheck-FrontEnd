@@ -34,7 +34,7 @@ class ForgotPassword extends React.PureComponent{
                             <option>Identity</option>
                             <option>Passport</option>
                         </select>
-                        <div  className="send">
+                        <div className="send">
                             <label className="inp">
                                 <input placeholder="&nbsp;" type="password" />
                                 <span className="label">Enter Idenity or Passport Number</span>
@@ -43,8 +43,8 @@ class ForgotPassword extends React.PureComponent{
                         </div>
                         
                     </div>
-                    <div id="via" className="sendWhat">
-                        <strong className="send">Send Via</strong>
+                    <div className="sendWhat">
+                        <strong id="via" className="send">Send Via</strong>
                         <br/>
                         <select id="belowinp" className="send">
                             <option>Phone</option>
@@ -59,9 +59,8 @@ class ForgotPassword extends React.PureComponent{
                         </div>
                     </div>
                     
-
                     <div className="sendWhat">
-                        <button >Send</button>
+                        <button id="btnSend" >Send</button>
                     </div> 
                 </div>
             </div>
