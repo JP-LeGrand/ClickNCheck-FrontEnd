@@ -24,11 +24,8 @@ class Login extends React.PureComponent {
     }
 
     handleSubmit(event){
-        //this.props.history.push('../Components/SuperAdmin/AccountsPerson/AccountsPerson');
-        alert(this.state.email);
         event.preventDefault();
         let credentials = [ this.state.email, this.state.password ];
-        // eslint-disable-next-line no-undef
         fetch('https://localhost:44347/api/authentication/login', {
             method: 'POST',
             mode: 'cors', // no-cors, cors, *same-origin
@@ -36,7 +33,6 @@ class Login extends React.PureComponent {
             credentials: 'same-origin', // include, *same-origin, omit
             headers: {
                 'Content-Type': 'application/json',
-            // "Content-Type": "application/x-www-form-urlencoded",
             },
             redirect: 'manual', // manual, *follow, error
             referrer: 'no-referrer', // no-referrer, *client
@@ -53,7 +49,6 @@ class Login extends React.PureComponent {
                         credentials: 'same-origin', // include, *same-origin, omit
                         headers: {
                             'Content-Type': 'application/json',
-                            // "Content-Type": "application/x-www-form-urlencoded",
                         },
                         redirect: 'manual', // manual, *follow, error
                         referrer: 'no-referrer', // no-referrer, *client
@@ -61,8 +56,7 @@ class Login extends React.PureComponent {
                     } )
                         .then((response) => response.json())  
                         .then(
-                            response => {
-                                alert(response);
+                            () => {
                                 window.location = '/otp';
                             },
                             (error) => {

@@ -42,14 +42,11 @@ class Otp extends React.PureComponent {
     }
 
     handleSubmit(event){
-        //this.props.history.push('../Components/SuperAdmin/AccountsPerson/AccountsPerson');
         event.preventDefault();
-        alert(this.state.email);
         let body = {
             OTP: this.state.digit1 + '' + this.state.digit2 + '' + this.state.digit3 + '' + this.state.digit4 + '' + this.state.digit5
         };
         let user_otp = [ localStorage.getItem('user_id'),body.OTP ];
-        // eslint-disable-next-line no-undef
         fetch('https://localhost:44347/api/authentication/checkOtp', {
             method: 'POST',
             mode: 'cors', // no-cors, cors, *same-origin
@@ -66,7 +63,25 @@ class Otp extends React.PureComponent {
             .then((response) => response.json())  
             .then(
                 response => {
-                    alert(response);
+                    let zero = 0;
+                    let one = 1;
+                    let two = 2;
+                    let three = 3;
+
+                    sessionStorage.setItem('token', response[zero]);
+                    sessionStorage.setItem('user_name', response[two]);
+                    sessionStorage.setItem('user_img', response[three]);
+                    let id_pass_manager = localStorage.getItem('id_pass_manager');
+
+                    if (id_pass_manager === null){
+                        if (response[one] === 'recruiter') {
+                            alert('hey recruiter');
+                        } else if (response[one] === 'admin') {
+                            alert('hey admin');
+                        }
+                    } else {
+                        alert('other');
+                    }
                 },
                 (error) => {
                     alert(error);
