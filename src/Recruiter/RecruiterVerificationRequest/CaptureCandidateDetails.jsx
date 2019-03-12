@@ -1,10 +1,11 @@
 import React from "react";
-import "./CaptureCandidateDetail.scss";
+import "./MainContainerStyle.scss";
 
 class CaptureCandidateDetails extends React.Component {
   render() {
     return (
-      <div id="singleForm">
+      <div id="singleForm" className="bodyPage">
+        <h1 className="Personal-Details">Personal Details</h1>
         <table class="rightTable">
           <thead />
           <tbody>
@@ -15,6 +16,7 @@ class CaptureCandidateDetails extends React.Component {
                     id="firstName"
                     data-bind="value: firstName"
                     placeholder="Full First Name"
+                    className="Input-Text"
                   />
                 </label>
               </td>
@@ -26,13 +28,14 @@ class CaptureCandidateDetails extends React.Component {
                     id="maidenName"
                     date-bind="value: maiden"
                     placeholder="Maiden Surname"
+                    className="Input-Text"
                   />
                 </label>
               </td>
             </tr>
-            <tr>
+            <tr inline>
               <td id="radioButtons">
-                <label for="radio-1" class="radio-label">
+                <label for="radio-1" className="radio-label">
                   <input
                     id="radio-1"
                     name="radio"
@@ -61,6 +64,7 @@ class CaptureCandidateDetails extends React.Component {
                     id="idnumber"
                     data-bind="value: idnumber"
                     placeholder="ID Number"
+                    className="Input-Text"
                   />
                 </label>
               </td>
@@ -87,21 +91,21 @@ class CaptureCandidateDetails extends React.Component {
             <tr>
               <td>
                 <input
-                  style="float: left; width: 49%; margin-right: 1px;"
+                  className="Rectangle-Copy-14"
                   type="submit"
                   class="btn btn-primary"
                   data-bind="click: add"
                   value="add candidate"
                 />
                 <input
-                  style="width: 49%; float:right; margin-left: 1px;"
+                  className="Rectangle-Copy-14"
                   type="submit"
                   class="btn btn-primary"
                   data-bind="click: submit"
                   value="submit"
                 />
               </td>
-            </tr>
+            </tr>{" "}
           </tbody>
         </table>
       </div>
