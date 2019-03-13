@@ -1,13 +1,62 @@
 import React from 'react';
 import { connect } from 'react-redux'; 
-import PropTypes from 'prop-types';
 import 'typeface-roboto';
 import './ForgotPassword.scss';
 import imgMain from '../../../Assets/main.svg';
-import * as ForgotPasswordActions from './ForgotPasswordActions';
-import { bindActionCreators } from 'redux';
 import { BASE_URL, FORGOT_PASSWORD_EMAIL,FORGOT_PASSWORD_PHONE } from '../../../Shared/Constants';
 import axios from 'axios';
+
+function RecieveMethod(props){
+    if (props.sendVia === 'phone') {
+        return ( 
+            <div className="send">
+                <label className="inp">
+                    <input placeholder="&nbsp;" value={props.phoneEmail} onChange={props.handleEmailPhone}/>
+                    <span className="label">Enter Phone Number</span>
+                    <span className="border"></span>
+                </label>
+            </div>
+        );
+    } else if (props.sendVia === 'email') {
+        return ( 
+            <div className="send">
+                <label className="inp">
+                    <input placeholder="&nbsp;" value={props.phoneEmail} onChange={props.handleEmailPhone}/>
+                    <span className="label">Enter Email</span>
+                    <span className="border"></span>
+                </label>
+            </div>
+        );
+    } else {
+        return <p className="send">No option selected</p>;
+    }
+}
+
+function IdentityMethod(props){
+    if (props.idType === 'ID') {
+        return ( 
+            <div className="send">
+                <label className="inp">
+                    <input placeholder="&nbsp;" value={props.passportNumber} onChange={props.handlePassportID}/>
+                    <span className="label">Enter ID Number</span>
+                    <span className="border"></span>
+                </label>
+            </div>
+        );
+    } else if (props.idType === 'Passport') {
+        return ( 
+            <div className="send">
+                <label className="inp">
+                    <input placeholder="&nbsp;" value={props.passportNumber} onChange={props.handlePassportID}/>
+                    <span className="label">Enter Passport Number</span>
+                    <span className="border"></span>
+                </label>
+            </div>
+        );
+    } else {
+        return <p className="send">No option selected</p>;
+    }
+}
 
 class ForgotPassword extends React.PureComponent{
     constructor(props) {
@@ -16,21 +65,28 @@ class ForgotPassword extends React.PureComponent{
             sending: null,
             sendEmail: false,
             sendPassword: false,
-            idType: 'ID',/*id or passport */
-            sendVia: 'phone',
-            passportNumber: '',
-            phoneEmail: ''
+            idType: '',/*id or passport */
+            useID: false,
+            usePassport: false,
+            sendVia: '',/*email or phone sms */
+            sendViaPhone: false,
+            sendViaEmail: false,
+            passportNumber: '', /*string with either id or passport */
+            phoneEmail: '' /*string with either phone or email */
         };
-    
+        
+        this.compPhoneEmail = <p>No option selected</p>;
         this.handleEmailCheck = this.handleEmailCheck.bind(this);
         this.handlePasswordCheck = this.handlePasswordCheck.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleIdentity = this.handleIdentity.bind(this);
+        this.handleIDorPassprt = this.handleIDorPassprt.bind(this);
         this.handlePassportID = this.handlePassportID.bind(this);
         this.handlePhoneOrEmail = this.handlePhoneOrEmail.bind(this);
         this.handleEmailPhone = this.handleEmailPhone.bind(this);
+        this.render = this.render.bind(this);
         
     }
+
     async handleSubmit(){
         console.log(this.state);
         if (this.state.sendVia === 'email'){
@@ -40,7 +96,6 @@ class ForgotPassword extends React.PureComponent{
             };
             const response = await axios.post(BASE_URL+FORGOT_PASSWORD_EMAIL, body);
             alert('Result: '+response.data);
-            //dispatch(sendForgotSucceeded(sponse.data));
         } else if (this.state.sendVia ==='phone'){
             const body = { 
                 passportNumber: this.state.passportNumber, 
@@ -48,7 +103,6 @@ class ForgotPassword extends React.PureComponent{
             };
             const response = await axios.post(BASE_URL+FORGOT_PASSWORD_PHONE, body);
             alert('Result: '+response.data);
-            //dispatch(sendForgotSucceeded(response.data));
         }
         console.log(this.state);
     }
@@ -60,8 +114,19 @@ class ForgotPassword extends React.PureComponent{
         this.setState({ sendEmail: event.target.checked });
         console.log(this.state);
     }
-    handleIdentity(event){
+    handleIDorPassprt(event){
         this.setState({ idType: event.target.value });
+        if (event.target.value === 'ID'){
+            this.setState({
+                usePassport: false,
+                useID:true 
+            });
+        } else if (event.target.value === 'Passport') {
+            this.setState({
+                usePassport: true,
+                useID:false 
+            });
+        }
         console.log(this.state);
     }
     handlePassportID(event){
@@ -79,11 +144,22 @@ class ForgotPassword extends React.PureComponent{
         this.setState({ phoneEmail: event.target.value });
         console.log(this.state);
     }
-    handlePhoneOrEmail(event){
+    handlePhoneOrEmail(event) {
         this.setState({ sendVia: event.target.value });
+        if (event.target.value === 'phone'){
+            this.setState({
+                sendViaEmail: false,
+                sendViaPhone:true 
+            });
+        } else if (event.target.value === 'email') {
+            this.setState({
+                sendViaEmail: true,
+                sendViaPhone:false 
+            });
+        }
         console.log(this.state);
     }
-
+    
     render(){
         return (
             <div className="forgotPassword">
@@ -93,7 +169,7 @@ class ForgotPassword extends React.PureComponent{
 
                 <div className="mainSection">
                     <div className="registrationHeading">Forgot Password</div> 
-                    <div className="sendWhat">
+                    <div id="checkSection" className="sendWhat">
                         <p className="send">Select what you would like us to send you</p>
                         <div className="send">
                             <input id="username" onChange={this.handleEmailCheck} checked={this.state.sendEmail} type="checkbox" className ="sendInfo"/><label htmlFor="username">Username</label>
@@ -110,33 +186,24 @@ class ForgotPassword extends React.PureComponent{
                     <div className="sendWhat">
                         <strong className="send">Identification Type</strong>
                         <br/>
-                        <select onChange={this.handleIdentity} className="send">
+                        <select onChange={this.handleIDorPassprt} className="send">
+                            <option >Type of Identity</option>
                             <option value ="ID">Identity</option>
                             <option value ="Passport">Passport</option>
                         </select>
-                        <div className="send">
-                            <label className="inp">
-                                <input placeholder="&nbsp;" type="password" value={this.state.passportNumber} onChange={this.handlePassportID}/>
-                                <span className="label">Enter Idenity or Passport Number</span>
-                                <span className="border"></span>
-                            </label>
-                        </div>
-                        
+                        {this.state.useID && <IdentityMethod passportNumber={this.state.passportNumber} handlePassportID={this.handlePassportID} idType="ID"/> }
+                        {this.state.usePassport && <IdentityMethod passportNumber={this.state.passportNumber} handlePassportID={this.handlePassportID} idType="Passport"/> }
                     </div>
                     <div className="sendWhat">
                         <strong id="via" className="send">Send Via</strong>
                         <br/>
                         <select onChange={this.handlePhoneOrEmail} id="belowinp" className="send">
+                            <option disabled value="" >Receive Notification from</option>
                             <option value="phone">Phone</option>
                             <option value="email">Email</option>
                         </select>
-                        <div className="send">
-                            <label className="inp">
-                                <input placeholder="&nbsp;" value={this.state.phoneEmail} onChange={this.handleEmailPhone}/>
-                                <span className="label">Enter Email or Number</span>
-                                <span className="border"></span>
-                            </label>
-                        </div>
+                        {this.state.sendViaEmail && <RecieveMethod phoneEmail={this.state.phoneEmail}handleEmailPhone={this.handleEmailPhone} sendVia="email"/> }
+                        {this.state.sendViaPhone && <RecieveMethod phoneEmail={this.state.phoneEmail} handleEmailPhone={this.handleEmailPhone} sendVia="phone"/>}
                     </div>
                     
                     <div className="sendWhat">
@@ -148,30 +215,6 @@ class ForgotPassword extends React.PureComponent{
         
     }
     
-}/*
-ForgotPassword.propTypes = {
-    forgotPasswordState: PropTypes.shape({
-        sending: PropTypes.bool,
-        sendEmail: PropTypes.bool,
-        sendPassword: PropTypes.bool,
-        idType: PropTypes.string,/*id or passport 
-        sendVia: PropTypes.string,
-        passportNumber: PropTypes.string,
-        phoneEmail: PropTypes.string
-    }),
-    ForgotPasswordActions:  PropTypes.shape({
-        sendForgotDetails: PropTypes.func
-    })
-};
+}
 
-const mapStateToProps = (state) => {
-    return {
-        forgotPasswordState: state.forgotPasswordState
-    };
-};
-const mapActionsToProps = (dispatch) => {
-    return {
-        ForgotPasswordActions: bindActionCreators(ForgotPasswordActions, dispatch)
-    };
-};*/
 export default connect()(ForgotPassword);
