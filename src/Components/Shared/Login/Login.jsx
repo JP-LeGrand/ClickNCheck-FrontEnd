@@ -7,7 +7,6 @@ import mainImg from '../../../Assets/main.svg';
 import userImg from '../../../Assets/user.svg';
 import passImg from '../../../Assets/password.svg';
 
-
 class Login extends React.PureComponent {
     constructor(props) {
         if (localStorage.getItem('user_id') !== null) {
