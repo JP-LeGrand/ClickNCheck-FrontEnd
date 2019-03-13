@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://localhost:44347/api/';// "https://clickncheck.azurewebsites.net/api/";/* alternative url for testing on local db https://localhost:44347/api/*/
+export const BASE_URL = 'https://clickncheck.azurewebsites.net/api/';/* alternative url for testing on local db https://localhost:44347/api/ */
 export const IS_LOGGED_IN = 'authentication/isLoggedIn';
 export const ADD_USER = 'Users/PostUsers';
 export const GET_USER_TYPES = 'Users/userTypes';

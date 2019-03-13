@@ -28,7 +28,8 @@
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
     "sinon": "^7.2.3",
-    "typeface-roboto": "^0.0.54"
+    "typeface-roboto": "^0.0.54",
+    "xlsx": "^0.14.1"
   },
   "scripts": {
     "start": "react-scripts start",
