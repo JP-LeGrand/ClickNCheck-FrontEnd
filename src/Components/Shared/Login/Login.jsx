@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import 'typeface-roboto';
 import './Login.scss';
 import { BASE_URL, AUTHENTICATE_LOGIN, OTP_AUTHENTICATION, PASS_EXPIRED } from '../../../Shared/Constants';
 import mainImg from '../../../Assets/main.svg';
 import userImg from '../../../Assets/user.svg';
 import passImg from '../../../Assets/password.svg';
+
 
 class Login extends React.PureComponent {
     constructor(props) {
