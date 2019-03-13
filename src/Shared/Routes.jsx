@@ -8,22 +8,23 @@ import ForgotPassword from '..//Components/Shared/ForgotPassword/ForgotPassword'
 import React from 'react';
 import ChangePassword from '../Components/Shared/ChangePassword/ChangePassword';
 import ForgotPasswordSuccess from '../Components/Shared/ForgotPasswordSuccess/ForgotPasswordSuccess';
+import NavBar from '../Components/Recruiter/NavBar/NavBar'
 const Routes = () => {
     return (
-        <BrowserRouter>
-            <Switch>
-                <Route path="/" exact component={Login}/>
-                <Route path="/login" exact component={Login}/>
-                <Route path="/otp" exact component={Otp}/>
-                <Route path="/candidate/consent" exact component={Consent} />
-                <Route path="/candidate/consented" exact component={Consented} />
-                <Route path="/forgotPassword" exact component={ForgotPassword} />
-                <Route path="/forgotPasswordSuccess" exact component={ForgotPasswordSuccess} />
-                <Route path="/changePassword" exact component={ChangePassword} />
-                <Route path="/ReviewChecks" exact component={ReviewChecks} />
-                <Route render={() => <Redirect to="/"/>}/>
-            </Switch>
-        </BrowserRouter>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={NavBar} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/otp" exact component={Otp} />
+          <Route path="/candidate/consent" exact component={Consent} />
+          <Route path="/candidate/consented" exact component={Consented} />
+          <Route path="/forgotPassword" exact component={ForgotPassword} />
+          <Route path="/forgotPasswordSuccess" exact component={ForgotPasswordSuccess} />
+          <Route path="/changePassword" exact component={ChangePassword} />
+          <Route path="/ReviewChecks" exact component={ReviewChecks} />
+          <Route render={() => <Redirect to="/" />} />
+        </Switch>
+      </BrowserRouter>
     );
 };
 

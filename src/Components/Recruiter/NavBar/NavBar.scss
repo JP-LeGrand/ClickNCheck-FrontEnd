@@ -1,0 +1,174 @@
+.recruiterNavBar{
+    
+  img{
+    height:20px;
+    width:30px;
+  }
+/* Add a black background color to the top navigation */
+.topnav {
+  height: 70px;
+  background-color: white;
+  margin: 0 15vw;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #02529c;
+  text-align: center;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.83;
+  letter-spacing: 0.8px;
+  padding: 20px 0px;
+  text-decoration: none;
+  margin: 10px;
+}
+
+.topnav div{
+  float: left;
+  margin: 14px;
+}
+
+#home {
+  width: 155px;
+  height: 25px;
+  object-fit: contain;
+}
+
+#logo{
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+/* Change the color of links on hover */
+.topnav a:hover {
+  border-bottom: 2px solid #02529c
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  color: #02529c;
+  border-bottom: 2px solid #02529c;
+}
+
+.topnav a:hover:first-child {
+  border:0;
+}
+/*TOGGLE*/
+.btn-toggle {
+  position: relative;
+  border: none;
+  top: 12px;
+  height: 30px;
+  width: 70px;
+  border-radius: 21px;
+  background: #02529c;
+}
+
+.btn-toggle:focus,
+.btn-toggle.focus,
+.btn-toggle:focus.active,
+.btn-toggle.focus.active {
+  outline: none;
+}
+
+.btn-toggle:before {
+  content: 'Online';
+  margin-left: -5px;
+}
+
+.btn-toggle:after {
+  content: 'Offline';
+  margin-left: -13px;
+}
+
+.btn-toggle > .handle {
+  position: absolute;
+  top: -1.23rem;
+  left: -1.23rem;
+  width: 27px;
+  height: 27px;
+  border-radius: 21px;
+  background: #fff;
+  transition: left 0.25s;
+}
+
+.btn-toggle.active {
+  transition: background-color 0.25s;
+}
+
+.btn-toggle.active > .handle {
+  left: 27px;
+  transition: left 0.25s;
+}
+
+.btn-toggle.btn-sm:before,
+.btn-toggle.btn-sm:after {
+  color: #fff;
+  width: 2.325rem;
+}
+
+.btn-toggle.btn-sm:before {
+  text-align: right;
+  opacity: 0;
+}
+
+.btn-toggle.btn-sm:after {
+  text-align: left;
+  opacity: 1;
+  
+}
+
+.btn-toggle.btn-sm.active:before {
+  opacity: 1;
+}
+
+.btn-toggle.btn-sm.active:after {
+  opacity: 0;
+}
+
+.btn-toggle.active {
+  background-color: #4e9821;
+}
+
+#toggle:disabled{
+  cursor: default;
+  opacity: 1;
+}
+
+#user {
+  float: right;
+  color: #02529c;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.83;
+  letter-spacing: 0.8px;
+  padding: 20px 0px;
+  margin: 5px;
+  margin-right: 0;
+  
+}
+
+#user i{
+  float: right;
+  top:12px;
+  margin:0;
+}
+
+#user_name{
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+#user_img{
+  width: 37px;
+  height: 37px;
+  border: solid 1px #ffffff;
+  border-radius: 100%;
+}
+}
