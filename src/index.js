@@ -1,15 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
-import App from "./Components/App/App";
 import * as serviceWorker from "./Shared/serviceWorker";
 import { createAppState } from "./Shared/State/AppState";
 import { Provider } from "react-redux";
-import GeneralInformation from "./Components/SuperAdmin/GeneralInformation";
+import Login from "./Components/Shared/Login/Login";
 
 ReactDOM.render(
   <Provider store={createAppState()}>
-    <App />
+    <Login />
   </Provider>,
   document.getElementById("root")
 );
