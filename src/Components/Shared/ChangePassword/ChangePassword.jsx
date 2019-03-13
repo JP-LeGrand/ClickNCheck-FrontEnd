@@ -21,40 +21,40 @@ class ChangePassword extends React.PureComponent{
         this.handleConfirmChange = this.handleConfirmChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-      measureStrength = (password) => {
-          let score = 0;
-          let passwordStrength;
-          let regexPositive = [
-              '[A-Z]',
-              '[a-z]',
-              '[0-9]',
-              '\\W',
-          ];
-          regexPositive.forEach((regex, index) => {
-              if (new RegExp(regex).test(password)) {
-                  score += ChangePasswordConstrants.ScoreIncrement;
-              }
-          });
-          switch (score) {
-          case ChangePasswordConstrants.ReallyWeak:
-          case ChangePasswordConstrants.Weak:
-              passwordStrength='weak';
-              break;
-          case ChangePasswordConstrants.Good:
-          case ChangePasswordConstrants.ReallyGood:
-              passwordStrength='good';
-              break;
-          case ChangePasswordConstrants.Strong:
-          case ChangePasswordConstrants.ReallyStrong:
-              passwordStrength='strong';        
-              break;
-          default:
-          }
+    measureStrength = (password) => {
+        let score = 0;
+        let passwordStrength;
+        let regexPositive = [
+            '[A-Z]',
+            '[a-z]',
+            '[0-9]',
+            '\\W',
+        ];
+        regexPositive.forEach((regex, index) => {
+            if (new RegExp(regex).test(password)) {
+                score += ChangePasswordConstrants.ScoreIncrement;
+            }
+        });
+        switch (score) {
+        case ChangePasswordConstrants.ReallyWeak:
+        case ChangePasswordConstrants.Weak:
+            passwordStrength='weak';
+            break;
+        case ChangePasswordConstrants.Good:
+        case ChangePasswordConstrants.ReallyGood:
+            passwordStrength='good';
+            break;
+        case ChangePasswordConstrants.Strong:
+        case ChangePasswordConstrants.ReallyStrong:
+            passwordStrength='strong';        
+            break;
+        default:
+        }
 
-          this.setState({
-              passwordStrength
-          });
-      }
+        this.setState({
+            passwordStrength
+        });
+    }
     
       validate = (e) => {
           let password = e.target.value;
@@ -136,7 +136,7 @@ class ChangePassword extends React.PureComponent{
           return (
               <div className="changePassword">
                   <header className="headSection">
-                      <img src={imgMain}/>
+                      <img src={imgMain} alt="Company Logo"/>
                   </header>
 
                   <div className="mainSection">
@@ -146,15 +146,19 @@ class ChangePassword extends React.PureComponent{
                               <input type="password" value={this.state.password} onChange={this.handlePasswordChange} placeholder="&nbsp;"/>
                               <span className="label">Password</span>
                               <span className="border"></span><br/>
-                              {this.state.errorMessage}
+                              <label className="error">
+                                  {this.state.errorMessage}
+                              </label>
                           </label>
                           <label className="inp">
                               <input type="password" value={this.state.confirmpassword} onChange={this.handleConfirmChange} placeholder="&nbsp;"/>
                               <span className="label">Confirm Password</span>
                               <span className="border"></span><br/>
-                              {this.state.passwordMatchMessage}
+                              <label className="error">
+                                  {this.state.passwordMatchMessage}
+                              </label>
                           </label>
-                          <button id="btnSend" onClick={this.handleSubmit} >Send</button>
+                          <button id="btnSend" onClick={this.handleSubmit}>Send</button>
                       </div>
                   </div>
               </div>
