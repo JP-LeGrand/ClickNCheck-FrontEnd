@@ -8,7 +8,7 @@ import Consented from '../Components/Candidate/Consented/Consented';
 import ForgotPassword from '..//Components/Shared/ForgotPassword/ForgotPassword';
 import React from 'react';
 import ChangePassword from '../Components/Shared/ChangePassword/ChangePassword';
-
+import ForgotPasswordSuccess from '../Components/Shared/ForgotPasswordSuccess/ForgotPasswordSuccess';
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -19,6 +19,7 @@ const Routes = () => {
                 <Route path="/candidate/consent" exact component={Consent} />
                 <Route path="/candidate/consented" exact component={Consented} />
                 <Route path="/forgotPassword" exact component={ForgotPassword} />
+                <Route path="/forgotPasswordSuccess" exact component={ForgotPasswordSuccess} />
                 <Route path="/changePassword" exact component={ChangePassword} />
                 <Route path="/ReviewChecks" exact component={ReviewChecks} />
                 <Route render={() => <Redirect to="/"/>}/>

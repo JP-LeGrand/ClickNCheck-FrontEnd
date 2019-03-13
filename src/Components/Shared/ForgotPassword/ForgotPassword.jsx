@@ -54,7 +54,7 @@ function IdentityMethod(props){
             </div>
         );
     } else {
-        return <p className="send">No option selected</p>;
+        return <div><p className="send">No option selected</p> <br/></div>;
     }
 }
 
@@ -74,8 +74,7 @@ class ForgotPassword extends React.PureComponent{
             passportNumber: '', /*string with either id or passport */
             phoneEmail: '' /*string with either phone or email */
         };
-        
-        this.compPhoneEmail = <p>No option selected</p>;
+
         this.handleEmailCheck = this.handleEmailCheck.bind(this);
         this.handlePasswordCheck = this.handlePasswordCheck.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -94,17 +93,20 @@ class ForgotPassword extends React.PureComponent{
                 passportNumber: this.state.passportNumber, 
                 email: this.state.phoneEmail 
             };
+            localStorage.setItem('sentTo', 'email');
             const response = await axios.post(BASE_URL+FORGOT_PASSWORD_EMAIL, body);
             alert('Result: '+response.data);
+            window.location = '/forgotPasswordSuccess';
         } else if (this.state.sendVia ==='phone'){
             const body = { 
                 passportNumber: this.state.passportNumber, 
                 phonenumber: this.state.phoneEmail 
             };
+            localStorage.setItem('sentTo', 'phone');
             const response = await axios.post(BASE_URL+FORGOT_PASSWORD_PHONE, body);
             alert('Result: '+response.data);
+            window.location = '/forgotPasswordSuccess';
         }
-        console.log(this.state);
     }
     handlePasswordCheck(event){
         this.setState({ sendPassword: event.target.checked });
@@ -124,6 +126,11 @@ class ForgotPassword extends React.PureComponent{
         } else if (event.target.value === 'Passport') {
             this.setState({
                 usePassport: true,
+                useID:false 
+            });
+        } else {
+            this.setState({
+                usePassport: false,
                 useID:false 
             });
         }
@@ -156,6 +163,11 @@ class ForgotPassword extends React.PureComponent{
                 sendViaEmail: true,
                 sendViaPhone:false 
             });
+        } else {
+            this.setState({
+                sendViaEmail: false,
+                sendViaPhone: false 
+            });
         }
         console.log(this.state);
     }
@@ -187,7 +199,7 @@ class ForgotPassword extends React.PureComponent{
                         <strong className="send">Identification Type</strong>
                         <br/>
                         <select onChange={this.handleIDorPassprt} className="send">
-                            <option >Type of Identity</option>
+                            <option value="" >Type of Identity</option>
                             <option value ="ID">Identity</option>
                             <option value ="Passport">Passport</option>
                         </select>
@@ -198,7 +210,7 @@ class ForgotPassword extends React.PureComponent{
                         <strong id="via" className="send">Send Via</strong>
                         <br/>
                         <select onChange={this.handlePhoneOrEmail} id="belowinp" className="send">
-                            <option disabled value="" >Receive Notification from</option>
+                            <option value="" >Receive Notification from</option>
                             <option value="phone">Phone</option>
                             <option value="email">Email</option>
                         </select>
