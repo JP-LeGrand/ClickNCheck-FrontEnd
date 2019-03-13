@@ -6,12 +6,13 @@ import mainImg from '../../../Assets/main.svg';
 
 class Login extends React.PureComponent {
     constructor(props) {
+        window.history.forward();
         super(props);
         this.state = {
             password: '',
             email: ''
         };
-    
+        
         this.handleChangePass = this.handleChangePass.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -96,9 +97,11 @@ class Login extends React.PureComponent {
                                 <span className="label">Enter Password</span>
                                 <span className="border"></span>
                             </label>
-                        </div>
-
-                        <p><a href="#">Forgot Password?</a></p>
+                            
+                            <p>
+                                <a href="#">Forgot Password?</a>
+                            </p>
+                        </div> 
 
                         <div className="form-group">
                             <button onClick={this.handleSubmit}>Login</button>

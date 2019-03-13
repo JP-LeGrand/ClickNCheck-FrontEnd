@@ -36,9 +36,12 @@
   }
   
   .headSection {
-    margin-bottom: 0px;
-    height: 137px;
-    background-color: white;
+    margin: 5vh auto;
+    padding-left: 5px;
+    padding-right: 5px;
+    min-width: 550px;
+    width: 550px;
+    max-width: 100%;
     text-align: center;
   }
   
@@ -71,6 +74,7 @@
     text-align: center;
     color: #ffffff;
   }
+
   footer a:hover{
     font-size: 14px;
     font-weight: normal;
@@ -102,12 +106,33 @@
     margin-top: 0px;
   }
   
+  .form-group p {
+    padding-top: 60px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.64;
+    letter-spacing: 0.9px;
+    font-family: Roboto;
+  }
+
+  #help, #resend {
+    font-weight: bold;
+    color: #0091d1;
+  }
+
+  a{
+    text-decoration: none;
+  }
   .mainSection {
     margin: 0 auto;
     margin-bottom: 10px;
     padding-left: 5px;
     padding-right: 5px;
     min-width: 550px;
+    width: 550px;
     max-width: fit-content;
     height: fit-content;
     background-color: #ffffff;
@@ -115,6 +140,14 @@
             box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
     text-align: center;
     border: 1px solid lightgray;
+  }
+
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
   }
   
   .form-group {
