@@ -201,7 +201,7 @@ class ForgotPassword extends React.PureComponent{
                 });
             }
         } else if ( this.state.idType === 'Passport' ){
-            if (this.state.usePassport && checkPassportID.match(/[A-Za-z0-9]+/)) {
+            if (this.state.usePassport && checkPassportID.match(/^[A-Za-z0-9]+$/)) {
                 this.setState({
                     validPassport: true
                 });
@@ -227,15 +227,13 @@ class ForgotPassword extends React.PureComponent{
             const ZERO = '0';
             const INT_ZERO = 0;
             const PLUS = '+';
-            console.log('phone number before check char 0: ' + checkPhoneEmail.charAt(INT_ZERO));
-            console.log('phone number before check length: ' + checkPhoneEmail.length);
-            console.log('phone number before check length: ' + checkPhoneEmail.match(/[+][0-9]{12}/)); 
             if (checkPhoneEmail.charAt(INT_ZERO) === ZERO && checkPhoneEmail.length === LOCAL_NUMBER && checkPhoneEmail.match(/[0-9]{10}/)) {
                 console.log('phone number passed: ' + checkPhoneEmail.charAt(INT_ZERO));
                 this.setState({
                     validPhone: true
                 });
-            } else if (checkPhoneEmail.charAt(INT_ZERO) === PLUS && checkPhoneEmail.length === INTERNATIONAL && checkPhoneEmail.match(/[+][0-9]{12}/)) {
+            } else if (checkPhoneEmail.charAt(INT_ZERO) === PLUS && checkPhoneEmail.length === INTERNATIONAL && checkPhoneEmail.match(/[+][0-9]{11}/)) {
+                console.log('phone number before check match is true: ' + checkPhoneEmail.match(/[+][0-9]{11}/)); 
                 this.setState({
                     validPhone: true
                 });
