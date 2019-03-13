@@ -64,7 +64,7 @@ class Login extends React.PureComponent {
             .then(
                 response => {
                     localStorage.setItem('user_id', response);
-                    
+                    let userid = localStorage.getItem('user_id');
                     fetch(BASE_URL + PASS_EXPIRED + response, {
                         method: 'POST',
                         mode: 'cors', // no-cors, cors, *same-origin
@@ -76,12 +76,12 @@ class Login extends React.PureComponent {
                         redirect: 'manual', // manual, *follow, error
                         referrer: 'no-referrer', // no-referrer, *client 
                     } )
-                        .then((response) => response.json())  
+                        .then((pass_exp_response) => pass_exp_response.json())  
                         .then(
-                            (response) => {
-                                if ( response === true) {
+                            (pass_exp_response) => {
+                                if ( pass_exp_response === true) {
                                     window.location = '/changePassword';
-                                } else if ( response === false ) {
+                                } else if ( pass_exp_response === false ) {
                                     fetch(BASE_URL + OTP_AUTHENTICATION, {
                                         method: 'POST',
                                         mode: 'cors', // no-cors, cors, *same-origin
@@ -92,9 +92,9 @@ class Login extends React.PureComponent {
                                         },
                                         redirect: 'manual', // manual, *follow, error
                                         referrer: 'no-referrer', // no-referrer, *client
-                                        body: JSON.stringify(response), 
+                                        body: JSON.stringify(userid), 
                                     } )
-                                        .then((response) => response.json())  
+                                        .then((otp_response) => otp_response.json())  
                                         .then(
                                             () => {
                                                 window.location = '/otp';
