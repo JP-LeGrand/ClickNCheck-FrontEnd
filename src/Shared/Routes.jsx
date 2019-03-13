@@ -8,6 +8,7 @@ import ForgotPassword from '..//Components/Shared/ForgotPassword/ForgotPassword'
 import React from 'react';
 import ChangePassword from '../Components/Shared/ChangePassword/ChangePassword';
 import ForgotPasswordSuccess from '../Components/Shared/ForgotPasswordSuccess/ForgotPasswordSuccess';
+import MainContainer from '../Recruiter/RecruiterVerificationRequest/MainContainer';
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -21,6 +22,7 @@ const Routes = () => {
                 <Route path="/forgotPasswordSuccess" exact component={ForgotPasswordSuccess} />
                 <Route path="/changePassword" exact component={ChangePassword} />
                 <Route path="/ReviewChecks" exact component={ReviewChecks} />
+                <Route path="/candidate/bulk" exact component={MainContainer} />
                 <Route render={() => <Redirect to="/"/>}/>
             </Switch>
         </BrowserRouter>
