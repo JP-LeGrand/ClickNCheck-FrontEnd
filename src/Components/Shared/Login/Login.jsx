@@ -1,21 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import 'typeface-roboto';
 import './Login.scss';
-import { BASE_URL, AUTHENTICATE_LOGIN, OTP_AUTHENTICATION } from '../../../Shared/Constants';
+import { BASE_URL, AUTHENTICATE_LOGIN, OTP_AUTHENTICATION, PASS_EXPIRED } from '../../../Shared/Constants';
 import mainImg from '../../../Assets/main.svg';
+import userImg from '../../../Assets/user.svg';
+import passImg from '../../../Assets/password.svg';
 
 class Login extends React.PureComponent {
     constructor(props) {
-        window.history.forward();
+        if (localStorage.getItem('user_id') !== null) {
+            window.history.forward();
+        }
+
         super(props);
         this.state = {
             password: '',
-            email: ''
+            email: '',
+            isPasswordVisible: false,
+            inputType: 'password'
         };
         
         this.handleChangePass = this.handleChangePass.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleShowHide = this.handleShowHide.bind(this);
     }
     
     handleChangeEmail(event) {
@@ -26,6 +35,16 @@ class Login extends React.PureComponent {
         this.setState({ password: event.target.value });
     }
 
+    handleShowHide() {
+        if ( this.state.isPasswordVisible === true) {
+            this.setState( { isPasswordVisible: false } );
+            this.setState( { inputType: 'password' } );
+        } else {
+            this.setState( { isPasswordVisible: true } );
+            this.setState( { inputType: 'text' } );
+        }
+        
+    }
     handleSubmit(event){
         event.preventDefault();
         let credentials = [ this.state.email, this.state.password ];
@@ -45,7 +64,8 @@ class Login extends React.PureComponent {
             .then(
                 response => {
                     localStorage.setItem('user_id', response);
-                    fetch(BASE_URL + OTP_AUTHENTICATION, {
+                    let userid = localStorage.getItem('user_id');
+                    fetch(BASE_URL + PASS_EXPIRED + response, {
                         method: 'POST',
                         mode: 'cors', // no-cors, cors, *same-origin
                         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -54,18 +74,42 @@ class Login extends React.PureComponent {
                             'Content-Type': 'application/json',
                         },
                         redirect: 'manual', // manual, *follow, error
-                        referrer: 'no-referrer', // no-referrer, *client
-                        body: JSON.stringify(response), 
+                        referrer: 'no-referrer', // no-referrer, *client 
                     } )
-                        .then((response) => response.json())  
+                        .then((pass_exp_response) => pass_exp_response.json())  
                         .then(
-                            () => {
-                                window.location = '/otp';
+                            (pass_exp_response) => {
+                                if ( pass_exp_response === true) {
+                                    window.location = '/changePassword';
+                                } else if ( pass_exp_response === false ) {
+                                    fetch(BASE_URL + OTP_AUTHENTICATION, {
+                                        method: 'POST',
+                                        mode: 'cors', // no-cors, cors, *same-origin
+                                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                                        credentials: 'same-origin', // include, *same-origin, omit
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        redirect: 'manual', // manual, *follow, error
+                                        referrer: 'no-referrer', // no-referrer, *client
+                                        body: JSON.stringify(userid), 
+                                    } )
+                                        .then((otp_response) => otp_response.json())  
+                                        .then(
+                                            () => {
+                                                window.location = '/otp';
+                                            },
+                                            (error) => {
+                                                alert(error);
+                                            }     
+                                        );
+                                }
                             },
                             (error) => {
                                 alert(error);
                             }     
                         );
+
                 },
                 (error) => {
                     alert(error);
@@ -81,9 +125,10 @@ class Login extends React.PureComponent {
                 </header>
 
                 <div className="mainSection">
-                    <div className="registrationHeading">Existing User <b>Sign In</b></div>
+                    <div className="loginHeading"><b>Sign In</b></div>
                     <form onSubmit={this.handleSubmit}> 
                         <div className="form-group">
+                            <img src={userImg}/>
                             <label className="inp">
                                 <input placeholder="&nbsp;" name="email" value ={this.state.email} onChange={this.handleChangeEmail} />
                                 <span className="label">Email</span>
@@ -92,14 +137,16 @@ class Login extends React.PureComponent {
                         </div>
 
                         <div className="form-group">
+                            <img src={passImg}/>
                             <label className="inp">
-                                <input placeholder="&nbsp;" type="password" name="password" value ={this.state.password} onChange={this.handleChangePass} />
+                                <input placeholder="&nbsp;" type={this.state.inputType} name="password" value ={this.state.password} onChange={this.handleChangePass} />
                                 <span className="label">Enter Password</span>
                                 <span className="border"></span>
+                                <span className="showHide" onClick={this.handleShowHide}>{this.state.isPasswordVisible ? 'Hide' : 'Show'}</span>
                             </label>
                             
                             <p>
-                                <a href="#">Forgot Password?</a>
+                                <a href="/forgotPassword">Forgot Password?</a>
                             </p>
                         </div> 
 
