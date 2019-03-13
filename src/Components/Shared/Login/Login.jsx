@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './Login.scss';
-import { BASE_URL, AUTHENTICATE_LOGIN, OTP_AUTHENTICATION } from '../../../Shared/Constants';
+import { BASE_URL, AUTHENTICATE_LOGIN, OTP_AUTHENTICATION, PASS_EXPIRED } from '../../../Shared/Constants';
 import mainImg from '../../../Assets/main.svg';
 
 class Login extends React.PureComponent {
@@ -45,7 +45,8 @@ class Login extends React.PureComponent {
             .then(
                 response => {
                     localStorage.setItem('user_id', response);
-                    fetch(BASE_URL + OTP_AUTHENTICATION, {
+                    
+                    fetch(BASE_URL + PASS_EXPIRED, {
                         method: 'POST',
                         mode: 'cors', // no-cors, cors, *same-origin
                         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -59,13 +60,38 @@ class Login extends React.PureComponent {
                     } )
                         .then((response) => response.json())  
                         .then(
-                            () => {
-                                window.location = '/otp';
+                            (response) => {
+                                if ( response === true) {
+                                    window.location = '/changePassword';
+                                } else if ( response === false ) {
+                                    fetch(BASE_URL + OTP_AUTHENTICATION, {
+                                        method: 'POST',
+                                        mode: 'cors', // no-cors, cors, *same-origin
+                                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                                        credentials: 'same-origin', // include, *same-origin, omit
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        redirect: 'manual', // manual, *follow, error
+                                        referrer: 'no-referrer', // no-referrer, *client
+                                        body: JSON.stringify(response), 
+                                    } )
+                                        .then((response) => response.json())  
+                                        .then(
+                                            () => {
+                                                window.location = '/otp';
+                                            },
+                                            (error) => {
+                                                alert(error);
+                                            }     
+                                        );
+                                }
                             },
                             (error) => {
                                 alert(error);
                             }     
                         );
+
                 },
                 (error) => {
                     alert(error);
