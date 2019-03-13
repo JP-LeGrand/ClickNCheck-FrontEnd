@@ -1,24 +1,22 @@
 .login {
-  #logo {
-    padding-top: 0px;
-  }
   
+  .headSection img {
+    width: 177px;
+    height: 29px;
+    object-fit: contain;
+  }
+
   button {
-    float: left;
     padding: 10px 46px;
     width: 100%;
     font-size: 16px;
     vertical-align: middle;
-    font-family: Arial;
     color: white;
     border-style: solid;
     border-color: #0091d1;
     background-color: #0091d1;
     border-radius: 5px;
-  }
-  
-  .createPassword {
-    margin-bottom: 0px;
+    margin-top: 20px;
   }
   
   label {
@@ -30,109 +28,47 @@
     font-size: 15px;
     color: red;
   }
-  
-  #heading {
-    color: #02529c;
-  }
-  
+
   .headSection {
-    margin-bottom: 0px;
-    height: 137px;
-    background-color: white;
-    text-align: center;
-  }
-  
-  footer{
-    background-color: #02529c;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 45px;
-    text-align: center;
-    color: #e6e9ec;
-  }
-  
-  footer div {
-    padding: 10.5px;
-    margin: 0px;
-    line-height: 100%;
-  }
-  
-  
-  
-  footer a{
-    font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 2.6;
-    letter-spacing: 0.6px;
-    text-align: center;
-    color: #ffffff;
-  }
-  footer a:hover{
-    font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 2.6;
-    letter-spacing: 0.6px;
-    text-align: center;
-    color: #ffffff;
-  }
-   
-  
-  input {
-    width: 400px;
-    border: 1px solid #ABADB3;
-    border-right: 0;
-    border-top: 0;
-    border-left: 0;
-    height: 30px;
-    font-size: 16px;
+    margin: 5vh auto;
     padding-left: 5px;
+    padding-right: 5px;
+    min-width: 550px;
+    width: 550px;
+    max-width: 100%;
+    text-align: center;
   }
-  
-  input:focus {
-    outline: none;
-  }
-  
-  h1 {
-    margin-top: 0px;
-  }
-  
+
   .mainSection {
     margin: 0 auto;
     margin-bottom: 10px;
     padding-left: 5px;
     padding-right: 5px;
+    border-radius: 10px;
     min-width: 550px;
-    max-width: fit-content;
-    height: fit-content;
+    width: 550px;
+    max-width: 100%;
     background-color: #ffffff;
     -webkit-box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
             box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
     text-align: center;
     border: 1px solid lightgray;
   }
-  
+
+  input:focus {
+    outline: none;
+  }
+
   .form-group {
     display: block;
     width: 450px;
     height: 50px;
     margin: 0 auto;
     font-size: 20px;
-    padding-bottom: 25px;
-    margin-bottom: 33px;
-  }
-  
-  .text-center {
-    text-align: center;
+    margin-bottom: 58px;
   }
   
   body {
-    font-family: HelveticaNeue;
     position: relative;
     margin: 0;
     padding-bottom: 6rem;
@@ -142,19 +78,10 @@
   label {
     float: left;
   }
-  
-  .headSection img {
-    height: 29px;
-    width: 177px;
-    margin-top: 72px;
-    -o-object-fit: contain;
-       object-fit: contain;
-  }
-  
-  .registrationHeading {
+ 
+  .loginHeading {
     text-align: center;
     height: 45px;
-    font-family: HelveticaNeue;
     font-size: 24px;
     font-weight: 300;
     font-style: normal;
@@ -165,23 +92,15 @@
     padding-top: 28px;
   }
   
-  .registrationHeading .text-style-1 {
-    font-weight: bold;
-  }
-  
   .inp {
     position: relative;
-    margin: auto;
-    width: 100%;
-    max-width: 280px;
-    margin-top: 16px;
   }
-  
+
   .inp .label {
     position: absolute;
     top: 16px;
-    left: 0;
-    font-family: HelveticaNeue;
+    left:0;
+    padding-left: 30px;
     font-size: 14px;
     font-weight: normal;
     font-style: normal;
@@ -197,17 +116,16 @@
   
   .inp input, .inp select {
     -webkit-appearance: none;
-    width: 471px;
+    width: 420px;
     height: 48px;
     border: 0;
-    font-family: HelveticaNeue;
+    padding-left: 30px;
     vertical-align: middle;
     border-bottom: 1px solid #223254;
     background: none;
     border-radius: 0;
     -webkit-transition: all 0.15s ease;
     transition: all 0.15s ease;
-    font-family: HelveticaNeue;
     font-size: 14px;
     font-weight: normal;
     font-style: normal;
@@ -216,7 +134,31 @@
     letter-spacing: 0.9px;
     color: #2b3844;
   }
+
+  .form-group p, .showHide, .form-group img {
+    padding-top: 60px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.64;
+    letter-spacing: 0.9px;
+    text-align: right;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: #2b3844;
+  }
   
+  button:hover{
+    cursor: pointer;
+  }
+
   .inp input:focus, .inp select:focus {
     background: none;
     outline: none;
@@ -224,54 +166,37 @@
   
   .inp input:not(:placeholder-shown) + span {
     color: #2b3844;
-    -webkit-transform: translateY(-26px) scale(0.75);
-            transform: translateY(-26px) scale(0.75);
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
   }
   
   .inp input:focus + span {
-    -webkit-transform: translateY(-26px) scale(0.75);
-            transform: translateY(-26px) scale(0.75);
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
+    
   }
   
   .inp input:focus + span + .border {
     -webkit-transform: scaleX(1);
             transform: scaleX(1);
   }
-  
-  .inp select {
-    -webkit-appearance: menulist;
+
+  .showHide {
+    padding: 0;
+    position: absolute;
+    top: 16px;
+    right: 0;
+    
   }
-  
-  input[type="number"] {
-    -webkit-appearance: none;
-    margin: 10px;
-    display: inline-block;
-    width: 59px;
-    height: 59px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    border: 1px solid black;
-    margin-top: 60px;
+
+  .showHide:hover {
+    cursor: pointer;
   }
-  /*# sourceMappingURL=admin.css.map */
-  .tabs {
-    margin-top: 44px;
-    border: 1px solid  #02529c;
-    border-radius: 8px;
-  }
-  
-  input[type="button"] {
-    color: white;
-    background-color: #0091d1;
-    width:165px;
-    height:50px;
-    border-radius: 8px;
-  
-  }
-  
-  input[type="file"]
-  {
-    width:331px;
-    margin: auto;
+
+  .form-group img {
+    position: relative;
+    padding: 0;
+    top:37.5px;
+    right: 218px;
   }
 } 

@@ -20,6 +20,11 @@ const InitialState = {
         sendVia:'',/*actual  */
         passportNumber: null,
         phoneEmail: null
+    },
+    changePasswordState:{
+        password:null,
+        passwordStrength:null,
+        errorMessage:null
     }
 };
 

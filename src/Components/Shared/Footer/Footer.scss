@@ -12,7 +12,13 @@
 }
 footer{
 	background-color: #02529c;
-	text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
+    text-align: center;
+    color: #e6e9ec;
 }
 footer a{
 	font-size: 14px;
@@ -23,6 +29,7 @@ footer a{
 	letter-spacing: 0.6px;
 	text-align: center;
 	color: #ffffff;
+	text-decoration: none;
 }
 footer a:hover{
 	font-size: 14px;

@@ -5,7 +5,9 @@ import { BASE_URL, CHECK_OTP } from '../../../Shared/Constants';
 import mainImg from '../../../Assets/main.svg';
 
 class Otp extends React.PureComponent {
+    
     constructor(props) {
+        window.history.forward();
         super(props);
         this.state = {
             digit1: '',
@@ -14,7 +16,7 @@ class Otp extends React.PureComponent {
             digit4: '',
             digit5: '',
         };
-    
+        
         this.handleChangeDigit1 = this.handleChangeDigit1.bind(this);
         this.handleChangeDigit2 = this.handleChangeDigit2.bind(this);
         this.handleChangeDigit3 = this.handleChangeDigit3.bind(this);
@@ -25,18 +27,31 @@ class Otp extends React.PureComponent {
     
     handleChangeDigit1(event) {
         this.setState({ digit1: event.target.value });
+        if ( event.target.value !== '') {
+            event.target.nextSibling.focus();
+        }
+        
     }
 
     handleChangeDigit2(event) {
         this.setState({ digit2: event.target.value });
+        if ( event.target.value !== '') {
+            event.target.nextSibling.focus();
+        }
     }
 
     handleChangeDigit3(event) {
         this.setState({ digit3: event.target.value });
+        if ( event.target.value !== '') {
+            event.target.nextSibling.focus();
+        }
     }
 
     handleChangeDigit4(event) {
         this.setState({ digit4: event.target.value });
+        if ( event.target.value !== '') {
+            event.target.nextSibling.focus();
+        }
     }
 
     handleChangeDigit5(event) {
@@ -49,6 +64,7 @@ class Otp extends React.PureComponent {
             OTP: this.state.digit1 + '' + this.state.digit2 + '' + this.state.digit3 + '' + this.state.digit4 + '' + this.state.digit5
         };
         let user_otp = [ localStorage.getItem('user_id'),body.OTP ];
+        localStorage.clear();
         fetch(BASE_URL + CHECK_OTP, {
             method: 'POST',
             mode: 'cors', // no-cors, cors, *same-origin
@@ -91,33 +107,37 @@ class Otp extends React.PureComponent {
     } 
     
     render() {
-        return (
-            <div className="otp">
-                <header className="headSection">
-                    <img src={mainImg} />
-                </header>
-
-                <div className="mainSection">
-                    <div className="registrationHeading">
-                        Enter the One-Time Pin sent to you
-                    </div> 
-
-                    <div className="form-group">
-                        <input placeholder="&nbsp;" type="number" value ={this.state.digit1} onChange={this.handleChangeDigit1}/>
-                        <input placeholder="&nbsp;" type="number" value ={this.state.digit2} onChange={this.handleChangeDigit2}/>
-                        <input placeholder="&nbsp;" type="number" value ={this.state.digit3} onChange={this.handleChangeDigit3}/>
-                        <input placeholder="&nbsp;" type="number" value ={this.state.digit4} onChange={this.handleChangeDigit4}/>
-                        <input placeholder="&nbsp;" type="number" value ={this.state.digit5} onChange={this.handleChangeDigit5}/> 
+        if ( localStorage.getItem('user_id') !== null) {
+            return (
+                <div className="otp">
+                    <header className="headSection">
+                        <img src={mainImg} />
+                    </header>
+    
+                    <div className="mainSection">
+                        <div className="registrationHeading">
+                            Enter the One-Time Pin sent to you
+                        </div> 
+    
+                        <div className="form-group">
+                            <input placeholder="&nbsp;" type="number" value ={this.state.digit1} onChange={this.handleChangeDigit1}/>
+                            <input placeholder="&nbsp;" type="number" value ={this.state.digit2} onChange={this.handleChangeDigit2}/>
+                            <input placeholder="&nbsp;" type="number" value ={this.state.digit3} onChange={this.handleChangeDigit3}/>
+                            <input placeholder="&nbsp;" type="number" value ={this.state.digit4} onChange={this.handleChangeDigit4}/>
+                            <input placeholder="&nbsp;" type="number" value ={this.state.digit5} onChange={this.handleChangeDigit5}/> 
+                        </div>
+                        <br/>
+                        <br/>
+                        <div className="form-group">
+                            <button onClick={this.handleSubmit}>SUBMIT</button>
+                            <p><a id="resend" href="#">Resend</a> or need <a id="help" href="#">Help?</a></p>
+                        </div> 
                     </div>
-                    <br/>
-                    <br/>
-                    <div className="form-group">
-                        <button onClick={this.handleSubmit}>SUBMIT</button>
-                        <p><a href="#">Resend</a> or need <a href="#">Help</a></p>
-                    </div> 
                 </div>
-            </div>
-        );
+            );
+        } else {
+            window.location = '/login';
+        }
     }
 }
 
