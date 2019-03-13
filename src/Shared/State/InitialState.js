@@ -13,20 +13,18 @@ const InitialState = {
         password: null,
     },
     forgotPasswordState:{
-        sendType:{
-            username: null,
-            password: null
-        },
-        idType: {
-            id: null,
-            passport: null
-        },
-        sendVia:{
-            sms: null,
-            email: null
-        },
-        cellPhone: null,
-        email: null
+        sending: null,
+        sendEmail:null,
+        sendPassword:null,
+        idType: '',/*id or passport */
+        sendVia:'',/*actual  */
+        passportNumber: null,
+        phoneEmail: null
+    },
+    changePasswordState:{
+        password:null,
+        passwordStrength:null,
+        errorMessage:null
     }
 };
 
