@@ -17,3 +17,4 @@ export const CHECK_OTP = 'authentication/checkOtp';
 export const FORGOT_PASSWORD_EMAIL = 'authentication/ForgotPassword/email';
 export const FORGOT_PASSWORD_PHONE = 'authentication/ForgotPassword/phone';
 export const CHANGE_PASSWORD = 'Users/UpdatePassword/';
+export const PASS_EXPIRED = 'Users/IsPasswordExpired/';
