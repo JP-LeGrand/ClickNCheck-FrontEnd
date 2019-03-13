@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './ChangePassword.scss';
 import imgMain from '../../../Assets/main.svg';
 import { ChangePasswordConstrants } from './ChangePasswordConstants';
-import { BASE_URL,CHANGE_PASSWORD } from '../../../Shared/Constants';
+import { BASE_URL, CHANGE_PASSWORD, OTP_AUTHENTICATION } from '../../../Shared/Constants';
 
 class ChangePassword extends React.PureComponent{
     constructor(props) {
@@ -14,7 +14,8 @@ class ChangePassword extends React.PureComponent{
             confirmpassword:'',
             errorMessage: '',
             passwordStrength: '',
-            passwordMatchMessage:''
+            passwordMatchMessage:'',
+            canSubmit:'disabled'
         };
 
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -46,7 +47,7 @@ class ChangePassword extends React.PureComponent{
             break;
         case ChangePasswordConstrants.Strong:
         case ChangePasswordConstrants.ReallyStrong:
-            passwordStrength='strong';        
+            passwordStrength='strong';     
             break;
         default:
         }
@@ -62,7 +63,7 @@ class ChangePassword extends React.PureComponent{
           let capsCount, smallCount, numberCount, symbolCount;
           if (password.length < ChangePasswordConstrants.MinPassLenght) {
               this.setState({
-                  errorMessage: 'password must be min 8 char',
+                  errorMessage: 'password must be min 8 characters',
               });
           } else {
               capsCount = (password.match(/[A-Z]/g) || []).length;
@@ -87,10 +88,15 @@ class ChangePassword extends React.PureComponent{
 
       validatePasswordMatch = (e) =>{
           let confirmPassword = e.target.value;
+          let canSubmit = this.state.canSubmit;
           let passwordMatchMessage;
           if (confirmPassword.length >= ChangePasswordConstrants.Mincount && this.state.password.length >= ChangePasswordConstrants.Mincount ){
               if (confirmPassword !== this.state.password){
                   passwordMatchMessage = 'passwords do not match';
+              } else {
+                  canSubmit = '';
+                  this.setState({ canSubmit
+                  });
               }
           }
           this.setState({
@@ -110,7 +116,8 @@ class ChangePassword extends React.PureComponent{
 
       handleSubmit(event){
           event.preventDefault();
-          fetch(BASE_URL+CHANGE_PASSWORD+localStorage.getItem('user_id'), {
+          let userid = localStorage.getItem('user_id');
+          fetch(BASE_URL+CHANGE_PASSWORD+userid, {
               method: 'POST',
               mode: 'cors', // no-cors, cors, *same-origin
               cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -124,6 +131,27 @@ class ChangePassword extends React.PureComponent{
           } )
               .then(
                   () => {
+                      fetch(BASE_URL + OTP_AUTHENTICATION, {
+                          method: 'POST',
+                          mode: 'cors', // no-cors, cors, *same-origin
+                          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                          credentials: 'same-origin', // include, *same-origin, omit
+                          headers: {
+                              'Content-Type': 'application/json',
+                          },
+                          redirect: 'manual', // manual, *follow, error
+                          referrer: 'no-referrer', // no-referrer, *client
+                          body: JSON.stringify(userid), 
+                      } )
+                          .then((response) => response.json())  
+                          .then(
+                              () => {
+                                  window.location = '/otp';
+                              },
+                              (error) => {
+                                  alert(error);
+                              }     
+                          );
                       window.redirect = '';
                   },
                   (error) => {
@@ -158,7 +186,7 @@ class ChangePassword extends React.PureComponent{
                                   {this.state.passwordMatchMessage}
                               </label>
                           </label>
-                          <button id="btnSend" onClick={this.handleSubmit}>Send</button>
+                          <button id="btnSend" onClick={this.handleSubmit} disabled={this.state.canSubmit}>Send</button>
                       </div>
                   </div>
               </div>
