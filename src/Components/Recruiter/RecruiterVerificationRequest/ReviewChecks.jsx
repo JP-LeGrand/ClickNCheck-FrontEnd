@@ -4,24 +4,33 @@ import "./MainContainerStyle.scss";
 class ReviewChecks extends React.Component {
 
   state = {
+    cursor: "grab",
     checks: [{vendor:"Compuscan Credit check",
              category:"Credit",
-             location: "onRight"
+             location: "onRight",
+             opacity: 1,
+             bgColor: "#0091d1"
             },  
           
             {vendor:"Experian Criminal Check", 
              category:"Criminal",
-             location: "onLeft"
+             location: "onLeft",
+             opacity: 1,
+             bgColor: "#0091d1"
             },  
           
             {vendor:"XDS Identity Check", 
              category:"Identity",
-             location: "onRight"
+             location: "onRight",
+             opacity: 1,
+             bgColor: "#0091d1"
             },
 
             {vendor:"MIE Drivers Check", 
              category:"Drivers",
-             location: "onLeft"
+             location: "onLeft",
+             opacity: 1,
+             bgColor: "#0091d1"
             } 
     ]};
 
@@ -36,11 +45,9 @@ class ReviewChecks extends React.Component {
     */
     this.state.checks.forEach((check) => {
       checks[check.location].push(
-        <div className="checkType">
-          <h4>{check.category}</h4>
-          <div id="vendor" draggable onDragStart={(e) => this.onDragStart(e, check.vendor)}>
-             <p>{check.vendor}</p>
-          </div>
+        <div id="vendor" style={{cursor:this.state.cursor, backgroundColor: this.state.bgColor}} draggable onDragStart={(e) => this.onDragStart(e, check.vendor)} onDragEnd={(e) => this.onDragEnd(e)}>
+          <h3>{check.category}</h3>
+          <p>{check.vendor}</p>
         </div>
       )
     });
@@ -59,10 +66,10 @@ class ReviewChecks extends React.Component {
             </label>
           </div>
 
-          <div id="droppableContainer" droppable="true" onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e, "left")}>
+          <div id="droppableContainer" droppable="true" onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e, "onLeft")}>
             {checks.onLeft}
           </div>
-          <div id="draggableContainer" droppable="true" onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e, "right")}>
+          <div id="draggableContainer" droppable="true" onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e, "onRight")}>
             {checks.onRight}
           </div>
         </div>
@@ -71,29 +78,36 @@ class ReviewChecks extends React.Component {
   }
 
 
-  onDrop = (ev, cat) => {       
+  onDrop = (ev, pos) => {
     let vendor = ev.dataTransfer.getData("vendor");
-    let tasks = this.state.checks.filter((task) => {
-      if(task.vendor == vendor) {
-        //task.category = cat;           
-      }              
-       return task;       
-    });        
-
-    this.setState({              
-      ...this.state, tasks
-    });
+    let tasks = this.state.checks.filter((check) => {
+        if (check.vendor == vendor) {
+          check.location = pos;           
+        }              
+        return check;       
+     });        
+     this.setState({           
+        ...this.state,           
+        tasks       
+     });
+     this.setState({cursor: "grab"});
   }
+    
 
   onDragOver(event){
     event.preventDefault();
-    
+    this.setState({cursor: "grabbing"});
   }
 
   onDragStart(event, vendor){
-    console.log("ondragStart: "+vendor);
+    this.setState({cursor: "grabbing"});
     event.dataTransfer.setData("vendor", vendor);
   }
+  
+  onDragEnd(e){
+    this.setState({cursor: "grab"});
+  }
+
 }
 
 
