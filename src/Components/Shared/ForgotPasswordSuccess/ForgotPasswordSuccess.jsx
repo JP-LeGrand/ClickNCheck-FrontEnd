@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import imgMain from '../../../Assets/main.svg';
 import './ForgotPasswordSuccess.scss';
 import 'typeface-roboto';
-import Footer from '../Footer/Footer'
+import Footer from '../Footer/Footer';
 class ForgotPasswordSuccess extends React.PureComponent {
     render() {
         return ( 
@@ -20,7 +20,7 @@ class ForgotPasswordSuccess extends React.PureComponent {
 						We have recieved your password request and a message has been sent to your {localStorage.getItem('sentTo')} with further instructions.
                     </div>
                 </div>
-				<Footer/>
+                <Footer />
             </div>
             
         ); 
