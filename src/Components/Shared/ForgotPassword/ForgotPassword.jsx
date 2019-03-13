@@ -72,7 +72,11 @@ class ForgotPassword extends React.PureComponent{
             sendViaPhone: false,
             sendViaEmail: false,
             passportNumber: '', /*string with either id or passport */
-            phoneEmail: '' /*string with either phone or email */
+            phoneEmail: '', /*string with either phone or email */
+            validEmail: null,
+            validID: null,
+            validPassport: null,
+            validPhone: null
         };
 
         this.handleEmailCheck = this.handleEmailCheck.bind(this);
@@ -87,24 +91,74 @@ class ForgotPassword extends React.PureComponent{
     }
 
     async handleSubmit(){
-        if (this.state.sendVia === 'email'){
+        if (this.state.sendVia === 'email' && this.state.validEmail){
             const body = { 
                 passportNumber: this.state.passportNumber, 
                 email: this.state.phoneEmail 
             };
-            localStorage.setItem('sentTo', 'email');
-            await axios.post(BASE_URL+FORGOT_PASSWORD_EMAIL, body);
-            alert('Forgot password request succesfully sent to email');
-            window.location = '/forgotPasswordSuccess';
-        } else if (this.state.sendVia ==='phone'){
+            if (this.state.useID && this.state.validID) {
+                await axios.post(BASE_URL + FORGOT_PASSWORD_EMAIL, body)
+                    .then(function (response) {
+                        console.log(response);
+                        alert('Forgot password request succesfully sent to email');
+                        localStorage.setItem('sentTo', 'email');
+                        window.location = '/forgotPasswordSuccess';
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        alert('Oops something went wrong' + error);
+                    });
+            } else if (this.state.usePassport && this.state.validPassport) {
+                await axios.post(BASE_URL + FORGOT_PASSWORD_EMAIL, body)
+                    .then(function (response) {
+                        console.log(response);
+                        alert('Forgot password request succesfully sent to email');
+                        localStorage.setItem('sentTo', 'email');
+                        window.location = '/forgotPasswordSuccess';
+                    })
+                    .catch(function (error) {
+                        alert('Oops something went wrong' + error);
+                        console.log(error);
+                    });
+            } else {
+                alert('Passport or ID is invalid');
+            }
+            
+        } else if (this.state.sendVia === 'phone' && this.state.validPhone){
             const body = { 
                 passportNumber: this.state.passportNumber, 
                 phonenumber: this.state.phoneEmail 
             };
-            localStorage.setItem('sentTo', 'phone');
-            await axios.post(BASE_URL+FORGOT_PASSWORD_PHONE, body);
-            alert('Forgot password request succesfully sent to phone number');
-            window.location = '/forgotPasswordSuccess';
+            if (this.state.useID && this.state.validID) {
+                await axios.post(BASE_URL + FORGOT_PASSWORD_PHONE, body)
+                    .then(function (response) {
+                        console.log(response);
+                        alert('Forgot password request succesfully sent to phone number');
+                        localStorage.setItem('sentTo', 'phone');
+                        window.location = '/forgotPasswordSuccess';
+                    })
+                    .catch(function (error) {
+                        alert('Oops something went wrong' + error);
+                        console.log(error);
+                    });
+            } else if (this.state.usePassport && this.state.validPassport) {
+                await axios.post(BASE_URL + FORGOT_PASSWORD_PHONE, body)
+                    .then(function (response) {
+                        console.log(response);
+                        alert('Forgot password request succesfully sent to phone number');
+                        localStorage.setItem('sentTo', 'phone');
+                        window.location = '/forgotPasswordSuccess';
+                    })
+                    .catch(function (error) {
+                        alert('Oops something went wrong' + error);
+                        console.log(error);
+                    });
+            } else {
+                alert('Passport or ID is invalid');
+            }
+            
+        } else {
+            alert('Email or Phone Number is invalid');
         }
     }
     handlePasswordCheck(event){
@@ -132,18 +186,65 @@ class ForgotPassword extends React.PureComponent{
             });
         }
     }
-    handlePassportID(event){
+    handlePassportID(event) {
+        this.setState({ passportNumber: event.target.value });
+        const checkPassportID = event.target.value;
         if ( this.state.idType === 'ID' ){
-            this.setState({ passportNumber: event.target.value });
+            const ID_CHARS = 13;
+            if (this.state.useID && checkPassportID.length === ID_CHARS && checkPassportID.match(/[0-9]{13}/)) {
+                this.setState({
+                    validID: true
+                });
+            } else {
+                this.setState({
+                    validID: false
+                });
+            }
         } else if ( this.state.idType === 'Passport' ){
-            this.setState({ passportNumber: event.target.value });
-        } else {
-            this.setState({ passportNumber: event.target.value });
-            alert('No ID type selected');
+            if (this.state.usePassport && checkPassportID.match(/[A-Za-z0-9]+/)) {
+                this.setState({
+                    validPassport: true
+                });
+            } else {
+                this.setState({
+                    validPassport: false
+                });
+            }
         }
     }
-    handleEmailPhone(event){
+    handleEmailPhone(event) {
+        const checkPhoneEmail = event.target.value;
         this.setState({ phoneEmail: event.target.value });
+        
+        if (this.state.sendViaEmail) {
+            const emailValid = checkPhoneEmail.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+            this.setState({
+                validEmail: emailValid
+            });
+        } else if (this.state.sendViaPhone) {
+            const LOCAL_NUMBER = 10;
+            const INTERNATIONAL = 12;
+            const ZERO = '0';
+            const INT_ZERO = 0;
+            const PLUS = '+';
+            console.log('phone number before check char 0: ' + checkPhoneEmail.charAt(INT_ZERO));
+            console.log('phone number before check length: ' + checkPhoneEmail.length);
+            console.log('phone number before check length: ' + checkPhoneEmail.match(/[+][0-9]{12}/)); 
+            if (checkPhoneEmail.charAt(INT_ZERO) === ZERO && checkPhoneEmail.length === LOCAL_NUMBER && checkPhoneEmail.match(/[0-9]{10}/)) {
+                console.log('phone number passed: ' + checkPhoneEmail.charAt(INT_ZERO));
+                this.setState({
+                    validPhone: true
+                });
+            } else if (checkPhoneEmail.charAt(INT_ZERO) === PLUS && checkPhoneEmail.length === INTERNATIONAL && checkPhoneEmail.match(/[+][0-9]{12}/)) {
+                this.setState({
+                    validPhone: true
+                });
+            } else {
+                this.setState({
+                    validPhone: false
+                });
+            }
+        }
     }
     handlePhoneOrEmail(event) {
         this.setState({ sendVia: event.target.value });
@@ -193,11 +294,13 @@ class ForgotPassword extends React.PureComponent{
                         <br/>
                         <select onChange={this.handleIDorPassprt} className="send">
                             <option value="" >Type of Identity</option>
-                            <option value ="ID">Identity</option>
+                            <option value ="ID">SA ID</option>
                             <option value ="Passport">Passport</option>
                         </select>
                         {this.state.useID && <IdentityMethod passportNumber={this.state.passportNumber} handlePassportID={this.handlePassportID} idType="ID"/> }
-                        {this.state.usePassport && <IdentityMethod passportNumber={this.state.passportNumber} handlePassportID={this.handlePassportID} idType="Passport"/> }
+                        {this.state.usePassport && <IdentityMethod passportNumber={this.state.passportNumber} handlePassportID={this.handlePassportID} idType="Passport" />}
+                        {!this.state.validPassport && this.state.usePassport && <p className="send error">Invalid Passport Number</p>}
+                        {!this.state.validID && this.state.useID && <p className="send error">Invalid ID Number</p>}
                     </div>
                     <div className="sendWhat">
                         <strong id="via" className="send">Send Via</strong>
@@ -207,8 +310,11 @@ class ForgotPassword extends React.PureComponent{
                             <option value="phone">Phone</option>
                             <option value="email">Email</option>
                         </select>
+                        
                         {this.state.sendViaEmail && <RecieveMethod phoneEmail={this.state.phoneEmail}handleEmailPhone={this.handleEmailPhone} sendVia="email"/> }
-                        {this.state.sendViaPhone && <RecieveMethod phoneEmail={this.state.phoneEmail} handleEmailPhone={this.handleEmailPhone} sendVia="phone"/>}
+                        {this.state.sendViaPhone && <RecieveMethod phoneEmail={this.state.phoneEmail} handleEmailPhone={this.handleEmailPhone} sendVia="phone" />}
+                        {!this.state.validEmail && this.state.sendViaEmail && <p className="send error">Invalid Email</p>}
+                        {!this.state.validPhone && this.state.sendViaPhone && <p className="send error">Invalid Phone Number</p>}
                     </div>
                     
                     <div className="sendWhat">
