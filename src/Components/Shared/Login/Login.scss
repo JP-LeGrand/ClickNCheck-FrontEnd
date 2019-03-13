@@ -139,9 +139,7 @@
   label {
     float: left;
   }
-  
-
-  
+ 
   .registrationHeading {
     text-align: center;
     height: 45px;
@@ -162,6 +160,20 @@
   
   .inp {
     position: relative;
+  }
+  
+  .inp .label { 
+    position: absolute;
+    top: 16px;
+    left: 1;
+    font-family: HelveticaNeue;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.57;
+    letter-spacing: 0.9px;
+    color: #2b3844;
   }
   
   .inp .label {
@@ -280,5 +292,31 @@
   {
     width:331px;
     margin: auto;
+  }
+
+  .showHide:after {
+    text-align: left;
+    opacity: 1;   
+  }
+
+  .showHide:before {
+    text-align: left;
+    opacity: 0;   
+  }
+  .showHide.active:after {
+    text-align: left;
+    opacity: 0;
+  }
+  
+  .showHide.active:before {
+    opacity: 1;
+  }
+
+  .showHide:before {
+    content: 'Show';
+  }
+  
+  .showHide:after {
+    content: 'Hide';
   }
 } 

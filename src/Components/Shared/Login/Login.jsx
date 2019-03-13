@@ -6,7 +6,10 @@ import mainImg from '../../../Assets/main.svg';
 
 class Login extends React.PureComponent {
     constructor(props) {
-        window.history.forward();
+        if (localStorage.getItem('user_id') !== null) {
+            window.history.forward();
+        }
+
         super(props);
         this.state = {
             password: '',
@@ -46,7 +49,7 @@ class Login extends React.PureComponent {
                 response => {
                     localStorage.setItem('user_id', response);
                     
-                    fetch(BASE_URL + PASS_EXPIRED, {
+                    fetch(BASE_URL + PASS_EXPIRED + response, {
                         method: 'POST',
                         mode: 'cors', // no-cors, cors, *same-origin
                         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -55,8 +58,7 @@ class Login extends React.PureComponent {
                             'Content-Type': 'application/json',
                         },
                         redirect: 'manual', // manual, *follow, error
-                        referrer: 'no-referrer', // no-referrer, *client
-                        body: JSON.stringify(response), 
+                        referrer: 'no-referrer', // no-referrer, *client 
                     } )
                         .then((response) => response.json())  
                         .then(
@@ -125,7 +127,7 @@ class Login extends React.PureComponent {
                             </label>
                             
                             <p>
-                                <a href="#">Forgot Password?</a>
+                                <a href="/forgotPassword">Forgot Password?</a>
                             </p>
                         </div> 
 

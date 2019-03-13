@@ -1,5 +1,4 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Home from '../Components/Home/Home';
 import Login from '../Components/Shared/Login/Login';
 import Otp from '../Components/Shared/Otp/Otp';
 import ReviewChecks from '../Recruiter/RecruiterVerificationRequest/ReviewChecks';
@@ -13,7 +12,7 @@ const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={Home}/>
+                <Route path="/" exact component={Login}/>
                 <Route path="/login" exact component={Login}/>
                 <Route path="/otp" exact component={Otp}/>
                 <Route path="/candidate/consent" exact component={Consent} />
