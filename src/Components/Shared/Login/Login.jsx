@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import './Login.scss';
 import { BASE_URL, AUTHENTICATE_LOGIN, OTP_AUTHENTICATION, PASS_EXPIRED } from '../../../Shared/Constants';
 import mainImg from '../../../Assets/main.svg';
+import userImg from '../../../Assets/user.svg';
+import passImg from '../../../Assets/password.svg';
 
 class Login extends React.PureComponent {
     constructor(props) {
@@ -13,12 +15,15 @@ class Login extends React.PureComponent {
         super(props);
         this.state = {
             password: '',
-            email: ''
+            email: '',
+            isPasswordVisible: false,
+            inputType: 'password'
         };
         
         this.handleChangePass = this.handleChangePass.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleShowHide = this.handleShowHide.bind(this);
     }
     
     handleChangeEmail(event) {
@@ -29,6 +34,16 @@ class Login extends React.PureComponent {
         this.setState({ password: event.target.value });
     }
 
+    handleShowHide() {
+        if ( this.state.isPasswordVisible === true) {
+            this.setState( { isPasswordVisible: false } );
+            this.setState( { inputType: 'password' } );
+        } else {
+            this.setState( { isPasswordVisible: true } );
+            this.setState( { inputType: 'text' } );
+        }
+        
+    }
     handleSubmit(event){
         event.preventDefault();
         let credentials = [ this.state.email, this.state.password ];
@@ -109,9 +124,10 @@ class Login extends React.PureComponent {
                 </header>
 
                 <div className="mainSection">
-                    <div className="registrationHeading">Existing User <b>Sign In</b></div>
+                    <div className="loginHeading"><b>Sign In</b></div>
                     <form onSubmit={this.handleSubmit}> 
                         <div className="form-group">
+                            <img src={userImg}/>
                             <label className="inp">
                                 <input placeholder="&nbsp;" name="email" value ={this.state.email} onChange={this.handleChangeEmail} />
                                 <span className="label">Email</span>
@@ -120,10 +136,12 @@ class Login extends React.PureComponent {
                         </div>
 
                         <div className="form-group">
+                            <img src={passImg}/>
                             <label className="inp">
-                                <input placeholder="&nbsp;" type="password" name="password" value ={this.state.password} onChange={this.handleChangePass} />
+                                <input placeholder="&nbsp;" type={this.state.inputType} name="password" value ={this.state.password} onChange={this.handleChangePass} />
                                 <span className="label">Enter Password</span>
                                 <span className="border"></span>
+                                <span className="showHide" onClick={this.handleShowHide}>{this.state.isPasswordVisible ? 'Hide' : 'Show'}</span>
                             </label>
                             
                             <p>
