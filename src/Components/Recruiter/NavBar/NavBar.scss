@@ -1,9 +1,8 @@
-
 .navbar {
   .topnav {
     overflow: hidden;
     background-color: white;
-    margin: 0 14vw;
+    margin: 0 7vw;
   }
 
   .topnav a {
@@ -21,21 +20,22 @@
     margin: 10px;
     margin-top: 0;
   }
-  
+
   .topnav a:hover {
     border-bottom: 2px solid #02529c;
     cursor: pointer;
   }
-  
+
   .topnav a.active {
     color: #02529c;
     border-bottom: 2px solid #02529c;
   }
 
-  .topnav a:hover:nth-child(2), .topnav a:hover:first-child {
-    border:0;
+  .topnav a:hover:nth-child(2),
+  .topnav a:hover:first-child {
+    border: 0;
   }
-  
+
   .topnav .icon {
     display: none;
   }
@@ -50,24 +50,24 @@
     border-radius: 21px;
     background: #02529c;
   }
-  
+
   .btn-toggle:focus,
   .btn-toggle.focus,
   .btn-toggle:focus.active,
   .btn-toggle.focus.active {
     outline: none;
   }
-  
+
   .btn-toggle:before {
-    content: 'Online';
+    content: "Online";
     margin-left: -5px;
   }
-  
+
   .btn-toggle:after {
-    content: 'Offline';
+    content: "Offline";
     margin-left: -10px;
   }
-  
+
   .btn-toggle > .handle {
     position: absolute;
     top: 1.5px;
@@ -78,47 +78,46 @@
     background: #fff;
     transition: left 0.25s;
   }
-  
+
   .btn-toggle.active {
     transition: background-color 0.25s;
   }
-  
+
   .btn-toggle.active > .handle {
     top: 1.5px;
     left: 41px;
     transition: left 0.25s;
   }
-  
+
   .btn-toggle.btn-sm:before,
   .btn-toggle.btn-sm:after {
     color: #fff;
     width: 2.325rem;
   }
-  
+
   .btn-toggle.btn-sm:before {
     text-align: right;
     opacity: 0;
   }
-  
+
   .btn-toggle.btn-sm:after {
     text-align: left;
     opacity: 1;
-    
   }
-  
+
   .btn-toggle.btn-sm.active:before {
     opacity: 1;
   }
-  
+
   .btn-toggle.btn-sm.active:after {
     opacity: 0;
   }
-  
+
   .btn-toggle.active {
     background-color: #4e9821;
   }
-  
-  #toggle:disabled{
+
+  #toggle:disabled {
     cursor: default;
     opacity: 1;
   }
@@ -135,30 +134,32 @@
     margin: 5px;
     margin-right: 0;
   }
- 
+
   #user_name {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: 10px;
     float: left;
   }
-  
+
   #angleDown {
     float: right;
     margin-top: 15px;
   }
 
-  #user_img{
+  #user_img {
     width: 37px;
     top: -12px;
     height: 37px;
     border: solid 1px #ffffff;
     border-radius: 100%;
-    float:left;
+    float: left;
   }
 
   @media screen and (max-width: 1500px) {
-    .topnav a:not(:nth-child(2)), #toggle, #user_name {
+    .topnav a:not(:nth-child(2)),
+    #toggle,
+    #user_name {
       display: none;
     }
 
@@ -168,12 +169,12 @@
       display: block;
     }
 
-    .topnav{
+    .topnav {
       margin: 0;
       height: fit-content;
     }
 
-    #user{
+    #user {
       position: absolute;
       right: 0;
       top: 0;
@@ -187,7 +188,7 @@
     #logo {
       width: 124px;
       height: 20px;
-      object-fit: contain; 
+      object-fit: contain;
     }
 
     .centerLogo {
@@ -195,9 +196,11 @@
       text-align: center;
     }
   }
-  
+
   @media screen and (max-width: 1500px) {
-    .topnav.responsive {position: relative;}
+    .topnav.responsive {
+      position: relative;
+    }
     .topnav.responsive .icon {
       position: absolute;
       right: 1;
@@ -209,13 +212,13 @@
       font-weight: bold;
       cursor: pointer;
     }
-    
+
     .topnav.topnav.responsive a.active {
       font-weight: bold;
-      border-bottom:0;
+      border-bottom: 0;
     }
 
-    .topnav.responsive #user{
+    .topnav.responsive #user {
       position: absolute;
       right: 0;
       top: 0;
@@ -225,7 +228,8 @@
       height: 100vh;
     }
 
-    .topnav.responsive a, .topnav.responsive #toggle {
+    .topnav.responsive a,
+    .topnav.responsive #toggle {
       float: none;
       display: block;
       text-align: left;
@@ -236,6 +240,4 @@
       text-align: center;
     }
   }
-
 }
-

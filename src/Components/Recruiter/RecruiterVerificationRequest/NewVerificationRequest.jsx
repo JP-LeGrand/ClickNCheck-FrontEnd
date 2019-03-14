@@ -9,7 +9,12 @@ class NewVerificationRequest extends React.Component {
     this.state = {
         
     };
+    ///this.nextSteps = this.nextSteps.bind(this);
   }
+
+  nextSteps(){
+    window.location = '/ReviewChecks';
+}
 
   render() {
     /**Run through the tasks array inside state and put each check on the left or right
@@ -27,6 +32,9 @@ class NewVerificationRequest extends React.Component {
                 <div className="form-group">
                     <input id="profileName" placeholder = "Enter job profile"/>
                 </div>
+            </div>
+            <div id="buttonFooter">
+                <button id="next" onClick={this.nextSteps}>NEXT</button>
             </div>
             <Footer />
         </div>
