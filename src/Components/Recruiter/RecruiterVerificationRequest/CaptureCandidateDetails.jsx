@@ -139,11 +139,11 @@ class CaptureCandidateDetails extends React.PureComponent {
                                 <div className="">
                                     <ul id="progress_bar">
                                         <li className="active">Create Job Profile Name</li>
-                                        <li>Candidate Details</li>
+                                        <li className="active">Candidate Details</li>
                                         <li>Next Steps</li>
                                     </ul>
-                                    <h3>Capture Candidate Details</h3>
-                                    <div id="uploadSwitch">
+                                    <label className="candidateDetails">Capture Candidate Details</label>
+                                    <div className="uploadSwitch">
                                         <button
                                             className="indi"
                                             id="individual"
