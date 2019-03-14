@@ -134,36 +134,6 @@ class MainContainer extends React.PureComponent {
         reader.readAsBinaryString(inputFile.files[0]);
         
     }
-
-
-    bulk(){
-        return (
-                        <fieldset className="field1 current">
-                        <h3>Capture Candidate Details</h3>
-                        <div id="uploadSwitch"> 
-                            <button className="btn btn-primary active" id="individual">INDIVIDUALLY</button>
-                            <button className="btn btn-default" id="bulk">BULK</button>
-                        </div>
-    
-                        <div id="bulkForm">
-                            <div className="upload-area" id="uploadfile">
-                        <img src={require('../../../Assets/upload-file.svg')} alt="upload files here" />
-                                <h3>Drag and Drop files to upload</h3><br/>
-                                <p>Upload only excel documents </p>
-                                <div className="upload-btn-wrapper">
-                                    <button className="btn btn-primary" id="selectFiles">Select Files</button>
-                                    <input type="file" name="file" id="getFile" onChange={() => this.submit() } />
-                                    {/* <button id="check" onClick = {this.submit}> </button> */}
-                                   
-                               </div>
-                                <a><img src={require('../../../Assets/downloadFile.svg')} alt="download-fav" />Download Excel Template</a>
-                                </div>
-                                </div>
-                             </fieldset>
-        );
-
-    } 
-
     review(){
         
         return (
@@ -218,7 +188,7 @@ class MainContainer extends React.PureComponent {
     
                 <div id="bulkForm">
                     <div className="upload-area" id="uploadfile">
-                        <img src={require('../../Assets/upload-file.svg')} alt="upload files here" />
+                        <img src={require('../../../Assets/upload-file.svg')} alt="upload files here" />
                         <h3>Drag and Drop files to upload</h3><br/>
                         <p>Upload only excel documents </p>
                         <div className="upload-btn-wrapper">
@@ -226,7 +196,7 @@ class MainContainer extends React.PureComponent {
                             <input type="file" name="file" id="getFile" onChange={() => this.submit() } />
                             
                         </div>
-                        <a href="https://cncdocuments.blob.core.windows.net/recruiters/CandidateTemplate.xlsx" download><img src={require('../../Assets/downloadFile.svg')} alt="download-fav" />Download Excel Template</a>
+                        <a href="https://cncdocuments.blob.core.windows.net/recruiters/CandidateTemplate.xlsx" download><img src={require('../../../Assets/downloadFile.svg')} alt="download-fav" />Download Excel Template</a>
                     </div>
                 </div>
             </fieldset>
