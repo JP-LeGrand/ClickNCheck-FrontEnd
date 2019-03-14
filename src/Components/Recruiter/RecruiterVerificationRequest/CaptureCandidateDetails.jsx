@@ -165,21 +165,11 @@ class CaptureCandidateDetails extends React.PureComponent {
                     <li className="active">Candidate Details</li>
                     <li>Next Steps</li>
                   </ul>
-                  <h3>Capture Candidate Details</h3>
-                  <div id="uploadSwitch">
-                    <button
-                      className="indi"
-                      id="individual"
-                      onClick={event => this.changeDiv(event)}
-                    >
-                      INDIVIDUALLY
+                  <label className="candidateDetails">Capture Candidate Details</label>
+                  <div className="uploadSwitch">
+                    <button className="indi" id="individual" onClick={event => this.changeDiv(event)}>INDIVIDUAL
                     </button>
-                    <button
-                      className="bulk"
-                      id="bulk"
-                      onClick={event => this.changeDiv(event)}
-                    >
-                      BULK
+                    <button className="bulk" id="bulk" onClick={event => this.changeDiv(event)}>BULK
                     </button>
                   </div>
                   <br className="Line" />

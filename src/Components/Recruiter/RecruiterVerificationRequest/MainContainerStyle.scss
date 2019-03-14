@@ -454,6 +454,10 @@
     font-weight: bold;
   }
 
+  .uploadSwitch{
+   padding-top: 2%;
+  
+  }
   hr {
     border: none;
     border-top: 0.5px dashed #2b3844;
@@ -464,7 +468,8 @@
   }
   #bulkForm .upload-area {
     position: relative;
-    margin-top: 2vh;
+    margin-top: -3vh;
+   
   }
 
   .upload-area img {
