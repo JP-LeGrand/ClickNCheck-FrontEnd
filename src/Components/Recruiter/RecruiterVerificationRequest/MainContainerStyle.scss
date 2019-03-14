@@ -33,8 +33,9 @@ body{
   position: relative;
   float:right;
   align-content: center;
-  border: 1px solid #e6e9ec;
+  border: 1px solid #0091d1;
   margin-right: 2vw;
+  margin-bottom: 2vw;
   border-radius: 8px;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
   width: 16vw;
@@ -45,7 +46,8 @@ body{
   float: left;
   align-content: center;
   margin-left: 2vw;
-  border: 1px solid #e6e9ec;
+  margin-bottom: 2vw;
+  border: 1px solid #0091d1;
   border-radius: 8px;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
   width: 16vw;
@@ -56,13 +58,12 @@ div.checkType {
 }
 
 #vendor {
-  border: 1px solid #FFFFFF;
+  border: 1px solid #0091d1;
   margin: 1vh;
   border-radius: 3px;
-  color: #000000;
+  color: #FFFFFF;
   font-size: 13px;
-  background-color: #FFFFFF;
-  height: 10vh;
+  background-color: #0091d1;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
   align-content: inherit;
 }

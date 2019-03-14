@@ -1,14 +1,15 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Login from '../Components/Shared/Login/Login';
 import Otp from '../Components/Shared/Otp/Otp';
-import ReviewChecks from '../Recruiter/RecruiterVerificationRequest/ReviewChecks';
+import NewVerificationRequest from '../Components/Recruiter/RecruiterVerificationRequest/NewVerificationRequest';
+import ReviewChecks from '../Components/Recruiter/RecruiterVerificationRequest/ReviewChecks';
 import Consent from '../Components/Candidate/Consent/Consent';
 import Consented from '../Components/Candidate/Consented/Consented';
 import ForgotPassword from '..//Components/Shared/ForgotPassword/ForgotPassword';
 import React from 'react';
 import ChangePassword from '../Components/Shared/ChangePassword/ChangePassword';
 import ForgotPasswordSuccess from '../Components/Shared/ForgotPasswordSuccess/ForgotPasswordSuccess';
-import MainContainer from '../Recruiter/RecruiterVerificationRequest/MainContainer';
+import MainContainer from '../Components/Recruiter/RecruiterVerificationRequest/MainContainer';
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -22,6 +23,7 @@ const Routes = () => {
                 <Route path="/forgotPasswordSuccess" exact component={ForgotPasswordSuccess} />
                 <Route path="/changePassword" exact component={ChangePassword} />
                 <Route path="/ReviewChecks" exact component={ReviewChecks} />
+                <Route path="/NewVerificationRequest" exact component={NewVerificationRequest} />
                 <Route path="/candidate/bulk" exact component={MainContainer} />
                 <Route render={() => <Redirect to="/"/>}/>
             </Switch>

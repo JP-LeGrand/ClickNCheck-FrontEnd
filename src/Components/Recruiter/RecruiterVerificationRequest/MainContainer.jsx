@@ -112,7 +112,7 @@ class MainContainer extends React.PureComponent {
     
                         <div id="bulkForm">
                             <div className="upload-area" id="uploadfile">
-                                <img src={require('../../Assets/upload-file.svg')} alt="upload files here" />
+                                <img src={require('../../../Assets/upload-file.svg')} alt="upload files here" />
                                 <h3>Drag and Drop files to upload</h3><br/>
                                 <p>Upload only excel documents </p>
                                 <div className="upload-btn-wrapper">
@@ -121,7 +121,7 @@ class MainContainer extends React.PureComponent {
                                     {/* <button id="check" onClick = {this.submit}> </button> */}
                                    
                                </div>
-                                <a><img src={require('../../Assets/downloadFile.svg')} alt="download-fav" />Download Excel Template</a>
+                                <a><img src={require('../../../Assets/downloadFile.svg')} alt="download-fav" />Download Excel Template</a>
                                 </div>
                                 </div>
                              </fieldset>
