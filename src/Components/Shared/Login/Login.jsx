@@ -119,11 +119,11 @@ class Login extends React.PureComponent {
     
     render() {
         return (
+            
             <div className="login">
                 <header className="headSection">
                     <img src={mainImg}/>
                 </header>
-
                 <div className="mainSection">
                     <div className="loginHeading"><b>Sign In</b></div>
                     <form onSubmit={this.handleSubmit}> 
