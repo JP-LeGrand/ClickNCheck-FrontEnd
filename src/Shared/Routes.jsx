@@ -28,7 +28,6 @@ const Routes = () => {
                 <Route path="/candidate/bulk" exact component={MainContainer} />
                 <Route path="/candidate/individual" exact component={CaptureCandidateDetails} />
              
-                <Route render={() => <Redirect to="/"/>}/>
             </Switch>
         </BrowserRouter>
     );

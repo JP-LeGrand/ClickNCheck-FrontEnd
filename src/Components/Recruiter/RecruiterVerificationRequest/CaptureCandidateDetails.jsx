@@ -11,6 +11,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MainContainer from "./MainContainer";
+import Footer from "../../Shared/Footer/Footer"
 
 class CaptureCandidateDetails extends React.PureComponent {
   constructor(props) {
@@ -18,9 +19,13 @@ class CaptureCandidateDetails extends React.PureComponent {
     this.state = {
       div: false
     };
-    this.changeDiv = this.changeDiv.bind(this);
+    //this.changeDiv = this.changeDiv.bind(this);
+    //this.prevStep = this.prevStep.bind(this);
   }
 
+  prevStep(){
+    window.location = '/ReviewChecks';
+  }
   changeDiv(event) {
     const indi = event.target.id;
     if (indi == "bulk") {
@@ -182,9 +187,10 @@ class CaptureCandidateDetails extends React.PureComponent {
           </fieldset>
         </div>
         <div id="buttonFooter">
-          <button id="prev">BACK</button>
+          <button id="prev" onClick={this.prevStep}>BACK</button>
           <button id="next">NEXT</button>
         </div>
+        <Footer />
       </div>
     );
   }
