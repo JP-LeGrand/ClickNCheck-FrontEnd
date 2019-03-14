@@ -5,7 +5,8 @@ import './ForgotPassword.scss';
 import imgMain from '../../../Assets/main.svg';
 import { BASE_URL, FORGOT_PASSWORD_EMAIL,FORGOT_PASSWORD_PHONE } from '../../../Shared/Constants';
 import axios from 'axios';
-
+import Footer from '../Footer/Footer';
+import FooterPreviousNext from '../FooterPreviousNext/FooterPreviousNext';
 function RecieveMethod(props){
     if (props.sendVia === 'phone') {
         return ( 
@@ -98,27 +99,23 @@ class ForgotPassword extends React.PureComponent{
             };
             if (this.state.useID && this.state.validID) {
                 await axios.post(BASE_URL + FORGOT_PASSWORD_EMAIL, body)
-                    .then(function (response) {
-                        console.log(response);
+                    .then(function () {
                         alert('Forgot password request succesfully sent to email');
                         localStorage.setItem('sentTo', 'email');
                         window.location = '/forgotPasswordSuccess';
                     })
                     .catch(function (error) {
-                        console.log(error);
                         alert('Oops something went wrong' + error);
                     });
             } else if (this.state.usePassport && this.state.validPassport) {
                 await axios.post(BASE_URL + FORGOT_PASSWORD_EMAIL, body)
-                    .then(function (response) {
-                        console.log(response);
+                    .then(function () {
                         alert('Forgot password request succesfully sent to email');
                         localStorage.setItem('sentTo', 'email');
                         window.location = '/forgotPasswordSuccess';
                     })
                     .catch(function (error) {
                         alert('Oops something went wrong' + error);
-                        console.log(error);
                     });
             } else {
                 alert('Passport or ID is invalid');
@@ -131,27 +128,23 @@ class ForgotPassword extends React.PureComponent{
             };
             if (this.state.useID && this.state.validID) {
                 await axios.post(BASE_URL + FORGOT_PASSWORD_PHONE, body)
-                    .then(function (response) {
-                        console.log(response);
+                    .then(function () {
                         alert('Forgot password request succesfully sent to phone number');
                         localStorage.setItem('sentTo', 'phone');
                         window.location = '/forgotPasswordSuccess';
                     })
                     .catch(function (error) {
                         alert('Oops something went wrong' + error);
-                        console.log(error);
                     });
             } else if (this.state.usePassport && this.state.validPassport) {
                 await axios.post(BASE_URL + FORGOT_PASSWORD_PHONE, body)
-                    .then(function (response) {
-                        console.log(response);
+                    .then(function () {
                         alert('Forgot password request succesfully sent to phone number');
                         localStorage.setItem('sentTo', 'phone');
                         window.location = '/forgotPasswordSuccess';
                     })
                     .catch(function (error) {
                         alert('Oops something went wrong' + error);
-                        console.log(error);
                     });
             } else {
                 alert('Passport or ID is invalid');
@@ -233,7 +226,6 @@ class ForgotPassword extends React.PureComponent{
                     validPhone: true
                 });
             } else if (checkPhoneEmail.charAt(INT_ZERO) === PLUS && checkPhoneEmail.length === INTERNATIONAL && checkPhoneEmail.match(/[+][0-9]{11}/)) {
-                console.log('phone number before check match is true: ' + checkPhoneEmail.match(/[+][0-9]{11}/)); 
                 this.setState({
                     validPhone: true
                 });
@@ -274,26 +266,26 @@ class ForgotPassword extends React.PureComponent{
                 <div className="mainSection">
                     <div className="registrationHeading">Forgot Password</div> 
                     <div id="checkSection" className="sendWhat">
-                        <p className="send">Select what you would like us to send you</p>
+                        <p className="send sub">Select what you would like us to send you</p>
                         <div className="send">
-                            <input id="username" onChange={this.handleEmailCheck} checked={this.state.sendEmail} type="checkbox" className ="sendInfo"/><label htmlFor="username">Username</label>
+                            <input id="username" onChange={this.handleEmailCheck} checked={this.state.sendEmail} type="checkbox" className ="sendInfo"/><label className="sub" htmlFor="username">Username</label>
                         </div>
                         <br/>
-                        <div id="send">
-                            <input id="password" onChange={this.handlePasswordCheck} checked={this.state.sendPassword} type="checkbox" className ="sendInfo"/><label htmlFor="password">Password</label>
+                        <div className="send">
+                            <input id="password" onChange={this.handlePasswordCheck} checked={this.state.sendPassword} type="checkbox" className="sendInfo" /><label className="sub" htmlFor="password">Password</label>
                         </div>
                     </div>
-                    <div className="sendWhat">
-                        <p className="send">We need to Identify you before we send you the details </p>
+                    <div id="idHead" className="sendWhat">
+                        <p className="send sub">We need to Identify you before we send you the details </p>
                     </div>
            
                     <div className="sendWhat">
-                        <strong className="send">Identification Type</strong>
+                        <strong className="send bold">Identification Type</strong>
                         <br/>
-                        <select onChange={this.handleIDorPassprt} className="send">
-                            <option value="" >Type of Identity</option>
-                            <option value ="ID">SA ID</option>
-                            <option value ="Passport">Passport</option>
+                        <select className="selectHead send" onChange={this.handleIDorPassprt} >
+                            <option className="selectHead" value="" >please select</option>
+                            <option className="selectOption" value ="ID">SA ID</option>
+                            <option className="selectOption" value ="Passport">Passport</option>
                         </select>
                         {this.state.useID && <IdentityMethod passportNumber={this.state.passportNumber} handlePassportID={this.handlePassportID} idType="ID"/> }
                         {this.state.usePassport && <IdentityMethod passportNumber={this.state.passportNumber} handlePassportID={this.handlePassportID} idType="Passport" />}
@@ -301,12 +293,12 @@ class ForgotPassword extends React.PureComponent{
                         {!this.state.validID && this.state.useID && <p className="send error">Invalid ID Number</p>}
                     </div>
                     <div className="sendWhat">
-                        <strong id="via" className="send">Send Via</strong>
+                        <strong id="via" className="send bold">Send Via</strong>
                         <br/>
-                        <select onChange={this.handlePhoneOrEmail} id="belowinp" className="send">
-                            <option value="" >Receive Notification from</option>
-                            <option value="phone">Phone</option>
-                            <option value="email">Email</option>
+                        <select className="selectHead send" onChange={this.handlePhoneOrEmail} id="belowinp">
+                            <option className="selectHead" value="" >please select</option>
+                            <option className="selectOption" value="phone">Phone</option>
+                            <option className="selectOption" value="email">Email</option>
                         </select>
                         
                         {this.state.sendViaEmail && <RecieveMethod phoneEmail={this.state.phoneEmail}handleEmailPhone={this.handleEmailPhone} sendVia="email"/> }
