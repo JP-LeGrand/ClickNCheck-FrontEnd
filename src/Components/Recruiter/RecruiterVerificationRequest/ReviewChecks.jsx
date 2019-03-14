@@ -1,7 +1,8 @@
 import React from "react";
 import "./MainContainerStyle.scss";
-import { GET_ALL_JOB_PROFILE_CHECKS } from "../../../Shared/Constants";
-
+import Footer from "../../Shared/Footer/Footer"
+import { BASE_URL } from "../../../Shared/Constants";
+import NavBar from "../NavBar/NavBar"
 class ReviewChecks extends React.Component {
   constructor(props){
     super(props);
@@ -11,6 +12,12 @@ class ReviewChecks extends React.Component {
     };
   }
 
+  verificationChecks(){
+    window.location = '/NewVerificationRequest';
+  }
+  individualForm(){
+    window.location = '/candidate/individual';
+  }
   render() {
     var checks = {
       onLeft: [],
@@ -22,14 +29,15 @@ class ReviewChecks extends React.Component {
     */
     this.state.checks.forEach((check) => {
       checks[check.location].push(
-        <div id="vendor" style={{cursor:this.state.cursor, backgroundColor: this.state.bgColor}} draggable onDragStart={(e) => this.onDragStart(e, check.vendors[0], check.category)} onDragEnd={(e) => this.onDragEnd(e)}>
-          <h3>{check.category}</h3>
+        <div id={check.cssID} style={{cursor:this.state.cursor, color: check.color, backgroundColor: check.bgColor}} draggable onDragStart={(e) => this.onDragStart(e, check.vendors[0], check.category)} onDragEnd={(e) => this.onDragEnd(e)}>
+          <h3 style={{color: check.color}}>{check.category}</h3>
           <p>{check.vendors}</p>
         </div>
       )
     });
     return (
       <div className="bodyPage">
+        <NavBar />
         <div id="formContainer">
           <ul id='progress_bar'>
             <li className="active">Select verification checks</li>
@@ -50,6 +58,11 @@ class ReviewChecks extends React.Component {
             {checks.onRight}
           </div>
         </div>
+        <div id="buttonFooter">
+          <button id="prev" onClick={this.verificationChecks}>BACK</button>
+          <button id="next" onClick={this.individualForm}>NEXT</button>
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -61,6 +74,14 @@ class ReviewChecks extends React.Component {
     let tasks = this.state.checks.filter((check) => {
         if (check.vendors[0] == vendor) {
           check.location = pos;
+          if(check.bgColor == "#FFFFFF"){
+            check.bgColor = "#0091d1";
+            check.color = "white";
+          }
+          else{
+            check.bgColor = "#FFFFFF";
+            check.color = "black";
+          }
           this.state.checks.forEach((c) =>{
             if(c.category == cat && c.location != pos){
               c.vendors.push(check.vendors[0]);
@@ -97,7 +118,7 @@ class ReviewChecks extends React.Component {
 
   componentDidMount(){
     var arr = [];
-    fetch('https://localhost:44347/api/'+'JobProfiles/jobChecks/1' , {
+    fetch(BASE_URL+'JobProfiles/jobChecks/1' , {
       method: 'GET',
       mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -117,7 +138,10 @@ class ReviewChecks extends React.Component {
             category: check.category,
             categoryID: check.checkCategoryID,
             location: "onLeft",
-            id: check.id
+            id: check.id,
+            bgColor: "#0091d1",
+            cssID: "vendor2",
+            color: "white"
           })
         });
     },
@@ -125,7 +149,7 @@ class ReviewChecks extends React.Component {
       alert(error);
     });
 
-    fetch('https://localhost:44347/api/JobProfiles/'+'getAllChecks' , {
+    fetch(BASE_URL+'JobProfiles/getAllChecks' , {
       method: 'GET',
       mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -145,7 +169,10 @@ class ReviewChecks extends React.Component {
             category: check.checkType,
             categoryID: check.checkTypeID,
             location: "onRight",
-            id: check.id
+            id: check.id,
+            bgColor: "#FFFFFF",
+            cssID: "vendor1",
+            color: "black"
           })
         });
         this.setState({checks: arr});
@@ -153,10 +180,7 @@ class ReviewChecks extends React.Component {
     (error) => {
       alert(error);
     });
-
-    
   }
- 
 }
   
 

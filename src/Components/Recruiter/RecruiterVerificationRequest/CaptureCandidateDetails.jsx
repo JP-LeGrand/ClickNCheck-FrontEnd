@@ -22,9 +22,11 @@ class CaptureCandidateDetails extends React.PureComponent {
     this.state = {
       div: false
     };
-    this.changeDiv = this.changeDiv.bind(this);
   }
 
+  prevStep(){
+    window.location = '/ReviewChecks';
+  }
   changeDiv(event) {
     const indi = event.target.id;
     if (indi == "bulk") {
@@ -160,7 +162,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                 <div className="">
                   <ul id="progress_bar">
                     <li className="active">Create Job Profile Name</li>
-                    <li>Candidate Details</li>
+                    <li className="active">Candidate Details</li>
                     <li>Next Steps</li>
                   </ul>
                   <h3>Capture Candidate Details</h3>
@@ -189,11 +191,12 @@ class CaptureCandidateDetails extends React.PureComponent {
           </div>
 
           <div id="buttonFooter">
-            <button id="prev">BACK</button>
+            <button id="prev" onClick={this.prevStep}>BACK</button>
             <button id="next">NEXT</button>
           </div>
           <Footer />
         </div>
+        <Footer />
       </div>
     );
   }

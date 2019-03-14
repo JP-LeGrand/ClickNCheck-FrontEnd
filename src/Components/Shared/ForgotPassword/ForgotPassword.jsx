@@ -266,26 +266,26 @@ class ForgotPassword extends React.PureComponent{
                 <div className="mainSection">
                     <div className="registrationHeading">Forgot Password</div> 
                     <div id="checkSection" className="sendWhat">
-                        <p className="send">Select what you would like us to send you</p>
+                        <p className="send sub">Select what you would like us to send you</p>
                         <div className="send">
-                            <input id="username" onChange={this.handleEmailCheck} checked={this.state.sendEmail} type="checkbox" className ="sendInfo"/><label htmlFor="username">Username</label>
+                            <input id="username" onChange={this.handleEmailCheck} checked={this.state.sendEmail} type="checkbox" className ="sendInfo"/><label className="sub" htmlFor="username">Username</label>
                         </div>
                         <br/>
-                        <div id="send">
-                            <input id="password" onChange={this.handlePasswordCheck} checked={this.state.sendPassword} type="checkbox" className ="sendInfo"/><label htmlFor="password">Password</label>
+                        <div className="send">
+                            <input id="password" onChange={this.handlePasswordCheck} checked={this.state.sendPassword} type="checkbox" className="sendInfo" /><label className="sub" htmlFor="password">Password</label>
                         </div>
                     </div>
-                    <div className="sendWhat">
-                        <p className="send">We need to Identify you before we send you the details </p>
+                    <div id="idHead" className="sendWhat">
+                        <p className="send sub">We need to Identify you before we send you the details </p>
                     </div>
            
                     <div className="sendWhat">
-                        <strong className="send">Identification Type</strong>
+                        <strong className="send bold">Identification Type</strong>
                         <br/>
-                        <select onChange={this.handleIDorPassprt} className="send">
-                            <option value="" >Type of Identity</option>
-                            <option value ="ID">SA ID</option>
-                            <option value ="Passport">Passport</option>
+                        <select className="selectHead send" onChange={this.handleIDorPassprt} >
+                            <option className="selectHead" value="" >please select</option>
+                            <option className="selectOption" value ="ID">SA ID</option>
+                            <option className="selectOption" value ="Passport">Passport</option>
                         </select>
                         {this.state.useID && <IdentityMethod passportNumber={this.state.passportNumber} handlePassportID={this.handlePassportID} idType="ID"/> }
                         {this.state.usePassport && <IdentityMethod passportNumber={this.state.passportNumber} handlePassportID={this.handlePassportID} idType="Passport" />}
@@ -293,12 +293,12 @@ class ForgotPassword extends React.PureComponent{
                         {!this.state.validID && this.state.useID && <p className="send error">Invalid ID Number</p>}
                     </div>
                     <div className="sendWhat">
-                        <strong id="via" className="send">Send Via</strong>
+                        <strong id="via" className="send bold">Send Via</strong>
                         <br/>
-                        <select onChange={this.handlePhoneOrEmail} id="belowinp" className="send">
-                            <option value="" >Receive Notification from</option>
-                            <option value="phone">Phone</option>
-                            <option value="email">Email</option>
+                        <select className="selectHead send" onChange={this.handlePhoneOrEmail} id="belowinp">
+                            <option className="selectHead" value="" >please select</option>
+                            <option className="selectOption" value="phone">Phone</option>
+                            <option className="selectOption" value="email">Email</option>
                         </select>
                         
                         {this.state.sendViaEmail && <RecieveMethod phoneEmail={this.state.phoneEmail}handleEmailPhone={this.handleEmailPhone} sendVia="email"/> }

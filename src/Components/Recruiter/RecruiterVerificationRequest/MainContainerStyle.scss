@@ -129,17 +129,23 @@
     text-align: center;
   }
 
-#vendor {
+#vendor1 {
   border: 1px solid #0091d1;
   margin: 1vh;
   border-radius: 3px;
-  color: #FFFFFF;
   font-size: 13px;
-  background-color: #0091d1;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
   align-content: inherit;
 }
 
+#vendor2 {
+  border: 1px solid #0091d1;
+  margin: 1vh;
+  border-radius: 3px;
+  font-size: 13px;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+  align-content: inherit;
+}
   #vendor p {
     align-content: center;
     display: list-item;
@@ -970,6 +976,21 @@
     font-size: 14px;
     font-weight: bold;
   }
+
+  div #profileName {
+    border: 0px solid #000000;
+    border-bottom: 0.5px solid #000000;
+    outline: none;
+    width: 18vw;
+    height: 5vh;
+  }
+
+#dropDownDiv {
+  margin-bottom: 3vh;
+}
+  
+
+  
 
   // td img{
   //   content:url("../../../icons/deleteEntry.png");
