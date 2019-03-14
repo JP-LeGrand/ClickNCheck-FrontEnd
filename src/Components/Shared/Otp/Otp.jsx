@@ -108,33 +108,33 @@ class Otp extends React.PureComponent {
     
     render() {
         if ( localStorage.getItem('user_id') !== null) {
-            return (
-                <div className="otp">
-                    <header className="headSection">
-                        <img src={mainImg} />
-                    </header>
+        return (
+            <div className="otp">
+                <header className="headSection">
+                    <img src={mainImg} />
+                </header>
     
-                    <div className="mainSection">
-                        <div className="registrationHeading">
+                <div className="mainSection">
+                    <div className="registrationHeading">
                             Enter the One-Time Pin sent to you
-                        </div> 
+                    </div> 
     
-                        <div className="form-group">
-                            <input placeholder="&nbsp;" type="number" value ={this.state.digit1} onChange={this.handleChangeDigit1}/>
-                            <input placeholder="&nbsp;" type="number" value ={this.state.digit2} onChange={this.handleChangeDigit2}/>
-                            <input placeholder="&nbsp;" type="number" value ={this.state.digit3} onChange={this.handleChangeDigit3}/>
-                            <input placeholder="&nbsp;" type="number" value ={this.state.digit4} onChange={this.handleChangeDigit4}/>
-                            <input placeholder="&nbsp;" type="number" value ={this.state.digit5} onChange={this.handleChangeDigit5}/> 
-                        </div>
-                        <br/>
-                        <br/>
-                        <div className="form-group">
-                            <button onClick={this.handleSubmit}>SUBMIT</button>
-                            <p><a id="resend" href="#">Resend</a> or need <a id="help" href="#">Help?</a></p>
-                        </div> 
+                    <div className="form-group">
+                        <input placeholder="&nbsp;" type="number" value ={this.state.digit1} onChange={this.handleChangeDigit1}/>
+                        <input placeholder="&nbsp;" type="number" value ={this.state.digit2} onChange={this.handleChangeDigit2}/>
+                        <input placeholder="&nbsp;" type="number" value ={this.state.digit3} onChange={this.handleChangeDigit3}/>
+                        <input placeholder="&nbsp;" type="number" value ={this.state.digit4} onChange={this.handleChangeDigit4}/>
+                        <input placeholder="&nbsp;" type="number" value ={this.state.digit5} onChange={this.handleChangeDigit5}/> 
                     </div>
+                    <br/>
+                    <br/>
+                    <div className="form-group">
+                        <button onClick={this.handleSubmit}>SUBMIT</button>
+                        <p><a id="resend" href="#">Resend</a> or need <a id="help" href="#">Help?</a></p>
+                    </div> 
                 </div>
-            );
+            </div>
+        );
         } else {
             window.location = '/login';
         }
