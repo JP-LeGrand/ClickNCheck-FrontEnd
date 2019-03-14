@@ -101,43 +101,44 @@
     box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
   }
 
-  #draggableContainer {
-    position: relative;
-    float: right;
-    align-content: center;
-    border: 1px solid #e6e9ec;
-    margin-right: 2vw;
-    border-radius: 8px;
-    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
-    width: 16vw;
-  }
+#draggableContainer{
+  position: relative;
+  float:right;
+  align-content: center;
+  border: 1px solid #0091d1;
+  margin-right: 2vw;
+  margin-bottom: 2vw;
+  border-radius: 8px;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+  width: 16vw;
+}
 
-  #droppableContainer {
-    position: relative;
-    float: left;
-    align-content: center;
-    margin-left: 2vw;
-    border: 1px solid #e6e9ec;
-    border-radius: 8px;
-    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
-    width: 16vw;
-  }
+#droppableContainer{
+  position: relative;
+  float: left;
+  align-content: center;
+  margin-left: 2vw;
+  margin-bottom: 2vw;
+  border: 1px solid #0091d1;
+  border-radius: 8px;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+  width: 16vw;
+}
 
   div.checkType {
     text-align: center;
   }
 
-  #vendor {
-    border: 1px solid #ffffff;
-    margin: 1vh;
-    border-radius: 3px;
-    color: #000000;
-    font-size: 13px;
-    background-color: #ffffff;
-    height: 10vh;
-    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
-    align-content: inherit;
-  }
+#vendor {
+  border: 1px solid #0091d1;
+  margin: 1vh;
+  border-radius: 3px;
+  color: #FFFFFF;
+  font-size: 13px;
+  background-color: #0091d1;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+  align-content: inherit;
+}
 
   #vendor p {
     align-content: center;
