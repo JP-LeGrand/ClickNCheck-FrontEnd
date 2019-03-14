@@ -3,6 +3,7 @@
     overflow: hidden;
     background-color: white;
     margin: 0 7vw;
+    border-bottom: solid 1px #f9f9f9;
   }
 
   .topnav a {
@@ -31,8 +32,7 @@
     border-bottom: 2px solid #02529c;
   }
 
-  .topnav a:hover:nth-child(2),
-  .topnav a:hover:first-child {
+  .noHover a:hover{
     border: 0;
   }
 
@@ -131,7 +131,7 @@
     font-stretch: normal;
     line-height: 1.83;
     letter-spacing: 0.8px;
-    margin: 5px;
+    margin: -15px;
     margin-right: 0;
   }
 
@@ -157,7 +157,7 @@
   }
 
   @media screen and (max-width: 1500px) {
-    .topnav a:not(:nth-child(2)),
+    #mobile,
     #toggle,
     #user_name {
       display: none;
@@ -176,7 +176,8 @@
 
     #user {
       position: absolute;
-      right: 0;
+      right: 0;  
+      margin: 6px;
       top: 0;
     }
 
@@ -213,26 +214,38 @@
       cursor: pointer;
     }
 
-    .topnav.topnav.responsive a.active {
+    .topnav.responsive a.active {
       font-weight: bold;
       border-bottom: 0;
+    }
+
+    .noHover {
+      height:78px;
+      border-bottom: solid 1px #f9f9f9;
+    }
+    
+    .topnav.responsive #mobile{
+      display: block;
+      width: 287px;
+      height:100vh;
+      transition: 0.5s;
+    }
+
+    .topnav.responsive #mobile a, .topnav.responsive #mobile #toggle{
+      display: block;
+      text-align: left;
+      float: none;
     }
 
     .topnav.responsive #user {
       position: absolute;
       right: 0;
+      margin: 6px;
       top: 0;
     }
 
     .topnav.responsive {
       height: 100vh;
-    }
-
-    .topnav.responsive a,
-    .topnav.responsive #toggle {
-      float: none;
-      display: block;
-      text-align: left;
     }
 
     .topnav.responsive .centerLogo {
