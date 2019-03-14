@@ -100,7 +100,7 @@ class Otp extends React.PureComponent {
 
           if (id_pass_manager === null) {
             if (response[one] === "recruiter") {
-              alert("hey recruiter");
+              window.location = "NewVerificationRequest";
             } else if (response[one] === "admin") {
               alert("hey admin");
             }
