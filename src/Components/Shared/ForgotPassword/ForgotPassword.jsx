@@ -5,7 +5,8 @@ import './ForgotPassword.scss';
 import imgMain from '../../../Assets/main.svg';
 import { BASE_URL, FORGOT_PASSWORD_EMAIL,FORGOT_PASSWORD_PHONE } from '../../../Shared/Constants';
 import axios from 'axios';
-
+import Footer from '../Footer/Footer';
+import FooterPreviousNext from '../FooterPreviousNext/FooterPreviousNext';
 function RecieveMethod(props){
     if (props.sendVia === 'phone') {
         return ( 
@@ -98,27 +99,23 @@ class ForgotPassword extends React.PureComponent{
             };
             if (this.state.useID && this.state.validID) {
                 await axios.post(BASE_URL + FORGOT_PASSWORD_EMAIL, body)
-                    .then(function (response) {
-                        console.log(response);
+                    .then(function () {
                         alert('Forgot password request succesfully sent to email');
                         localStorage.setItem('sentTo', 'email');
                         window.location = '/forgotPasswordSuccess';
                     })
                     .catch(function (error) {
-                        console.log(error);
                         alert('Oops something went wrong' + error);
                     });
             } else if (this.state.usePassport && this.state.validPassport) {
                 await axios.post(BASE_URL + FORGOT_PASSWORD_EMAIL, body)
-                    .then(function (response) {
-                        console.log(response);
+                    .then(function () {
                         alert('Forgot password request succesfully sent to email');
                         localStorage.setItem('sentTo', 'email');
                         window.location = '/forgotPasswordSuccess';
                     })
                     .catch(function (error) {
                         alert('Oops something went wrong' + error);
-                        console.log(error);
                     });
             } else {
                 alert('Passport or ID is invalid');
@@ -131,27 +128,23 @@ class ForgotPassword extends React.PureComponent{
             };
             if (this.state.useID && this.state.validID) {
                 await axios.post(BASE_URL + FORGOT_PASSWORD_PHONE, body)
-                    .then(function (response) {
-                        console.log(response);
+                    .then(function () {
                         alert('Forgot password request succesfully sent to phone number');
                         localStorage.setItem('sentTo', 'phone');
                         window.location = '/forgotPasswordSuccess';
                     })
                     .catch(function (error) {
                         alert('Oops something went wrong' + error);
-                        console.log(error);
                     });
             } else if (this.state.usePassport && this.state.validPassport) {
                 await axios.post(BASE_URL + FORGOT_PASSWORD_PHONE, body)
-                    .then(function (response) {
-                        console.log(response);
+                    .then(function () {
                         alert('Forgot password request succesfully sent to phone number');
                         localStorage.setItem('sentTo', 'phone');
                         window.location = '/forgotPasswordSuccess';
                     })
                     .catch(function (error) {
                         alert('Oops something went wrong' + error);
-                        console.log(error);
                     });
             } else {
                 alert('Passport or ID is invalid');
@@ -233,7 +226,6 @@ class ForgotPassword extends React.PureComponent{
                     validPhone: true
                 });
             } else if (checkPhoneEmail.charAt(INT_ZERO) === PLUS && checkPhoneEmail.length === INTERNATIONAL && checkPhoneEmail.match(/[+][0-9]{11}/)) {
-                console.log('phone number before check match is true: ' + checkPhoneEmail.match(/[+][0-9]{11}/)); 
                 this.setState({
                     validPhone: true
                 });
