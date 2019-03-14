@@ -1,0 +1,45 @@
+.main {
+  .candidateHeader {
+    width: 235px;
+    height: 27px;
+    font-size: 24px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: 0.6px;
+    color: #2b3844;
+  }
+  .Rectangle {
+    width: 286px;
+    height: 40px;
+    background-color: #f9f9f9;
+
+    .Candidate {
+      width: 149px;
+      height: 23px;
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.64;
+      letter-spacing: 0.9px;
+      color: #2b3844;
+    }
+  }
+  .Add-another-candid {
+    width: 218px;
+    height: 22px;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.83;
+    letter-spacing: 0.8px;
+    color: #0091d1;
+  }
+  .wrappingDiv {
+    width: 288px;
+    border-right: 0.5px solid black;
+  }
+}
