@@ -9,6 +9,8 @@ import ForgotPassword from '../Components/Shared/ForgotPassword/ForgotPassword';
 import ChangePassword from '../Components/Shared/ChangePassword/ChangePassword';
 import ForgotPasswordSuccess from '../Components/Shared/ForgotPasswordSuccess/ForgotPasswordSuccess';
 import MainContainer from '../Components/Recruiter/RecruiterVerificationRequest/MainContainer';
+import NavBar from '../Components/Recruiter/NavBar/NavBar';
+
 const Routes = () => {
     return (
         <BrowserRouter>
