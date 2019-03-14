@@ -11,6 +11,8 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MainContainer from "./MainContainer";
+import Footer from "../../Shared/Footer/Footer";
+import FooterPrevNext from "../../Shared/FooterPreviousNext/FooterPreviousNext";
 
 class CaptureCandidateDetails extends React.PureComponent {
   constructor(props) {
@@ -181,10 +183,12 @@ class CaptureCandidateDetails extends React.PureComponent {
             </div>
           </fieldset>
         </div>
+
         <div id="buttonFooter">
           <button id="prev">BACK</button>
           <button id="next">NEXT</button>
         </div>
+        <Footer />
       </div>
     );
   }
