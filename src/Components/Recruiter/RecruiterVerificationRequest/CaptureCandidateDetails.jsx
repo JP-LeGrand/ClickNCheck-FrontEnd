@@ -100,7 +100,6 @@ class CaptureCandidateDetails extends React.PureComponent {
                                     </RadioGroup>
                                 </FormControl>
                             </div>
-
                             <tr>
                                 <td>
                                     <div className="form-group">
@@ -161,7 +160,6 @@ class CaptureCandidateDetails extends React.PureComponent {
                                         </button>
                                     </div>
                                     <br className="Line" />
-
                                     {!this.state.div ? this.individual() : <MainContainer />}
                                 </div>
                             </div>
