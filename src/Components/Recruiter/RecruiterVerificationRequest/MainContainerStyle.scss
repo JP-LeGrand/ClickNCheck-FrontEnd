@@ -90,11 +90,11 @@ body{
 }
 
 #formContainer{
+    position: relative;
+    overflow: hidden;
     border: 1px solid white;
-    width:80vw;
-    height: 70vh;
     padding:0px;
-    margin:8vh auto;
+    margin: 14vh;
     border-radius: 8px;
     font-family:helvetica;
     position:relative;
@@ -102,41 +102,48 @@ body{
 }
 
 #draggableContainer{
+  position: relative;
   float:right;
   align-content: center;
   border: 1px solid #e6e9ec;
   margin-right: 2vw;
   border-radius: 8px;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+  width: 16vw;
 }
 
 #droppableContainer{
+  position: relative;
   float: left;
   align-content: center;
   margin-left: 2vw;
   border: 1px solid #e6e9ec;
   border-radius: 8px;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+  width: 16vw;
 }
 
 div.checkType {
   text-align: center;
 }
 
-div #vendor {
+#vendor {
   border: 1px solid #FFFFFF;
   margin: 1vh;
   border-radius: 3px;
   color: #000000;
   font-size: 13px;
   background-color: #FFFFFF;
-  height: 4vh;
+  height: 10vh;
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
   align-content: inherit;
 }
 
-div #vendor p {
+#vendor p {
   align-content: center;
+  display: list-item;
+  list-style-type: disc;
+  margin-left: 1vw;
 }
 .leftTable{
   position: relative;
