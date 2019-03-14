@@ -223,13 +223,13 @@ class MainContainer extends React.PureComponent {
             })}
           </tbody>
           <validationErrors tableErrors={this.state.tableErrors} />
-          <button
+          {/* <button
             type="submit"
             className="btn btn-primary"
             disabled={!this.state.tableValid}
           >
             submit table
-          </button>
+          </button> */}
         </table>
       </fieldset>
     );
