@@ -10,13 +10,45 @@ class ReviewChecks extends React.Component {
       cursor: "grab",
       checks: []
     };
+    this.individualForm = this.individualForm.bind(this);
   }
 
   verificationChecks(){
     window.location = '/NewVerificationRequest';
   }
   individualForm(){
-    window.location = '/candidate/individual';
+    //window.location = '/candidate/individual';
+    var checks = [];
+    this.state.checks.forEach((check) => {
+      if(check.location == "onLeft")
+        checks.push(check.id);
+    });
+    var createVerReq = {
+      recruiterID: localStorage.getItem('user_id'),
+      checks: checks,
+      IsComplete: true
+    }
+    console.log(JSON.stringify(createVerReq));
+    fetch(BASE_URL+'VerificationChecks/CreateVerificationCheck/'+localStorage.getItem("jpID"), {
+        method: 'POST',
+        mode: 'cors', // no-cors, cors, *same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(createVerReq),
+        redirect: 'manual', // manual, *follow, error
+        referrer: 'no-referrer', // no-referrer, *client 
+        } )
+        .then((response) => response.json())  
+        .then(
+        response => {
+            alert(response);
+        },
+        (error) => {
+        alert(error);
+        });
   }
   render() {
     var checks = {
@@ -118,7 +150,7 @@ class ReviewChecks extends React.Component {
 
   componentDidMount(){
     var arr = [];
-    fetch(BASE_URL+'JobProfiles/jobChecks/1' , {
+    fetch(BASE_URL+'JobProfiles/jobChecks/'+localStorage.getItem('user_id') , {
       method: 'GET',
       mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -128,7 +160,7 @@ class ReviewChecks extends React.Component {
       },
       redirect: 'manual', // manual, *follow, error
       referrer: 'no-referrer', // no-referrer, *client 
-    } )
+    })
     .then((response) => response.json())  
     .then(
        response => {
