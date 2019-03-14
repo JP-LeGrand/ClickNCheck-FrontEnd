@@ -272,16 +272,7 @@ class MainContainer extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div>
-        {!this.state.getFile ? this.bulk() : this.review()}
-
-        <div id="buttonFooter">
-          <button id="prev">BACK</button>
-          <button id="next">NEXT</button>
-        </div>
-      </div>
-    );
+    return <div>{!this.state.getFile ? this.bulk() : this.review()}</div>;
   }
 }
 export default MainContainer;
