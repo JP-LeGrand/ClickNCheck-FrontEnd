@@ -8,14 +8,30 @@ class NewVerificationRequest extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-        jobProfiles: []
+        jobProfiles: [],
+        selectedProfile: ""
     };
+    this.nextSteps = this.nextSteps.bind(this);
   }
 
-  nextSteps(){
-    window.location = '/ReviewChecks';
-}
+nextSteps(){
+    if(this.state.selectedProfile == "e.g Job profile here" || this.state.selectedProfile == ""){
+        return;
+    }
+    else{
+        this.state.jobProfiles.forEach((jp) => {
+            if(jp.title == this.state.selectedProfile){
+                localStorage.setItem('jpID', jp.id);
+            }
+        });
+        window.location = '/ReviewChecks';
+    }
 
+}
+selected = (e) =>{
+    this.setState({selectedProfile: e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text});
+    console.log("hello: "+e.nativeEvent.target[e.nativeEvent.target.selectedIndex].text);
+}
   render() {
     /**Run through the tasks array inside state and put each check on the left or right
      * side of the page depending on whether it came with the jobProfile or not
@@ -26,7 +42,6 @@ class NewVerificationRequest extends React.Component {
     for(var c = 0; c < this.state.jobProfiles.length; c++){
         titles.push(this.state.jobProfiles[c].title);
     }
-    console.log(titles);
     var optionStyles= 'border: solid 0.5px #e6e9ec';
     return (
         <div className="bodyPage">
@@ -39,7 +54,7 @@ class NewVerificationRequest extends React.Component {
                 </ul>
                 <h3>Job Profile</h3>
                 <div id="dropDownDiv">
-                    <select id ="profileName">
+                    <select id ="profileName" onChange={(e) => this.selected(e)}>
                         <option style={{optionStyles}} selected="selected">e.g Job profile here</option>
                         {titles.map(makeOptions)}
                     </select>
@@ -55,7 +70,7 @@ class NewVerificationRequest extends React.Component {
 
     componentDidMount(){
         var arr = [];
-        fetch(BASE_URL+'/JobProfiles/recruiterJobs/6' , {
+        fetch(BASE_URL+'/JobProfiles/recruiterJobs/'+localStorage.getItem('user_id') , {
         method: 'GET',
         mode: 'cors', // no-cors, cors, *same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
