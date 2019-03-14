@@ -143,7 +143,6 @@
     justify-content: space-evenly;
     padding-right: 5%;
     padding-left: 2.5%;
-    //padding-top: 1%;
   }
   .rightformBox {
     display: flex;
@@ -262,21 +261,11 @@
   .textIcons{
     margin: auto;
     position: relative;
-    //bottom:0;
     float: left;
   }
   
-  /*
-  td{
-    padding-top: 50px;
-    padding-bottom: 10px;
-    max-height: 37px;
-    
-  }*/
-  
+
 .radios {
-    //display: flex;
-    //flex-direction: row;
     padding-left: 10%;
     position: relative;
     display: block;
@@ -296,54 +285,33 @@
     height: 50px;
     margin: 0 auto;
     font-size: 20px;
-    //margin-bottom: 58px;
-  }
-  .radioForm{
-
   }
   .inp {
-    //position: relative;
     bottom:0;
   }
 
   .inp .label {
     position: absolute;
-    //top: 16px;
     left:0;
     padding:0;
     margin: 0;
-    //padding-left: 30px;
     font-size: 14px;
     font-weight: normal;
     font-style: normal;
     font-stretch: normal;
-    //line-height: 1.57;
     letter-spacing: 0.9px;
-    color: #2b3844;/*
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;*/
+    color: #2b3844;
   }
   
   .inp input, .inp select {
-    //-webkit-appearance: none;
     width: 220px;
-    //height: 48px;
     border: 0;
-   // padding-left: 30px;
-    //vertical-align: middle;
     border-bottom: 1px solid #223254;
     background: none;
     border-radius: 0;
-    //-webkit-transition: all 0.15s ease;
-    //transition: all 0.15s ease;
     font-size: 12px;
     font-weight: normal;
     font-style: normal;
-    //font-stretch: normal;
-    //line-height: 1.57;
-    //letter-spacing: 0.9px;
     color: #2b3844;
   }
 
@@ -354,30 +322,10 @@
     font-weight: normal;
     font-style: normal;
     font-stretch: normal;
-    //line-height: 1.64;
-    //letter-spacing: 0.9px;
-    //text-align: right;
   }
   
   .inp input:focus, .inp select:focus {
     background: none;
     outline: none;
   }
-  /*
-  .inp input:not(:placeholder-shown) + span {
-    color: #2b3844;
-    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
-            transform: translateY(-26px) translateX(-26px) scale(0.75);
-  }
-  
-  .inp input:focus + span {
-    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
-            transform: translateY(-26px) translateX(-26px) scale(0.75);
-    
-  }
-  
-  .inp input:focus + span + .border {
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-  }*/
 }
