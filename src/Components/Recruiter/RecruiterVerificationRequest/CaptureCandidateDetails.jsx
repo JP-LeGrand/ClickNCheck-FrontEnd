@@ -1,5 +1,6 @@
 import React from "react";
 import "./CaptureCandidateDetailStyle.scss";
+import "./MainContainerStyle.scss";
 import Input from "@material-ui/core/Input";
 import TextField from "@material-ui/core/TextField";
 import Radio from "@material-ui/core/Radio";
@@ -9,97 +10,180 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import MainContainer from "./MainContainer";
 
-class CaptureCandidateDetails extends React.Component {
-  render() {
+class CaptureCandidateDetails extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      div: false
+    };
+    this.changeDiv = this.changeDiv.bind(this);
+  }
+
+  changeDiv(event) {
+    const indi = event.target.id;
+    if (indi == "bulk") {
+      this.setState({
+        div: true
+      });
+    } else {
+      this.setState({
+        div: false
+      });
+    }
+
+    //  cont indi1 = event.target.id;
+    console.log(indi);
+  }
+  individual() {
     return (
-      <div id="singleForm" className="Rectangle-Copy">
-        <div className="formBox">
-          <div className="candidatesColumn">
-            <h1 className="candidateHeader">Candidate(s)</h1>
-            <div className="wrappingDiv">
-              <div className="Rectangle">
-                <p className="Candidate">Candidate 1</p>
-              </div>
-              <p className="Add-another-candid">+ Add another candidate</p>
+      <div className="innerFormBox">
+        <div className="candidatesColumn">
+          <h1 className="candidateHeader">Candidate(s)</h1>
+          <div className="wrappingDiv">
+            <div className="Rectangle">
+              <p className="Candidate">Candidate 1</p>
             </div>
-          </div>
-          <div className="leftformBox">
-            <h1 className="personalDetailsHeader">Personal Details</h1>
-            <Input
-              placeholder="Full First Name"
-              className="Input"
-              id="firstName"
-              data-bind="value: firstName"
-            />
-            <Input
-              placeholder="Maiden Surname"
-              className="Input"
-              id="maidenName"
-              data-bind="value: maiden"
-            />
-            <div>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">ID or Passport</FormLabel>
-                <RadioGroup
-                  roboto-label="ID or Passport"
-                  name="ID or Passport"
-                  className="radios"
-                  color="black"
-                >
-                  <FormControlLabel value="ID" control={<Radio />} label="ID" />
-                  <FormControlLabel
-                    value="Passport"
-                    control={<Radio />}
-                    label="Passport"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </div>
-            <Input
-              placeholder="ID Number"
-              className="Input"
-              id="IDNum"
-              data-bind="value: IDNum"
-            />
-            <Input
-              placeholder="Email address"
-              className="email"
-              id="email"
-              data-bind="value: email"
-            />
-          </div>
-          <div className="rightformBox">
-            <Input
-              placeholder="Surname"
-              className="surname"
-              id="surname"
-              data-bind="value: surname"
-            />
-            <Input
-              placeholder="Birthday  Day  /  Month  /  Year"
-              className="DoB"
-              id="DoB"
-              data-bind="value: DoB"
-            />
-            <Input
-              placeholder="Telephone Number"
-              className="Telephone_Number"
-              id="Telephone_Number"
-              data-bind="value: Telephone_Numbers"
-            />
+            <p className="Add-another-candid">+ Add another candidate</p>
           </div>
         </div>
-        <div className="buttonsLayout">
-          <div className="backLayout">
-            <Button variant="contained" className="back">
-              Back
-            </Button>
-            <p className="backText">Save and continue later</p>
-          </div>
-          <Button variant="contained" className="submit">
-            Submit
-          </Button>
+        <div id="singleForm">
+          <table className="rightTable">
+            <thead />
+            <tbody>
+              <h1 className="candidateHeader">Personal Details</h1>
+              <tr>
+                <td>
+                  <label class="autocomplete">
+                    <input id="firstName" placeholder="Full First Name" />
+                  </label>
+                </td>
+                <td>
+                  <label class="autocomplete">
+                    <input id="surname" placeholder="Surname" />
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label class="autocomplete">
+                    <input
+                      id="maidenName"
+                      date-bind="value: maiden"
+                      placeholder="Maiden Surname"
+                    />
+                  </label>
+                </td>
+              </tr>
+
+              <div className="radios">
+                <FormControl component="fieldset">
+                  <FormLabel component="legend" />
+                  <RadioGroup
+                    roboto-label="ID or Passport"
+                    name="ID or Passport"
+                    className="radios"
+                    color="black"
+                  >
+                    <FormControlLabel
+                      value="ID"
+                      control={<Radio />}
+                      label="ID"
+                    />
+                    <FormControlLabel
+                      value="Passport"
+                      control={<Radio />}
+                      label="Passport"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </div>
+
+              <tr>
+                <td>
+                  <label class="autocomplete">
+                    <input
+                      id="email"
+                      data-bind="value: email"
+                      placeholder="Email Address"
+                    />
+                  </label>
+                </td>
+                <td>
+                  <label class="autocomplete">
+                    <input
+                      id="phone"
+                      data-bind="value: phone"
+                      placeholder="Telephone Number"
+                    />
+                  </label>
+                </td>
+              </tr>
+              <tr />
+              <tr>
+                {/* <td>
+                  <input
+                    style="float: left; width: 49%; margin-right: 1px;"
+                    type="submit"
+                    class="btn btn-primary"
+                  
+                    value="add candidate"
+                  />
+                  <input
+                    style="width: 49%; float:right; margin-left: 1px;"
+                    type="submit"
+                
+                    data-bind="click: submit"
+                    value="submit"
+                  />
+                </td> */}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+  render() {
+    return (
+      <div className="bodyPage">
+        <div className="formBox">
+          <fieldset className="field1 current">
+            <div id="singleForm">
+              <div className="">
+                <ul id="progress_bar">
+                  <li className="active">Create Job Profile Name</li>
+                  <li>Candidate Details</li>
+                  <li>Next Steps</li>
+                </ul>
+                <h3>Capture Candidate Details</h3>
+                <div id="uploadSwitch">
+                  <button
+                    className="indi"
+                    id="individual"
+                    onClick={event => this.changeDiv(event)}
+                  >
+                    INDIVIDUALLY
+                  </button>
+                  <button
+                    className="bulk"
+                    id="bulk"
+                    onClick={event => this.changeDiv(event)}
+                  >
+                    BULK
+                  </button>
+                </div>
+                <br className="Line" />
+
+                {!this.state.div ? this.individual() : <MainContainer />}
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div id="buttonFooter">
+          <button id="prev">BACK</button>
+          <button id="next">NEXT</button>
         </div>
       </div>
     );
