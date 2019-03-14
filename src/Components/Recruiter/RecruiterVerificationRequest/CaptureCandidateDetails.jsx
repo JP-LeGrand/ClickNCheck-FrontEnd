@@ -11,7 +11,10 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MainContainer from "./MainContainer";
-import Footer from "../../Shared/Footer/Footer"
+import Footer from "../../Shared/Footer/Footer";
+import FooterPrevNext from "../../Shared/FooterPreviousNext/FooterPreviousNext";
+import NavBar from "../NavBar/NavBar";
+import "typeface-roboto";
 
 class CaptureCandidateDetails extends React.PureComponent {
   constructor(props) {
@@ -152,43 +155,48 @@ class CaptureCandidateDetails extends React.PureComponent {
   }
   render() {
     return (
-      <div className="bodyPage">
-        <div className="formBox">
-          <fieldset className="field1 current">
-            <div id="singleForm">
-              <div className="">
-                <ul id="progress_bar">
-                  <li className="active">Create Job Profile Name</li>
-                  <li>Candidate Details</li>
-                  <li>Next Steps</li>
-                </ul>
-                <h3>Capture Candidate Details</h3>
-                <div id="uploadSwitch">
-                  <button
-                    className="indi"
-                    id="individual"
-                    onClick={event => this.changeDiv(event)}
-                  >
-                    INDIVIDUALLY
-                  </button>
-                  <button
-                    className="bulk"
-                    id="bulk"
-                    onClick={event => this.changeDiv(event)}
-                  >
-                    BULK
-                  </button>
-                </div>
-                <br className="Line" />
+      <div>
+        <NavBar />
+        <div className="bodyPage">
+          <div className="formBox">
+            <fieldset className="field1 current">
+              <div id="singleForm">
+                <div className="">
+                  <ul id="progress_bar">
+                    <li className="active">Create Job Profile Name</li>
+                    <li>Candidate Details</li>
+                    <li>Next Steps</li>
+                  </ul>
+                  <h3>Capture Candidate Details</h3>
+                  <div id="uploadSwitch">
+                    <button
+                      className="indi"
+                      id="individual"
+                      onClick={event => this.changeDiv(event)}
+                    >
+                      INDIVIDUALLY
+                    </button>
+                    <button
+                      className="bulk"
+                      id="bulk"
+                      onClick={event => this.changeDiv(event)}
+                    >
+                      BULK
+                    </button>
+                  </div>
+                  <br className="Line" />
 
-                {!this.state.div ? this.individual() : <MainContainer />}
+                  {!this.state.div ? this.individual() : <MainContainer />}
+                </div>
               </div>
-            </div>
-          </fieldset>
-        </div>
-        <div id="buttonFooter">
-          <button id="prev" onClick={this.prevStep}>BACK</button>
-          <button id="next">NEXT</button>
+            </fieldset>
+          </div>
+
+          <div id="buttonFooter">
+            <button id="prev" onClick={this.prevStep}>BACK</button>
+            <button id="next">NEXT</button>
+          </div>
+          <Footer />
         </div>
         <Footer />
       </div>
