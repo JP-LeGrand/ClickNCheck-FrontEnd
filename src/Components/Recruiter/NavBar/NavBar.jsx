@@ -8,6 +8,7 @@ import JobProfile from '../../../Assets/job_profile.svg';
 import Reports from '../../../Assets/reports.svg'; 
 import Candidates from '../../../Assets/candidates.svg'; 
 import { FaBars , FaAngleDown } from 'react-icons/fa';
+import 'typeface-roboto';
 
 class NavBar extends React.PureComponent {
     constructor(props) {
