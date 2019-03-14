@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
     "cross-env": "^5.2.0",
     "enzyme": "^3.8.0",
@@ -11,6 +12,7 @@
     "eslint-plugin-jest": "^22.2.2",
     "eslint-plugin-react": "^7.12.4",
     "jest-junit-reporter": "^1.1.0",
+    "jw-react-pagination": "^1.0.7",
     "material-ui": "^0.20.2",
     "node-sass": "^4.11.0",
     "path-to-regexp": "^3.0.0",
