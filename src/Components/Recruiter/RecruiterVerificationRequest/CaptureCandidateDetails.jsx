@@ -14,6 +14,7 @@ import MainContainer from "./MainContainer";
 import Footer from "../../Shared/Footer/Footer";
 import FooterPrevNext from "../../Shared/FooterPreviousNext/FooterPreviousNext";
 import NavBar from "../NavBar/NavBar";
+import "typeface-roboto";
 
 class CaptureCandidateDetails extends React.PureComponent {
   constructor(props) {
