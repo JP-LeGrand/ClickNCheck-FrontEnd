@@ -10,6 +10,7 @@ import ForgotPassword from '../Components/Shared/ForgotPassword/ForgotPassword';
 import ChangePassword from '../Components/Shared/ChangePassword/ChangePassword';
 import ForgotPasswordSuccess from '../Components/Shared/ForgotPasswordSuccess/ForgotPasswordSuccess';
 import MainContainer from '../Components/Recruiter/RecruiterVerificationRequest/MainContainer';
+import CaptureCandidateDetails from '../Components/Recruiter/RecruiterVerificationRequest/CaptureCandidateDetails';
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -25,6 +26,7 @@ const Routes = () => {
                 <Route path="/ReviewChecks" exact component={ReviewChecks} />
                 <Route path="/NewVerificationRequest" exact component={NewVerificationRequest} />
                 <Route path="/candidate/bulk" exact component={MainContainer} />
+                <Route path="/candidate/individual" exact component={CaptureCandidateDetails} />
              
                 <Route render={() => <Redirect to="/"/>}/>
             </Switch>
