@@ -25,6 +25,21 @@
     font-weight: normal;
   }
 
+  .candidateDetails{
+    width: 393px;
+    height: 27px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: 0.6px;
+    text-align: center;
+    color: #2b3844;
+    margin-top: 5%;
+  }
+
   .personalDetailsHeader {
     width: 235px;
     height: 27px;
@@ -95,7 +110,7 @@
   }
   .indi {
     width: 100px;
-    height: 50px;
+    height: 35px;
     border-radius: 7px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -112,8 +127,8 @@
   }
 
   .bulk {
-    width: 166px;
-    height: 50px;
+    width: 100px;
+    height: 35px;
     border-radius: 7px;
     border: solid 1px #0091d1;
     background-color: #f4fcff;
