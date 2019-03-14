@@ -18,7 +18,7 @@ class NavBar extends React.PureComponent {
             isTopNav: true
         };
         this.handleMenuButton = this.handleMenuButton.bind(this);
-        
+        this.getLocation = this.getLocation.bind(this);
     }
 
     handleMenuButton() {
@@ -29,6 +29,16 @@ class NavBar extends React.PureComponent {
         }
     }
 
+    getLocation(loc) {
+        let currLocation = window.location.toString();
+        let zero = 0;
+        if ( currLocation.indexOf(loc) > zero){
+            return true;
+        }
+
+        return false;
+    }
+
     render() {
         //check online or offline
 			
@@ -37,7 +47,7 @@ class NavBar extends React.PureComponent {
                 <div className="navbar">
                     <div className={this.state.isTopNav ? 'topnav' : 'topnav responsive'} id="myTopnav">
                         <div className="noHover">
-                            <a className="centerLogo">
+                            <a className="centerLogo" href="#">
                                 <img id="logo" src={Logo} alt="clickncheck" />
                             </a>
                             <a className="icon" onClick={this.handleMenuButton}>
@@ -46,7 +56,7 @@ class NavBar extends React.PureComponent {
                         </div>
                         
                         <div id="mobile">
-                            <a href="#" className="active">
+                            <a href="#" className="">
                                 <img
                                     src={Dashboard} 
                                     alt="clickncheck"
@@ -54,7 +64,7 @@ class NavBar extends React.PureComponent {
                                     width="30px" />
                     Dashboard
                             </a>
-                            <a href="/NewVerificationRequest">
+                            <a href="/NewVerificationRequest" className={ this.getLocation('/NewVerificationRequest') ? 'active' : 'inactive' }>
                                 <img
                                     src={VerificationRequest} 
                                     alt="clickncheck"
@@ -62,7 +72,7 @@ class NavBar extends React.PureComponent {
                                     width="30px" />
                     Verification Request
                             </a>
-                            <a href="#">
+                            <a href="#" className="">
                                 <img
                                     src={JobProfile}
                                     alt="clickncheck"
@@ -70,7 +80,7 @@ class NavBar extends React.PureComponent {
                                     width="30px" />
                 Job Profiles
                             </a>
-                            <a href="#">
+                            <a href="#" className="">
                                 <img
                                     src={Reports} 
                                     alt="clickncheck"
@@ -78,7 +88,7 @@ class NavBar extends React.PureComponent {
                                     width="30px" />
                 Reports
                             </a>
-                            <a href="#">
+                            <a href="#" className="">
                                 <img
                                     src={Candidates} 
                                     alt="clickncheck"
