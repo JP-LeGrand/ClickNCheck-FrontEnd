@@ -94,7 +94,7 @@
     border-top: #0091d1;
   }
   .indi {
-    width: 100px;
+    width: 150px;
     height: 50px;
     border-radius: 7px;
     border-top-right-radius: 0px;
@@ -110,7 +110,10 @@
     color: #ffffff;
     border: #ffffff;
   }
-
+  #uploadSwitch{
+    margin: auto;
+    width: 300px;
+  }
   .bulk {
     width: 166px;
     height: 50px;
@@ -148,11 +151,7 @@
     width: 25%;
     padding-top: 5%;
   }
-  .radios {
-    display: flex;
-    flex-direction: row;
-    padding-left: 10%;
-  }
+  
   .surname {
     padding-top: 130px;
   }
@@ -208,7 +207,6 @@
   .candidatesColumn {
     border-right: 0.5px solid black;
     margin-right: 1%;
-    padding-top: 2%;
   }
   .buttonsLayout {
     width: 100%;
@@ -250,4 +248,136 @@
     color: #0091d1;
     padding-left: 15px;
   }
+  #singleForm{
+    float: right;
+  }
+  .rightTable{
+    max-width: 650px;
+    width: 650px;
+  }
+  .nameInputs{
+    width: 200px;
+    height: 20px;
+  }
+  .textIcons{
+    margin: auto;
+    position: relative;
+    //bottom:0;
+    float: left;
+  }
+  
+  /*
+  td{
+    padding-top: 50px;
+    padding-bottom: 10px;
+    max-height: 37px;
+    
+  }*/
+  
+.radios {
+    //display: flex;
+    //flex-direction: row;
+    padding-left: 10%;
+    position: relative;
+    display: block;
+    padding-right: 30px;
+  }
+#ID{
+ float:left;
+ margin-right: 50px;
+}
+#passport{
+  float: right;
+}
+
+  .form-group {
+    display: block;
+    width: 300px;
+    height: 50px;
+    margin: 0 auto;
+    font-size: 20px;
+    //margin-bottom: 58px;
+  }
+  .radioForm{
+
+  }
+  .inp {
+    //position: relative;
+    bottom:0;
+  }
+
+  .inp .label {
+    position: absolute;
+    //top: 16px;
+    left:0;
+    padding:0;
+    margin: 0;
+    //padding-left: 30px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    //line-height: 1.57;
+    letter-spacing: 0.9px;
+    color: #2b3844;/*
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;*/
+  }
+  
+  .inp input, .inp select {
+    //-webkit-appearance: none;
+    width: 220px;
+    //height: 48px;
+    border: 0;
+   // padding-left: 30px;
+    //vertical-align: middle;
+    border-bottom: 1px solid #223254;
+    background: none;
+    border-radius: 0;
+    //-webkit-transition: all 0.15s ease;
+    //transition: all 0.15s ease;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    //font-stretch: normal;
+    //line-height: 1.57;
+    //letter-spacing: 0.9px;
+    color: #2b3844;
+  }
+
+  .form-group p, .showHide, .form-group img {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    //line-height: 1.64;
+    //letter-spacing: 0.9px;
+    //text-align: right;
+  }
+  
+  .inp input:focus, .inp select:focus {
+    background: none;
+    outline: none;
+  }
+  /*
+  .inp input:not(:placeholder-shown) + span {
+    color: #2b3844;
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
+  }
+  
+  .inp input:focus + span {
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
+    
+  }
+  
+  .inp input:focus + span + .border {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }*/
 }
