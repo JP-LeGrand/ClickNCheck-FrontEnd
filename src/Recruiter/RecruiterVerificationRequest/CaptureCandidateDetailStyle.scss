@@ -1,0 +1,177 @@
+.Rectangle-Copy {
+  .Personal-Details {
+    width: 235px;
+    height: 27px;
+    font-size: 24px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: 0.6px;
+    color: #2b3844;
+  }
+
+  .Personal-Details .text-style-1 {
+    font-weight: normal;
+  }
+
+  .personalDetailsHeader {
+    width: 235px;
+    height: 27px;
+    font-size: 24px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: 0.6px;
+    color: #2b3844;
+  }
+
+  .Input-Text {
+    width: 149px;
+    height: 23px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.64;
+    letter-spacing: 0.9px;
+    color: #2b3844;
+    margin-right: 5px;
+  }
+
+  .Radio-Button-Text {
+    width: 81px;
+    height: 23px;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.77;
+    letter-spacing: 1.1px;
+    color: #2b3844;
+  }
+
+  .Oval-Copy-20 {
+    width: 12px;
+    height: 12px;
+    background-color: #2b3844;
+  }
+  .formBox {
+    display: flex;
+    height: 500px;
+    padding-bottom: 3%;
+  }
+  .leftformBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-right: 5%;
+    padding-left: 7%;
+  }
+  .rightformBox {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+  }
+  .radios {
+    display: flex;
+    flex-direction: row;
+  }
+  .surname {
+    padding-top: 130px;
+  }
+  .DoB {
+    display: inline-flex;
+    padding-top: 204px;
+  }
+  .Telephone_Number {
+    padding-top: 36px;
+  }
+  .candidateHeader {
+    width: 235px;
+    height: 27px;
+    font-size: 24px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: 0.6px;
+    color: #2b3844;
+  }
+  .Rectangle {
+    width: 286px;
+    height: 40px;
+    background-color: #f9f9f9;
+
+    .Candidate {
+      width: 149px;
+      height: 23px;
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.64;
+      letter-spacing: 0.9px;
+      color: #2b3844;
+    }
+  }
+  .Add-another-candid {
+    width: 218px;
+    height: 22px;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.83;
+    letter-spacing: 0.8px;
+    color: #0091d1;
+  }
+  .wrappingDiv {
+    width: 288px;
+  }
+  .candidatesColumn {
+    border-right: 0.5px solid black;
+    padding-left: 1%;
+  }
+  .buttonsLayout {
+    width: 100%;
+    height: 80px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .submit {
+    color: white;
+    width: 125px;
+    height: 50px;
+    opacity: 0.4;
+    border-radius: 7px;
+    background-color: #0091d1;
+  }
+  .back {
+    width: 125px;
+    height: 50px;
+    border-radius: 7px;
+    border: solid 1px #2b3844;
+    background-color: #ffffff;
+  }
+  .backLayout {
+    display: flex;
+    flex-direction: row;
+  }
+  .backText {
+    width: 181px;
+    height: 22px;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.83;
+    letter-spacing: 0.8px;
+    color: #0091d1;
+    padding-left: 15px;
+  }
+}
