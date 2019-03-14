@@ -22,8 +22,6 @@ class CaptureCandidateDetails extends React.PureComponent {
     this.state = {
       div: false
     };
-    //this.changeDiv = this.changeDiv.bind(this);
-    //this.prevStep = this.prevStep.bind(this);
   }
 
   prevStep(){

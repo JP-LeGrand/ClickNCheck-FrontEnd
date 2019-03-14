@@ -2,7 +2,7 @@ import React from "react";
 import "./MainContainerStyle.scss";
 import Footer from "../../Shared/Footer/Footer"
 import { BASE_URL } from "../../../Shared/Constants";
-
+import NavBar from "../NavBar/NavBar"
 class ReviewChecks extends React.Component {
   constructor(props){
     super(props);
@@ -10,8 +10,6 @@ class ReviewChecks extends React.Component {
       cursor: "grab",
       checks: []
     };
-    //this.verificationChecks = this.verificationChecks.bind(this);
-    //this.individualForm = this.individualForm.bind(this);
   }
 
   verificationChecks(){
@@ -39,6 +37,7 @@ class ReviewChecks extends React.Component {
     });
     return (
       <div className="bodyPage">
+        <NavBar />
         <div id="formContainer">
           <ul id='progress_bar'>
             <li className="active">Select verification checks</li>

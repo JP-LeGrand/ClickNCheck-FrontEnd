@@ -1,7 +1,7 @@
 import React from "react";
 import "./MainContainerStyle.scss";
 import Footer from "../../Shared/Footer/Footer"
-//import { GET_ALL_JOB_PROFILE_CHECKS } from "../../../Shared/Constants";
+import NavBar from "../NavBar/NavBar"
 
 class NewVerificationRequest extends React.Component {
   constructor(props){
@@ -9,7 +9,6 @@ class NewVerificationRequest extends React.Component {
     this.state = {
         
     };
-    ///this.nextSteps = this.nextSteps.bind(this);
   }
 
   nextSteps(){
@@ -22,6 +21,7 @@ class NewVerificationRequest extends React.Component {
     */
     return (
         <div className="bodyPage">
+            <NavBar />
             <div id="formContainer">
                 <ul id='progress_bar'>
                     <li className="active">Select verification checks</li>
