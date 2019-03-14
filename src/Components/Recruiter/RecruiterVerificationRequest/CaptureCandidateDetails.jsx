@@ -13,6 +13,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import MainContainer from "./MainContainer";
 import Footer from "../../Shared/Footer/Footer";
 import FooterPrevNext from "../../Shared/FooterPreviousNext/FooterPreviousNext";
+import NavBar from "../NavBar/NavBar";
+import "typeface-roboto";
 
 class CaptureCandidateDetails extends React.PureComponent {
   constructor(props) {
@@ -20,9 +22,13 @@ class CaptureCandidateDetails extends React.PureComponent {
     this.state = {
       div: false
     };
-    this.changeDiv = this.changeDiv.bind(this);
+    //this.changeDiv = this.changeDiv.bind(this);
+    //this.prevStep = this.prevStep.bind(this);
   }
 
+  prevStep(){
+    window.location = '/ReviewChecks';
+  }
   changeDiv(event) {
     const indi = event.target.id;
     if (indi == "bulk") {
@@ -149,44 +155,48 @@ class CaptureCandidateDetails extends React.PureComponent {
   }
   render() {
     return (
-      <div className="bodyPage">
-        <div className="formBox">
-          <fieldset className="field1 current">
-            <div id="singleForm">
-              <div className="">
-                <ul id="progress_bar">
-                  <li className="active">Create Job Profile Name</li>
-                  <li>Candidate Details</li>
-                  <li>Next Steps</li>
-                </ul>
-                <h3>Capture Candidate Details</h3>
-                <div id="uploadSwitch">
-                  <button
-                    className="indi"
-                    id="individual"
-                    onClick={event => this.changeDiv(event)}
-                  >
-                    INDIVIDUALLY
-                  </button>
-                  <button
-                    className="bulk"
-                    id="bulk"
-                    onClick={event => this.changeDiv(event)}
-                  >
-                    BULK
-                  </button>
+      <div>
+        <NavBar />
+        <div className="bodyPage">
+          <div className="formBox">
+            <fieldset className="field1 current">
+              <div id="singleForm">
+                <div className="">
+                  <ul id="progress_bar">
+                    <li className="active">Create Job Profile Name</li>
+                    <li>Candidate Details</li>
+                    <li>Next Steps</li>
+                  </ul>
+                  <h3>Capture Candidate Details</h3>
+                  <div id="uploadSwitch">
+                    <button
+                      className="indi"
+                      id="individual"
+                      onClick={event => this.changeDiv(event)}
+                    >
+                      INDIVIDUALLY
+                    </button>
+                    <button
+                      className="bulk"
+                      id="bulk"
+                      onClick={event => this.changeDiv(event)}
+                    >
+                      BULK
+                    </button>
+                  </div>
+                  <br className="Line" />
+
+                  {!this.state.div ? this.individual() : <MainContainer />}
                 </div>
-                <br className="Line" />
-
-                {!this.state.div ? this.individual() : <MainContainer />}
               </div>
-            </div>
-          </fieldset>
-        </div>
+            </fieldset>
+          </div>
 
-        <div id="buttonFooter">
-          <button id="prev">BACK</button>
-          <button id="next">NEXT</button>
+          <div id="buttonFooter">
+            <button id="prev" onClick={this.prevStep}>BACK</button>
+            <button id="next">NEXT</button>
+          </div>
+          <Footer />
         </div>
         <Footer />
       </div>
