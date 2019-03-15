@@ -28,7 +28,6 @@ class ReviewChecks extends React.Component {
       checks: checks,
       IsComplete: true
     }
-    console.log(JSON.stringify(createVerReq));
     fetch(BASE_URL+'VerificationChecks/CreateVerificationCheck/'+localStorage.getItem("jpID"), {
         method: 'POST',
         mode: 'cors', // no-cors, cors, *same-origin
@@ -44,7 +43,7 @@ class ReviewChecks extends React.Component {
         .then((response) => response.json())  
         .then(
         response => {
-            alert(response);
+            localStorage.setItem('ver_check', response);
         },
         (error) => {
         alert(error);
@@ -76,12 +75,8 @@ class ReviewChecks extends React.Component {
             <li>Candidate Details</li>
             <li>Next Steps</li> 
           </ul>
-          <h3>Job Profile</h3>
-          <div className="form-group">
-            <label className="autocomplete">
-              <input id="profileName" placeholder = "Enter job profile"/>
-            </label>
-          </div>
+          <h3>Drag and drop checks to add/remove</h3>
+          
 
           <div id="droppableContainer" droppable="true" onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e, "onLeft")}>
             {checks.onLeft}
@@ -129,7 +124,6 @@ class ReviewChecks extends React.Component {
         tasks       
      });
      this.setState({cursor: "grab"});
-     console.log(this.state);
   }
     
 
