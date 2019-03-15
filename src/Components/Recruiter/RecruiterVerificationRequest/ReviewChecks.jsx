@@ -28,7 +28,6 @@ class ReviewChecks extends React.Component {
       checks: checks,
       IsComplete: true
     }
-    console.log(JSON.stringify(createVerReq));
     fetch(BASE_URL+'VerificationChecks/CreateVerificationCheck/'+localStorage.getItem("jpID"), {
         method: 'POST',
         mode: 'cors', // no-cors, cors, *same-origin
@@ -44,7 +43,7 @@ class ReviewChecks extends React.Component {
         .then((response) => response.json())  
         .then(
         response => {
-            alert(response);
+            localStorage.setItem('ver_check', response);
         },
         (error) => {
         alert(error);
@@ -129,7 +128,6 @@ class ReviewChecks extends React.Component {
         tasks       
      });
      this.setState({cursor: "grab"});
-     console.log(this.state);
   }
     
 
