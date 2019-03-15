@@ -75,12 +75,8 @@ class ReviewChecks extends React.Component {
             <li>Candidate Details</li>
             <li>Next Steps</li> 
           </ul>
-          <h3>Job Profile</h3>
-          <div className="form-group">
-            <label className="autocomplete">
-              <input id="profileName" placeholder = "Enter job profile"/>
-            </label>
-          </div>
+          <h3>Drag and drop checks to add/remove</h3>
+          
 
           <div id="droppableContainer" droppable="true" onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e, "onLeft")}>
             {checks.onLeft}
