@@ -53,6 +53,7 @@
     color: #2b3844;
   }
 
+  
   .Test {
     width: 420px;
     height: 1px;
@@ -271,15 +272,16 @@
     max-width: 650px;
     width: 650px;
   }
+  /*
   .nameInputs{
     width: 200px;
     height: 20px;
   }
-  .textIcons{
+ /* .textIcons{
     margin: auto;
     position: relative;
     float: left;
-  }
+  }*/
   
 
 .radios {
@@ -295,9 +297,7 @@
 #passport{
   float: right;
 }
-#idNumberForm{
-  margin-left: 50px;
-}
+
 
 
   .form-group {
@@ -307,6 +307,7 @@
     margin: 0 auto;
     font-size: 20px;
   }
+  /*
   .inp {
     bottom:0;
   }
@@ -337,7 +338,7 @@
   }
 
   .form-group p, .showHide, .form-group img {
-    padding-top: 30px;
+    padding-top: -30px;
     padding-bottom: 10px;
     font-size: 12px;
     font-weight: normal;
@@ -349,4 +350,104 @@
     background: none;
     outline: none;
   }
+*/
+  .inp {
+    position: relative;
+  }
+
+  .inp .label {
+    position: absolute;
+    top: 14px;
+    left:0;
+    padding: 0;
+    margin-left: 0px;
+    padding-left: 30px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.57;
+    letter-spacing: 0.9px;
+    color: #2b3844;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+  
+  .inp input{
+    -webkit-appearance: none;
+    width: 290px;
+    height: 14px;
+    border: 0;
+    margin-left: 0px;
+    padding-left:20px; 
+    border-bottom: 1px solid #223254;
+    background: none;
+    border-radius: 0;
+    -webkit-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.57;
+    letter-spacing: 0.9px;
+    color: #2b3844;
+  }
+
+   .form-group img {
+    position: relative;
+    padding: 0;
+    top:37.5px;
+    right: 143px;
+  }
+
+
+  .inp input:focus {
+    background: none;
+    outline: none;
+  }
+  
+  .inp input:not(:placeholder-shown) + span {
+    color: #2b3844;
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
+  }
+
+  .inp.id input:not(:placeholder-shown) + span {
+    color: #2b3844;
+    -webkit-transform: translateY(-26px) scale(0.75);
+            transform: translateY(-26px) scale(0.75);
+  }
+  
+  .inp input:focus + span {
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
+    
+  }
+
+  .inp.id input:focus + span {
+    -webkit-transform: translateY(-26px) scale(0.75);
+            transform: translateY(-26px) scale(0.75);
+    
+  }
+  
+  .inp input:focus + span + .border {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+
+td {
+  padding: 0 35px;
+}
+
+.inp.id .label{
+  padding-left: 0;
+}
+
+.inp.id input{
+  padding-left: 0;
+}
+
 }
