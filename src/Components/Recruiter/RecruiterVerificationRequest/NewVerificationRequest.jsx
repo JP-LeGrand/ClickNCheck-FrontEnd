@@ -70,7 +70,7 @@ selected = (e) =>{
 
     componentDidMount(){
         var arr = [];
-        fetch(BASE_URL+'/JobProfiles/recruiterJobs/'+localStorage.getItem('user_id') , {
+        fetch(BASE_URL+'JobProfiles/recruiterJobs/'+localStorage.getItem('user_id') , {
         method: 'GET',
         mode: 'cors', // no-cors, cors, *same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
