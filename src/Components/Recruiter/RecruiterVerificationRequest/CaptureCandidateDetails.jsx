@@ -139,10 +139,6 @@ class CaptureCandidateDetails extends React.PureComponent {
                                     </div>
                                 </td>
                             </tr>
-                            <tr />
-                            <tr>
-                             
-                            </tr>
                         </tbody>
                     </table>
                 </div>

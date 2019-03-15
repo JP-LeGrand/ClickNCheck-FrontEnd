@@ -112,8 +112,8 @@
     border-top: #0091d1;
   }
   .indi {
-    width: 100px;
-    height: 35px;
+    width: 150px;
+    height: 40px;
     border-radius: 7px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -133,8 +133,8 @@
     width: 300px;
   }
   .bulk {
-    width: 100px;
-    height: 35px;
+    width: 150px;
+    height: 40px;
     border-radius: 7px;
     border: solid 1px #0091d1;
     background-color: #f4fcff;
@@ -190,9 +190,11 @@
     letter-spacing: 0.6px;
     color: #2b3844;
   }
+  
   .Rectangle {
     width: 286px;
     height: 40px;
+    border-left: 4px solid #2b3844;
     background-color: #f9f9f9;
 
     .Candidate {
@@ -265,40 +267,11 @@
     color: #0091d1;
     padding-left: 15px;
   }
-  // #singleForm{
-  //   float: right;
-  // }
+
   .rightTable{
     max-width: 650px;
     width: 650px;
   }
-  /*
-  .nameInputs{
-    width: 200px;
-    height: 20px;
-  }
- /* .textIcons{
-    margin: auto;
-    position: relative;
-    float: left;
-  }*/
-  
-
-.radios {
-    padding-left: 0%;
-    position: relative;
-    display: block;
-    padding-right: 10px;
-  }
-#ID{
- float:left;
- margin-right: 20px;
-}
-#passport{
-  float: right;
-}
-
-
 
   .form-group {
     display: block;
@@ -307,50 +280,7 @@
     margin: 0 auto;
     font-size: 20px;
   }
-  /*
-  .inp {
-    bottom:0;
-  }
-
-  .inp .label {
-    position: absolute;
-    left:0;
-    padding:0;
-    margin: 0;
-    font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    letter-spacing: 0.9px;
-    color: #2b3844;
-  }
   
-  .inp input, .inp select {
-    width: 220px;
-    border: 0;
-    border-bottom: 1px solid #223254;
-    background: none;
-    border-radius: 0;
-    font-size: 12px;
-    font-weight: normal;
-    font-style: normal;
-    color: #2b3844;
-  }
-
-  .form-group p, .showHide, .form-group img {
-    padding-top: -30px;
-    padding-bottom: 10px;
-    font-size: 12px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-  }
-  
-  .inp input:focus, .inp select:focus {
-    background: none;
-    outline: none;
-  }
-*/
   .inp {
     position: relative;
   }
@@ -380,7 +310,7 @@
     width: 290px;
     height: 14px;
     border: 0;
-    margin-left: 0px;
+    margin-left: 0px;;
     padding-left:20px; 
     border-bottom: 1px solid #223254;
     background: none;
@@ -399,10 +329,10 @@
    .form-group img {
     position: relative;
     padding: 0;
+    margin:0;
     top:37.5px;
     right: 143px;
   }
-
 
   .inp input:focus {
     background: none;
@@ -450,4 +380,10 @@ td {
   padding-left: 0;
 }
 
+.radios {
+    display: block;
+    width: fit-content;
+    margin-left: 17px;
+    margin-top: 5px;
+}
 }
