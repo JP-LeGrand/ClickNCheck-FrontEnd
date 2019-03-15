@@ -96,7 +96,7 @@
     position: relative;
     overflow: hidden;
     border: 1px solid #e6e9ec;
-    height: 520px;
+    height: 600px;
     padding: 0px;
     margin: 0 20vh;
     border-radius: 8px;
@@ -106,6 +106,8 @@
     display: flex;
     flex-direction: row;
     height: 400px;
+    margin: auto;
+    width: 970px;
     border-top: #0091d1;
   }
   .indi {
@@ -281,18 +283,22 @@
   
 
 .radios {
-    padding-left: 10%;
+    padding-left: 0%;
     position: relative;
     display: block;
-    padding-right: 30px;
+    padding-right: 10px;
   }
 #ID{
  float:left;
- margin-right: 30px;
+ margin-right: 20px;
 }
 #passport{
   float: right;
 }
+#idNumberForm{
+  margin-left: 50px;
+}
+
 
   .form-group {
     display: block;
