@@ -18,6 +18,7 @@ import userImg from '../../../Assets/user.svg';
 import email from '../../../Assets/email.svg';
 import phone from '../../../Assets/phone.svg';
 import 'typeface-roboto';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 class CaptureCandidateDetails extends React.PureComponent {
     constructor(props) {
@@ -89,17 +90,28 @@ class CaptureCandidateDetails extends React.PureComponent {
                                         </label>
                                     </div>
                                 </td>
+                                <td>
+                                    
+                                </td>
                             </tr>
-
                             <div className="radios">
                                 <FormControl component="fieldset">
                                     <FormLabel component="legend" />
                                     <RadioGroup roboto-label="ID or Passport" name="ID or Passport" className="radios" color="black" >
-                                        <FormControlLabel id="ID" className="" value="ID" control={<Radio />} label="ID"/>
-                                        <FormControlLabel id="passport" className="" value="Passport" control={<Radio />} label="Passport"/>
+                                        <FormControlLabel id="ID" className="" value="ID" control={<Radio />} label="ID" />
+                                        <FormControlLabel id="passport" className="" value="Passport" control={<Radio />} label="Passport" />
                                     </RadioGroup>
                                 </FormControl>
                             </div>
+                            <tr>
+                                <td>
+                                    <div className="form-group">
+                                        <label className="inp">
+                                            <input id="idNumberForm" className="nameInputs" placeholder="ID Number" />
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <div className="form-group">
