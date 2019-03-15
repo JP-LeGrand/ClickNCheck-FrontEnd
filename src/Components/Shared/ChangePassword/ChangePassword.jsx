@@ -170,22 +170,27 @@ class ChangePassword extends React.PureComponent{
                   <div className="mainSection">
                       <div className="registrationHeading">Change Password</div>
                       <div className="sendWhat">
-                          <label className="inp">
-                              <input type="password" value={this.state.password} onChange={this.handlePasswordChange} placeholder="&nbsp;"/>
-                              <span className="label">Password</span>
-                              <span className="border"></span><br/>
-                              <label className="error">
-                                  {this.state.errorMessage}
+
+                          <div className="form-group">
+                              <label className="inp">
+                                  <input type="password" value={this.state.password} onChange={this.handlePasswordChange} placeholder="&nbsp;"/>
+                                  <span className="label">Password</span>
+                                  <span className="border"></span><br/>
+                                  <label className="error">
+                                      {this.state.errorMessage}
+                                  </label>
                               </label>
-                          </label>
-                          <label className="inp">
-                              <input type="password" value={this.state.confirmpassword} onChange={this.handleConfirmChange} placeholder="&nbsp;"/>
-                              <span className="label">Confirm Password</span>
-                              <span className="border"></span><br/>
-                              <label className="error">
-                                  {this.state.passwordMatchMessage}
+                          </div>
+                          <div className="form-group">
+                              <label className="inp">
+                                  <input type="password" value={this.state.confirmpassword} onChange={this.handleConfirmChange} placeholder="&nbsp;"/>
+                                  <span className="label">Confirm Password</span>
+                                  <span className="border"></span><br/>
+                                  <label className="error">
+                                      {this.state.passwordMatchMessage}
+                                  </label>
                               </label>
-                          </label>
+                          </div>
                           <button id="btnSend" onClick={this.handleSubmit} disabled={this.state.canSubmit}>Send</button>
                       </div>
                   </div>
