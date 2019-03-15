@@ -174,6 +174,20 @@
     border-top: none;
     border-bottom: none;
   }
+  .candidateDetails{
+    width: 393px;
+    height: 27px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: 0.6px;
+    text-align: center;
+    color: #2b3844;
+    margin-top: 5%;
+    }
 
   .rightTable {
     float: right;
@@ -454,6 +468,10 @@
     font-weight: bold;
   }
 
+  .uploadSwitch{
+   padding-top: 2%;
+  
+  }
   hr {
     border: none;
     border-top: 0.5px dashed #2b3844;
@@ -464,7 +482,8 @@
   }
   #bulkForm .upload-area {
     position: relative;
-    margin-top: 2vh;
+    margin-top: -3vh;
+   
   }
 
   .upload-area img {
@@ -976,6 +995,21 @@
     font-size: 14px;
     font-weight: bold;
   }
+
+  div #profileName {
+    border: 0px solid #000000;
+    border-bottom: 0.5px solid #000000;
+    outline: none;
+    width: 18vw;
+    height: 5vh;
+  }
+
+#dropDownDiv {
+  margin-bottom: 3vh;
+}
+  
+
+  
 
   // td img{
   //   content:url("../../../icons/deleteEntry.png");

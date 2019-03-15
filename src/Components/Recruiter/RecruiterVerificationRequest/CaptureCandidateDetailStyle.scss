@@ -25,6 +25,21 @@
     font-weight: normal;
   }
 
+  .candidateDetails{
+    width: 393px;
+    height: 27px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: 0.6px;
+    text-align: center;
+    color: #2b3844;
+    margin-top: 5%;
+  }
+
   .personalDetailsHeader {
     width: 235px;
     height: 27px;
@@ -95,7 +110,7 @@
   }
   .indi {
     width: 100px;
-    height: 50px;
+    height: 35px;
     border-radius: 7px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -110,10 +125,13 @@
     color: #ffffff;
     border: #ffffff;
   }
-
+  .uploadSwitch{
+    margin: auto;
+    width: 300px;
+  }
   .bulk {
-    width: 166px;
-    height: 50px;
+    width: 100px;
+    height: 35px;
     border-radius: 7px;
     border: solid 1px #0091d1;
     background-color: #f4fcff;
@@ -140,7 +158,6 @@
     justify-content: space-evenly;
     padding-right: 5%;
     padding-left: 2.5%;
-    //padding-top: 1%;
   }
   .rightformBox {
     display: flex;
@@ -148,11 +165,7 @@
     width: 25%;
     padding-top: 5%;
   }
-  .radios {
-    display: flex;
-    flex-direction: row;
-    padding-left: 10%;
-  }
+  
   .surname {
     padding-top: 130px;
   }
@@ -208,7 +221,6 @@
   .candidatesColumn {
     border-right: 0.5px solid black;
     margin-right: 1%;
-    padding-top: 2%;
   }
   .buttonsLayout {
     width: 100%;
@@ -249,5 +261,86 @@
     letter-spacing: 0.8px;
     color: #0091d1;
     padding-left: 15px;
+  }
+  // #singleForm{
+  //   float: right;
+  // }
+  .rightTable{
+    max-width: 650px;
+    width: 650px;
+  }
+  .nameInputs{
+    width: 200px;
+    height: 20px;
+  }
+  .textIcons{
+    margin: auto;
+    position: relative;
+    float: left;
+  }
+  
+
+.radios {
+    padding-left: 10%;
+    position: relative;
+    display: block;
+    padding-right: 30px;
+  }
+#ID{
+ float:left;
+ margin-right: 30px;
+}
+#passport{
+  float: right;
+}
+
+  .form-group {
+    display: block;
+    width: 300px;
+    height: 50px;
+    margin: 0 auto;
+    font-size: 20px;
+  }
+  .inp {
+    bottom:0;
+  }
+
+  .inp .label {
+    position: absolute;
+    left:0;
+    padding:0;
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: 0.9px;
+    color: #2b3844;
+  }
+  
+  .inp input, .inp select {
+    width: 220px;
+    border: 0;
+    border-bottom: 1px solid #223254;
+    background: none;
+    border-radius: 0;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    color: #2b3844;
+  }
+
+  .form-group p, .showHide, .form-group img {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+  }
+  
+  .inp input:focus, .inp select:focus {
+    background: none;
+    outline: none;
   }
 }
