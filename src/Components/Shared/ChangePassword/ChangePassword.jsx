@@ -170,7 +170,15 @@ class ChangePassword extends React.PureComponent{
                   <div className="mainSection">
                       <div className="registrationHeading">Change Password</div>
                       <div className="sendWhat">
-
+                          <label className="passwordSpecDiv">
+                              Password Requirements:
+                              <ul>
+                                  <li>A minimum of 8 characters</li>
+                                  <li>Must contain a special character</li>
+                                  <li>Must contain a Number</li>
+                                  <li>Must contain a Caps</li>
+                              </ul>
+                          </label>
                           <div className="form-group">
                               <label className="inp">
                                   <input type="password" value={this.state.password} onChange={this.handlePasswordChange} placeholder="&nbsp;"/>
