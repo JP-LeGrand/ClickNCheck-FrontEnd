@@ -66,17 +66,21 @@ class CaptureCandidateDetails extends React.PureComponent {
                             <tr>
                                 <td>
                                     <div className="form-group">
-                                        <img className="textIcons" src={userImg} />
+                                        <img src={userImg} />
                                         <label className="inp">
-                                            <input className="nameInputs" id="firstName" placeholder="Full First Name" /> 
+                                            <input id="firstName" placeholder="&nbsp;" name="firstName" />
+                                            <span className="label">Full First Name</span>
+                                            <span className="border"></span>
                                         </label>
                                     </div>  
                                 </td>
                                 <td> 
                                     <div className="form-group">
-                                        <img className="textIcons" src={userImg} />
+                                        <img src={userImg} />
                                         <label className="inp">
-                                            <input className="nameInputs" id="surname" placeholder="Surname" />
+                                            <input id="surname" placeholder="&nbsp;" name="surname" />
+                                            <span className="label">Surname</span>
+                                            <span className="border"></span>
                                         </label>
                                     </div>
                                 </td>
@@ -84,14 +88,13 @@ class CaptureCandidateDetails extends React.PureComponent {
                             <tr>
                                 <td>
                                     <div className="form-group">
-                                        <img className="textIcons" src={userImg} />
+                                        <img src={userImg} />
                                         <label className="inp">
-                                            <input id="maidenName" className="nameInputs" placeholder="Maiden Surname" />
+                                            <input id="maidenName" placeholder="&nbsp;" name="maidenName" />
+                                            <span className="label">Maiden Surname</span>
+                                            <span className="border"></span>
                                         </label>
                                     </div>
-                                </td>
-                                <td>
-                                    
                                 </td>
                             </tr>
                             <div className="radios">
@@ -106,8 +109,10 @@ class CaptureCandidateDetails extends React.PureComponent {
                             <tr>
                                 <td>
                                     <div className="form-group">
-                                        <label className="inp">
-                                            <input id="idNumberForm" className="nameInputs" placeholder="ID Number" />
+                                        <label className="inp id">
+                                            <input id="idNumberForm" placeholder="&nbsp;" name="idNumberForm" />
+                                            <span className="label">ID Number</span>
+                                            <span className="border"></span>
                                         </label>
                                     </div>
                                 </td>
@@ -115,24 +120,24 @@ class CaptureCandidateDetails extends React.PureComponent {
                             <tr>
                                 <td>
                                     <div className="form-group">
-                                        <img className="textIcons" src={email} />
+                                        <img src={email} />
                                         <label className="inp">
-                                            <input id="email" className="nameInputs" placeholder="Email Address" />
+                                            <input id="email" placeholder="&nbsp;" name="email" />
+                                            <span className="label">Email Address</span>
+                                            <span className="border"></span>
                                         </label>
                                     </div>
                                 </td>
                                 <td>
                                     <div className="form-group">
-                                        <img className="textIcons" src={phone} />
+                                        <img src={phone} />
                                         <label className="inp">
-                                            <input id="phone" className="nameInputs" placeholder="Telephone Number" />
+                                            <input id="phone" placeholder="&nbsp;" name="phone" />
+                                            <span className="label">Telephone Number</span>
+                                            <span className="border"></span>
                                         </label>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr />
-                            <tr>
-                             
                             </tr>
                         </tbody>
                     </table>
