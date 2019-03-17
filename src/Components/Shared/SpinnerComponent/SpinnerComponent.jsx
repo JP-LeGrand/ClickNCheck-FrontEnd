@@ -7,9 +7,7 @@ class SpinnerComponent extends React.PureComponent {
     render() {
         return (
             <div className="SpinnerDiv">
-                <div className="Inner">
-                    <img src={rollingImg} />
-                </div>
+                    <img className="Inner" src={rollingImg} />
             </div>
         );
     }
