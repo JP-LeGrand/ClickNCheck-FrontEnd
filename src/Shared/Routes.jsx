@@ -12,12 +12,11 @@ import ForgotPasswordSuccess from '../Components/Shared/ForgotPasswordSuccess/Fo
 import MainContainer from '../Components/Recruiter/RecruiterVerificationRequest/MainContainer';
 import CaptureCandidateDetails from '../Components/Recruiter/RecruiterVerificationRequest/CaptureCandidateDetails';
 import VerificationConfirmed from '../Components/Recruiter/RecruiterVerificationRequest/VerificationConfrimed/VerificationConfirmed';
-
 const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={Login}/>
+                <Route path="/" exact component={ForgotPasswordSuccess}/>
                 <Route path="/login" exact component={Login}/>
                 <Route path="/otp" exact component={Otp}/>
                 <Route path="/candidate/consent" exact component={Consent} />
