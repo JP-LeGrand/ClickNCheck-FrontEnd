@@ -4,20 +4,25 @@ import imgMain from '../../../Assets/main.svg';
 import './ForgotPasswordSuccess.scss';
 import 'typeface-roboto';
 import Footer from '../Footer/Footer';
+import check from '../../../Assets/green_check.svg';
 class ForgotPasswordSuccess extends React.PureComponent {
     render() {
         return ( 
             <div className="forgotSuccess">
+                <div className="form-group">
+                    <img src={imgMain} />
+                </div>
                 <div className="mainSection">
-                    <div className="form-group">
-                        <img src={imgMain}/>
-                    </div>
-                    <div className="registrationHeading">
-                        <strong>Forgot Password Request Successful</strong>
+                    <img id="tick" src={check} alt="success" />
+                    <div id="heading">
+                        <p>Your request</p>
+                        <p id="bold">has been successful</p>
                     </div> 
-                    <div id="bottom" className="form-group">
-						Dear User <br/>
-						We have recieved your password request and a message has been sent to your {localStorage.getItem('sentTo')} with further instructions.
+                    <div id="middle">
+                        <p>We have sent you an &nbsp;</p><strong> {localStorage.getItem('sentTo')} </strong> &nbsp; <p >with further instructions</p>
+                    </div>
+                    <div id="bottom">
+                        <a href="/login"><button id="btnLogin">LOGIN</button></a>
                     </div>
                 </div>
                 <Footer />
