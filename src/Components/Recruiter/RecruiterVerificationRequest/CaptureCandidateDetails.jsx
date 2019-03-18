@@ -33,7 +33,7 @@ class CaptureCandidateDetails extends React.PureComponent {
     }
     changeDiv(event) {
         const indi = event.target.id;
-        if (indi == 'bulk') {
+        if (indi === 'bulk') {
             this.setState({
                 div: true
             });
@@ -43,8 +43,6 @@ class CaptureCandidateDetails extends React.PureComponent {
             });
         }
 
-        //  cont indi1 = event.target.id;
-        console.log(indi);
     }
     individual() {
         return (
@@ -59,10 +57,12 @@ class CaptureCandidateDetails extends React.PureComponent {
                     </div>
                 </div>
                 <div id="singleForm">
+               
                     <table className="rightTable">
                         <thead />
+                      
                         <tbody>
-                            <h1 className="candidateHeader">Personal Details</h1>
+                            <h1 className="personalHeader">Personal Details</h1>
                             <tr>
                                 <td>
                                     <div className="form-group">
@@ -161,20 +161,8 @@ class CaptureCandidateDetails extends React.PureComponent {
                                     </ul>
                                     <label className="candidateDetails">Capture Candidate Details</label>
                                     <div className="uploadSwitch">
-                                        <button
-                                            className="indi"
-                                            id="individual"
-                                            onClick={event => this.changeDiv(event)}
-                                        >
-                      INDIVIDUALLY
-                                        </button>
-                                        <button
-                                            className="bulk"
-                                            id="bulk"
-                                            onClick={event => this.changeDiv(event)}
-                                        >
-                      BULK
-                                        </button>
+                                        <button className="indi" id="individual" onClick={event => this.changeDiv(event)}>INDIVIDUAL</button>
+                                        <button className="bulk" id="bulk" onClick={event => this.changeDiv(event)}> BULK</button>
                                     </div>
                                     <br className="Line" />
                                     {!this.state.div ? this.individual() : <MainContainer />}
