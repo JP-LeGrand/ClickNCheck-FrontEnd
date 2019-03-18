@@ -6,7 +6,7 @@ import { BASE_URL, AUTHENTICATE_LOGIN, OTP_AUTHENTICATION, PASS_EXPIRED } from '
 import mainImg from '../../../Assets/main.svg';
 import userImg from '../../../Assets/user.svg';
 import passImg from '../../../Assets/password.svg';
-
+import rollingImg from '../../../Assets/Rolling.svg';
 class Login extends React.PureComponent {
     constructor(props) {
         if (localStorage.getItem('user_id') !== null) {
@@ -18,7 +18,8 @@ class Login extends React.PureComponent {
             password: '',
             email: '',
             isPasswordVisible: false,
-            inputType: 'password'
+            inputType: 'password',
+            loggingIn: false
         };
         
         this.handleChangePass = this.handleChangePass.bind(this);
@@ -48,78 +49,91 @@ class Login extends React.PureComponent {
     handleSubmit(event){
         event.preventDefault();
         let credentials = [ this.state.email, this.state.password ];
-        fetch(BASE_URL + AUTHENTICATE_LOGIN , {
-            method: 'POST',
-            mode: 'cors', // no-cors, cors, *same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            redirect: 'manual', // manual, *follow, error
-            referrer: 'no-referrer', // no-referrer, *client
-            body: JSON.stringify(credentials), 
-        } )
-            .then((response) => response.json())  
-            .then(
-                response => {
-                    localStorage.setItem('user_id', response);
-                    let userid = localStorage.getItem('user_id');
-                    fetch(BASE_URL + PASS_EXPIRED + response, {
-                        method: 'POST',
-                        mode: 'cors', // no-cors, cors, *same-origin
-                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                        credentials: 'same-origin', // include, *same-origin, omit
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        redirect: 'manual', // manual, *follow, error
-                        referrer: 'no-referrer', // no-referrer, *client 
-                    } )
-                        .then((pass_exp_response) => pass_exp_response.json())  
-                        .then(
-                            (pass_exp_response) => {
-                                if ( pass_exp_response === true) {
-                                    window.location = '/changePassword';
-                                } else if ( pass_exp_response === false ) {
-                                    fetch(BASE_URL + OTP_AUTHENTICATION, {
-                                        method: 'POST',
-                                        mode: 'cors', // no-cors, cors, *same-origin
-                                        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                                        credentials: 'same-origin', // include, *same-origin, omit
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        },
-                                        redirect: 'manual', // manual, *follow, error
-                                        referrer: 'no-referrer', // no-referrer, *client
-                                        body: JSON.stringify(userid), 
-                                    } )
-                                        .then((otp_response) => otp_response.json())  
-                                        .then(
-                                            () => {
-                                                window.location = '/otp';
-                                            },
-                                            (error) => {
-                                                alert(error);
-                                            }     
-                                        );
-                                }
-                            },
-                            (error) => {
-                                alert(error);
-                            }     
-                        );
-
+        this.setState({
+            isLoading: true
+        });
+        this.setState({ isLoading: true }, () => {
+            fetch(BASE_URL + AUTHENTICATE_LOGIN, {
+                method: 'POST',
+                mode: 'cors', // no-cors, cors, *same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                (error) => {
-                    alert(error);
-                }     
-            );
+                redirect: 'manual', // manual, *follow, error
+                referrer: 'no-referrer', // no-referrer, *client
+                body: JSON.stringify(credentials),
+            })
+                .then((response) => response.json())
+                .then(
+                    response => {
+                        localStorage.setItem('user_id', response);
+                        let userid = localStorage.getItem('user_id');
+                        fetch(BASE_URL + PASS_EXPIRED + response, {
+                            method: 'POST',
+                            mode: 'cors', // no-cors, cors, *same-origin
+                            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                            credentials: 'same-origin', // include, *same-origin, omit
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            redirect: 'manual', // manual, *follow, error
+                            referrer: 'no-referrer', // no-referrer, *client 
+                        })
+                            .then((pass_exp_response) => pass_exp_response.json())
+                            .then(
+                                (pass_exp_response) => {
+                                    if (pass_exp_response === true) {
+                                        //window.location = '/changePassword';
+                                    } else if (pass_exp_response === false) {
+                                        fetch(BASE_URL + OTP_AUTHENTICATION, {
+                                            method: 'POST',
+                                            mode: 'cors', // no-cors, cors, *same-origin
+                                            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                                            credentials: 'same-origin', // include, *same-origin, omit
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            redirect: 'manual', // manual, *follow, error
+                                            referrer: 'no-referrer', // no-referrer, *client
+                                            body: JSON.stringify(userid),
+                                        })
+                                            .then((otp_response) => otp_response.json())
+                                            .then(
+                                                () => {
+                                                    this.setState({
+                                                        isLoading: false
+                                                    });
+                                                    //window.location = '/otp';
+                                                },
+                                                (error) => {
+                                                    this.setState({
+                                                        isLoading: false
+                                                    });
+                                                    alert(error);
+                                                }
+                                            );
+                                    }
+                                },
+                                (error) => {
+                                    alert(error);
+                                }
+                            );
+
+                    },
+                    (error) => {
+                        alert(error);
+                    }
+                );
+        });
+        this.setState({
+            isLoading: false
+        });
     } 
     
     render() {
         return (
-            
             <div className="login">
                 <header className="headSection">
                     <img src={mainImg}/>
@@ -150,14 +164,16 @@ class Login extends React.PureComponent {
                             </p>
                         </div> 
 
-                        <div className="form-group">
+                        <div id="btnDiv" className="form-group">
                             <button onClick={this.handleSubmit}>Login</button>
                         </div> 
+                        <div className="logginIn">
+                            {this.state.loggingIn && <img src={rollingImg} id="spinner" alt="loading..." />}
+                        </div>
                     </form>
                 </div>
             </div>
         );
     }
 }
-
 export default connect()(Login);
