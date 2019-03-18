@@ -12,8 +12,7 @@ import ForgotPasswordSuccess from "../Components/Shared/ForgotPasswordSuccess/Fo
 import MainContainer from "../Components/Recruiter/RecruiterVerificationRequest/MainContainer";
 import CaptureCandidateDetails from "../Components/Recruiter/RecruiterVerificationRequest/CaptureCandidateDetails";
 import VerificationConfirmed from "../Components/Recruiter/RecruiterVerificationRequest/VerificationConfrimed/VerificationConfirmed";
-import AddUsers from "../Components/Admin/AddUsers/AddUsers";
-import adminNavBar from "../Components/Admin/AdminNavBar/adminNavBar";
+import AdminPage from "../Components/Admin/AdminPage/AdminPage";
 const Routes = () => {
   return (
     <BrowserRouter>
@@ -47,8 +46,7 @@ const Routes = () => {
           exact
           component={VerificationConfirmed}
         />
-        <Route path="/Admin/AddUsers" exact component={AddUsers} />
-        <Route path="/Admin/AdminNavBar" exact component={adminNavBar} />
+        <Route path="/Admin/AdminPage" exact Component={AdminPage} />
         <Route render={() => <Redirect to="/" />} />
       </Switch>
     </BrowserRouter>
