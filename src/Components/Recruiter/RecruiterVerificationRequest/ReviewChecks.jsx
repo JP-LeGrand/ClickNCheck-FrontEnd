@@ -1,8 +1,11 @@
+/* eslint-disable indent */
 import React from 'react';
 import './MainContainerStyle.scss';
 import Footer from '../../Shared/Footer/Footer';
 import { BASE_URL } from '../../../Shared/Constants';
 import NavBar from '../NavBar/NavBar';
+import ReactSelect from '../RecruiterVerificationRequest/ReactSelect';
+
 class ReviewChecks extends React.Component {
     constructor(props){
         super(props);
@@ -17,7 +20,6 @@ class ReviewChecks extends React.Component {
         window.location = '/NewVerificationRequest';
     }
     individualForm(){
-        window.location = '/candidate/individual';
         let checks = [];
         this.state.checks.forEach((check) => {
             if (check.location == 'onLeft'){
@@ -28,7 +30,7 @@ class ReviewChecks extends React.Component {
             checks: checks,
             IsComplete: true
         };
-        fetch(BASE_URL+'VerificationChecks/CreateVerificationCheck', {
+        fetch(BASE_URL+'VerificationChecks/CreateVerificationCheck/'+localStorage.getItem('jpID'), {
             method: 'POST',
             mode: 'cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -41,14 +43,15 @@ class ReviewChecks extends React.Component {
             redirect: 'manual', // manual, *follow, error
             referrer: 'no-referrer', // no-referrer, *client 
         } )
-            .then((response) => response.json())  
-            .then(
-                response => {
-                    localStorage.setItem('ver_check', response);
-                },
-                (error) => {
-                    alert(error);
-                });
+        .then((response) => response.json())  
+        .then(
+            response => {
+                localStorage.setItem('ver_check', response);
+                window.location = '/candidate/individual';
+            },
+            (error) => {
+                alert(error);
+            });
     }
     render() {
         let checks = {
@@ -57,16 +60,14 @@ class ReviewChecks extends React.Component {
         };
 
         /**Run through the tasks array inside state and put each check on the left or right
-     * side of the page depending on whether it came with the jobProfile or not
-    */
+     * side of the page depending on whether it came with the jobProfile or not*/
+        
         this.state.checks.forEach((check) => {
-            checks[check.location].push(
-                <div id={check.cssID} style={{ cursor:this.state.cursor, color: check.color, backgroundColor: check.bgColor }} draggable onDragStart={(e) => this.onDragStart(e, check.vendors[0], check.category)} onDragEnd={(e) => this.onDragEnd(e)}>
-                    <h3 style={{ color: check.color }}>{check.category}</h3>
-                    <p>{check.vendors}</p>
-                </div>
-            );
+            checks[check.location].push(check);
         });
+        const listItems = checks.onLeft.map((item) =>
+            <li id="jobProfileChecks">{item.category}</li>
+        );
         return (
             <div className="bodyPage">
                 <NavBar />
@@ -76,14 +77,13 @@ class ReviewChecks extends React.Component {
                         <li>Candidate Details</li>
                         <li>Next Steps</li> 
                     </ul>
-                    <h3>Drag and drop checks to add/remove</h3>
-
-                    <div id="droppableContainer" droppable="true" onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e, 'onLeft')}>
-                        {checks.onLeft}
-                    </div>
-                    <div id="draggableContainer" droppable="true" onDragOver={(e) => this.onDragOver(e)} onDrop={(e) => this.onDrop(e, 'onRight')}>
-                        {checks.onRight}
-                    </div>
+                    <h3>Job Profile</h3>
+                    <ReactSelect defaultProf={localStorage.getItem('jp')}/>
+                    <hr className="Line" />
+                    <p className="Verification-checks">Verification checks required for {localStorage.getItem('jp')}</p>
+                    <ul>
+                        {listItems}
+                    </ul>
                 </div>
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.verificationChecks}>BACK</button>
@@ -141,7 +141,7 @@ class ReviewChecks extends React.Component {
 
   componentDidMount(){
       let arr = [];
-      fetch(BASE_URL+'JobProfiles/jobChecks', {
+      fetch(BASE_URL+'JobProfiles/jobChecks/'+localStorage.getItem('jpID'), {
           method: 'GET',
           mode: 'cors', // no-cors, cors, *same-origin
           cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -168,6 +168,7 @@ class ReviewChecks extends React.Component {
                           color: 'white'
                       });
                   });
+                  this.setState({ checks: arr });
               },
               (error) => {
                   alert(error);
@@ -184,7 +185,7 @@ class ReviewChecks extends React.Component {
           },
           redirect: 'manual', // manual, *follow, error
           referrer: 'no-referrer', // no-referrer, *client 
-      } )
+      })
           .then((response) => response.json())  
           .then(
               response => {
