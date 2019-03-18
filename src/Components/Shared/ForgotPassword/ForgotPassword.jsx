@@ -259,16 +259,6 @@ class ForgotPassword extends React.PureComponent{
 
                 <div className="mainSection">
                     <div className="registrationHeading">Forgot Password</div> 
-                    {/*<div id="checkSection" className="sendWhat">
-                        <p className="send sub">Select what you would like us to send you</p>
-                        <div className="send">
-                            <input id="username" onChange={this.handleEmailCheck} checked={this.state.sendEmail} type="checkbox" className="sendInfo" /><label className="sub" htmlFor="username">Username</label>
-                        </div>
-                        <br />
-                        <div className="send">
-                            <input id="password" onChange={this.handlePasswordCheck} checked={this.state.sendPassword} type="checkbox" className="sendInfo" /><label className="sub" htmlFor="password">Password</label>
-                        </div>
-                    </div>*/}
                     <div id="idHead" className="sendWhat">
                         <p className="send sub">We need to Identify you before we send you the details </p>
                     </div>
@@ -308,6 +298,7 @@ class ForgotPassword extends React.PureComponent{
                         {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
                     </div>
                 </div>
+                <Footer />
             </div>
         );
         
