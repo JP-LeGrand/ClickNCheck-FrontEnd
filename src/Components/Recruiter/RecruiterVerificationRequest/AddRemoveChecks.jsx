@@ -25,7 +25,6 @@ class AddRemoveChecks extends React.Component {
     }
 
     checkboxClicked(e){
-        console.log(e.target.name);
         if (e.target.checked){
             //@TODO add event name to state
         } else {
