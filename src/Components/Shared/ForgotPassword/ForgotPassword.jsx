@@ -7,6 +7,7 @@ import { BASE_URL, FORGOT_PASSWORD_EMAIL,FORGOT_PASSWORD_PHONE } from '../../../
 import axios from 'axios';
 import Footer from '../Footer/Footer';
 import rollingImg from '../../../Assets/Rolling.svg';
+import { ZERO, ONE, TEN } from '../../../Shared/IntConstants';
 function RecieveMethod(props){
     if (props.sendVia === 'phone') {
         return ( 
@@ -120,11 +121,14 @@ class ForgotPassword extends React.PureComponent{
                 alert('Passport or ID is invalid');
             }
             
-        } else if (this.state.sendVia === 'phone' && this.state.validPhone){
+        } else if (this.state.sendVia === 'phone' && this.state.validPhone) {
+            let myStr = this.state.phoneEmail;
+            let phoneNumber = myStr.substring(ZERO, ZERO) + '+27' + myStr.substring(ONE);
             const body = { 
                 passportNumber: this.state.passportNumber, 
-                phonenumber: this.state.phoneEmail 
+                phonenumber: phoneNumber
             };
+            alert(body);
             if (this.state.useID && this.state.validID || this.state.usePassport && this.state.validPassport) {
                 this.setState({ loading: true }, () => { 
                     axios.post(BASE_URL + FORGOT_PASSWORD_PHONE, body)
@@ -133,7 +137,6 @@ class ForgotPassword extends React.PureComponent{
                                 loading: false
                             });
                             alert('Forgot password request succesfully sent to phone number');
-                            localStorage.setItem('sentTo', 'phone');
                             window.location = '/forgotPasswordSuccess';
                         })
                         .catch((error) => {
@@ -152,6 +155,7 @@ class ForgotPassword extends React.PureComponent{
             alert('Email or Phone Number is invalid');
         }
     }
+    
     handlePasswordCheck(event){
         this.setState({ sendPassword: event.target.checked });
     }
@@ -213,10 +217,7 @@ class ForgotPassword extends React.PureComponent{
                 validEmail: emailValid
             });
         } else if (this.state.sendViaPhone) {
-            const LOCAL_NUMBER = 10;
-            const ZERO = '0';
-            const INT_ZERO = 0;
-            if (checkPhoneEmail.charAt(INT_ZERO) === ZERO && checkPhoneEmail.length === LOCAL_NUMBER && checkPhoneEmail.match(/[0-9]{10}/) ) {
+            if (checkPhoneEmail.charAt(ZERO) === '0' && checkPhoneEmail.length === TEN && checkPhoneEmail.match(/[0-9]{10}/) ) {
                 this.setState({
                     validPhone: true
                 });
@@ -229,12 +230,14 @@ class ForgotPassword extends React.PureComponent{
     }
     handlePhoneOrEmail(event) {
         this.setState({ sendVia: event.target.value });
-        if (event.target.value === 'phone'){
+        if (event.target.value === 'phone') {
+            localStorage.setItem('sentTo', 'SMS');
             this.setState({
                 sendViaEmail: false,
                 sendViaPhone:true 
             });
         } else if (event.target.value === 'email') {
+            localStorage.setItem('sentTo', 'email');
             this.setState({
                 sendViaEmail: true,
                 sendViaPhone:false 
