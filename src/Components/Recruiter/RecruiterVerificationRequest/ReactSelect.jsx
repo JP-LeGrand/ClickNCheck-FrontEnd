@@ -1,5 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
+import { connect } from 'react-redux';
 
 class ReactSelect extends React.Component {
     constructor(props){
@@ -52,4 +53,4 @@ class ReactSelect extends React.Component {
     }
 }
 
-export default ReactSelect;
+export default connect() (ReactSelect);
