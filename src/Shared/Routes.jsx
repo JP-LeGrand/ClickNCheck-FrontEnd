@@ -12,6 +12,7 @@ import ForgotPasswordSuccess from "../Components/Shared/ForgotPasswordSuccess/Fo
 import MainContainer from "../Components/Recruiter/RecruiterVerificationRequest/MainContainer";
 import CaptureCandidateDetails from "../Components/Recruiter/RecruiterVerificationRequest/CaptureCandidateDetails";
 import VerificationConfirmed from "../Components/Recruiter/RecruiterVerificationRequest/VerificationConfrimed/VerificationConfirmed";
+import AddRemoveChecks from "../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks";
 import AdminPage from "../Components/Admin/AdminPage/AdminPage";
 const Routes = () => {
   return (
@@ -46,6 +47,7 @@ const Routes = () => {
           exact
           component={VerificationConfirmed}
         />
+        <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
         <Route path="/Admin/AdminPage" exact Component={AdminPage} />
         <Route render={() => <Redirect to="/" />} />
       </Switch>

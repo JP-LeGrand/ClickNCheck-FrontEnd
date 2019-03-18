@@ -5,7 +5,6 @@
   body {
     margin: 0 auto;
     padding: 0;
-    text-align: center;
     background-color: #ffffff;
   }
 
@@ -32,10 +31,13 @@
     border: solid 1px #f9f9f9;
   }
   .fieldContainer {
-    padding-right: 10px;
+    padding-right: 1px;
+    padding-right: 1%;
+   
   }
   .FieldValue {
     margin-right: 100px;
+    margin-left: -30px;
     max-width: 100%;
     min-width: 10px;
     width: 10px;
@@ -53,6 +55,7 @@
 
   .InvalidField {
     margin-right: 100px;
+    margin-left: -30px;
     max-width: 100%;
     min-width: 10px;
     width: 10px;
@@ -72,6 +75,7 @@
     width: 14%;
     height: 22px;
     font-family: Roboto;
+    padding-left: 50%;
     font-size: 14px;
     font-weight: bold;
     font-style: normal;
@@ -79,6 +83,7 @@
     line-height: 1.57;
     letter-spacing: 0.9px;
     text-align: center;
+   
     color: #0091d1;
   }
   #innerWrapper {
@@ -162,6 +167,7 @@
   }
   #singleForm .leftTable tr:nth-child(odd) {
     background-color: #f9f9f9;
+  
   }
 
   #singleForm .leftTable,
@@ -175,6 +181,7 @@
     width: 393px;
     height: 27px;
     font-family: Roboto;
+    padding-left: 4%; 
     font-size: 20px;
     font-weight: 300;
     font-style: normal;
@@ -189,6 +196,7 @@
   .rightTable {
     float: right;
     margin-right: 26vw;
+    margin-top: -20px;
     width: 30vw;
     border-bottom: none;
   }
@@ -216,7 +224,8 @@
   }
   #bulk,
   #individually {
-    width: 95px;
+    width: 150px;
+    align-content: center;
   }
 
   .field3 hr {
@@ -237,6 +246,7 @@
 
   #formDivider table tbody tr td {
     text-align: left;
+   
   }
   #progress_bar li:before {
     content: counter(step);
@@ -469,7 +479,8 @@
   }
 
   .uploadSwitch{
-   padding-top: 2%;
+   padding-top: -1px;
+   padding-left: 4%;
   
   }
   hr {
@@ -698,46 +709,12 @@
     font-size: 18px;
   }
 
-  /*Check box*/
-  input[type="checkbox"] + .label-text:before {
-    content: "\f096";
-    font-family: "FontAwesome";
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    width: 1em;
-    display: inline-block;
-    margin-right: 5px;
-  }
-
   .form-check label {
     color: #000000;
     font-weight: normal;
     font-size: 12px;
   }
-
-  input[type="checkbox"]:checked + .label-text:before {
-    content: "\f14a";
-    color: #2980b9;
-    animation: effect 250ms ease-in;
-  }
-
-  input[type="checkbox"]:disabled + .label-text {
-    color: #aaa;
-  }
-
-  input[type="checkbox"]:disabled + .label-text:before {
-    content: "\f0c8";
-    color: #ccc;
-  }
-
-  input[type="checkbox"] {
-    z-index: -99;
-  }
-
+W
   /*Input with autocompletion*/
 
   .autocomplete {
@@ -783,27 +760,6 @@
     color: #000000;
   }
 
-  input {
-    position: relative;
-    outline: 0;
-    border-bottom: 1px solid #000000;
-    background-color: #ffffff;
-    padding: 10px;
-    width: 100%;
-    top: 10px;
-    border-width: 0 0 1px;
-    border-color: #000000;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.22;
-    letter-spacing: 1.1px;
-    color: #000000;
-  }
-
-  input:focus {
-    border-color: black;
-  }
 
   #next {
     top: 10px;
@@ -1084,5 +1040,45 @@
     line-height: 1.22;
     letter-spacing: 1.1px;
     color: #2b3844;
+  }
+
+  a:hover{
+    cursor: pointer;
+  }
+
+#formContainer #addRemoveChecks{
+    width: 1742px;
+    height: 922px;
+    background-color: #ffffff;
+    color: #02529c;
+    margin-left: 60px;
+  }
+
+  #formContainer #reorderChecks{
+    width: 214px;
+    height: 22px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.57;
+    letter-spacing: 0.9px;
+    color: #4e9821;
+    margin-left: 100px;
+  }
+
+  #checksTable{
+    margin-left: 150px;
+  }
+
+  #checkImage{
+    margin-left: 2px;
+    float: left;
+  }
+
+  #checkDiv {
+    height: 20px;
+    float: left;
   }
 }
