@@ -126,13 +126,13 @@ class MainContainer extends React.PureComponent {
                 getFile: true
             });
 
-            this.state.excelRows.map(name => {
-                return (
-                    this.validateField('email', name.Email),
-                    this.validateField('id', name.IDorPassport),
-                    this.validateField('phone', name.Phone)
-                );
-            });
+            // this.state.excelRows.map(name => {
+            //     return (
+            //         this.validateField('email', name.Email),
+            //         this.validateField('id', name.IDorPassport),
+            //         this.validateField('phone', name.Phone)
+            //     );
+            // });
         };
         reader.readAsBinaryString(inputFile.files[0]);
     }
@@ -152,72 +152,17 @@ class MainContainer extends React.PureComponent {
                         </tr>
                     </thead>
                     <tbody className="Headers">
-                        {this.state.excelRows.map((name, key) => {
+                        {this.state.excelRows.map((user, index) => {
                             return (
-                                <tr className="Shape" key={key.IDs}>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className="FieldValue"
-                                            type="text"
-                                            name="name"
-                                            defaultValue={name.FirstName}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className="FieldValue"
-                                            type="text"
-                                            name="surname"
-                                            defaultValue={name.Surname}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className="FieldValue"
-                                            type="text"
-                                            name="madein"
-                                            defaultValue={name.MaidenSurname}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className={this.state.fieldID}
-                                            type="text"
-                                            name="id"
-                                            defaultValue={name.IDorPassport}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className="FieldValue"
-                                            type="text"
-                                            name="dob"
-                                            defaultValue={name.Birthday}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className={this.state.fieldEmail}
-                                            type="text"
-                                            name="email"
-                                            defaultValue={name.Email}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className={this.state.fieldPhone}
-                                            type="text"
-                                            name="phone"
-                                            defaultValue={name.Phone}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
+                                <tr className="Shape" key={index}>
+                                    <td className="fieldContainer"><input className="FieldValue" type="text" name="name" defaultValue={user.Name} onChange={event => this.handleUserInput(index, user, event)}/></td>
+                                    <td className="fieldContainer"><input className="FieldValue" type="text" name="surname" defaultValue={user.Surname} onChange={event => this.handleUserInput(index, user, event)}/></td>
+                                    <td className="fieldContainer"><input className="FieldValue" type="text" name="madein" defaultValue={user.Maiden_Surname} onChange={event => this.handleUserInput(index, user, event)}/></td>
+                                    <td className="fieldContainer"><input className={this.state.fieldID} type="text" name="id" defaultValue={user.ID_Passport} onChange={event => this.handleUserInput(index, user, event)}/></td>
+                                    <td className="fieldContainer"><input className="FieldValue" type="text" name="dob" defaultValue={user.Birthday} onChange={event => this.handleUserInput(index, user, event)}/></td>
+                                    <td className="fieldContainer"><input className={this.state.fieldEmail} type="text" name="email" defaultValue={user.Email} onChange={event => this.handleUserInput(index, user, event)}/></td>
+                                    <td className="fieldContainer"> <input className={this.state.fieldPhone} type="text" name="phone" defaultValue={user.Phone} onChange={event => this.handleUserInput(index, user, event)}/></td>
+                                    <td><a><img src="https://img.icons8.com/ultraviolet/20/000000/delete.png" /></a></td>
                                 </tr>
                             );
                         })}
