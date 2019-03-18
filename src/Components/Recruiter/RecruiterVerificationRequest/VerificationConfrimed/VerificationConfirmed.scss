@@ -1,0 +1,269 @@
+.verifcationConfirmed{
+    #congrats{
+        width: 372px;
+        height: 27px;
+        font-family: Roboto;
+        font-size: 24px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.13;
+        letter-spacing: 0.6px;
+        text-align: center;
+        color: #2b3844;
+        margin: auto;
+    }
+    .top{
+        margin: auto;
+        display: flex;
+        align-items: center;
+        flex-flow: column;
+        margin-bottom: 55px;
+    }
+    .top p{
+        width: 661px;
+        height: 22px;
+        font-family: Roboto;
+        font-size: 14px;
+        text-align: center;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.57;
+        letter-spacing: 0.9px;
+        color: #2b3844;
+        margin: auto;
+    }
+    .middle{
+        display: block;
+    }
+    .steps{
+        text-align: center;
+        display: inline-block;
+        width: 33.33%;
+        align-items: center;
+        
+    }
+    .bottom{
+        display: flex;
+        align-items: center;
+        flex-flow: column;
+        margin-top: 45px;
+    }
+    .ball{
+        width: 100px;
+        height: 100px;
+        border: 10px solid #0091d1;
+        background-color: #0091d1;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        flex-flow: column;
+    }
+    #btnDashboard{
+        width: 270px;
+        height: 40px;
+        border-radius: 7px;
+        background-color:  #0091d1;
+        border-color: solid 1px  #0091d1;
+        border-style: none;
+        color: white;
+    }
+    #logout{
+        color: #0091d1;
+       text-decoration: none;
+       margin-top: 16px;
+       margin-bottom: 39px;
+    }
+.field4{
+    margin: auto;
+}
+    
+.field4 h3{
+      font-size: 24px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.13;
+      letter-spacing: 0.6px;
+      text-align: center;
+      color: #2b3844;
+  }
+  
+  .field4 p {
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.57;
+      letter-spacing: 0.9px;
+      text-align: center;
+      color: #2b3844;
+  }
+  
+  .field4 span{
+      position: relative;
+      font-weight: bold;
+      font-size: 14px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.57;
+      letter-spacing: 0.9px;
+      text-align: center;
+      color: #2b3844;
+      top: 2vh;
+  }
+  
+  .field4 button{
+      color: #FFFFFF;
+      border-radius: 7px;
+      background-color: #0091d1;
+  }
+  
+  .field4 a, #formDivider a{
+      font-size: 12px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 2.5;
+      letter-spacing: 0.8px;
+      text-align: center;
+      color: #0091d1;
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+#paragraph{
+  overflow: hidden;
+  counter-reset: step2;
+  padding-left: 0px;
+}
+
+#paragraph li{
+  list-style-type: none;
+  color: black;
+  width:33.33%;
+  float:left;
+  position: relative;
+  text-align: center;
+}
+
+#paragraph li:before{
+  content: counter(step2);
+  counter-increment: step2;
+  width: 45px;
+  line-height: 45px;
+  display: block;
+  color: #2b3844;
+  height: 45px;
+  background-color: #FFFFFF;
+  text-align: center;
+  border: 1px solid #2b3844;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  
+}
+
+#paragraph li.active{
+  width: 33.33%;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.83;
+  letter-spacing: 0.8px;
+  color: #2b3844;
+   text-align: center;
+}
+
+#paragraph li.active:before,  #paragraph li.active:after{
+  color: #FFFFFF;
+  background-color: #0091d1;
+  border: 1px solid #FFFFFF;
+  font-weight: bold;
+  /*@TODO 
+      Make each subsequent text on step bold
+  */
+}
+
+
+  #progress_bar {
+    overflow: hidden;
+    counter-reset: step;
+    padding-left: 0px;
+    width: 100%;
+  }
+
+  #progress_bar li {
+    list-style-type: none;
+    color: black;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    text-align: center;
+  }
+   #progress_bar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 45px;
+    line-height: 45px;
+    display: block;
+    color: #2b3844;
+    height: 45px;
+    background-color: #ffffff;
+    text-align: center;
+    border: 1px solid #2b3844;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+  }
+
+  #progress_bar li:after {
+    content: "";
+    width: 100%;
+    height: 10px;
+    background: #e6e9ec;
+    position: absolute;
+    left: -50%;
+    top: 18px;
+    z-index: -1; /*put it behind the numbers*/
+  }
+  #progress_bar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none;
+  }
+
+  #progress_bar li.active:before,
+  #progress_bar li.active:after {
+    color: #ffffff;
+    background-color: #0091d1;
+    border: 1px solid #ffffff;
+    font-weight: bold;
+    /*@TODO 
+        Make each subsequent text on step bold
+    */
+  }
+   #formContainer {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid white;
+    padding-left: 100px;
+    padding-right: 100px;
+    margin: 14vh;
+    border-radius: 8px;
+    font-family: helvetica;
+    position: relative;
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+  }
+  #dashboard, .field4 a {
+      margin-left: 37vw;
+      border: 0px;
+  }
+
+  .field4 a {
+      margin-left: 41.75vw;
+  }
+    
+}

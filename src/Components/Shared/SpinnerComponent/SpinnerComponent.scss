@@ -1,0 +1,14 @@
+.SpinnerComponent{
+    .SpinnerDiv{
+        width: 100%;
+        height: 100%;
+    }
+    
+    div.Inner{
+        vertical-align: middle;
+        margin: 10px auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+}

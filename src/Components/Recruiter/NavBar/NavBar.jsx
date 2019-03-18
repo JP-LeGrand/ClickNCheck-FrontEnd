@@ -51,60 +51,65 @@ class NavBar extends React.PureComponent {
                                 <img id="logo" src={Logo} alt="clickncheck" />
                             </a>
                             <a className="icon" onClick={this.handleMenuButton}>
-                                <FaBars />
+                                <FaBars id="miniBars" />
                             </a>
                         </div>
                         
                         <div id="mobile">
                             <a href="#" className="">
-                                <img
-                                    src={Dashboard} 
-                                    alt="clickncheck"
-                                    height="20px"
-                                    width="30px" />
-                    Dashboard
+                                <div className="navTab">
+                                    <img
+                                        className="navIcon"
+                                        src={Dashboard}
+                                        alt="clickncheck" />
+                                    <label className="navLabel">Dashboard</label>
+                                </div>
                             </a>
                             <a href="/NewVerificationRequest" className={ this.getLocation('/NewVerificationRequest') ? 'active' : 'inactive' }>
-                                <img
-                                    src={VerificationRequest} 
-                                    alt="clickncheck"
-                                    height="20px"
-                                    width="30px" />
-                    Verification Request
+                                <div className="navTab">
+                                    <img
+                                        className="navIcon"
+                                        src={VerificationRequest}
+                                        alt="clickncheck" />
+                                    <label className="navLabel">Verification Request</label>
+                                </div>
                             </a>
                             <a href="#" className="">
-                                <img
-                                    src={JobProfile}
-                                    alt="clickncheck"
-                                    height="20px"
-                                    width="30px" />
-                Job Profiles
+                                <div className="navTab">
+                                    <img
+                                        className="navIcon"
+                                        src={JobProfile}
+                                        alt="clickncheck" />
+                                    <label className="navLabel">Job Profiles</label>
+                                </div>
                             </a>
                             <a href="#" className="">
-                                <img
-                                    src={Reports} 
-                                    alt="clickncheck"
-                                    height="20px"
-                                    width="30px" />
-                Reports
+                                <div className="navTab">
+                                    <img
+                                        className="navIcon"
+                                        src={Reports}
+                                        alt="clickncheck" />
+                                    <label className="navLabel">Reports</label>
+                                </div>
                             </a>
                             <a href="#" className="">
-                                <img
-                                    src={Candidates} 
-                                    alt="clickncheck"
-                                    height="20px"
-                                    width="30px" />
-                Candidates
+                                <div className="navTab">
+                                    <img
+                                        className="navIcon"
+                                        src={Candidates}
+                                        alt="clickncheck" />
+                                    <label className="navLabel">Candidates</label>
+                                </div>  
                             </a>
                             <button id="toggle" type="button" className={navigator.onLine ? 'btn btn-sm btn-secondary btn-toggle active' : 'btn btn-sm btn-secondary btn-toggle' } data-toggle="button" aria-pressed="false" autoComplete="off">
                                 <div className="handle"></div>
                             </button>
+                            <div id="user">
+                                <img id="user_img" className="user" src={sessionStorage.getItem('user_img')} />
+                                <label className="user" id="user_name">{sessionStorage.getItem('user_name')}</label><FaAngleDown id="angleDown" />
+                            </div>
                         </div>
-                        <div id="user">
-                            <img id="user_img" className="user" src={sessionStorage.getItem('user_img')}/>
-                            <label className="user" id="user_name">{sessionStorage.getItem('user_name')}</label><FaAngleDown id="angleDown"/>
-                        </div>
-                    
+                        
                     </div>         
                 </div>
 
