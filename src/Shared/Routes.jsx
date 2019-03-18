@@ -13,6 +13,7 @@ import MainContainer from "../Components/Recruiter/RecruiterVerificationRequest/
 import CaptureCandidateDetails from "../Components/Recruiter/RecruiterVerificationRequest/CaptureCandidateDetails";
 import VerificationConfirmed from "../Components/Recruiter/RecruiterVerificationRequest/VerificationConfrimed/VerificationConfirmed";
 import AddUsers from "../Components/Admin/AddUsers/AddUsers";
+import adminNavBar from "../Components/Admin/AdminNavBar/adminNavBar";
 const Routes = () => {
   return (
     <BrowserRouter>
@@ -47,6 +48,7 @@ const Routes = () => {
           component={VerificationConfirmed}
         />
         <Route path="/Admin/AddUsers" exact component={AddUsers} />
+        <Route path="/Admin/AdminNavBar" exact component={adminNavBar} />
         <Route render={() => <Redirect to="/" />} />
       </Switch>
     </BrowserRouter>
