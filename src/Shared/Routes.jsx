@@ -12,7 +12,6 @@ import ForgotPasswordSuccess from '../Components/Shared/ForgotPasswordSuccess/Fo
 import MainContainer from '../Components/Recruiter/RecruiterVerificationRequest/MainContainer';
 import CaptureCandidateDetails from '../Components/Recruiter/RecruiterVerificationRequest/CaptureCandidateDetails';
 import VerificationConfirmed from '../Components/Recruiter/RecruiterVerificationRequest/VerificationConfrimed/VerificationConfirmed';
-
 const Routes = () => {
     return (
         <BrowserRouter>

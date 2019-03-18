@@ -1,7 +1,7 @@
-import React from "react";
-import "./MainContainerStyle.scss";
-import XLSX from "xlsx";
-import { RecruiterConstants } from "./recruiterConstants";
+import React from 'react';
+import './MainContainerStyle.scss';
+import XLSX from 'xlsx';
+import { RecruiterConstants } from './recruiterConstants';
 
 class MainContainer extends React.PureComponent {
     constructor(props) {
@@ -9,17 +9,17 @@ class MainContainer extends React.PureComponent {
         this.state = {
             excelRows: [],
             getFile: false,
-            email: "",
-            id: "",
-            number: "",
-            tableErrors: { email: "", id: "", phone: "" },
+            email: '',
+            id: '',
+            number: '',
+            tableErrors: { email: '', id: '', phone: '' },
             emailValid: false,
             idValid: false,
             numberValid: false,
             tableValid: false,
-            fieldID: "FieldValue",
-            fieldEmail: "FieldValue",
-            fieldPhone: "FieldValue"
+            fieldID: 'FieldValue',
+            fieldEmail: 'FieldValue',
+            fieldPhone: 'FieldValue'
         };
         this.submit = this.submit.bind(this);
         this.bulk = this.bulk.bind(this);
@@ -40,19 +40,19 @@ class MainContainer extends React.PureComponent {
         let tableValidationErrors = this.state.tableErrors;
 
         switch (fieldName) {
-        case "email":
+        case 'email':
             emailValid = value.match(
                 /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
             );
             tableValidationErrors.email = emailValid ? true : false;
             break;
 
-        case "id":
+        case 'id':
             idValid = value.length === RecruiterConstants.idNumberLen;
             tableValidationErrors.id = idValid ? true : false;
             break;
 
-        case "phone":
+        case 'phone':
             numberValidator = value.length === RecruiterConstants.phoneNumberLen;
             tableValidationErrors.phone = numberValidator ? true : false;
             break;
@@ -78,42 +78,42 @@ class MainContainer extends React.PureComponent {
         });
         if (this.state.idValid === false) {
             this.setState({
-                fieldID: "InvalidField"
+                fieldID: 'InvalidField'
             });
         } else {
             this.setState({
-                fieldID: "FieldValue"
+                fieldID: 'FieldValue'
             });
         }
 
         if (this.state.emailValid === false) {
             this.setState({
-                fieldEmail: "InvalidField"
+                fieldEmail: 'InvalidField'
             });
         } else {
             this.setState({
-                fieldEmail: "FieldValue"
+                fieldEmail: 'FieldValue'
             });
         }
 
         if (this.state.numberValid === false) {
             this.setState({
-                fieldPhone: "InvalidField"
+                fieldPhone: 'InvalidField'
             });
         } else {
             this.setState({
-                fieldPhone: "FieldValue"
+                fieldPhone: 'FieldValue'
             });
         }
     }
 
     submit() {
-        let inputFile = document.getElementById("getFile");
+        let inputFile = document.getElementById('getFile');
         let reader = new FileReader();
 
         reader.onload = e => {
             let workbook = XLSX.read(e.target.result, {
-                type: "binary"
+                type: 'binary'
             });
 
             let firstSheet = workbook.SheetNames[0];
@@ -128,9 +128,9 @@ class MainContainer extends React.PureComponent {
 
             this.state.excelRows.map(name => {
                 return (
-                    this.validateField("email", name.Email),
-                    this.validateField("id", name.IDorPassport),
-                    this.validateField("phone", name.Phone)
+                    this.validateField('email', name.Email),
+                    this.validateField('id', name.IDorPassport),
+                    this.validateField('phone', name.Phone)
                 );
             });
         };
@@ -241,7 +241,7 @@ class MainContainer extends React.PureComponent {
                 <div id="bulkForm">
                     <div className="upload-area" id="uploadfile">
                         <img
-                            src={require("../../../Assets/upload-file.svg")}
+                            src={require('../../../Assets/upload-file.svg')}
                             alt="upload files here"
                         />
                         <h3>Drag and Drop or Click to upload File</h3>
@@ -259,7 +259,7 @@ class MainContainer extends React.PureComponent {
                                 download
                             >
                                 <img
-                                    src={require("../../../Assets/downloadFile.svg")}
+                                    src={require('../../../Assets/downloadFile.svg')}
                                     alt="download-fav"
                                 />
                 Download Excel Template
