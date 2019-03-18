@@ -12,7 +12,7 @@ function RecieveMethod(props){
         return ( 
             <div className="send">
                 <label className="inp">
-                    <input placeholder="&nbsp;" value={props.phoneEmail} onChange={props.handleEmailPhone}/>
+                    <input placeholder="&nbsp;" value={props.phoneEmail} maxLength={'10'} onChange={props.handleEmailPhone}/>
                     <span className="label">Enter Phone Number</span>
                     <span className="border"></span>
                 </label>
@@ -38,7 +38,7 @@ function IdentityMethod(props){
         return ( 
             <div className="send">
                 <label className="inp">
-                    <input placeholder="&nbsp;" value={props.passportNumber} onChange={props.handlePassportID}/>
+                    <input placeholder="&nbsp;" value={props.passportNumber} maxLength={'13'} onChange={props.handlePassportID}/>
                     <span className="label">Enter ID Number</span>
                     <span className="border"></span>
                 </label>
@@ -214,11 +214,9 @@ class ForgotPassword extends React.PureComponent{
             });
         } else if (this.state.sendViaPhone) {
             const LOCAL_NUMBER = 10;
-            const INTERNATIONAL = 12;
             const ZERO = '0';
             const INT_ZERO = 0;
-            const PLUS = '+';
-            if (checkPhoneEmail.charAt(INT_ZERO) === ZERO && checkPhoneEmail.length === LOCAL_NUMBER && checkPhoneEmail.match(/[0-9]{10}/) || checkPhoneEmail.charAt(INT_ZERO) === PLUS && checkPhoneEmail.length === INTERNATIONAL && checkPhoneEmail.match(/[+][0-9]{11}/) ) {
+            if (checkPhoneEmail.charAt(INT_ZERO) === ZERO && checkPhoneEmail.length === LOCAL_NUMBER && checkPhoneEmail.match(/[0-9]{10}/) ) {
                 this.setState({
                     validPhone: true
                 });
@@ -258,16 +256,16 @@ class ForgotPassword extends React.PureComponent{
 
                 <div className="mainSection">
                     <div className="registrationHeading">Forgot Password</div> 
-                    <div id="checkSection" className="sendWhat">
+                    {/*<div id="checkSection" className="sendWhat">
                         <p className="send sub">Select what you would like us to send you</p>
                         <div className="send">
-                            <input id="username" onChange={this.handleEmailCheck} checked={this.state.sendEmail} type="checkbox" className ="sendInfo"/><label className="sub" htmlFor="username">Username</label>
+                            <input id="username" onChange={this.handleEmailCheck} checked={this.state.sendEmail} type="checkbox" className="sendInfo" /><label className="sub" htmlFor="username">Username</label>
                         </div>
-                        <br/>
+                        <br />
                         <div className="send">
                             <input id="password" onChange={this.handlePasswordCheck} checked={this.state.sendPassword} type="checkbox" className="sendInfo" /><label className="sub" htmlFor="password">Password</label>
                         </div>
-                    </div>
+                    </div>*/}
                     <div id="idHead" className="sendWhat">
                         <p className="send sub">We need to Identify you before we send you the details </p>
                     </div>
