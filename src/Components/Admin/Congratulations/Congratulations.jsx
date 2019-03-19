@@ -14,13 +14,15 @@ class Congratulations extends Component {
                 <div className="Rectangle-Copy">
                     <div>
                         <img src={check} /><br></br>
-                        <label className="Congratulations">Congratulations!</label>
-                        <br/>
-                        <label className="Call-Centre-Supervis" >Call Centre Supervisor</label >
-                        <p className="You-have-successfully">You have successfully assigned job title
-                            <span className="text-style-1">Call Centre Supervisor </span>to <span className="text-style-1">
+                        <label className="Congratulation">Congratulations!</label> 
+                        <br></br> 
+                        <div className="You-have-successfully">
+                            <p>You have successfully assigned job title
+                                <span className="text-style-1"> Call Centre Supervisor </span>to <span className="text-style-1">
                             Kyle Lourens</span> </p>
+                        </div>                      
                     </div>
+                    <br></br>
                     <button onClick={this.handleFormSubmit} className="Rectangle-Copy-14">Done</button>                     
                 </div>
             </div>
