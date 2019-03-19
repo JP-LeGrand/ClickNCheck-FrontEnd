@@ -14,7 +14,7 @@ import CaptureCandidateDetails from '../Components/Recruiter/RecruiterVerificati
 import VerificationConfirmed from '../Components/Recruiter/RecruiterVerificationRequest/VerificationConfrimed/VerificationConfirmed';
 import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks';
 import CreateJobProfile from '../Components/Admin/CreateJobProfile/CreateJobProfile';
-import AdminPage from "../Components/Admin/AdminPage/AdminPage";
+import AdminPage from '../Components/Admin/AdminPage/AdminPage';
 
 const Routes = () => {
     return (
