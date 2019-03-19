@@ -20,6 +20,7 @@ import phone from '../../../Assets/phone.svg';
 import 'typeface-roboto';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Axios from 'axios';
+import { RecruiterConstants } from './recruiterConstants';
 
 class CaptureCandidateDetails extends React.PureComponent {
     constructor(props) {
@@ -35,13 +36,13 @@ class CaptureCandidateDetails extends React.PureComponent {
             idNumber: '',
             idChoice: '',
             tableErrors: { email: '', id: '', phone: '' },
-            emailValid: false,
-            idValid: false,
-            numberValid: false,
+            emailValid: true,
+            idValid: true,
+            numberValid: true,
             tableValid: false,
-            fieldID: 'FieldValue',
-            fieldEmail: 'FieldValue',
-            fieldPhone: 'FieldValue',
+            fieldID: 'inp',
+            fieldEmail: 'inp',
+            fieldPhone: 'inp',
         };
         this.userNameHandler = this.userNameHandler.bind(this);
         this.userSurnameHandler =this.userSurnameHandler.bind(this);
@@ -52,6 +53,7 @@ class CaptureCandidateDetails extends React.PureComponent {
         this.addCandidate = this.addCandidate.bind(this);
         this.userChoice = this.userChoice.bind(this);
         this.sendCandidates = this.sendCandidates.bind(this);
+        this.validateField = this.validateField.bind(this);
     }
 
     prevStep(){
@@ -90,21 +92,100 @@ class CaptureCandidateDetails extends React.PureComponent {
         });
     }
     userIdNumber(event){
+        this.validateField(event.target.name, event.target.value);
         this.setState({ idNumber: event.target.value });
+
     }
     usermSurnameHandler(event){
         this.setState({ mSurname: event.target.value });
     }
     userEmailHandler(event){
+        this.validateField(event.target.name, event.target.value);
         this.setState({ email: event.target.value });
     }
     userPhoneHandler(event){
+        this.validateField(event.target.name, event.target.value);
         this.setState({ phone: event.target.value });
     }
     userChoice(event){
         this.setState({ idChoice: event.target.value });
-        console.log(this.state.idChoice)
+      
     }
+
+    validateField(fieldName, value) {
+        let emailValid = this.state.emailValid;
+        let idValid = this.state.idValid;
+        let numberValid = this.state.numberValid;
+        let tableValidationErrors = this.state.tableErrors;
+
+        switch (fieldName) {
+        case 'email':
+            emailValid = value.match(
+                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+            );
+            tableValidationErrors.email = emailValid ? true : false;
+            break;
+
+        case 'id':
+            idValid = value.length === RecruiterConstants.idNumberLen;
+            tableValidationErrors.id = idValid ? true : false;
+            break;
+
+        case 'phone':
+        numberValid = value.length === RecruiterConstants.phoneNumberLen;
+            tableValidationErrors.phone = numberValid ? true : false;
+            break;
+
+        default:
+            break;
+        }
+        this.setState(
+            {
+                tableErrors: tableValidationErrors,
+                emailValid: emailValid,
+                numberValid: numberValid,
+                idValid: idValid
+            },
+            this.validateTable
+        );
+    }
+    validateTable() {
+        this.setState({
+            tableValid:
+        this.state.emailValid && this.state.idValid && this.state.numberValid
+        });
+        console.log(this.state.idValid)
+        if (this.state.idValid === false) {
+            this.setState({
+                fieldID: 'invalid'
+            });
+        } else {
+            this.setState({
+                fieldID: 'inp'
+            });
+        }
+
+        if (this.state.emailValid === false) {
+            this.setState({
+                fieldEmail: 'invalid'
+            });
+        } else {
+            this.setState({
+                fieldEmail: 'inp'
+            });
+        }
+
+        if (this.state.numberValid === false) {
+            this.setState({
+                fieldPhone: 'invalid'
+            });
+        } else {
+            this.setState({
+                fieldPhone: 'inp'
+            });
+        }
+    }       
+
     addCandidate() {
         let body = {  
             Name: this.state.firstName,
@@ -226,8 +307,8 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                 <tr>
                                                     <td>
                                                         <div className="form-group">
-                                                            <label className="inp id">
-                                                                <input id="idNumberForm" placeholder="&nbsp;" name="idNumberForm" value ={this.state.idNumber} onChange={this.userIdNumber}/>
+                                                            <label className={this.state.fieldID}>
+                                                                <input id="idNumberForm" placeholder="&nbsp;" name="id" value ={this.state.idNumber} onChange={(event) => this.userIdNumber(event)}/>
                                                                 <span className="label">ID Number</span>
                                                                 <span className="border"></span>
                                                             </label>
@@ -238,7 +319,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                     <td>
                                                         <div className="form-group">
                                                             <img src={email} />
-                                                            <label className="inp">
+                                                            <label className={this.state.fieldEmail}>
                                                                 <input id="email" placeholder="&nbsp;" name="email" value ={this.state.email} onChange={this.userEmailHandler}/>
                                                                 <span className="label">Email Address</span>
                                                                 <span className="border"></span>
@@ -248,7 +329,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                     <td>
                                                         <div className="form-group">
                                                             <img src={phone} />
-                                                            <label className="inp">
+                                                            <label className={this.state.fieldPhone}>
                                                                 <input id="phone" placeholder="&nbsp;" name="phone" value ={this.state.phone} onChange={this.userPhoneHandler}/>
                                                                 <span className="label">Telephone Number</span>
                                                                 <span className="border"></span>

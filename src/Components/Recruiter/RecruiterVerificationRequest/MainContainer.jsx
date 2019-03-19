@@ -57,7 +57,7 @@ class MainContainer extends React.PureComponent {
     handleUserInput(index, event) {
         
         let propName = '';
-console.log(event.target.name);
+        console.log(event.target.name);
         switch (event.target.name) {
         case 'name':
             propName = 'Name';
@@ -83,7 +83,8 @@ console.log(event.target.name);
         
         const newRows = [...this.state.excelRows];
         newRows[index][propName] = event.target.value;
-        //  this.validateField(event.target.name, event.target.vakue)
+        this.validateField(event.target.name, event.target.value);
+        console.log(newRows[index][propName])
         this.setState({ 
             excelRows : newRows
         });
@@ -102,11 +103,11 @@ console.log(event.target.name);
     validateField(fieldName, value) {
         let emailValid = this.state.emailValid;
         let idValid = this.state.idValid;
-        let numberValidator = this.state.numberValid;
+        let numberValid = this.state.numberValid;
         let tableValidationErrors = this.state.tableErrors;
 
         switch (fieldName) {
-        case 'email':
+        case 'email' || 'Email' :
             emailValid = value.match(
                 /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
             );
@@ -119,8 +120,8 @@ console.log(event.target.name);
             break;
 
         case 'phone':
-            numberValidator = value.length === RecruiterConstants.phoneNumberLen;
-            tableValidationErrors.phone = numberValidator ? true : false;
+            numberValid = value.length === RecruiterConstants.phoneNumberLen;
+            tableValidationErrors.phone = numberValid ? true : false;
             break;
 
         default:
@@ -130,7 +131,7 @@ console.log(event.target.name);
             {
                 tableErrors: tableValidationErrors,
                 emailValid: emailValid,
-                numberValid: numberValidator,
+                numberValid: numberValid,
                 idValid: idValid
             },
             this.validateTable
@@ -341,7 +342,6 @@ console.log(event.target.name);
 
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.prevStep}>BACK</button>
-                    <button id="next" onClick={this.nextStep}>NEXT</button>
                 </div>
                 <Footer />
             </div>

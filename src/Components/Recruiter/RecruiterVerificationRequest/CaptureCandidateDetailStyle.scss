@@ -328,7 +328,7 @@
     border: 0;
     margin-left: 0px;;
     padding-left:20px; 
-    border-bottom: 1px solid #223254;
+    border-bottom: 1px solid #363a42;
     background: none;
     border-radius: 0;
     -webkit-transition: all 0.15s ease;
@@ -339,9 +339,88 @@
     font-stretch: normal;
     line-height: 1.57;
     letter-spacing: 0.9px;
-    color: #2b3844;
+    color: #222a31;
   }
 
+
+
+  .invalid {
+    position: relative;
+  }
+
+  .invalid .label {
+    position: absolute;
+    top: 14px;
+    left:0;
+    padding: 0;
+    margin-left: 0px;
+    padding-left: 30px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.57;
+    letter-spacing: 0.9px;
+    color: #2b3844;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+
+  .invalid input{
+    -webkit-appearance: none;
+    width: 290px;
+    height: 14px;
+    border: 0;
+    margin-left: 0px;;
+    padding-left:20px; 
+    border-bottom: 1px solid #ff0f0f;
+    background: none;
+    border-radius: 0;
+    -webkit-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.57;
+    letter-spacing: 0.9px;
+    color: #222a31;
+  }
+  .invalid input:focus {
+    background: none;
+    outline: none;
+  }
+  
+  .invalid input:not(:placeholder-shown) + span {
+    color: #2b3844;
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
+  }
+
+  .ininvalidp.id input:not(:placeholder-shown) + span {
+    color: #2b3844;
+    -webkit-transform: translateY(-26px) scale(0.75);
+            transform: translateY(-26px) scale(0.75);
+  }
+  
+  .invalid input:focus + span {
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
+    
+  }
+
+  .invalid.id input:focus + span {
+    -webkit-transform: translateY(-26px) scale(0.75);
+            transform: translateY(-26px) scale(0.75);
+    
+  }
+  
+  .invalid input:focus + span + .border {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
    .form-group img {
     position: relative;
     padding: 0;
