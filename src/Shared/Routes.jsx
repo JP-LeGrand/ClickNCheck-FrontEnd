@@ -14,45 +14,31 @@ import CaptureCandidateDetails from "../Components/Recruiter/RecruiterVerificati
 import VerificationConfirmed from "../Components/Recruiter/RecruiterVerificationRequest/VerificationConfrimed/VerificationConfirmed";
 import AddRemoveChecks from "../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks";
 import AdminPage from "../Components/Admin/AdminPage/AdminPage";
+import AddUsers from "../Components/Admin/AddUsers/AddUsers";
+
 const Routes = () => {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={Login} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/otp" exact component={Otp} />
-        <Route path="/candidate/consent" exact component={Consent} />
-        <Route path="/candidate/consented" exact component={Consented} />
-        <Route path="/forgotPassword" exact component={ForgotPassword} />
-        <Route
-          path="/forgotPasswordSuccess"
-          exact
-          component={ForgotPasswordSuccess}
-        />
-        <Route path="/changePassword" exact component={ChangePassword} />
-        <Route path="/ReviewChecks" exact component={ReviewChecks} />
-        <Route
-          path="/NewVerificationRequest"
-          exact
-          component={NewVerificationRequest}
-        />
-        <Route path="/candidate/bulk" exact component={MainContainer} />
-        <Route
-          path="/candidate/individual"
-          exact
-          component={CaptureCandidateDetails}
-        />
-        <Route
-          path="/VerificationConfirmed"
-          exact
-          component={VerificationConfirmed}
-        />
-        <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
-        <Route path="/Admin/AdminPage" exact Component={AdminPage} />
-        <Route render={() => <Redirect to="/" />} />
-      </Switch>
-    </BrowserRouter>
-  );
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route path="/" exact component={Login} />
+                <Route path="/login" exact component={Login} />
+                <Route path="/otp" exact component={Otp} />
+                <Route path="/candidate/consent" exact component={Consent} />
+                <Route path="/candidate/consented" exact component={Consented} />
+                <Route path="/forgotPassword" exact component={ForgotPassword} />
+                <Route path="/forgotPasswordSuccess" exact component={ForgotPasswordSuccess}/>
+                <Route path="/changePassword" exact component={ChangePassword} />
+                <Route path="/ReviewChecks" exact component={ReviewChecks} />
+                <Route path="/NewVerificationRequest" exact component={NewVerificationRequest}/>
+                <Route path="/candidate/bulk" exact component={MainContainer} />
+                <Route path="/candidate/individual" exact component={CaptureCandidateDetails}/>
+                <Route path="/VerificationConfirmed" exact component={VerificationConfirmed}/>
+                <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
+                <Route path="/Admin/AdminPage" exact Component={AdminPage} />
+                <Route render={() => <Redirect to="/" />} />
+            </Switch>
+        </BrowserRouter>
+    );
 };
 
 export default Routes;

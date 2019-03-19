@@ -72,8 +72,16 @@ class CaptureCandidateDetails extends React.PureComponent {
         }
 
     }
-    sendCandidates(){
-        console.log(this.state.candidates);
+    sendCandidates () {
+        let candidate = {
+            candidates: this.state.candidates,
+        };
+        let ver_check = localStorage.getItem('ver_check');
+
+        Axios.post('https://localhost:44347/api/candidates/CreateCandidate/' + ver_check, candidate)
+            .then((response) => {
+                console.log(response);
+            });
     }
     userNameHandler(event){
         const name = event.target.name;
@@ -132,7 +140,7 @@ class CaptureCandidateDetails extends React.PureComponent {
             break;
 
         case 'phone':
-        numberValid = value.length === RecruiterConstants.phoneNumberLen;
+            numberValid = value.length === RecruiterConstants.phoneNumberLen;
             tableValidationErrors.phone = numberValid ? true : false;
             break;
 
