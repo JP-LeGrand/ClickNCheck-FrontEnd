@@ -146,38 +146,37 @@ class ReviewChecks extends React.Component {
 
   componentDidMount(){
       let arr = [];
-      fetch(BASE_URL+'JobProfiles/getAllChecks' , {
-          method: 'GET',
-          mode: 'cors', // no-cors, cors, *same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer '+ sessionStorage.getItem('token')
-          },
-          redirect: 'manual', // manual, *follow, error
-          referrer: 'no-referrer', // no-referrer, *client 
-      })
-          .then((response) => response.json())  
-          .then(
-              response => {
-                  response.forEach((check) =>{
-                      arr.push({
-                          vendors: [ check.name ],
-                          category: check.checkType,
-                          categoryID: check.checkTypeID,
-                          location: 'onRight',
-                          id: check.id,
-                          bgColor: '#FFFFFF',
-                          cssID: 'vendor1',
-                          color: 'black'
-                      });
-                  });
-                  this.setState({ checks: arr });
-              },
-              (error) => {
-                  alert(error);
-              });
+      if (this.state.checks.length == 0){
+          fetch(BASE_URL+'JobProfiles/jobChecks/'+localStorage.getItem('jpID') , {
+            method: 'GET',
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer '+ sessionStorage.getItem('token')
+            },
+            redirect: 'manual', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client 
+        })
+            .then((response) => response.json())  
+            .then(
+                response => {
+                    response.forEach((check) =>{
+                        arr.push({
+                            category: check.category,
+                            categoryID: check.checkCategoryID,
+                            location: 'onRight',
+                            id: check.id
+                        });
+                    });
+                    this.setState({ checks: arr });
+
+                },
+                (error) => {
+                    alert(error);
+                });
+        }
   }
 }
 
