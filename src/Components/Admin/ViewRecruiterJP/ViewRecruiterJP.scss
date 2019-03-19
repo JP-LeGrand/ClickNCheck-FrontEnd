@@ -1,0 +1,63 @@
+.ViewRecruiterJP{
+    padding: 0px 50px;
+    .title{
+        display: flex;
+        flex-flow: row;
+        font-size: 14px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 3.21;
+        letter-spacing: 0.3px;
+        color: #02529c;
+        #bold{
+            font-weight: bold;
+        }
+        p{
+            margin: 0px;
+        }
+    }
+    #angleRight{
+        margin: 14px 0px;
+    }
+    #headTitle{
+        float:left;
+        height: 25px;
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.5;
+        letter-spacing: 0.4px;
+        color: #02529c;
+        p{
+            margin: 0px;
+        }
+    }
+    #selectElement{
+        margin: auto;
+        width: 300px;
+    }
+    .tHead{
+        color: #02529c;
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+    }
+    .tHeading{
+        label{
+            margin-left: 10px;
+            height: 20px;
+        }
+
+        width:20%;
+    }
+     .tHeading .hImage{
+        padding-top: 5px;
+        bottom: 0px;
+    }
+    .hImage{
+        height: 15px;
+        width: 15px;
+    }
+}
