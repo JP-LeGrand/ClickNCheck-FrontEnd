@@ -23,6 +23,7 @@ class ReviewChecks extends React.Component {
     }
 
     verificationChecks(){
+
         window.location = '/NewVerificationRequest';
     }
     addRemoveChecks(){
@@ -36,9 +37,7 @@ class ReviewChecks extends React.Component {
     individualForm(){
         let checks = [];
         this.state.checks.forEach((check) => {
-            if (check.location == 'onLeft'){
-                checks.push(check.id);
-            }
+            checks.push(check.id);
         });
         let createVerReq = {
             checks: checks,
