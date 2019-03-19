@@ -21,6 +21,8 @@ import 'typeface-roboto';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Axios from 'axios';
 import { RecruiterConstants } from './recruiterConstants';
+import rollingImg from '../../../Assets/Rolling.svg';
+
 
 class CaptureCandidateDetails extends React.PureComponent {
     constructor(props) {
@@ -43,6 +45,7 @@ class CaptureCandidateDetails extends React.PureComponent {
             fieldID: 'inp',
             fieldEmail: 'inp',
             fieldPhone: 'inp',
+            loading:false,
         };
         this.userNameHandler = this.userNameHandler.bind(this);
         this.userSurnameHandler =this.userSurnameHandler.bind(this);
@@ -73,15 +76,19 @@ class CaptureCandidateDetails extends React.PureComponent {
 
     }
     sendCandidates () {
+        this.setState({
+            loading: true
+        });
         let candidate = {
             candidates: this.state.candidates,
         };
         let ver_check = localStorage.getItem('ver_check');
-
-        Axios.post('https://localhost:44347/api/candidates/CreateCandidate/' + ver_check, candidate)
-            .then((response) => {
-                console.log(response);
-            });
+      
+        Axios.post('https://localhost:44347/api/candidates/CreateCandidate/' + ver_check , candidate)
+        .then((response)=>{
+            console.log(response.data);
+            window.location = '/VerificationConfirmed';
+        })
     }
     userNameHandler(event){
         const name = event.target.name;
@@ -100,11 +107,11 @@ class CaptureCandidateDetails extends React.PureComponent {
         });
     }
     userIdNumber(event){
-        this.validateField(event.target.name, event.target.value);
-        this.setState({ idNumber: event.target.value });
-
+            this.validateField(event.target.name, event.target.value);
+            this.setState({ idNumber: event.target.value });
     }
     usermSurnameHandler(event){
+       
         this.setState({ mSurname: event.target.value });
     }
     userEmailHandler(event){
@@ -128,10 +135,10 @@ class CaptureCandidateDetails extends React.PureComponent {
 
         switch (fieldName) {
         case 'email':
-            emailValid = value.match(
-                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-            );
+            emailValid = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+            
             tableValidationErrors.email = emailValid ? true : false;
+            console.log(tableValidationErrors.email)
             break;
 
         case 'id':
@@ -195,34 +202,43 @@ class CaptureCandidateDetails extends React.PureComponent {
     }       
 
     addCandidate() {
-        let body = {  
-            Name: this.state.firstName,
-            Surname: this.state.surname,
-            Maiden_Surname: this.state.mSurname,   
-            Email: this.state.email,
-            Phone: this.state.phone,
-            ID_Type: 'ID',
-            ID_Passport: this.state.idNumber,
-          
+      
+        if (this.state.firstName !== '' && this.state.surname !== '' && this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== ''){
+            let body = {  
+                Name: this.state.firstName,
+                Surname: this.state.surname,
+                Maiden_Surname: this.state.mSurname,   
+                Email: this.state.email,
+                Phone: this.state.phone,
+                ID_Type: 'ID',
+                ID_Passport: this.state.idNumber,
+              
+            };
+            let aryCandaidate = [ ...this.state.candidates ];
+            aryCandaidate.push(body);
+            this.setState({
+                candidates : aryCandaidate
+            });
+           
+            this.setState({
+                firstName : '',
+                surname : '',
+                mSurname : '',
+                email : '',
+                phone : '',
+                idNumber : '',
+                emailValid: true,
+                idValid: true,
+                numberValid: true,
+               
+                fieldID: 'inp',
+                fieldEmail: 'inp',
+                fieldPhone: 'inp',
+            });
+        } else {
+            window.alert('All fields must be filled');
         }
-        let aryCandaidate = [ ...this.state.candidates ];
-        aryCandaidate.push(body);
-        this.setState({
-            candidates : aryCandaidate
-        })
        
-
-        this.setState({
-            firstName : '',
-            surname : '',
-            mSurname : '',
-            email : '',
-            phone : '',
-            idNumber : ''
-        })
-
-        //  Axios.post('https://localhost:44347/api/candidates/CreateCandidate/1', cadBody);
-
     }
 
     individual() {
@@ -328,7 +344,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                         <div className="form-group">
                                                             <img src={email} />
                                                             <label className={this.state.fieldEmail}>
-                                                                <input id="email" placeholder="&nbsp;" name="email" value ={this.state.email} onChange={this.userEmailHandler}/>
+                                                                <input id="email" placeholder="&nbsp;" name="email" value ={this.state.email} onChange={(event) => this.userEmailHandler(event)}/>
                                                                 <span className="label">Email Address</span>
                                                                 <span className="border"></span>
                                                             </label>
@@ -338,7 +354,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                         <div className="form-group">
                                                             <img src={phone} />
                                                             <label className={this.state.fieldPhone}>
-                                                                <input id="phone" placeholder="&nbsp;" name="phone" value ={this.state.phone} onChange={this.userPhoneHandler}/>
+                                                                <input id="phone" placeholder="&nbsp;" name="phone" value ={this.state.phone} onChange={(event) => this.userPhoneHandler(event)}/>
                                                                 <span className="label">Telephone Number</span>
                                                                 <span className="border"></span>
                                                             </label>
@@ -356,7 +372,9 @@ class CaptureCandidateDetails extends React.PureComponent {
 
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.prevStep}>BACK</button>
-                    <button id="next" onClick={this.sendCandidates}>SUBMIT</button>
+                    <button id="next" disabled={!this.state.tableValid} onClick={this.sendCandidates}>SUBMIT</button>
+                    <div className="loading">{this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}</div> 
+                    
                 </div>
                 <Footer />
             </div>

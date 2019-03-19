@@ -3,6 +3,9 @@ import './MainContainerStyle.scss';
 import XLSX from 'xlsx';
 import { RecruiterConstants } from './recruiterConstants';
 import Footer from '../../Shared/Footer/Footer';
+import Axios from 'axios';
+import rollingImg from '../../../Assets/Rolling.svg';
+
 
 class MainContainer extends React.PureComponent {
     constructor(props) {
@@ -21,7 +24,8 @@ class MainContainer extends React.PureComponent {
             tableValid: false,
             fieldID: 'FieldValue',
             fieldEmail: 'FieldValue',
-            fieldPhone: 'FieldValue'
+            fieldPhone: 'FieldValue',
+            loading:false,
         };
         this.submit = this.submit.bind(this);
         this.addBulkCandidates = this.addBulkCandidates.bind(this);
@@ -270,19 +274,27 @@ class MainContainer extends React.PureComponent {
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.prevStep}>BACK</button>
                     <button id="next" onClick={this.addBulkCandidates}>SUBMIT</button>
+                    <div className="loading">{this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}</div> 
                 </div>
                 <Footer />
             </div>
 
-      
         );
     }
     addBulkCandidates(){
+        this.setState({
+            loading: true
+        });
         let body = {
-            OrginisationID : '1',
             candidates : this.state.excelRows,
         }
         console.log(body);
+        let var_check = localStorage.getItem("ver_check");
+        Axios.post('https://localhost:44347/api/candidates/CreateCandidate/' + var_check, body)
+        .then(() => {
+            window.location = '/VerificationConfirmed';
+        });
+        
     }
 
     bulk() {
