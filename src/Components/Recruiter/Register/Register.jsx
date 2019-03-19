@@ -4,12 +4,13 @@ import vv from 'prop-types';
 import './Register.scss';
 import imgMain from '../../../Assets/main.svg';
 import { ChangePasswordConstrants } from '../../Shared/ChangePassword/ChangePasswordConstants';
-import { BASE_URL,GET_MANAGERS } from '../../../Shared/Constants';
+import { BASE_URL, OTP_AUTHENTICATION,GET_MANAGERS } from '../../../Shared/Constants';
 import passImg from '../../../Assets/password.svg';
 import rollingImg from '../../../Assets/Rolling.svg';
 import ManagerSelect from './ManagerSelect';
 import { ZERO } from '../../../Shared/IntConstants';
 import Axios from 'axios';
+import queryString from 'query-string';
 
 class Register extends React.PureComponent{
     constructor(props) {
@@ -200,13 +201,36 @@ class Register extends React.PureComponent{
                   'content-type': 'multipart/form-data'
               }
           };
-          return Axios.post(url, formData,config)
+          return Axios.post(url, formData,config);
+      }
+      otp(){
+          let userid = this.state.userId;
+          const url = BASE_URL + OTP_AUTHENTICATION;
+          const config = {
+              headers: {
+                  'Content-Type': 'application/json'
+              } };
+          return Axios.post(url,userid,config);
       }
       onFormSubmit(e){
           e.preventDefault(); // Stop form submit
           this.fileUpload(this.state.file).then((response)=>{
-              console.log(response.data);
-          });
+              if (response.data === 'Upload Success'){
+                  this.otp().then((response) => response.json())
+                      .then(
+                          () => {
+                              window.location = '/otp';
+                          },
+                          (error) => {
+                              alert(error);
+                          }
+                      );
+              }
+          },
+          (error) => {
+              alert(error);
+          }
+          );
       }
 
       render(){
