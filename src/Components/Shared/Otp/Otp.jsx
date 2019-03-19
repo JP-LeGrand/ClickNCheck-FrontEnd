@@ -4,6 +4,7 @@ import './Otp.scss';
 import { BASE_URL, CHECK_OTP, OTP_AUTHENTICATION } from '../../../Shared/Constants';
 import mainImg from '../../../Assets/main.svg';
 import 'typeface-roboto';
+import rollingImg from '../../../Assets/Rolling.svg';
 
 class Otp extends React.PureComponent {
     constructor(props) {
@@ -14,7 +15,8 @@ class Otp extends React.PureComponent {
             digit2: '',
             digit3: '',
             digit4: '',
-            digit5: ''
+            digit5: '',
+            loading: false
         };
 
         this.handleChangeDigit1 = this.handleChangeDigit1.bind(this);
@@ -73,45 +75,54 @@ class Otp extends React.PureComponent {
         };
         let user_otp = [ localStorage.getItem('user_id'), body.OTP ];
         localStorage.clear();
-        fetch(BASE_URL + CHECK_OTP, {
-            method: 'POST',
-            mode: 'cors', // no-cors, cors, *same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'omit', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json'
-                // "Content-Type": "application/x-www-form-urlencoded",
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrer: 'no-referrer', // no-referrer, *client
-            body: JSON.stringify(user_otp)
-        })
-            .then(response => response.json())
-            .then(
-                response => {
-                    let zero = 0;
-                    let one = 1;
-                    let two = 2;
-                    let three = 3;
-                    sessionStorage.setItem('token', response[zero]);
-                    sessionStorage.setItem('user_name', response[two]);
-                    sessionStorage.setItem('user_img', response[three]);
-                    let id_pass_manager = localStorage.getItem('id_pass_manager');
-
-                    if (id_pass_manager === null) {
-                        if (response[one] === 'recruiter') {
-                            window.location = '/NewVerificationRequest';
-                        } else if (response[one] === 'admin') {
-                            alert('hey admin');
-                        }
-                    } else {
-                        alert('other');
-                    }
+        this.setState({ loading: true }, () => { 
+            fetch(BASE_URL + CHECK_OTP, {
+                method: 'POST',
+                mode: 'cors', // no-cors, cors, *same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'omit', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json'
+                    // "Content-Type": "application/x-www-form-urlencoded",
                 },
-                error => {
-                    alert(error);
-                }
-            );
+                redirect: 'follow', // manual, *follow, error
+                referrer: 'no-referrer', // no-referrer, *client
+                body: JSON.stringify(user_otp)
+            })
+                .then(response => response.json())
+                .then(
+                    response => {
+                        this.setState({
+                            loading: false
+                        });
+                        let zero = 0;
+                        let one = 1;
+                        let two = 2;
+                        let three = 3;
+                        sessionStorage.setItem('token', response[zero]);
+                        sessionStorage.setItem('user_name', response[two]);
+                        sessionStorage.setItem('user_img', response[three]);
+                        let id_pass_manager = localStorage.getItem('id_pass_manager');
+
+                        if (id_pass_manager === null) {
+                            if (response[one] === 'recruiter') {
+                                window.location = '/NewVerificationRequest';
+                            } else if (response[one] === 'admin') {
+                                alert('hey admin');
+                            }
+                        } else {
+                            alert('other');
+                        }
+                    },
+                    error => {
+                        this.setState({
+                            loading: false
+                        });
+                        alert(error);
+                    }
+                );
+        });
+        
     }
 
     handleResubmit(){
@@ -153,7 +164,7 @@ class Otp extends React.PureComponent {
 
                     <div className="mainSection">
                         <div className="registrationHeading">
-              Enter the One-Time Pin sent to you
+                            Enter the One-Time Pin sent to you
                         </div>
 
                         <div className="form-group">
@@ -196,6 +207,9 @@ class Otp extends React.PureComponent {
                                 <a id="resend" href="#" onClick={this.handleResubmit}> Resend </a>{' '} or need{' '} <a id="help" href="mailto:clickncheckservice@gmail.com?subject=Not Receiving OTP!"> Help?
                                 </a>
                             </p>
+                        </div>
+                        <div className="loading">
+                            {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
                         </div>
                     </div>
                 </div>
