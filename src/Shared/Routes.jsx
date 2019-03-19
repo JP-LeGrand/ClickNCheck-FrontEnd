@@ -13,13 +13,14 @@ import MainContainer from '../Components/Recruiter/RecruiterVerificationRequest/
 import CaptureCandidateDetails from '../Components/Recruiter/RecruiterVerificationRequest/CaptureCandidateDetails';
 import VerificationConfirmed from '../Components/Recruiter/RecruiterVerificationRequest/VerificationConfrimed/VerificationConfirmed';
 import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks';
+import CreateJobProfile from '../Components/Admin/CreateJobProfile/CreateJobProfile';
 const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={Login}/>
-                <Route path="/login" exact component={Login}/>
-                <Route path="/otp" exact component={Otp}/>
+                <Route path="/" exact component={Login} />
+                <Route path="/login" exact component={Login} />
+                <Route path="/otp" exact component={Otp} />
                 <Route path="/candidate/consent" exact component={Consent} />
                 <Route path="/candidate/consented" exact component={Consented} />
                 <Route path="/forgotPassword" exact component={ForgotPassword} />
@@ -28,9 +29,10 @@ const Routes = () => {
                 <Route path="/ReviewChecks" exact component={ReviewChecks} />
                 <Route path="/NewVerificationRequest" exact component={NewVerificationRequest} />
                 <Route path="/candidate/bulk" exact component={MainContainer} />
-                <Route path="/candidate/individual" exact component={CaptureCandidateDetails} /> 
+                <Route path="/candidate/individual" exact component={CaptureCandidateDetails} />
                 <Route path="/VerificationConfirmed" exact component={VerificationConfirmed} />
                 <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
+                <Route path="/Admin/CreateJobProfile" exact component={CreateJobProfile} />
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>
