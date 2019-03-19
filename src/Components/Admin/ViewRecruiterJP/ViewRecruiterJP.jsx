@@ -11,51 +11,50 @@ import Candidates from '../../../Assets/candidates.svg';
 import logoutImg from '../../../Assets/logout.svg';
 import Calendar from '../../../Assets/calendar.svg';
 import userImg from '../../../Assets/user.svg';
+import axios from 'axios';
 import { BASE_URL, GET_RECRUITERS, GET_RECRUITER_JOB_PROFILE } from '../../../Shared/Constants';
+import adminNavBar from '../AdminNavBar/adminNavBar';
+import Footer from '../../Shared/Footer/Footer';
+
 class ViewRecruiterJP extends React.PureComponent{
     constructor(props) {
         super(props);
         this.state = {
-            recruiters: [ ],
+            recruiters: [],
             selectedRecruiter: 'Select Recruiter',
-            JobProfiles: []
+            JobProfiles: [],
+            recruiterID: null
         };
         this.handleRecruiterChange = this.handleRecruiterChange.bind(this);
     }
-    handleRecruiterChange(e) {
+    
+    handleRecruiterChange(e){
         let arr = [];
+      
         console.log('from e in vp:' + e);
-        this.setState({ selectedRecruiter: e.value });
+        this.setState({
+            selectedRecruiter: e.label,
+            recruiterID: e.value
+        });
         console.log(this.state);
-        fetch(BASE_URL + GET_RECRUITER_JOB_PROFILE + e.value, {
-            method: 'GET',
-            mode: 'cors', // no-cors, cors, *same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + sessionStorage.getItem('token')
-            },
-            redirect: 'manual', // manual, *follow, error
-            referrer: 'no-referrer', // no-referrer, *client 
-        })
-            .then((response) => response.json())
-            .then(
-                response => {
-                    response.forEach((JobProfile) => {
-                        arr.push({
-                            JobProfile
-                        });
-                    });
-                    this.setState({ JobProfiles: arr });
-                },
-                (error) => {
-                    alert(error);
+        axios.get(BASE_URL + GET_RECRUITER_JOB_PROFILE + e.value)
+            .then((response) => {
+                response.data.map((index, row) => {
+                    console.log('row: ' + index.title);
+                    arr.push({ title :index.title, id:index.id } );
                 });
+                console.log('arr: '+JSON.stringify(arr));
+                this.setState({
+                    JobProfiles: arr
+                });
+                console.log('JPstate: '+this.state.JobProfiles);
+            });
+       
     }
     render() {
         return (
             <div className="ViewRecruiterJP">
+                <adminNavBar/>
                 <div className="title">
                     <p>Dashboard</p><FaAngleRight id="angleRight" /><p id="bold">Recruiter Overview</p>
                 </div>
@@ -70,24 +69,27 @@ class ViewRecruiterJP extends React.PureComponent{
                             <label >Job Profile</label>
                         </div>
                         <div className="tHeading">
-                            <img className="hImage" src={Calendar} alt="RD" />
-                            <label>Requested Date</label>
-                        </div>
-                        <div className="tHeading">
                             <img className="hImage" src={userImg} alt="REC" />
                             <label>Recruiter</label>
                         </div>
-                        <div className="tHeading">
-                            <FaMoneyBill className="hImage" />
-                            <label>Spend</label>
-                        </div>
-                        <div className="tHeading">
-                            <img className="hImage" src={Candidates} alt="CAN" />
-                            <label>Candidates</label>
-                        </div>
-                    </div>   
+                    </div>
+                    {
+                        this.state.JobProfiles.map((index, row) => {
+                            return (
+                                <div key={row} className="tBody">
+                                    <div className="tContent">
+                                        <label>{index.title}</label>
+                                    </div>
+                                    <div className="tContent">
+                                        <label>{this.state.selectedRecruiter}</label>
+                                    </div>
+                                </div>
+                            );
+                        })
+                    }
+                    
                 </div>
-    
+                <Footer />
             </div>
         );    
     }
@@ -110,7 +112,6 @@ class ViewRecruiterJP extends React.PureComponent{
             .then(
                 response => {
                     console.log(response.Recruiters);
-
                     response.Recruiters.forEach((recruiters) => {
                         console.log(recruiters);
                         arr.push({
