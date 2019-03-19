@@ -6,27 +6,31 @@ import { BASE_URL } from '../../../Shared/Constants';
 import NavBar from '../NavBar/NavBar';
 import ReactSelect from '../RecruiterVerificationRequest/ReactSelect';
 import { connect } from 'react-redux';
+import AddRemoveChecks from './AddRemoveChecks';
+import ProfileChecks from './ProfileChecks'
 
 class ReviewChecks extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             cursor: 'grab',
-            checks: []
+            checks: [],
+            displayChecks: true,
         };
+        this.addRemoveChecks = this.addRemoveChecks.bind(this);
         this.individualForm = this.individualForm.bind(this);
+        this.verificationChecks = this.verificationChecks.bind(this);
     }
 
     verificationChecks(){
         window.location = '/NewVerificationRequest';
     }
-
     addRemoveChecks(){
-        window.location = '/AddRemoveChecks';
-    }
-
-    reorderChecks(){
-        window.location = '/ReorderChecks';
+        if (this.state.displayChecks){
+            this.setState({ displayChecks: false });
+        } else {
+            this.setState({ displayChecks: true });
+        }
     }
 
     individualForm(){
@@ -64,22 +68,8 @@ class ReviewChecks extends React.Component {
             });
     }
     render() {
-        let checks = {
-            onLeft: [],
-            onRight: []
-        };
-
-        /**Run through the tasks array inside state and put each check on the left or right
-     * side of the page depending on whether it came with the jobProfile or not*/
-        
-        this.state.checks.forEach((check) => {
-            checks[check.location].push(check);
-        });
-        const listItems = checks.onLeft.map((item) =>
-            <li id="jobProfileChecks">{item.category}</li>
-        );
         return (
-            <div className="bodyPage">
+            <div className="bodyPage" style={{ display: this.state.display }}>
                 <NavBar />
                 <div id="spanHolder">
                     <span className="New-Verification-Req">New Verification Request</span>
@@ -94,12 +84,11 @@ class ReviewChecks extends React.Component {
                     <h3>Job Profile</h3>
                     <ReactSelect defaultProf={localStorage.getItem('jp')}/>
                     <hr className="Line" />
-                    <p className="Verification-checks">Verification checks required for {localStorage.getItem('jp')}</p>
-                    <ul>
-                        {listItems}
-                    </ul>
-                    <a id="addRemoveChecks" onClick={this.addRemoveChecks}>+ Add or - Remove verification checks </a>
-                    <a id="reorderChecks" onClick={this.reorderChecks}> Re-order sequence of checks  </a>
+                    {
+                        this.state.displayChecks ?
+                        <ProfileChecks addRemove={this.addRemoveChecks}/> : <AddRemoveChecks addRemove={this.addRemoveChecks} defaultChecks={this.state.checks}/>
+                        
+                    }
                 </div>
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.verificationChecks}>BACK</button>
@@ -157,71 +146,37 @@ class ReviewChecks extends React.Component {
 
   componentDidMount(){
       let arr = [];
-      fetch(BASE_URL+'JobProfiles/jobChecks/'+localStorage.getItem('jpID'), {
-          method: 'GET',
-          mode: 'cors', // no-cors, cors, *same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer '+ sessionStorage.getItem('token')
-          },
-          redirect: 'manual', // manual, *follow, error
-          referrer: 'no-referrer', // no-referrer, *client 
-      })
-          .then((response) => response.json())  
-          .then(
-              response => {
-                  response.forEach((check) =>{
-                      arr.push({
-                          vendors: [ check.name ],
-                          category: check.category,
-                          categoryID: check.checkCategoryID,
-                          location: 'onLeft',
-                          id: check.id,
-                          bgColor: '#0091d1',
-                          cssID: 'vendor2',
-                          color: 'white'
-                      });
-                  });
-                  this.setState({ checks: arr });
-              },
-              (error) => {
-                  alert(error);
-              });
+      if (this.state.checks.length == 0){
+          fetch(BASE_URL+'JobProfiles/jobChecks/'+localStorage.getItem('jpID') , {
+            method: 'GET',
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer '+ sessionStorage.getItem('token')
+            },
+            redirect: 'manual', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client 
+        })
+            .then((response) => response.json())  
+            .then(
+                response => {
+                    response.forEach((check) =>{
+                        arr.push({
+                            category: check.category,
+                            categoryID: check.checkCategoryID,
+                            location: 'onRight',
+                            id: check.id
+                        });
+                    });
+                    this.setState({ checks: arr });
 
-      fetch(BASE_URL+'JobProfiles/getAllChecks' , {
-          method: 'GET',
-          mode: 'cors', // no-cors, cors, *same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer '+ sessionStorage.getItem('token')
-          },
-          redirect: 'manual', // manual, *follow, error
-          referrer: 'no-referrer', // no-referrer, *client 
-      })
-          .then((response) => response.json())  
-          .then(
-              response => {
-                  response.forEach((check) =>{
-                      arr.push({
-                          vendors: [ check.name ],
-                          category: check.checkType,
-                          categoryID: check.checkTypeID,
-                          location: 'onRight',
-                          id: check.id,
-                          bgColor: '#FFFFFF',
-                          cssID: 'vendor1',
-                          color: 'black'
-                      });
-                  });
-                  this.setState({ checks: arr });
-              },
-              (error) => {
-                  alert(error);
-              });
+                },
+                (error) => {
+                    alert(error);
+                });
+        }
   }
 }
 
