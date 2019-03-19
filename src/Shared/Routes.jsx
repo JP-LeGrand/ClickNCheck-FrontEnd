@@ -15,7 +15,7 @@ import VerificationConfirmed from '../Components/Recruiter/RecruiterVerification
 import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks';
 import CreateJobProfile from '../Components/Admin/CreateJobProfile/CreateJobProfile';
 import AdminPage from '../Components/Admin/AdminPage/AdminPage';
-
+import assignRecruiters from '../Components/Admin/AssignRecruiters/assignRecruiters';
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -36,6 +36,7 @@ const Routes = () => {
                 <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
                 <Route path="/Admin/CreateJobProfile" exact component={CreateJobProfile} />
                 <Route path="/Admin/AdminPage" exact component={AdminPage} />
+                <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters}/>
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>
