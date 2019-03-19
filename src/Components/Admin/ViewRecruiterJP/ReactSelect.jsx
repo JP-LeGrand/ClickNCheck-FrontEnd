@@ -45,7 +45,7 @@ class ReactSelect extends React.Component {
 
         return <div id="selectElement">
             <Select 
-                options={[ { label: 'name1', value: 1 }, { label: 'name2', value: 2 }, { label: 'name3', value: 3 }, { label: 'name4', value: 4 }, { label: 'name5', value: 5 } ]}
+                options={this.props.recruiters}
                 styles={customStyle}
                 defaultValue={{ value: this.props.defaultRec, label: this.props.defaultRec }}
                 onChange={this.handleChange}

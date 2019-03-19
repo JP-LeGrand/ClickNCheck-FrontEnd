@@ -74,7 +74,7 @@ class Otp extends React.PureComponent {
         this.state.digit5
         };
         let user_otp = [ localStorage.getItem('user_id'), body.OTP ];
-        localStorage.clear();
+        
         this.setState({ loading: true }, () => { 
             fetch(BASE_URL + CHECK_OTP, {
                 method: 'POST',
@@ -103,12 +103,13 @@ class Otp extends React.PureComponent {
                         sessionStorage.setItem('user_name', response[two]);
                         sessionStorage.setItem('user_img', response[three]);
                         let id_pass_manager = localStorage.getItem('id_pass_manager');
-
+                        localStorage.clear();
                         if (id_pass_manager === null) {
                             if (response[one] === 'recruiter') {
                                 window.location = '/NewVerificationRequest';
                             } else if (response[one] === 'admin') {
                                 alert('hey admin');
+                                window.location = '/admin/recuiterJopProfiles';
                             }
                         } else {
                             alert('other');
