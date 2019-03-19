@@ -7,7 +7,6 @@ import VerificationRequest from '../../../Assets/verification.svg';
 import JobProfile from '../../../Assets/job_profile.svg'; 
 import Reports from '../../../Assets/reports.svg'; 
 import Candidates from '../../../Assets/candidates.svg'; 
-import logoutImg from '../../../Assets/logout.svg';
 import { FaBars , FaAngleDown } from 'react-icons/fa';
 import 'typeface-roboto';
 
@@ -16,10 +15,13 @@ class NavBar extends React.PureComponent {
         super(props);
         this.state = {
             user_img: '',
-            isTopNav: true
+            isTopNav: true,
+            showContent:false
         };
         this.handleMenuButton = this.handleMenuButton.bind(this);
         this.getLocation = this.getLocation.bind(this);
+        this.btnShow = this.btnShow.bind(this);
+        this.btnUnshow = this.btnUnshow.bind(this);
     }
 
     handleMenuButton() {
@@ -44,6 +46,13 @@ class NavBar extends React.PureComponent {
         localStorage.clear();
         sessionStorage.clear();
         window.location = '/';
+    }
+
+    btnShow(){
+        this.setState({ showContent:true });
+    }
+    btnUnshow(){
+        this.setState({ showContent:false });
     }
 
     render() {
@@ -107,22 +116,24 @@ class NavBar extends React.PureComponent {
                                         alt="clickncheck" />
                                     <label className="navLabel">Candidates</label>
                                 </div>  
-                            </a>                            
-                            <a href="#" onClick={this.logout} className="">
-                                <div className="navTab">
-                                    <img
-                                        className="navIcon"
-                                        src={logoutImg}
-                                        alt="clickncheck" />
-                                    <label className="navLabel">logout</label>
-                                </div>  
                             </a>
                             <button id="toggle" type="button" className={navigator.onLine ? 'btn btn-sm btn-secondary btn-toggle active' : 'btn btn-sm btn-secondary btn-toggle' } data-toggle="button" aria-pressed="false" autoComplete="off">
                                 <div className="handle"></div>
                             </button>
                             <div id="user">
                                 <img id="user_img" className="user" src={sessionStorage.getItem('user_img')} />
-                                <label className="user" id="user_name">{sessionStorage.getItem('user_name')}</label><FaAngleDown id="angleDown" />
+                                <label className="user" id="user_name">{sessionStorage.getItem('user_name')}</label>
+                                <div className="dropdown">
+                                    <button className="dropbtn" onFocus={this.btnShow} onBlur={this.btnUnshow}><FaAngleDown id="angleDown" /></button>
+                                    <div className="dropdown-content" style={{ display: this.state.showContent ? 'inherit' : 'none' }}>
+                                        <a href="mailto:clickncheckservice@gmail.com?subject=User Profile Help">
+                                            <label className="dropLabel">Help</label>
+                                        </a>
+                                        <a href="#" onClick={this.logout}>
+                                            <label className="dropLabel">logout</label>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
