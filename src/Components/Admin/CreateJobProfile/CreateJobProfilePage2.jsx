@@ -91,19 +91,23 @@ class CreateJobProfilePage2 extends React.Component {
                         <li>Re-order Check Sequence</li>
                         <li>Next Steps</li>
                     </ul>
-                    <h3>Select Verification Checks Required for</h3>
-                    <h2>Job ** Profile + **Code</h2>
+                    <h3>Select Verification Checks Required for</h3><h2>Job ** Title + **Code</h2>
                     <hr className="Line" />
-                    <p className="Verification-checks">Verification checks required for {localStorage.getItem('jp')}</p>
-                    <ul>
-                        {listItems}
-                    </ul>
-                    <a id="addRemoveChecks" onClick={this.addRemoveChecks}>+ Add or - Remove verification checks </a>
-                    <a id="reorderChecks" onClick={this.reorderChecks}> Re-order sequence of checks  </a>
+
+                    <fieldset className="field2">
+                        <h2>Select Verification Checks Required for</h2>
+                        <h2 className="profession" data-bind="text: title"></h2>
+                        
+                        <table id="checksTable" width="100%">
+                            <tbody >
+                                {'newTableRow'}
+                            </tbody>
+                        </table>
+                    </fieldset>
                 </div>
                 <div id="buttonFooter">
-                    <button id="prev" onClick={this.verificationChecks}>BACK</button>
-                    <button id="next" onClick={this.individualForm}>NEXT</button>
+                    <button id="prev" onClick={this.createJobProfile}>BACK</button>
+                    <button id="next" onClick={this.createJobProfilePage3}>NEXT</button>
                 </div>
                 <Footer />
             </div>
@@ -155,73 +159,73 @@ class CreateJobProfilePage2 extends React.Component {
         this.setState({ cursor: 'grab' });
     }
     /*componentDidMount() {
-        let arr = [];
+                        let arr = [];
         fetch(BASE_URL + 'JobProfiles/jobChecks/' + localStorage.getItem('jpID'), {
-            method: 'GET',
-            mode: 'cors', // no-cors, cors, *same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
+                        method: 'GET',
+                    mode: 'cors', // no-cors, cors, *same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
             headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + sessionStorage.getItem('token')
-            },
-            redirect: 'manual', // manual, *follow, error
-            referrer: 'no-referrer', // no-referrer, *client 
-        })
-            .then((response) => response.json())
-            .then(
+                        'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
+                },
+                redirect: 'manual', // manual, *follow, error
+                referrer: 'no-referrer', // no-referrer, *client
+            })
+                .then((response) => response.json())
+                .then(
                 response => {
-                    response.forEach((check) => {
-                        arr.push({
-                            vendors: [check.name],
-                            category: check.category,
-                            categoryID: check.checkCategoryID,
-                            location: 'onLeft',
-                            id: check.id,
-                            bgColor: '#0091d1',
-                            cssID: 'vendor2',
-                            color: 'white'
+                        response.forEach((check) => {
+                            arr.push({
+                                vendors: [check.name],
+                                category: check.category,
+                                categoryID: check.checkCategoryID,
+                                location: 'onLeft',
+                                id: check.id,
+                                bgColor: '#0091d1',
+                                cssID: 'vendor2',
+                                color: 'white'
+                            });
                         });
-                    });
-                    this.setState({ checks: arr });
+                    this.setState({checks: arr });
                 },
                 (error) => {
-                    alert(error);
-                });
- 
+                        alert(error);
+                    });
+    
 fetch(BASE_URL + 'JobProfiles/getAllChecks', {
-    method: 'GET',
-    mode: 'cors', // no-cors, cors, *same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
+                        method: 'GET',
+                    mode: 'cors', // no-cors, cors, *same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
     headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + sessionStorage.getItem('token')
-    },
-    redirect: 'manual', // manual, *follow, error
-    referrer: 'no-referrer', // no-referrer, *client 
-})
-        .then((response) => response.json())
-.then(
+                        'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
+                },
+                redirect: 'manual', // manual, *follow, error
+                referrer: 'no-referrer', // no-referrer, *client
+            })
+                    .then((response) => response.json())
+            .then(
     response => {
-        response.forEach((check) => {
-            arr.push({
-                vendors: [check.name],
-                category: check.checkType,
-                categoryID: check.checkTypeID,
-                location: 'onRight',
-                id: check.id,
-                bgColor: '#FFFFFF',
-                cssID: 'vendor1',
-                color: 'black'
-            });
-        });
-        this.setState({ checks: arr });
-    },
+                        response.forEach((check) => {
+                            arr.push({
+                                vendors: [check.name],
+                                category: check.checkType,
+                                categoryID: check.checkTypeID,
+                                location: 'onRight',
+                                id: check.id,
+                                bgColor: '#FFFFFF',
+                                cssID: 'vendor1',
+                                color: 'black'
+                            });
+                        });
+                    this.setState({checks: arr });
+                },
     (error) => {
-        alert(error);
-    });
-    }*/
+                        alert(error);
+                    });
+                    }*/
 }
 
 export default connect()(CreateJobProfilePage2);
