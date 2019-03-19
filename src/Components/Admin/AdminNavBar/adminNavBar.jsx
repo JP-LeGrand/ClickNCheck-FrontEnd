@@ -1,36 +1,35 @@
-import React from "react";
-import { connect } from "react-redux";
-import "./adminNavBar.scss";
-import Logo from "../../../Assets/main.svg";
-import Dashboard from "../../../Assets/dashboard.svg";
-import VerificationRequest from "../../../Assets/verification.svg";
-import JobProfile from "../../../Assets/job_profile.svg";
-import Reports from "../../../Assets/reports.svg";
-import Candidates from "../../../Assets/candidates.svg";
-import Users from "../../../Assets/users.svg";
-import Notification from "../../../Assets/notification.svg";
-import { FaBars, FaAngleDown } from "react-icons/fa";
-import "typeface-roboto";
+import React from 'react';
+import './adminNavBar.scss';
+import Logo from '../../../Assets/main.svg';
+import Dashboard from '../../../Assets/dashboard.svg';
+import VerificationRequest from '../../../Assets/verification.svg';
+import JobProfile from '../../../Assets/job_profile.svg';
+import Reports from '../../../Assets/reports.svg';
+import Candidates from '../../../Assets/candidates.svg';
+import Users from '../../../Assets/users.svg';
+import Notification from '../../../Assets/notification.svg';
+import { FaBars, FaAngleDown } from 'react-icons/fa';
+import 'typeface-roboto';
 
 class adminNavBar extends React.PureComponent {
-  constructor(props) {
+    constructor(props) {
     super(props);
     this.state = {
       isTopNav: true
     };
     this.handleMenuButton = this.handleMenuButton.bind(this);
     this.getLocation = this.getLocation.bind(this);
-  }
+    }
 
-  handleMenuButton() {
+    handleMenuButton() {
     if (this.state.isTopNav) {
       this.setState({ isTopNav: false });
     } else {
       this.setState({ isTopNav: true });
     }
-  }
+    }
 
-  getLocation(loc) {
+    getLocation(loc) {
     let currLocation = window.location.toString();
     let zero = 0;
     if (currLocation.indexOf(loc) > zero) {
@@ -38,12 +37,12 @@ class adminNavBar extends React.PureComponent {
     }
 
     return false;
-  }
+    }
 
-  render() {
-    return (
-      <div>
-        <div className="navbar">
+    render() {
+        return (
+            <div>
+                <div className="navbar">
           <div
             className={this.state.isTopNav ? "topnav" : "topnav responsive"}
             id="myTopnav"
@@ -143,9 +142,9 @@ class adminNavBar extends React.PureComponent {
           </div>
         </div>
 
-        <div className={this.state.isTopNav ? "main" : "main responsive"} />
-      </div>
-    );
-  }
+                <div className={this.state.isTopNav ? 'main' : 'main responsive'} />
+            </div>
+        );
+    }
 }
 export default adminNavBar;
