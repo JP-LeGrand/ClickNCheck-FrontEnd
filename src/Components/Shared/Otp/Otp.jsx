@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './Otp.scss';
-import { BASE_URL, CHECK_OTP } from '../../../Shared/Constants';
+import { BASE_URL, CHECK_OTP, OTP_AUTHENTICATION } from '../../../Shared/Constants';
 import mainImg from '../../../Assets/main.svg';
 import 'typeface-roboto';
 
@@ -114,6 +114,35 @@ class Otp extends React.PureComponent {
             );
     }
 
+    handleResubmit(){
+        let userid = localStorage.getItem('user_id');
+        fetch(BASE_URL + OTP_AUTHENTICATION, {
+            method: 'POST',
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            redirect: 'manual', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+            body: JSON.stringify(userid),
+        })
+            .then((otp_response) => otp_response.json())
+            .then(
+                () => {
+                    alert('Please check for the newly sent OTP');
+                    //window.location = '/otp';
+                },
+                (error) => {
+                    this.setState({
+                        isLoading: false
+                    });
+                    alert(error);
+                }
+            );
+    }
+
     render() {
         if (localStorage.getItem('user_id') !== null) {
             return (
@@ -164,7 +193,7 @@ class Otp extends React.PureComponent {
                         <div className="form-group">
                             <button onClick={this.handleSubmit}>SUBMIT</button>
                             <p>
-                                <a id="resend" href="#"> Resend </a>{' '} or need{' '} <a id="help" href="#"> Help?
+                                <a id="resend" href="#" onClick={this.handleResubmit}> Resend </a>{' '} or need{' '} <a id="help" href="mailto:clickncheckservice@gmail.com?subject=Not Receiving OTP!"> Help?
                                 </a>
                             </p>
                         </div>
