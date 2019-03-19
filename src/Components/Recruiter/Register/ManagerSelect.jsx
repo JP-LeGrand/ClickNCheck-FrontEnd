@@ -7,7 +7,7 @@ class ManagerSelect extends React.Component {
         super(props);
     }
     handleChange = (e) =>{
-        this.props.onManagerSelected({ selectedManager: e.value });
+        this.props.onSelectManager({ selectedManager: e.value });
     }
     render(){
         let customStyle = {      

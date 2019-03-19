@@ -21,7 +21,7 @@ class Register extends React.PureComponent{
             loading:false,
             defaultManager:'Select your Manager',
             managers:[],
-            selectedManager:this.state.defaultManager
+            selectedManager: 'Select your Manager'
         };
 
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -187,7 +187,7 @@ class Register extends React.PureComponent{
                   <div className="mainSection">
                       <div className="registrationHeading">User Registration</div>
                       <div className="sendWhatmanager">
-                          <ManagerSelect managers={this.state.managers} defaultManager={this.state.defaultManager} onSelectProfile={this.handleChange}/>
+                        <ManagerSelect managers={this.state.managers} defaultManager={this.state.defaultManager} onSelectManager={this.handleChange}/>
                       </div>
                       <div className="registrationHeading">Create New Passowrd</div>
                       <div className="sendWhat">
