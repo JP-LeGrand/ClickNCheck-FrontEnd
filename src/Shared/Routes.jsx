@@ -18,9 +18,7 @@ import assignRecruiters from '../Components/Admin/AssignRecruiters/assignRecruit
 import Congratulations from '../Components/Admin/Congratulations/Congratulations';
 import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks';
 import ViewRecruiterJP from '../Components/Admin/ViewRecruiterJP/ViewRecruiterJP';
-const Routes = () => {
-                <Route path="/admin/recuiterJopProfiles" exact component={ViewRecruiterJP} />
-                <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
+const Routes = () => {    
     return (
         <BrowserRouter>
             <Switch>
@@ -40,7 +38,9 @@ const Routes = () => {
                 <Route path="/Admin/CreateJobProfile" exact component={CreateJobProfile} />
                 <Route path="/Admin/AdminPage" exact component={AdminPage} />
                 <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters}/>
-                <Route path="/Admin/Congratulations" exact component={Congratulations}/>
+                <Route path="/Admin/Congratulations" exact component={Congratulations} />
+                <Route path="/admin/recuiterJopProfiles" exact component={ViewRecruiterJP} />
+                <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>
