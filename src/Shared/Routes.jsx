@@ -14,6 +14,8 @@ import CaptureCandidateDetails from '../Components/Recruiter/RecruiterVerificati
 import VerificationConfirmed from '../Components/Recruiter/RecruiterVerificationRequest/VerificationConfrimed/VerificationConfirmed';
 import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks';
 import CreateJobProfile from '../Components/Admin/CreateJobProfile/CreateJobProfile';
+import AdminPage from "../Components/Admin/AdminPage/AdminPage";
+
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -33,10 +35,12 @@ const Routes = () => {
                 <Route path="/VerificationConfirmed" exact component={VerificationConfirmed} />
                 <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
                 <Route path="/Admin/CreateJobProfile" exact component={CreateJobProfile} />
+                <Route path="/Admin/AdminPage" exact Component={AdminPage} />
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>
     );
+
 };
 
 export default Routes;
