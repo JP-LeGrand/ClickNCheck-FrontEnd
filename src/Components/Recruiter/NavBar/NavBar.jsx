@@ -16,7 +16,7 @@ class NavBar extends React.PureComponent {
         this.state = {
             user_img: '',
             isTopNav: true,
-            showContent:false
+            showContent:true
         };
         this.handleMenuButton = this.handleMenuButton.bind(this);
         this.getLocation = this.getLocation.bind(this);
