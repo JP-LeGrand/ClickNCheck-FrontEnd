@@ -31,10 +31,13 @@
     border: solid 1px #f9f9f9;
   }
   .fieldContainer {
-    padding-right: 10px;
+    padding-right: 1px;
+    padding-right: 1%;
+   
   }
   .FieldValue {
     margin-right: 100px;
+    margin-left: -30px;
     max-width: 100%;
     min-width: 10px;
     width: 10px;
@@ -52,6 +55,7 @@
 
   .InvalidField {
     margin-right: 100px;
+    margin-left: -30px;
     max-width: 100%;
     min-width: 10px;
     width: 10px;
@@ -71,6 +75,7 @@
     width: 14%;
     height: 22px;
     font-family: Roboto;
+    padding-left: 50%;
     font-size: 14px;
     font-weight: bold;
     font-style: normal;
@@ -78,6 +83,7 @@
     line-height: 1.57;
     letter-spacing: 0.9px;
     text-align: center;
+   
     color: #0091d1;
   }
   #innerWrapper {
@@ -161,6 +167,7 @@
   }
   #singleForm .leftTable tr:nth-child(odd) {
     background-color: #f9f9f9;
+  
   }
 
   #singleForm .leftTable,
@@ -174,6 +181,7 @@
     width: 393px;
     height: 27px;
     font-family: Roboto;
+    padding-left: 4%; 
     font-size: 20px;
     font-weight: 300;
     font-style: normal;
@@ -188,6 +196,7 @@
   .rightTable {
     float: right;
     margin-right: 26vw;
+    margin-top: -20px;
     width: 30vw;
     border-bottom: none;
   }
@@ -215,7 +224,8 @@
   }
   #bulk,
   #individually {
-    width: 95px;
+    width: 150px;
+    align-content: center;
   }
 
   .field3 hr {
@@ -236,6 +246,7 @@
 
   #formDivider table tbody tr td {
     text-align: left;
+   
   }
   #progress_bar li:before {
     content: counter(step);
@@ -468,7 +479,8 @@
   }
 
   .uploadSwitch{
-   padding-top: 2%;
+   padding-top: -1px;
+   padding-left: 4%;
   
   }
   hr {

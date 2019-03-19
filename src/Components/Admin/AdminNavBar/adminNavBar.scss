@@ -2,7 +2,7 @@
   .topnav {
     overflow: hidden;
     background-color: white;
-    padding: 0 13vw;
+    margin: 0 7vw;
     border-bottom: solid 1px #f9f9f9;
   }
 
@@ -17,7 +17,7 @@
     line-height: 1.83;
     letter-spacing: 0.8px;
     text-decoration: none;
-    margin: 0px 5px;
+    margin: 0px 10px;
   }
 
   .topnav a:hover {
@@ -30,7 +30,7 @@
     border-bottom: 2px solid #02529c;
   }
 
-  .noHover a:hover{
+  .noHover a:hover {
     border: 0;
   }
 
@@ -120,26 +120,37 @@
   }
 
   #logo {
-      width: 155px;
-      height: 25px;
-      margin: 21px 10px;
-    }
+    width: 155px;
+    height: 25px;
+    margin: 21px 10px;
+  }
 
-
-  
-  #mobile a{
+  .navTab {
+    float: right;
+    color: #02529c;
+    text-align: right;
+    font-size: 12px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.83;
+    letter-spacing: 0.8px;
+  }
+  #mobile a {
     margin-bottom: 0px;
   }
-  .navIcon{
+  .navIcon {
     width: 15px;
-    margin: 0px 10px 0px 0px; 
-    padding-top: 27px;
+    margin: 27px 15px;
     height: 15px;
     border: solid 1px #ffffff;
+    border-radius: 100%;
     float: left;
   }
-  .navLabel{
-    margin:25px 0 0px 0px;
+  .navLabel {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin: 25px 15px;
+    font-size: 12px;
     float: left;
   }
 
@@ -154,7 +165,7 @@
     letter-spacing: 0.8px;
     margin: 15px 0px;
   }
-  
+
   #user_name {
     margin-left: 15px;
     margin-right: 15px;
@@ -176,18 +187,6 @@
     float: left;
   }
 
-  .navTab{
-    float: right;
-    color: #02529c;
-    text-align: right;
-    font-size: 12px;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.83;
-    letter-spacing: 0.8px;
-    margin: 0px;
-    padding-bottom: 26px;
-  }
   @media screen and (max-width: 1500px) {
     #mobile,
     #toggle,
@@ -208,7 +207,7 @@
 
     #user {
       position: absolute;
-      right: 0;  
+      right: 0;
       margin: 6px;
       top: 0;
     }
@@ -223,7 +222,7 @@
       height: 21px;
       object-fit: contain;
     }
-    #miniBars{
+    #miniBars {
       width: 30px;
       height: 30px;
       margin: 12px 0px;
@@ -231,7 +230,6 @@
     .centerLogo {
       width: 91.8%;
       text-align: center;
-     
     }
   }
 
@@ -260,8 +258,8 @@
       height: 56px;
       border-bottom: solid 1px #f9f9f9;
     }
-    
-    .topnav.responsive #mobile{
+
+    .topnav.responsive #mobile {
       display: flex;
       width: 287px;
       align-items: flex-start;
@@ -270,7 +268,8 @@
       flex-flow: column;
     }
 
-    .topnav.responsive #mobile a, .topnav.responsive #mobile #toggle{
+    .topnav.responsive #mobile a,
+    .topnav.responsive #mobile #toggle {
       display: block;
       text-align: left;
       float: none;
@@ -291,7 +290,5 @@
       width: 91.8%;
       text-align: center;
     }
-
-     
   }
 }

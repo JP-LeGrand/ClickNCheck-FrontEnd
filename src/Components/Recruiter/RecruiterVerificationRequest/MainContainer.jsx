@@ -2,11 +2,13 @@ import React from 'react';
 import './MainContainerStyle.scss';
 import XLSX from 'xlsx';
 import { RecruiterConstants } from './recruiterConstants';
+import Footer from '../../Shared/Footer/Footer';
 
 class MainContainer extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
+            div: true,
             excelRows: [],
             getFile: false,
             email: '',
@@ -22,17 +24,81 @@ class MainContainer extends React.PureComponent {
             fieldPhone: 'FieldValue'
         };
         this.submit = this.submit.bind(this);
-        this.bulk = this.bulk.bind(this);
+        this.addBulkCandidates = this.addBulkCandidates.bind(this);
         this.handleUserInput = this.handleUserInput.bind(this);
+        this.removeRow = this.removeRow.bind(this);
+        this.nextStep = this.nextStep.bind(this);
+        this.prevStep = this.prevStep.bind(this);
     }
 
-    handleUserInput(event) {
-        const name = event.target.name;
-        const value = event.target.value;
-        this.setState({ [name]: value }, () => {
-            this.validateField(name, value);
+    removeRow(index, user){
+        
+        let arrayRows = this.state.excelRows.filter((value, i) => i !== index);
+        this.setState({
+            excelRows : arrayRows,
+        }, () => {
+            console.log(JSON.stringify(this.state.excelRows, null, 3));
         });
     }
+
+    changeDiv(event) {
+        const indi = event.target.id;
+        if (indi === 'bulk') {
+            this.setState({
+                div: false
+            });
+        } else {
+            this.setState({
+                div: true
+            });
+        }
+
+    }
+    handleUserInput(index, event) {
+        
+        let propName = '';
+console.log(event.target.name);
+        switch (event.target.name) {
+        case 'name':
+            propName = 'Name';
+            break;
+        case 'surname':
+            propName = 'Surname';
+            break;
+        case 'madein':
+            propName = 'Maiden_Surname';
+            break;
+        case 'id':
+            propName = 'ID_Passport';
+            break;
+        case 'dob':
+            propName = 'Birthday';
+            break;
+        case 'email':
+            propName = 'Email';
+            break;
+        default:
+            propName = 'Phone';
+        }
+        
+        const newRows = [...this.state.excelRows];
+        newRows[index][propName] = event.target.value;
+        //  this.validateField(event.target.name, event.target.vakue)
+        this.setState({ 
+            excelRows : newRows
+        });
+
+        // const name = event.target.name;
+        /* this.setState({ name:event.target.value }); */
+    }
+
+    // handleUserInput(event) {
+    //     const name = event.target.name;
+    //     const value = event.target.value;
+    //     this.setState({ [name]: value }, () => {
+    //         this.validateField(name, value);
+    //     });
+    // }
     validateField(fieldName, value) {
         let emailValid = this.state.emailValid;
         let idValid = this.state.idValid;
@@ -71,6 +137,13 @@ class MainContainer extends React.PureComponent {
         );
     }
 
+  
+    nextStep(){
+        window.location = '/VerificationConfirmed';
+    }
+    prevStep(){
+        window.location = '/ReviewChecks';
+    }
     validateTable() {
         this.setState({
             tableValid:
@@ -126,148 +199,153 @@ class MainContainer extends React.PureComponent {
                 getFile: true
             });
 
-            this.state.excelRows.map(name => {
-                return (
-                    this.validateField('email', name.Email),
-                    this.validateField('id', name.IDorPassport),
-                    this.validateField('phone', name.Phone)
-                );
-            });
+            // this.state.excelRows.map(name => {
+            //     return (
+            //         this.validateField('email', name.Email),
+            //         this.validateField('id', name.IDorPassport),
+            //         this.validateField('phone', name.Phone)
+            //     );
+            // });
         };
         reader.readAsBinaryString(inputFile.files[0]);
     }
     review() {
         return (
-            <fieldset className="field1 current">
-                <table className="ImportTable">
-                    <thead className="Headers">
-                        <tr className="Headers">
-                            <th>First Full Name</th>
-                            <th>Surname</th>
-                            <th>Maiden Name</th>
-                            <th>ID/Passport</th>
-                            <th>Birthday</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                        </tr>
-                    </thead>
-                    <tbody className="Headers">
-                        {this.state.excelRows.map((name, key) => {
-                            return (
-                                <tr className="Shape" key={key.IDs}>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className="FieldValue"
-                                            type="text"
-                                            name="name"
-                                            defaultValue={name.FirstName}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className="FieldValue"
-                                            type="text"
-                                            name="surname"
-                                            defaultValue={name.Surname}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className="FieldValue"
-                                            type="text"
-                                            name="madein"
-                                            defaultValue={name.MaidenSurname}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className={this.state.fieldID}
-                                            type="text"
-                                            name="id"
-                                            defaultValue={name.IDorPassport}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className="FieldValue"
-                                            type="text"
-                                            name="dob"
-                                            defaultValue={name.Birthday}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className={this.state.fieldEmail}
-                                            type="text"
-                                            name="email"
-                                            defaultValue={name.Email}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                    <td className="fieldContainer">
-                                        <input
-                                            className={this.state.fieldPhone}
-                                            type="text"
-                                            name="phone"
-                                            defaultValue={name.Phone}
-                                            onChange={event => this.handleUserInput(event)}
-                                        />
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                    <validationErrors tableErrors={this.state.tableErrors} />
-                    {/* <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={!this.state.tableValid}
-          >
-            submit table
-          </button> */}
-                </table>
-            </fieldset>
+            <div className="bodyPage">
+                <div className="formBox">
+                    <fieldset className="field1 current">
+                        <div id="singleForm">
+                            <div className="">
+                                <ul id="progress_bar">
+                                    <li className="active">Create Job Profile Name</li>
+                                    <li className="active">Candidate Details</li>
+                                    <li>Next Steps</li>
+                                </ul>
+                                <label className="candidateDetails">Capture Candidate Details</label>
+                                <div className="uploadSwitch">
+                                    <button className="indi" id="individual" onClick={event => this.changeDiv(event)}>INDIVIDUAL</button>
+                                    <button className="bulk" id="bulk" onClick={event => this.changeDiv(event)}> BULK</button>
+
+                                </div>
+                                <br className="Line" />
+                                <fieldset className="field1 current">
+                                    <table className="ImportTable">
+                                        <thead className="Headers">
+                                            <tr className="Headers">
+                                                <th>First Full Name</th>
+                                                <th>Surname</th>
+                                                <th>Maiden Name</th>
+                                                <th>ID/Passport</th>
+                                                <th>Birthday</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="Headers">
+                                            {this.state.excelRows.map((user, index) => {
+                                                return (
+                                                    <tr className="Shape" key={index}>
+                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="name" value={user.Name} onChange={event => this.handleUserInput(index, event)}/></td>
+                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="surname" value={user.Surname} onChange={event => this.handleUserInput(index, event)}/></td>
+                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="madein" defaultValue={user.Maiden_Surname} onChange={event => this.handleUserInput(index, event)}/></td>
+                                                        <td className="fieldContainer"><input className={this.state.fieldID} type="text" name="id" value={user.ID_Passport} onChange={event => this.handleUserInput(index, event)}/></td>
+                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="dob" value={user.Birthday} onChange={event => this.handleUserInput(index, event)}/></td>
+                                                        <td className="fieldContainer"><input className={this.state.fieldEmail} type="text" name="email" value={user.Email} onChange={event => this.handleUserInput(index, event)}/></td>
+                                                        <td className="fieldContainer"><input className={this.state.fieldPhone} type="text" name="phone" value={user.Phone} onChange={event => this.handleUserInput(index, event)}/></td>
+                                                        <td><a href="#" onClick={(user) => this.removeRow(index, user)}><img src="https://img.icons8.com/ultraviolet/20/000000/delete.png" /></a></td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                        <validationErrors tableErrors={this.state.tableErrors} />
+                 
+                                    </table>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div id="buttonFooter">
+                    <button id="prev" onClick={this.prevStep}>BACK</button>
+                    <button id="next" onClick={this.addBulkCandidates}>SUBMIT</button>
+                </div>
+                <Footer />
+            </div>
+
+      
         );
+    }
+    addBulkCandidates(){
+        let body = {
+            OrginisationID : '1',
+            candidates : this.state.excelRows,
+        }
+        console.log(body);
     }
 
     bulk() {
         return (
-            <fieldset className="field1 current">
-                <div id="bulkForm">
-                    <div className="upload-area" id="uploadfile">
-                        <img
-                            src={require('../../../Assets/upload-file.svg')}
-                            alt="upload files here"
-                        />
-                        <h3>Drag and Drop or Click to upload File</h3>
-                        <br />
+            <div className="bodyPage">
+                <div className="formBox">
+                    <fieldset className="field1 current">
+                        <div id="singleForm">
+                            <div className="">
+                                <ul id="progress_bar">
+                                    <li className="active">Create Job Profile Name</li>
+                                    <li className="active">Candidate Details</li>
+                                    <li>Next Steps</li>
+                                </ul>
+                                <label className="candidateDetails">Capture Candidate Details</label>
+                                <div className="uploadSwitch">
+                                    <button className="indi" id="individual" onClick={event => this.changeDiv(event)}>INDIVIDUAL</button>
+                                    <button className="bulk" id="bulk" onClick={event => this.changeDiv(event)}> BULK</button>
 
-                        <div className="upload-btn-wrapper">
-                            <input
-                                type="file"
-                                name="file"
-                                id="getFile"
-                                onChange={() => this.submit()}
-                            />
-                            <a
-                                href="https://cncdocuments.blob.core.windows.net/recruiters/CandidateTemplate.xlsx"
-                                download
-                            >
-                                <img
-                                    src={require('../../../Assets/downloadFile.svg')}
-                                    alt="download-fav"
-                                />
+                                </div>
+                                <br className="Line" />
+                                <fieldset className="field1 current">
+                                    <div id="bulkForm">
+                                        <div className="upload-area" id="uploadfile">
+                                            <img
+                                                src={require('../../../Assets/upload-file.svg')}
+                                                alt="upload files here"
+                                            />
+                                            <h3>Drag and Drop or Click to upload File</h3>
+                                            <br />
+
+                                            <div className="upload-btn-wrapper">
+                                                <input
+                                                    type="file"
+                                                    name="file"
+                                                    id="getFile"
+                                                    onChange={() => this.submit()}
+                                                />
+                                                <a
+                                                    href="https://cncdocuments.blob.core.windows.net/recruiters/CandidateTemplate.xlsx"
+                                                    download
+                                                >
+                                                    <img
+                                                        src={require('../../../Assets/downloadFile.svg')}
+                                                        alt="download-fav"
+                                                    />
                 Download Excel Template
-                            </a>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
-            </fieldset>
+
+                <div id="buttonFooter">
+                    <button id="prev" onClick={this.prevStep}>BACK</button>
+                    <button id="next" onClick={this.nextStep}>NEXT</button>
+                </div>
+                <Footer />
+            </div>
+
         );
     }
 

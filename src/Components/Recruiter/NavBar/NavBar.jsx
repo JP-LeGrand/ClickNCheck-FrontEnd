@@ -7,6 +7,7 @@ import VerificationRequest from '../../../Assets/verification.svg';
 import JobProfile from '../../../Assets/job_profile.svg'; 
 import Reports from '../../../Assets/reports.svg'; 
 import Candidates from '../../../Assets/candidates.svg'; 
+import logoutImg from '../../../Assets/logout.svg';
 import { FaBars , FaAngleDown } from 'react-icons/fa';
 import 'typeface-roboto';
 
@@ -37,6 +38,12 @@ class NavBar extends React.PureComponent {
         }
 
         return false;
+    }
+
+    logout(){
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location = '/';
     }
 
     render() {
@@ -99,6 +106,15 @@ class NavBar extends React.PureComponent {
                                         src={Candidates}
                                         alt="clickncheck" />
                                     <label className="navLabel">Candidates</label>
+                                </div>  
+                            </a>                            
+                            <a href="#" onClick={this.logout} className="">
+                                <div className="navTab">
+                                    <img
+                                        className="navIcon"
+                                        src={logoutImg}
+                                        alt="clickncheck" />
+                                    <label className="navLabel">logout</label>
                                 </div>  
                             </a>
                             <button id="toggle" type="button" className={navigator.onLine ? 'btn btn-sm btn-secondary btn-toggle active' : 'btn btn-sm btn-secondary btn-toggle' } data-toggle="button" aria-pressed="false" autoComplete="off">
