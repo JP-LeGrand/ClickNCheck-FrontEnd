@@ -999,7 +999,6 @@ W
   #jobProfileChecks {
     text-align: left;
     list-style-type: none;
-    list-style-image: url('../../../Assets/credit-fav.svg');
     width: 1224px;
     height: 30px;
     border-bottom: solid 1px rgba(43, 56, 68, 0.15);
@@ -1007,13 +1006,12 @@ W
     margin-top: 4px;
   }
   .Line {
-
-    border:none;
-    border-top: 0.5px dashed #2b3844;
+    border-top: 100px solid #2b3844;
     color:#fff;
     background-color:#fff;
     height:4px;
     width:93%;
+    margin-left: 40px;
   }
   .Verification-checks {
     text-align: left;
