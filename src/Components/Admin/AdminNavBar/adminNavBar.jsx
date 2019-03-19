@@ -1,17 +1,16 @@
-import React from "react";
-import { connect } from "react-redux";
-import "./adminNavBar.scss";
-import Logo from "../../../Assets/main.svg";
-import Dashboard from "../../../Assets/dashboard.svg";
-import VerificationRequest from "../../../Assets/verification.svg";
-import JobProfile from "../../../Assets/job_profile.svg";
-import Reports from "../../../Assets/reports.svg";
-import Candidates from "../../../Assets/candidates.svg";
-import Users from "../../../Assets/users.svg";
-import Notification from "../../../Assets/notification.svg";
-import { FaBars, FaAngleDown } from "react-icons/fa";
-import "typeface-roboto";
-
+import React from 'react';
+import './adminNavBar.scss';
+import Logo from '../../../Assets/main.svg';
+import Dashboard from '../../../Assets/dashboard.svg';
+import VerificationRequest from '../../../Assets/verification.svg';
+import JobProfile from '../../../Assets/job_profile.svg';
+import Reports from '../../../Assets/reports.svg';
+import Candidates from '../../../Assets/candidates.svg';
+import Users from '../../../Assets/users.svg';
+import Notification from '../../../Assets/notification.svg';
+import { FaBars, FaAngleDown } from 'react-icons/fa';
+import 'typeface-roboto';
+import logoutImg from '../../../Assets/logout.svg';
 class adminNavBar extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -39,6 +38,12 @@ class adminNavBar extends React.PureComponent {
 
     return false;
   }
+
+  logout(){
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location = '/';
+}
 
   render() {
     return (
@@ -104,6 +109,15 @@ class adminNavBar extends React.PureComponent {
                   <img className="navIcon" src={Users} alt="clickncheck" />
                   <label className="navLabel">Users</label>
                 </div>
+              </a>
+              <a href="#" onClick={this.logout} className="">
+                                <div className="navTab">
+                                    <img
+                                        className="navIcon"
+                                        src={logoutImg}
+                                        alt="clickncheck" />
+                                    <label className="navLabel">logout</label>
+                                </div>  
               </a>
               <button
                 id="toggle"
