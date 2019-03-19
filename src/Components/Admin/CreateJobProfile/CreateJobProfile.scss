@@ -1,0 +1,60 @@
+.CreateJobProfile{
+    
+    .FormContainer{
+        border: 1px solid white;
+        width:80vw;
+        padding:0px;
+        margin:10vh auto;
+        border-radius: 8px;
+        font-family: Roboto;
+        position:relative;
+        box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+        border: 1px solid lightgray;
+    }
+    
+    .FormContainer h3{
+        position: relative;
+        top: 0px;
+        text-align: center;
+        color: #2b3844;
+    }
+    
+    .form-group {
+        width: 15vw;
+        display: block;
+        margin: auto;
+        margin-bottom:33px;
+    }
+    .autocomplete {
+        /*the container must be positioned relative:*/
+        position: relative;
+        display: block;
+      }
+    
+      input {
+        position: relative;
+        outline: 0;
+        border-bottom: 1px solid gray;
+        background-color: #FFFFFF;
+        padding: 10px;
+        width: 100%;
+        top: 10px;
+        border-width: 0 0 1px;
+        border-color: #000000;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.22;
+        letter-spacing: 1.1px;
+        color: #2b3844;
+        text-align: center;
+    
+    
+        font-family: Roboto;
+        font-size: 18px;
+    }
+    
+    input:focus {
+        border-bottom: 2px solid #000000;
+    }
+}

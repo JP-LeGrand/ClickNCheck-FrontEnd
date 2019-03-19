@@ -1,4 +1,4 @@
-    .assignRecruiters{
+.congratulations{
     .Rectangle-Copy {
         margin:0 auto;
         width: 969px;
@@ -24,19 +24,6 @@
         color: #2b3844;
         margin-bottom:10px;
       }
-      .Call-Centre-Supervis {
-        width: 524px;
-        height: 22px;
-        font-family: Roboto;
-        font-size: 18px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.22;
-        letter-spacing: 1.1px;
-        text-align: center;
-        color: #2b3844;
-      }
       .Rectangle-Copy-14 {
         width: 150px;
         height: 40px;
@@ -44,19 +31,21 @@
         color: #ffffff;
         background-color: #0091d1;
       }
-      .Cancel {
-        width: 84px;
-        height: 22px;
+      .You-have-successfull {
+        width: 507px;
+        height: 44px;
         font-family: Roboto;
-        font-size: 12px;
-        font-weight: bold;
+        font-size: 14px;
+        font-weight: normal;
         font-style: normal;
         font-stretch: normal;
-        line-height: 1.83;
-        letter-spacing: 0.8px;
+        line-height: 1.57;
+        letter-spacing: 0.9px;
         text-align: center;
-        color: #0091d1;
-        text-decoration: none;
+        color: #2b3844;
       }
-
+      
+      .You-have-successfull .text-style-1 {
+        font-weight: bold;
+      }
     }
