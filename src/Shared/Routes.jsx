@@ -12,7 +12,6 @@ import ForgotPasswordSuccess from '../Components/Shared/ForgotPasswordSuccess/Fo
 import MainContainer from '../Components/Recruiter/RecruiterVerificationRequest/MainContainer';
 import CaptureCandidateDetails from '../Components/Recruiter/RecruiterVerificationRequest/CaptureCandidateDetails';
 import VerificationConfirmed from '../Components/Recruiter/RecruiterVerificationRequest/VerificationConfrimed/VerificationConfirmed';
-import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks';
 import CreateJobProfile from '../Components/Admin/CreateJobProfile/CreateJobProfile';
 import AdminPage from '../Components/Admin/AdminPage/AdminPage';
 
@@ -33,14 +32,12 @@ const Routes = () => {
                 <Route path="/candidate/bulk" exact component={MainContainer} />
                 <Route path="/candidate/individual" exact component={CaptureCandidateDetails} />
                 <Route path="/VerificationConfirmed" exact component={VerificationConfirmed} />
-                <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
                 <Route path="/Admin/CreateJobProfile" exact component={CreateJobProfile} />
                 <Route path="/Admin/AdminPage" exact component={AdminPage} />
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>
     );
-
 };
 
 export default Routes;
