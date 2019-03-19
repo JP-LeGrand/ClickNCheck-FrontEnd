@@ -305,4 +305,17 @@
   table {
     text-align: left;
   }
+
+  .loading{
+    width: 25px;
+    height: 25px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-top: 30px;
+  }
+  #spinner{
+    display: block;
+    width: 25px;
+    height: 25px;
+  }
 }

@@ -5,6 +5,7 @@ import Footer from '../../Shared/Footer/Footer';
 import { BASE_URL } from '../../../Shared/Constants';
 import NavBar from '../NavBar/NavBar';
 import ReactSelect from '../RecruiterVerificationRequest/ReactSelect';
+import { connect } from 'react-redux';
 
 class ReviewChecks extends React.Component {
     constructor(props){
@@ -19,6 +20,15 @@ class ReviewChecks extends React.Component {
     verificationChecks(){
         window.location = '/NewVerificationRequest';
     }
+
+    addRemoveChecks(){
+        window.location = '/AddRemoveChecks';
+    }
+
+    reorderChecks(){
+        window.location = '/ReorderChecks';
+    }
+
     individualForm(){
         let checks = [];
         this.state.checks.forEach((check) => {
@@ -71,6 +81,10 @@ class ReviewChecks extends React.Component {
         return (
             <div className="bodyPage">
                 <NavBar />
+                <div id="spanHolder">
+                    <span className="New-Verification-Req">New Verification Request</span>
+                    <span className="Job-Profile">Job Profile</span>
+                </div>
                 <div id="formContainer">
                     <ul id="progress_bar">
                         <li className="active">Select verification checks</li>
@@ -84,6 +98,8 @@ class ReviewChecks extends React.Component {
                     <ul>
                         {listItems}
                     </ul>
+                    <a id="addRemoveChecks" onClick={this.addRemoveChecks}>+ Add or - Remove verification checks </a>
+                    <a id="reorderChecks" onClick={this.reorderChecks}> Re-order sequence of checks  </a>
                 </div>
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.verificationChecks}>BACK</button>
@@ -209,4 +225,4 @@ class ReviewChecks extends React.Component {
   }
 }
 
-export default ReviewChecks;
+export default connect() (ReviewChecks);
