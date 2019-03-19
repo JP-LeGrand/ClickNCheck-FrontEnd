@@ -1,7 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="53" height="53" viewBox="0 0 53 53">
-    <g fill="none" fill-rule="evenodd" transform="translate(1 1)">
-        <circle cx="25.5" cy="25.5" r="25.5" fill="#FCFEFF" stroke="#4E9821"/>
-        <circle cx="25.5" cy="25.5" r="20.5" fill="#4E9821"/>
-        <path stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="5" d="M19 25.5l4.461 4.5L32 21"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="53px" height="53px" viewBox="0 0 53 53" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>EF187039-80AB-4694-AE93-F60CE9E2F394</title>
+    <desc>Created with sketchtool.</desc>
+    <g id="VisualDesigns" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="3.2-Administrator:AssignJob" transform="translate(-845.000000, -219.000000)">
+            <g id="Group-2" transform="translate(846.000000, 220.000000)">
+                <circle id="Oval-Copy-9" stroke="#4E9821" fill="#FCFEFF" cx="25.5" cy="25.5" r="25.5"></circle>
+                <circle id="Oval-Copy-5" fill="#4E9821" cx="25.5" cy="25.5" r="20.5"></circle>
+                <polyline id="Path-8-Copy" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" points="19 25.5 23.4613625 30 32 21"></polyline>
+            </g>
+        </g>
     </g>
 </svg>

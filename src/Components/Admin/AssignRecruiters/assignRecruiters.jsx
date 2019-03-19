@@ -26,6 +26,7 @@ class AssignRecruiters extends Component {
         for (const checkbox of this.selectedCheckboxes) {
             console.log(checkbox, 'is selected.');
         }
+        window.location='/Admin/Congratulations';
     }
 
     createCheckbox = label => (
@@ -50,7 +51,7 @@ class AssignRecruiters extends Component {
                         <label className="Call-Centre-Supervis" >Call Centre Supervisor</label >
                         {this.createCheckboxes()}
                     </div>
-                    <a href="#" className="Cancel">Cancel</a>                  
+                    <a href="/Admin/AdminPage" className="Cancel">Cancel</a>                  
                     <button type="sumbit" className="Rectangle-Copy-14">Done</button>                     
                 </form>
             </div>
