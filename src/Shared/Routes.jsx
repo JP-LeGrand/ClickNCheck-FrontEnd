@@ -37,7 +37,7 @@ const Routes = () => {
                 <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
                 <Route path="/Admin/CreateJobProfile" exact component={CreateJobProfile} />
                 <Route path="/Admin/AdminPage" exact component={AdminPage} />
-                <Route path="/Recruiter/Register" exact component={Register}/>
+                <Route path="/Recruiter/Register/:userId" exact component={Register}/>
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>

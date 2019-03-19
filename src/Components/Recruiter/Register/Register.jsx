@@ -4,10 +4,13 @@ import vv from 'prop-types';
 import './Register.scss';
 import imgMain from '../../../Assets/main.svg';
 import { ChangePasswordConstrants } from '../../Shared/ChangePassword/ChangePasswordConstants';
-import { BASE_URL, CHANGE_PASSWORD, OTP_AUTHENTICATION,GET_MANAGERS } from '../../../Shared/Constants';
+import { BASE_URL,GET_MANAGERS } from '../../../Shared/Constants';
 import passImg from '../../../Assets/password.svg';
 import rollingImg from '../../../Assets/Rolling.svg';
 import ManagerSelect from './ManagerSelect';
+import { ZERO } from '../../../Shared/IntConstants';
+import Axios from 'axios';
+
 class Register extends React.PureComponent{
     constructor(props) {
         super(props);
@@ -21,7 +24,9 @@ class Register extends React.PureComponent{
             loading:false,
             defaultManager:'Select your Manager',
             managers:[],
-            selectedManager: 'Select your Manager'
+            selectedManager: 'Select your Manager',
+            file:null,
+            userId: ''
         };
 
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -29,6 +34,8 @@ class Register extends React.PureComponent{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onFormSubmit = this.onFormSubmit.bind(this);
     }
     measureStrength = (password) => {
         let score = 0;
@@ -126,8 +133,9 @@ class Register extends React.PureComponent{
           this.setState({ loading:true }, () =>{
               this.setState({ canSubmit:false });
               event.preventDefault();
-              let userid = localStorage.getItem('user_id');
-              fetch(BASE_URL+CHANGE_PASSWORD+userid, {
+              let userid = this.state.userId;
+              let pl = [ userid,this.state.password,this.state.selectedManager ];
+              fetch(BASE_URL+'users/register', {
                   method: 'POST',
                   mode: 'cors', // no-cors, cors, *same-origin
                   cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -137,17 +145,18 @@ class Register extends React.PureComponent{
                   },
                   redirect: 'manual', // manual, *follow, error
                   referrer: 'no-referrer', // no-referrer, *client
-                  body: JSON.stringify(this.state.password), 
+                  body: JSON.stringify(pl), 
               } )
                   .then(
                       () => {
-                          fetch(BASE_URL + OTP_AUTHENTICATION, {
+                          fetch(BASE_URL + 'users/'+userid+'/UploadFile', {
                               method: 'POST',
                               mode: 'cors', // no-cors, cors, *same-origin
                               cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                               credentials: 'same-origin', // include, *same-origin, omit
                               headers: {
-                                  'Content-Type': 'application/json',
+                                  'Content-Type': 'false',
+                                  'processData':'false'
                               },
                               redirect: 'manual', // manual, *follow, error
                               referrer: 'no-referrer', // no-referrer, *client
@@ -173,8 +182,31 @@ class Register extends React.PureComponent{
           });
       }
 
-      handleChange = (e) =>{
+      onChange(e){
+          this.setState({ file:e.target.files[ZERO] });
+      }
+
+      handleChange(e){
           this.setState({ selectedManager: e.selectedManager });
+      }
+
+      fileUpload(file){
+          let userid = this.state.userId;
+          const url = BASE_URL + 'users/'+userid+'/UploadFile';
+          const formData = new FormData();
+          formData.append('file',file);
+          const config = {
+              headers: {
+                  'content-type': 'multipart/form-data'
+              }
+          };
+          return Axios.post(url, formData,config)
+      }
+      onFormSubmit(e){
+          e.preventDefault(); // Stop form submit
+          this.fileUpload(this.state.file).then((response)=>{
+              console.log(response.data);
+          });
       }
 
       render(){
@@ -187,7 +219,7 @@ class Register extends React.PureComponent{
                   <div className="mainSection">
                       <div className="registrationHeading">User Registration</div>
                       <div className="sendWhatmanager">
-                        <ManagerSelect managers={this.state.managers} defaultManager={this.state.defaultManager} onSelectManager={this.handleChange}/>
+                          <ManagerSelect managers={this.state.managers} defaultManager={this.state.defaultManager} onSelectManager={this.handleChange}/>
                       </div>
                       <div className="registrationHeading">Create New Passowrd</div>
                       <div className="sendWhat">
@@ -219,17 +251,10 @@ class Register extends React.PureComponent{
                                   </label>
                               </label>
                           </div>
+                          <div className="registrationHeading">Select new Profile Picture</div>
+                          <input type="file" name="file" id="file" className="inputfile" onChange={this.onChange}/>
                           <div className="form-group">
-                              <div className="registrationHeading">Select Profile Picture</div>
-                              <img src={passImg} alt="Lock"/>
-                              <label className="inp">
-                                  <input type="file" value={this.state.password} onChange={this.handlePasswordChange} placeholder="&nbsp;"/>
-                                  <span className="label">Image</span>
-                                  <span className="border"></span>
-                              </label>
-                          </div>
-                          <div className="form-group">
-                              <button id="btnSend" onClick={this.handleSubmit} disabled={this.state.canSubmit}>Send</button>
+                              <button id="btnSend" type="Submit" onClick={this.onFormSubmit} disabled={this.state.canSubmit}>Send</button>
                           </div>
                       </div>
                       <div className="loading">
@@ -241,6 +266,7 @@ class Register extends React.PureComponent{
       }
 
       componentDidMount(){
+          this.setState({ userId:this.props.match.params.userId });
           let arr = [];
           fetch(BASE_URL+GET_MANAGERS+'4', {
               method: 'GET',
@@ -259,7 +285,7 @@ class Register extends React.PureComponent{
                       response.forEach((manager) =>{
                           arr.push({
                               id: manager.id,
-                              value: manager.name+' '+manager.surname,
+                              value: manager.id,
                               label: manager.name+' '+manager.surname
                           });
                       });
