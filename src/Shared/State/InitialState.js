@@ -25,7 +25,13 @@ const InitialState = {
         password:null,
         passwordStrength:null,
         errorMessage:null
+    },
+    verificationChecksState: {
+        jobProfileChecks: [],
+        allChecks: [],
+        displayChecks: true
     }
+
 };
 
 export default InitialState;
