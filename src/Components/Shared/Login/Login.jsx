@@ -19,7 +19,7 @@ class Login extends React.PureComponent {
             email: '',
             isPasswordVisible: false,
             inputType: 'password',
-            loggingIn: false
+            isLoading: false
         };
         
         this.handleChangePass = this.handleChangePass.bind(this);
@@ -49,10 +49,7 @@ class Login extends React.PureComponent {
     handleSubmit(event){
         event.preventDefault();
         let credentials = [ this.state.email, this.state.password ];
-        this.setState({
-            isLoading: true
-        });
-        this.setState({ isLoading: true }, () => {
+        this.setState({ isLoading: true }, () => { 
             fetch(BASE_URL + AUTHENTICATE_LOGIN, {
                 method: 'POST',
                 mode: 'cors', // no-cors, cors, *same-origin
@@ -85,7 +82,7 @@ class Login extends React.PureComponent {
                             .then(
                                 (pass_exp_response) => {
                                     if (pass_exp_response === true) {
-                                        //window.location = '/changePassword';
+                                        window.location = '/changePassword';
                                     } else if (pass_exp_response === false) {
                                         fetch(BASE_URL + OTP_AUTHENTICATION, {
                                             method: 'POST',
@@ -105,7 +102,7 @@ class Login extends React.PureComponent {
                                                     this.setState({
                                                         isLoading: false
                                                     });
-                                                    //window.location = '/otp';
+                                                    window.location = '/otp';
                                                 },
                                                 (error) => {
                                                     this.setState({
@@ -117,24 +114,27 @@ class Login extends React.PureComponent {
                                     }
                                 },
                                 (error) => {
+                                    this.setState({
+                                        isLoading: false
+                                    });
                                     alert(error);
                                 }
                             );
 
                     },
                     (error) => {
+                        this.setState({
+                            isLoading: false
+                        });
                         alert(error);
                     }
                 );
-        });
-        this.setState({
-            isLoading: false
         });
     } 
     
     render() {
         return (
-            <div className="login">
+            <div className="login">  
                 <header className="headSection">
                     <img src={mainImg}/>
                 </header>
@@ -167,10 +167,10 @@ class Login extends React.PureComponent {
                         <div id="btnDiv" className="form-group">
                             <button onClick={this.handleSubmit}>Login</button>
                         </div> 
-                        <div className="logginIn">
-                            {this.state.loggingIn && <img src={rollingImg} id="spinner" alt="loading..." />}
-                        </div>
                     </form>
+                    <div className="logginIn">
+                        {this.state.isLoading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                    </div>
                 </div>
             </div>
         );
