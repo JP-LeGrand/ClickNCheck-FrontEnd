@@ -1,8 +1,8 @@
-    .assignRecruiters{
+.congratulations{
     .Rectangle-Copy {
         margin:0 auto;
-        width: 969px;
-        height: 392px;
+        width: 900px;
+        height: 280px;
         border-radius: 7px;
         box-shadow: 0 0 22px 0 rgba(0, 0, 0, 0.17);
         border: solid 1px #6849ae;
@@ -10,8 +10,8 @@
         text-align: center;
         padding-top: 50px;
       }
-    .Assign-Recruiters {
-        width: 428px;
+      .Congratulation {
+        width: 372px;
         height: 27px;
         font-family: Roboto;
         font-size: 24px;
@@ -22,20 +22,6 @@
         letter-spacing: 0.6px;
         text-align: center;
         color: #2b3844;
-        margin-bottom:10px;
-      }
-      .Call-Centre-Supervis {
-        width: 524px;
-        height: 22px;
-        font-family: Roboto;
-        font-size: 18px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.22;
-        letter-spacing: 1.1px;
-        text-align: center;
-        color: #2b3844;
       }
       .Rectangle-Copy-14 {
         width: 150px;
@@ -44,19 +30,22 @@
         color: #ffffff;
         background-color: #0091d1;
       }
-      .Cancel {
-        width: 84px;
-        height: 22px;
+      .You-have-successfully {
+        width: 507px;
+        height: 44px;
         font-family: Roboto;
-        font-size: 12px;
-        font-weight: bold;
+        font-size: 14px;
+        font-weight: normal;
         font-style: normal;
         font-stretch: normal;
-        line-height: 1.83;
-        letter-spacing: 0.8px;
+        line-height: 1.57;
+        letter-spacing: 0.9px;
         text-align: center;
-        color: #0091d1;
-        text-decoration: none;
+        color: #2b3844;
+        margin: 0 auto;
       }
-
+      
+      .text-style-1 {
+        font-weight: bold;
+      }
     }

@@ -11,106 +11,107 @@ import Notification from '../../../Assets/notification.svg';
 import { FaBars, FaAngleDown } from 'react-icons/fa';
 import 'typeface-roboto';
 import logoutImg from '../../../Assets/logout.svg';
+
 class adminNavBar extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isTopNav: true
-    };
-    this.handleMenuButton = this.handleMenuButton.bind(this);
-    this.getLocation = this.getLocation.bind(this);
-  }
-
-  handleMenuButton() {
-    if (this.state.isTopNav) {
-      this.setState({ isTopNav: false });
-    } else {
-      this.setState({ isTopNav: true });
-    }
-  }
-
-  getLocation(loc) {
-    let currLocation = window.location.toString();
-    let zero = 0;
-    if (currLocation.indexOf(loc) > zero) {
-      return true;
+    constructor(props) {
+        super(props);
+        this.state = {
+            isTopNav: true
+        };
+        this.handleMenuButton = this.handleMenuButton.bind(this);
+        this.getLocation = this.getLocation.bind(this);
     }
 
-    return false;
-  }
+    handleMenuButton() {
+        if (this.state.isTopNav) {
+            this.setState({ isTopNav: false });
+        } else {
+            this.setState({ isTopNav: true });
+        }
+    }
 
-  logout(){
-    localStorage.clear();
-    sessionStorage.clear();
-    window.location = '/';
-}
+    getLocation(loc) {
+        let currLocation = window.location.toString();
+        let zero = 0;
+        if (currLocation.indexOf(loc) > zero) {
+            return true;
+        }
 
-  render() {
-    return (
-      <div>
-        <div className="navbar">
-          <div
-            className={this.state.isTopNav ? "topnav" : "topnav responsive"}
-            id="myTopnav"
-          >
-            <div className="noHover">
-              <a className="centerLogo" href="#">
-                <img id="logo" src={Logo} alt="clickncheck" />
-              </a>
-              <a className="icon" onClick={this.handleMenuButton}>
-                <FaBars id="miniBars" />
-              </a>
-            </div>
+        return false;
+    }
 
-            <div id="mobile">
-              <a href="#" className="">
-                <div className="navTab">
-                  <img className="navIcon" src={Dashboard} alt="clickncheck" />
-                  <label className="navLabel">Dashboard</label>
-                </div>
-              </a>
-              <a
-                href="/NewVerificationRequest"
-                className={
-                  this.getLocation("/NewVerificationRequest")
-                    ? "active"
-                    : "inactive"
-                }
-              >
-                <div className="navTab">
-                  <img
-                    className="navIcon"
-                    src={VerificationRequest}
-                    alt="clickncheck"
-                  />
-                  <label className="navLabel">Verification Request</label>
-                </div>
-              </a>
-              <a href="#" className="">
-                <div className="navTab">
-                  <img className="navIcon" src={JobProfile} alt="clickncheck" />
-                  <label className="navLabel">Job Profiles</label>
-                </div>
-              </a>
-              <a href="#" className="">
-                <div className="navTab">
-                  <img className="navIcon" src={Reports} alt="clickncheck" />
-                  <label className="navLabel">Reports</label>
-                </div>
-              </a>
-              <a href="#" className="">
-                <div className="navTab">
-                  <img className="navIcon" src={Candidates} alt="clickncheck" />
-                  <label className="navLabel">Candidates</label>
-                </div>
-              </a>
-              <a href="#" className="">
-                <div className="navTab">
-                  <img className="navIcon" src={Users} alt="clickncheck" />
-                  <label className="navLabel">Users</label>
-                </div>
-              </a>
-              <a href="#" onClick={this.logout} className="">
+    logout(){
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location = '/';
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="navbar">
+                    <div
+                        className={this.state.isTopNav ? 'topnav' : 'topnav responsive'}
+                        id="myTopnav"
+                    >
+                        <div className="noHover">
+                            <a className="centerLogo" href="#">
+                                <img id="logo" src={Logo} alt="clickncheck" />
+                            </a>
+                            <a className="icon" onClick={this.handleMenuButton}>
+                                <FaBars id="miniBars" />
+                            </a>
+                        </div>
+
+                        <div id="mobile">
+                            <a href="#" className="">
+                                <div className="navTab">
+                                    <img className="navIcon" src={Dashboard} alt="clickncheck" />
+                                    <label className="navLabel">Dashboard</label>
+                                </div>
+                            </a>
+                            <a
+                                href="/NewVerificationRequest"
+                                className={
+                                    this.getLocation('/NewVerificationRequest')
+                                        ? 'active'
+                                        : 'inactive'
+                                }
+                            >
+                                <div className="navTab">
+                                    <img
+                                        className="navIcon"
+                                        src={VerificationRequest}
+                                        alt="clickncheck"
+                                    />
+                                    <label className="navLabel">Verification Request</label>
+                                </div>
+                            </a>
+                            <a href="#" className="">
+                                <div className="navTab">
+                                    <img className="navIcon" src={JobProfile} alt="clickncheck" />
+                                    <label className="navLabel">Job Profiles</label>
+                                </div>
+                            </a>
+                            <a href="#" className="">
+                                <div className="navTab">
+                                    <img className="navIcon" src={Reports} alt="clickncheck" />
+                                    <label className="navLabel">Reports</label>
+                                </div>
+                            </a>
+                            <a href="#" className="">
+                                <div className="navTab">
+                                    <img className="navIcon" src={Candidates} alt="clickncheck" />
+                                    <label className="navLabel">Candidates</label>
+                                </div>
+                            </a>
+                            <a href="#" className="">
+                                <div className="navTab">
+                                    <img className="navIcon" src={Users} alt="clickncheck" />
+                                    <label className="navLabel">Users</label>
+                                </div>
+                            </a>
+                            <a href="#" onClick={this.logout} className="">
                                 <div className="navTab">
                                     <img
                                         className="navIcon"
@@ -118,48 +119,48 @@ class adminNavBar extends React.PureComponent {
                                         alt="clickncheck" />
                                     <label className="navLabel">logout</label>
                                 </div>  
-              </a>
-              <button
-                id="toggle"
-                type="button"
-                className={
-                  navigator.onLine
-                    ? "btn btn-sm btn-secondary btn-toggle active"
-                    : "btn btn-sm btn-secondary btn-toggle"
-                }
-                data-toggle="button"
-                aria-pressed="false"
-                autoComplete="off"
-              >
-                <div className="handle" />
-              </button>
-              <a href="#" className="">
-                <div className="navTab">
-                  <img
-                    className="navIcon"
-                    src={Notification}
-                    alt="clickncheck"
-                  />
+                            </a>
+                            <button
+                                id="toggle"
+                                type="button"
+                                className={
+                                    navigator.onLine
+                                        ? 'btn btn-sm btn-secondary btn-toggle active'
+                                        : 'btn btn-sm btn-secondary btn-toggle'
+                                }
+                                data-toggle="button"
+                                aria-pressed="false"
+                                autoComplete="off"
+                            >
+                                <div className="handle" />
+                            </button>
+                            <a href="#" className="">
+                                <div className="navTab">
+                                    <img
+                                        className="navIcon"
+                                        src={Notification}
+                                        alt="clickncheck"
+                                    />
+                                </div>
+                            </a>
+                            <div id="user">
+                                <img
+                                    id="user_img"
+                                    className="user"
+                                    src={sessionStorage.getItem('user_img')}
+                                />
+                                <label className="user" id="user_name">
+                                    {sessionStorage.getItem('user_name')}
+                                </label>
+                                <FaAngleDown id="angleDown" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </a>
-              <div id="user">
-                <img
-                  id="user_img"
-                  className="user"
-                  src={sessionStorage.getItem("user_img")}
-                />
-                <label className="user" id="user_name">
-                  {sessionStorage.getItem("user_name")}
-                </label>
-                <FaAngleDown id="angleDown" />
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div className={this.state.isTopNav ? "main" : "main responsive"} />
-      </div>
-    );
-  }
+                <div className={this.state.isTopNav ? 'main' : 'main responsive'} />
+            </div>
+        );
+    }
 }
 export default adminNavBar;
