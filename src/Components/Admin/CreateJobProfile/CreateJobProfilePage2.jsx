@@ -26,7 +26,7 @@ class CreateJobProfilePage2 extends React.Component {
     }
 
     backSteps() {
-        window.location = '/AddRemoveChecks';
+        window.location = '/Admin/CreateJobProfile';
     }
 
     saveProgress() {
