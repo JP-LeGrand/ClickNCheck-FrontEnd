@@ -17,7 +17,7 @@ import AdminPage from '../Components/Admin/AdminPage/AdminPage';
 import JobProfiles from '../Components/Admin/JobProfiles/JobProfiles';
 import assignRecruiters from '../Components/Admin/AssignRecruiters/assignRecruiters';
 import Congratulations from '../Components/Admin/Congratulations/Congratulations';
-
+import Register from '../Components/Recruiter/Register/Register';
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -40,6 +40,7 @@ const Routes = () => {
                 <Route path="/JobProfiles" exact component={JobProfiles} />
                 <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters}/>
                 <Route path="/Admin/Congratulations" exact component={Congratulations}/>
+                <Route path="/Recruiter/Register/:userId" exact component={Register}/>
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>

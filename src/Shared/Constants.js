@@ -21,3 +21,4 @@ export const PASS_EXPIRED = 'Users/IsPasswordExpired/';
 export const GET_ALL_JOB_PROFILES = 'JobProfiles/GetAllJobProfilesRecruiters';
 export const GET_UNASSIGNED_JOB_PROFILES = 'JobProfiles/GetUnassignedJobProfilesRecruiters';
 export const GET_ASSIGNED_JOB_PROFILES = 'JobProfiles/GetAssignedJobProfilesRecruiters';
+export const GET_MANAGERS = 'users/recruiter/organisation/managers/';
