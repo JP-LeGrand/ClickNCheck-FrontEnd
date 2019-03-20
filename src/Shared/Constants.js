@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://clickncheck.azurewebsites.net/api/';/* alternative url for testing on local db https://clicknchecksite.z13.web.core.windows.net/ */
+export const BASE_URL = 'https://clickncheck.azurewebsites.net/api/';/* alternative url for testing on local db https://localhost:44347/api/ or https://clicknchecksite.z13.web.core.windows.net/api/ */
 export const IS_LOGGED_IN = 'authentication/isLoggedIn';
 export const ADD_USER = 'Users/PostUsers';
 export const GET_USER_TYPES = 'Users/userTypes';
@@ -23,4 +23,6 @@ export const GET_RECRUITER_JOB_PROFILE = 'JobProfiles/GetRecruiterJobProfile/';
 export const GET_ALL_JOB_PROFILES = 'JobProfiles/GetAllJobProfilesRecruiters';
 export const GET_UNASSIGNED_JOB_PROFILES = 'JobProfiles/GetUnassignedJobProfilesRecruiters';
 export const GET_ASSIGNED_JOB_PROFILES = 'JobProfiles/GetAssignedJobProfilesRecruiters';
+export const GET_ALL_SERVICES = 'Available/services';
 export const GET_MANAGERS = 'users/recruiter/organisation/managers/';
+
