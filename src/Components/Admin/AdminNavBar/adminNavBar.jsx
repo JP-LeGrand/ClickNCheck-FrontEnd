@@ -40,15 +40,15 @@ class adminNavBar extends React.PureComponent {
         return false;
     }
 
-    logout(){
+    logout() {
         localStorage.clear();
         sessionStorage.clear();
         window.location = '/';
     }
 
-    AddUser(){
-        window.location='/Admin/AddUser';
-    }
+    //AddUser() {
+    //window.location='/Admin/AddUser';
+    //}
 
     render() {
         return (
@@ -120,7 +120,12 @@ class adminNavBar extends React.PureComponent {
                                     <label className="navLabel">Candidates</label>
                                 </div>
                             </a>
-                            <a href="#" onClick={this.AddUser()} className="">
+                            <a href="/Admin/AddUser"
+                                className={
+                                    this.getLocation('/Admin/AddUser')
+                                        ? 'active'
+                                        : 'inactive'
+                                }>
                                 <div className="navTab">
                                     <img className="navIcon" src={Users} alt="clickncheck" />
                                     <label className="navLabel">Users</label>
@@ -133,7 +138,7 @@ class adminNavBar extends React.PureComponent {
                                         src={logoutImg}
                                         alt="clickncheck" />
                                     <label className="navLabel">logout</label>
-                                </div>  
+                                </div>
                             </a>
                             <button
                                 id="toggle"
