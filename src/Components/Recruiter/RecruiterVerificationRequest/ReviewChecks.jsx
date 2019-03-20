@@ -90,7 +90,7 @@ class ReviewChecks extends React.Component {
                     <hr className="Line" />
                     {
                         this.props.displayChecks ?
-                        <ProfileChecks addRemove={this.addRemoveChecks} checks={this.props.checks}/> : <AddRemoveChecks addRemove={this.addRemoveChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck}/>
+                        <ProfileChecks addRemove={this.addRemoveChecks} checks={this.props.checks}/> : <AddRemoveChecks  updateAllChecks={this.props.updateAllChecks}addRemove={this.addRemoveChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck}/>
                         
                     }
                 </div>
@@ -125,7 +125,8 @@ const mapActionsToProps = (dispatch) => ({
     toggleDisplay: bindActionCreators(ReviewChecksActions.toggleDisplay, dispatch),
     fetchAllChecks: bindActionCreators(ReviewChecksActions.fetchAllChecks, dispatch),
     addProfileCheck: bindActionCreators(ReviewChecksActions.addProfileCheck, dispatch),
-    removeProfileCheck: bindActionCreators(ReviewChecksActions.removeProfileCheck, dispatch)
+    removeProfileCheck: bindActionCreators(ReviewChecksActions.removeProfileCheck, dispatch),
+    updateAllChecks: bindActionCreators(ReviewChecksActions.updateAllChecks, dispatch)
 });
 
 export default connect(mapStateToProps, mapActionsToProps) (ReviewChecks);

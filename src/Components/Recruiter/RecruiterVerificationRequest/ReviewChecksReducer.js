@@ -28,6 +28,11 @@ const ReviewChecksReducer = (state = InitialState.verificationChecksState, actio
             ...state,
             jobProfileChecks: action.payload
         };
+    case Types.UPDATE_ALL_CHECKS:
+        return {
+            ...state,
+            allChecks: action.payload
+        };
 
     default: 
         return state;

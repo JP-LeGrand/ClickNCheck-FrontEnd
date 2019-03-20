@@ -105,7 +105,16 @@ export const addProfileCheck = (data) => {
 export const removeProfileCheck = (data) => {
     return function (dispatch){
         dispatch({
-            type: Types.ADD_JOB_PROFILE_CHECK,
+            type: Types.REMOVE_JOB_PROFILE_CHECK,
+            payload: data
+        });
+    };
+};
+
+export const updateAllChecks = (data) => {
+    return function (dispatch){
+        dispatch({
+            type: Types.UPDATE_ALL_CHECKS,
             payload: data
         });
     };
