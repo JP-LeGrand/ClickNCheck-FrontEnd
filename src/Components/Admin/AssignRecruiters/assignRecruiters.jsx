@@ -12,18 +12,33 @@ class AssignRecruiters extends Component {
     };
 
     componentDidMount() {
-        axios.get(BASE_URL + GET_RECRUITERS)
+        fetch(BASE_URL + GET_RECRUITERS, {
+            method: 'GET',
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'omit', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ sessionStorage.getItem('token')
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+        })
+            .then(response => response.json())
             .then(response => {
                 const recr=[];
-                response.data.forEach(recruiter => {
+                Object.entries(response["Recruiters"]).forEach(recruiter => {
                     recr.push(recruiter);
                 });
-                //Setting Recruiter state to the response
                 this.setState({ Recruiter:recr });
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            },
+            error => {
+                this.setState({
+                    loading: false
+                });
+                alert(error);
+            }
+            );
     }
 
     componentWillMount = () => {
@@ -43,23 +58,19 @@ class AssignRecruiters extends Component {
         for (const checkbox of this.selectedCheckboxes) {
             console.log(checkbox, 'is selected.');
         }
-        window.location='/Admin/Congratulations';
+        //window.location='/Admin/Congratulations';
     }
 
-    createCheckbox = (label, val) => (
-        <RecruitersCheckbox
+    createCheckbox = (label, val) => <RecruitersCheckbox
             label={label}
             handleCheckboxChange={this.toggleCheckbox}
             key={val}
         />
-    )
 
-    createCheckboxes = () => (
-        this.state.Recruiter.map(this.createCheckbox)
-    )
+    createCheckboxes = () => this.state.Recruiter.map(this.createCheckbox)
 
     render() { 
-        return(
+        return (
             <div>
                 <AdminNavBar />
                 <div className="assignRecruiters">
