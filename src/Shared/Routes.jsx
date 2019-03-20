@@ -15,6 +15,7 @@ import VerificationConfirmed from '../Components/Recruiter/RecruiterVerification
 import CreateJobProfile from '../Components/Admin/CreateJobProfile/CreateJobProfile';
 import AdminPage from '../Components/Admin/AdminPage/AdminPage';
 import assignRecruiters from '../Components/Admin/AssignRecruiters/assignRecruiters';
+import Congratulations from '../Components/Admin/Congratulations/Congratulations';
 import CreateJobProfilePage2 from '../Components/Admin/CreateJobProfile/CreateJobProfilePage2';
 
 const Routes = () => {
@@ -38,6 +39,8 @@ const Routes = () => {
                 <Route path="/Admin/AdminPage" exact component={AdminPage} />
                 <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters} />
                 <Route path="/Admin/CreateJobProfilePage2" exact component={CreateJobProfilePage2} />
+                <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters} />
+                <Route path="/Admin/Congratulations" exact component={Congratulations} />
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>
