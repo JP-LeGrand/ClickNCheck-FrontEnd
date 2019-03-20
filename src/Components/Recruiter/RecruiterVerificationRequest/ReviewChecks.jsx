@@ -7,36 +7,41 @@ import NavBar from '../NavBar/NavBar';
 import ReactSelect from '../RecruiterVerificationRequest/ReactSelect';
 import { connect } from 'react-redux';
 import AddRemoveChecks from './AddRemoveChecks';
-import ProfileChecks from './ProfileChecks'
+import ProfileChecks from './ProfileChecks';
+import * as ReviewChecksActions from './ReviewChecksActions';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { prototype } from 'events';
 
 class ReviewChecks extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            cursor: 'grab',
-            checks: [],
-            displayChecks: true,
-        };
         this.addRemoveChecks = this.addRemoveChecks.bind(this);
         this.individualForm = this.individualForm.bind(this);
         this.verificationChecks = this.verificationChecks.bind(this);
     }
 
+    componentDidMount(){
+        this.props.fetchChecks();
+        this.props.toggleDisplay(this.props.displayChecks);
+        this.props.fetchAllChecks();
+    }
     verificationChecks(){
 
         window.location = '/NewVerificationRequest';
     }
     addRemoveChecks(){
-        if (this.state.displayChecks){
-            this.setState({ displayChecks: false });
-        } else {
-            this.setState({ displayChecks: true });
+        if (this.props.displayChecks){
+            this.props.toggleDisplay(false);
+        }
+        else {
+            this.props.toggleDisplay(true);
         }
     }
 
     individualForm(){
         let checks = [];
-        this.state.checks.forEach((check) => {
+        this.props.checks.forEach((check) => {
             checks.push(check.id);
         });
         let createVerReq = {
@@ -68,7 +73,7 @@ class ReviewChecks extends React.Component {
     }
     render() {
         return (
-            <div className="bodyPage" style={{ display: this.state.display }}>
+            <div className="bodyPage">
                 <NavBar />
                 <div id="spanHolder">
                     <span className="New-Verification-Req">New Verification Request</span>
@@ -84,8 +89,8 @@ class ReviewChecks extends React.Component {
                     <ReactSelect defaultProf={localStorage.getItem('jp')}/>
                     <hr className="Line" />
                     {
-                        this.state.displayChecks ?
-                        <ProfileChecks addRemove={this.addRemoveChecks}/> : <AddRemoveChecks addRemove={this.addRemoveChecks} defaultChecks={this.state.checks}/>
+                        this.props.displayChecks ?
+                        <ProfileChecks addRemove={this.addRemoveChecks} checks={this.props.checks}/> : <AddRemoveChecks  updateAllChecks={this.props.updateAllChecks}addRemove={this.addRemoveChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck}/>
                         
                     }
                 </div>
@@ -97,86 +102,31 @@ class ReviewChecks extends React.Component {
             </div>
         );
     }
-
-  onDrop = (ev, pos) => {
-      let vendor = ev.dataTransfer.getData('vendor');
-      let cat = ev.dataTransfer.getData('category');
-      let tasks = this.state.checks.filter((check) => {
-          if (check.vendors[0] == vendor) {
-              check.location = pos;
-              if (check.bgColor == '#FFFFFF'){
-                  check.bgColor = '#0091d1';
-                  check.color = 'white';
-              } else {
-                  check.bgColor = '#FFFFFF';
-                  check.color = 'black';
-              }
-              this.state.checks.forEach((c) =>{
-                  if (c.category == cat && c.location != pos){
-                      c.vendors.push(check.vendors[0]);
-                      return c;
-                  }
-              });     
-          }       
-          return check;       
-      }); 
-    
-      this.setState({           
-          ...this.state,           
-          tasks       
-      });
-      this.setState({ cursor: 'grab' });
-  }
-
-  onDragOver(event){
-      event.preventDefault();
-      this.setState({ cursor: 'grabbing' });
-  }
-
-  onDragStart(event, vendor, cat){
-      this.setState({ cursor: 'grabbing' });
-      event.dataTransfer.setData('vendor', vendor);
-      event.dataTransfer.setData('category', cat);
-  }
-  
-  onDragEnd(e){
-      this.setState({ cursor: 'grab' });
-  }
-
-  componentDidMount(){
-      let arr = [];
-      if (this.state.checks.length == 0){
-          fetch(BASE_URL+'JobProfiles/jobChecks/'+localStorage.getItem('jpID') , {
-            method: 'GET',
-            mode: 'cors', // no-cors, cors, *same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer '+ sessionStorage.getItem('token')
-            },
-            redirect: 'manual', // manual, *follow, error
-            referrer: 'no-referrer', // no-referrer, *client 
-        })
-            .then((response) => response.json())  
-            .then(
-                response => {
-                    response.forEach((check) =>{
-                        arr.push({
-                            category: check.category,
-                            categoryID: check.checkCategoryID,
-                            location: 'onRight',
-                            id: check.id
-                        });
-                    });
-                    this.setState({ checks: arr });
-
-                },
-                (error) => {
-                    alert(error);
-                });
-        }
-  }
 }
 
-export default connect() (ReviewChecks);
+ReviewChecks.propTypes = {
+    fetchChecks: PropTypes.func.isRequired,
+    checks: PropTypes.array,
+    toggleDisplay: PropTypes.func,
+    displayChecks: PropTypes.bool,
+    allChecks: PropTypes.array,
+    addProfileCheck: PropTypes.func,
+    removeProfileCheck: PropTypes.func
+};
+
+const mapStateToProps = state => ({
+    checks: state.reviewChecksState.jobProfileChecks,
+    displayChecks: state.reviewChecksState.displayChecks,
+    allChecks: state.reviewChecksState.allChecks
+});
+
+const mapActionsToProps = (dispatch) => ({
+    fetchChecks: bindActionCreators(ReviewChecksActions.fetchChecks, dispatch),
+    toggleDisplay: bindActionCreators(ReviewChecksActions.toggleDisplay, dispatch),
+    fetchAllChecks: bindActionCreators(ReviewChecksActions.fetchAllChecks, dispatch),
+    addProfileCheck: bindActionCreators(ReviewChecksActions.addProfileCheck, dispatch),
+    removeProfileCheck: bindActionCreators(ReviewChecksActions.removeProfileCheck, dispatch),
+    updateAllChecks: bindActionCreators(ReviewChecksActions.updateAllChecks, dispatch)
+});
+
+export default connect(mapStateToProps, mapActionsToProps) (ReviewChecks);
