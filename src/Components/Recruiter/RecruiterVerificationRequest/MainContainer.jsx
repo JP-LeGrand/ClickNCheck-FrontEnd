@@ -5,6 +5,7 @@ import { RecruiterConstants } from './recruiterConstants';
 import Footer from '../../Shared/Footer/Footer';
 import Axios from 'axios';
 import rollingImg from '../../../Assets/Rolling.svg';
+import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
 
 
 class MainContainer extends React.PureComponent {
@@ -47,7 +48,8 @@ class MainContainer extends React.PureComponent {
 
     changeDiv(event) {
         const indi = event.target.id;
-        if (indi === 'bulk') {
+        console.log(indi);
+        if (indi === 'individual') {
             this.setState({
                 div: false
             });
@@ -104,6 +106,7 @@ class MainContainer extends React.PureComponent {
     //         this.validateField(name, value);
     //     });
     // }
+  
     validateField(fieldName, value) {
         let emailValid = this.state.emailValid;
         let idValid = this.state.idValid;
@@ -215,6 +218,7 @@ class MainContainer extends React.PureComponent {
         reader.readAsBinaryString(inputFile.files[0]);
     }
     review() {
+    
         return (
             <div className="bodyPage">
                 <div className="formBox">
@@ -283,14 +287,15 @@ class MainContainer extends React.PureComponent {
     }
     addBulkCandidates(){
         this.setState({
-            loading: true
-        });
+            loading : true,
+        })
+        
         let body = {
             candidates : this.state.excelRows,
         }
         console.log(body);
         let var_check = localStorage.getItem("ver_check");
-        Axios.post('https://localhost:44347/api/candidates/CreateCandidate/' + var_check, body)
+        Axios.post(BASE_URL + CREATE_CANDIDATE + var_check, body)
         .then(() => {
             window.location = '/VerificationConfirmed';
         });

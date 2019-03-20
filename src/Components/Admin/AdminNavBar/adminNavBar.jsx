@@ -40,11 +40,15 @@ class adminNavBar extends React.PureComponent {
         return false;
     }
 
-    logout(){
+    logout() {
         localStorage.clear();
         sessionStorage.clear();
         window.location = '/';
     }
+
+    //AddUser() {
+    //window.location='/Admin/AddUser';
+    //}
 
     render() {
         return (
@@ -64,16 +68,21 @@ class adminNavBar extends React.PureComponent {
                         </div>
 
                         <div id="mobile">
-                            <a href="#" className="">
+                            <a href="/admin/recuiterJopProfiles"
+                                className={
+                                    this.getLocation('/admin/recuiterJopProfiles')
+                                        ? 'active'
+                                        : 'inactive'
+                                }>
                                 <div className="navTab">
                                     <img className="navIcon" src={Dashboard} alt="clickncheck" />
                                     <label className="navLabel">Dashboard</label>
                                 </div>
                             </a>
                             <a
-                                href="/NewVerificationRequest"
+                                href="/Admin/CreateJobProfile"
                                 className={
-                                    this.getLocation('/NewVerificationRequest')
+                                    this.getLocation('/Admin/CreateJobProfile')
                                         ? 'active'
                                         : 'inactive'
                                 }
@@ -84,10 +93,16 @@ class adminNavBar extends React.PureComponent {
                                         src={VerificationRequest}
                                         alt="clickncheck"
                                     />
-                                    <label className="navLabel">Verification Request</label>
+                                    <label className="navLabel">Create Job Profile</label>
                                 </div>
                             </a>
-                            <a href="#" className="">
+                            <a href="/JobProfiles"
+                                className={
+                                    this.getLocation('/JobProfiles')
+                                        ? 'active'
+                                        : 'inactive'
+                                }
+                            >
                                 <div className="navTab">
                                     <img className="navIcon" src={JobProfile} alt="clickncheck" />
                                     <label className="navLabel">Job Profiles</label>
@@ -105,7 +120,12 @@ class adminNavBar extends React.PureComponent {
                                     <label className="navLabel">Candidates</label>
                                 </div>
                             </a>
-                            <a href="#" className="">
+                            <a href="/Admin/AddUser"
+                                className={
+                                    this.getLocation('/Admin/AddUser')
+                                        ? 'active'
+                                        : 'inactive'
+                                }>
                                 <div className="navTab">
                                     <img className="navIcon" src={Users} alt="clickncheck" />
                                     <label className="navLabel">Users</label>
@@ -118,7 +138,7 @@ class adminNavBar extends React.PureComponent {
                                         src={logoutImg}
                                         alt="clickncheck" />
                                     <label className="navLabel">logout</label>
-                                </div>  
+                                </div>
                             </a>
                             <button
                                 id="toggle"

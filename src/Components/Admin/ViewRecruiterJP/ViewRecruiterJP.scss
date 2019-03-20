@@ -1,0 +1,97 @@
+.ViewRecruiterJP{
+    .title{
+        display: flex;
+        flex-flow: row;
+        font-size: 14px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 3.21;
+        letter-spacing: 0.3px;
+        color: #02529c;
+        margin-left: 228px;
+        margin-right: 228px;
+        #bold{
+            font-weight: bold;
+        }
+        p{
+            margin: 0px;
+        }
+    }
+    #angleRight{
+        margin: 14px 0px;
+    }
+    .head{
+        margin-left: 228px;
+        margin-right: 228px;
+    }
+    #headTitle{
+        float:left;
+        height: 25px;
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.5;
+        letter-spacing: 0.4px;
+        color: #02529c;
+        p{
+            margin: 0px;
+        }
+    }
+    #selectElement{
+        margin: auto;
+        width: 300px;
+    }
+    .tHead{
+        color: #02529c;
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+    }
+    .tBody{
+        color: #02529c;
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+    }
+    .tHeading{
+        text-align: center;
+        label{
+            height: 20px;
+            font-size: 24px;
+        }
+        .hImage{
+            padding-top: 5px;
+            bottom: 0px;
+            margin-right: 10px;
+        }
+        width:50%;
+    }
+    .tContent{
+        text-align: center;
+        label{
+            align-items: center;
+        }
+        width:50%;
+    }
+    .hImage{
+        height: 15px;
+        width: 15px;
+    }
+    #contTable{
+        padding: 0px 10%;
+        margin: 0 auto;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        padding-left: 2%;
+        padding-right: 2%;
+        min-width: 400px;
+        max-width: 800px; /*fit-content;*/
+        height: 400px;
+        background-color: #ffffff;
+        box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+        border: 1px solid lightgray;
+        border-radius: 5px;
+  }
+}

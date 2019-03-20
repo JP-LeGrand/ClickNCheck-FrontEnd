@@ -22,6 +22,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Axios from 'axios';
 import { RecruiterConstants } from './recruiterConstants';
 import rollingImg from '../../../Assets/Rolling.svg';
+import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
 
 
 class CaptureCandidateDetails extends React.PureComponent {
@@ -84,7 +85,7 @@ class CaptureCandidateDetails extends React.PureComponent {
         };
         let ver_check = localStorage.getItem('ver_check');
       
-        Axios.post('https://localhost:44347/api/candidates/CreateCandidate/' + ver_check , candidate)
+        Axios.post(BASE_URL + CREATE_CANDIDATE + ver_check , candidate)
         .then((response)=>{
             console.log(response.data);
             window.location = '/VerificationConfirmed';
