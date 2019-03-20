@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { BASE_URL, GET_ALL_SERVICES } from '../../../Shared/Constants';
 
 class AllChecksTable extends React.PureComponent {
@@ -29,12 +28,13 @@ class AllChecksTable extends React.PureComponent {
                 response => {
                     response.forEach((check) => {
                         arr.push({
-                            id: check.id,
-                            value: check.title,
-                            label: check.title
+                            id: check.ID,
+                            name: check.Name,
+                            isVailable: check.isVailable,
+                            checkCategory: check.checkCategory
                         });
                     });
-                    this.setState({ jobProfiles: arr });
+                    this.setState({ allServices: arr });
                 },
                 (error) => {
                     alert(error);
@@ -42,9 +42,14 @@ class AllChecksTable extends React.PureComponent {
     }
 
     render() {
-        let checks = [];
-        for (let c = 0; c < this.state.allServices.length; c++) {
-            checks.push();
+        let checks = {};
+
+        for (let i = 0; i < this.state.allServices.length; i++) {
+            checks.push(
+                <tr>
+                    <li>The first column</li><li>The second column</li>
+                </tr>
+            );
         }
         //Make the checks table
         //checks is an array rows
