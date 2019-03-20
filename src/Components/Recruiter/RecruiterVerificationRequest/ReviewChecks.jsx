@@ -8,8 +8,10 @@ import ReactSelect from '../RecruiterVerificationRequest/ReactSelect';
 import { connect } from 'react-redux';
 import AddRemoveChecks from './AddRemoveChecks';
 import ProfileChecks from './ProfileChecks';
-import { fetchChecks } from './ReviewChecksActions';
-import { toggleDisplay } from './ReviewChecksActions';
+import * as ReviewChecksActions from './ReviewChecksActions';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { prototype } from 'events';
 
 class ReviewChecks extends React.Component {
     constructor(props){
@@ -19,12 +21,22 @@ class ReviewChecks extends React.Component {
         this.verificationChecks = this.verificationChecks.bind(this);
     }
 
+    componentDidMount(){
+        this.props.fetchChecks();
+        this.props.toggleDisplay(this.props.displayChecks);
+        this.props.fetchAllChecks();
+    }
     verificationChecks(){
 
         window.location = '/NewVerificationRequest';
     }
     addRemoveChecks(){
-        toggleDisplay(this.props.displayChecks);
+        if (this.props.displayChecks){
+            this.props.toggleDisplay(false);
+        }
+        else {
+            this.props.toggleDisplay(true);
+        }
     }
 
     individualForm(){
@@ -78,7 +90,7 @@ class ReviewChecks extends React.Component {
                     <hr className="Line" />
                     {
                         this.props.displayChecks ?
-                        <ProfileChecks addRemove={this.addRemoveChecks}/> : <AddRemoveChecks addRemove={this.addRemoveChecks} defaultChecks={this.props.checks}/>
+                        <ProfileChecks addRemove={this.addRemoveChecks} checks={this.props.checks}/> : <AddRemoveChecks addRemove={this.addRemoveChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck}/>
                         
                     }
                 </div>
@@ -92,9 +104,28 @@ class ReviewChecks extends React.Component {
     }
 }
 
+ReviewChecks.propTypes = {
+    fetchChecks: PropTypes.func.isRequired,
+    checks: PropTypes.array,
+    toggleDisplay: PropTypes.func,
+    displayChecks: PropTypes.bool,
+    allChecks: PropTypes.array,
+    addProfileCheck: PropTypes.func,
+    removeProfileCheck: PropTypes.func
+};
+
 const mapStateToProps = state => ({
     checks: state.reviewChecksState.jobProfileChecks,
-    displayChecks: state.reviewChecksState.displayChecks
+    displayChecks: state.reviewChecksState.displayChecks,
+    allChecks: state.reviewChecksState.allChecks
 });
 
-export default connect(mapStateToProps, { fetchChecks }) (ReviewChecks);
+const mapActionsToProps = (dispatch) => ({
+    fetchChecks: bindActionCreators(ReviewChecksActions.fetchChecks, dispatch),
+    toggleDisplay: bindActionCreators(ReviewChecksActions.toggleDisplay, dispatch),
+    fetchAllChecks: bindActionCreators(ReviewChecksActions.fetchAllChecks, dispatch),
+    addProfileCheck: bindActionCreators(ReviewChecksActions.addProfileCheck, dispatch),
+    removeProfileCheck: bindActionCreators(ReviewChecksActions.removeProfileCheck, dispatch)
+});
+
+export default connect(mapStateToProps, mapActionsToProps) (ReviewChecks);
