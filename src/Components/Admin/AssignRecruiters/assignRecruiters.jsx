@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './assignRecruiters.scss';
 import RecruitersCheckbox from './RecruitersCheckBox';
 import AdminNavBar from '../AdminNavBar/adminNavBar';
+import { BASE_URL, GET_RECRUITERS } from '../../../Shared/Constants';
 import axios from 'axios';
 
 class AssignRecruiters extends Component {
@@ -11,7 +12,7 @@ class AssignRecruiters extends Component {
     };
 
     componentDidMount() {
-        axios.get('https://clickncheck.azurewebsites.net/api/Users/Organization/1/recruiters')
+        axios.get(BASE_URL + GET_RECRUITERS)
             .then(response => {
                 const recr=[];
                 response.data.forEach(recruiter => {
