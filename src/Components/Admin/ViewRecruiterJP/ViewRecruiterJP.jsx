@@ -13,7 +13,7 @@ import Calendar from '../../../Assets/calendar.svg';
 import userImg from '../../../Assets/user.svg';
 import axios from 'axios';
 import { BASE_URL, GET_RECRUITERS, GET_RECRUITER_JOB_PROFILE } from '../../../Shared/Constants';
-import adminNavBar from '../AdminNavBar/adminNavBar';
+import AdminNavBar from '../AdminNavBar/adminNavBar';
 import Footer from '../../Shared/Footer/Footer';
 
 class ViewRecruiterJP extends React.PureComponent{
@@ -54,7 +54,7 @@ class ViewRecruiterJP extends React.PureComponent{
     render() {
         return (
             <div className="ViewRecruiterJP">
-                <adminNavBar/>
+                <AdminNavBar/>
                 <div className="title">
                     <p>Dashboard</p><FaAngleRight id="angleRight" /><p id="bold">Recruiter Overview</p>
                 </div>
