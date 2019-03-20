@@ -1,0 +1,467 @@
+.addUsers {
+  margin: 0 auto;
+  text-align: center;
+  height: 100%;
+  body {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    background-color: #ffffff;
+  }
+  .Personal-Details {
+    width: 235px;
+    height: 27px;
+    font-size: 24px;
+    padding-top: 20%;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: 0.6px;
+    color: #2b3844;
+  }
+
+  .Personal-Details .text-style-1 {
+    font-weight: normal;
+  }
+
+  .candidateDetails{
+    width: 393px;
+    height: 27px;
+    font-family: Roboto;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: 0.6px;
+    text-align: center;
+    color: #2b3844;
+    margin-top: 5%;
+  }
+
+  .personalDetailsHeader {
+    width: 235px;
+    height: 27px;
+    font-size: 24px;
+    padding-bottom: 20%;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: 0.6px;
+    color: #2b3844;
+  }
+
+  
+  .Test {
+    width: 420px;
+    height: 1px;
+    border-radius: 7px;
+    border: solid 1px #2b3844;
+  }
+
+  .Input-Text {
+    width: 149px;
+    height: 23px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.64;
+    letter-spacing: 0.9px;
+    color: #2b3844;
+    margin-right: 5px;
+  }
+
+  .Radio-Button-Text {
+    width: 81px;
+    height: 23px;
+    font-size: 13px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.77;
+    letter-spacing: 1.1px;
+    color: #2b3844;
+  }
+
+  .Oval-Copy-20 {
+    width: 12px;
+    height: 12px;
+    background-color: #2b3844;
+  }
+ 
+  .innerFormBox {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    margin: auto;
+    margin-left: 1%;
+    margin-right: 2%;
+    width: 970px;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+    text-align: center;
+    border: 0px solid white;
+  margin: auto;
+    border-top: #0091d1;
+  }
+  .indi {
+    width: 150px;
+    height: 40px;
+    border-radius: 7px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: #0091d1;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #ffffff;
+    border: #ffffff;
+  }
+  .uploadSwitch{
+    margin: auto;
+    width: 300px;
+  }
+  .bulk {
+    width: 150px;
+    height: 40px;
+    border-radius: 7px;
+    border: solid 1px #0091d1;
+    background-color: #f4fcff;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #0091d1;
+  }
+
+  .Line {
+    width: 1226px;
+    height: 1px;
+    border: solid 1px #e6e9ec;
+  }
+  .leftformBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-right: 5%;
+    padding-left: 2.5%;
+  }
+  .rightformBox {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    padding-top: 5%;
+  }
+  
+  .surname {
+    padding-top: 130px;
+  }
+  .DoB {
+    display: inline-flex;
+    padding-top: 204px;
+  }
+  .Telephone_Number {
+    padding-top: 36px;
+  }
+  .Rectangle-Copy-14 {
+    width: 150px;
+    height: 40px;
+    border-radius: 7px;
+    background-color: #0091d1;
+    }
+
+  .personalHeader {
+    width: 235px;
+    height: 27px;
+    font-size: 24px;
+    padding-top: 21px;
+
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.13;
+    letter-spacing: 0.6px;
+    text-align: center;
+    color: #2b3844;
+  }
+ .flexOnX
+ {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 900px;
+   margin-left: 21%;
+   margin-top: 12%;
+   background-color: #ffffff;
+    -webkit-box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+    border-radius: 2.2%;
+ }
+  .Add-another-candid {
+    width: 218px;
+    height: 22px;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.83;
+    letter-spacing: 0.8px;
+    color: #0091d1;
+  }
+  .wrappingDiv {
+    width: 288px;
+  }
+  .candidatesColumn {
+    border-right: 0.5px solid black;
+    margin-right: 1%;
+  }
+  .buttonsLayout {
+    width: 100%;
+    height: 80px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .submit {
+    color: white;
+    width: 125px;
+    height: 50px;
+    opacity: 0.4;
+    border-radius: 7px;
+    background-color: #0091d1;
+  }
+  .back {
+    width: 125px;
+    height: 50px;
+    border-radius: 7px;
+    border: solid 1px #2b3844;
+    background-color: #ffffff;
+  }
+  .backLayout {
+    display: flex;
+    flex-direction: row;
+  }
+  .backText {
+    width: 181px;
+    height: 22px;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.83;
+    letter-spacing: 0.8px;
+    color: #0091d1;
+    padding-left: 15px;
+  }
+
+  .rightTable{
+    max-width: auto;
+    width: auto;
+    padding-left: 0;
+  }
+
+  .form-group {
+    display: block;
+    width: 300px;
+    height: 50px;
+    margin: 0 auto;
+    font-size: 20px;
+    margin-bottom: 10%;
+  }
+  .inp input:focus {
+    background: none;
+    outline: none;
+  }
+  
+  .inp input:not(:placeholder-shown) + span {
+    color: #2b3844;
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
+  }
+
+  .inp.id input:not(:placeholder-shown) + span {
+    color: #2b3844;
+    -webkit-transform: translateY(-26px) scale(0.75);
+            transform: translateY(-26px) scale(0.75);
+  }
+  
+  .inp input:focus + span {
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
+    
+  }
+
+  .inp.id input:focus + span {
+    -webkit-transform: translateY(-26px) scale(0.75);
+            transform: translateY(-26px) scale(0.75);
+    
+  }
+  
+  .inp input:focus + span + .border {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+
+  .inp {
+    position: relative;
+  }
+
+  .inp .label {
+    position: absolute;
+    top: 0;
+    left:0;
+    padding: 0;
+    margin-left: 0px;
+    padding-left: 30px;
+    padding-bottom: 500px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.57;
+    letter-spacing: 0.9px;
+    color: #2b3844;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+  
+  .inp input{
+    -webkit-appearance: none;
+    width: 290px;
+    height: 14px;
+    border: 0;
+    margin-left: 0px;;
+    padding-left:20px; 
+    border-bottom: 1px solid #363a42;
+    background: none;
+    border-radius: 0;
+    -webkit-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.57;
+    letter-spacing: 0.9px;
+    color: #222a31;
+  }
+
+
+
+  .invalid {
+    position: relative;
+  }
+
+  .invalid .label {
+    position: absolute;
+    top: 14px;
+    left:0;
+    padding: 0;
+    margin-left: 0px;
+    padding-left: 30px;
+    margin-top: -30px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.57;
+    letter-spacing: 0.9px;
+    color: #2b3844;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+
+  .invalid input{
+    -webkit-appearance: none;
+    width: 290px;
+    height: 14px;
+    border: 0;
+    margin-left: 0px;;
+    padding-left:20px; 
+    border-bottom: 1px solid #ff0f0f;
+    background: none;
+    border-radius: 0;
+    -webkit-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.57;
+    letter-spacing: 0.9px;
+    color: #222a31;
+  }
+  .invalid input:focus {
+    background: none;
+    outline: none;
+  }
+  
+  .invalid input:not(:placeholder-shown) + span {
+    color: #2b3844;
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
+  }
+
+  .ininvalidp.id input:not(:placeholder-shown) + span {
+    color: #2b3844;
+    -webkit-transform: translateY(-26px) scale(0.75);
+            transform: translateY(-26px) scale(0.75);
+  }
+  
+  .invalid input:focus + span {
+    -webkit-transform: translateY(-26px) translateX(-26px) scale(0.75);
+            transform: translateY(-26px) translateX(-26px) scale(0.75);
+    
+  }
+
+  .invalid.id input:focus + span {
+    -webkit-transform: translateY(-26px) scale(0.75);
+            transform: translateY(-26px) scale(0.75);
+    
+  }
+  
+  .invalid input:focus + span + .border {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+   .form-group img {
+    position: relative;
+    padding: 0;
+    margin:0;
+    top:20.5px;
+    right: 143px;
+  }
+  
+td {
+  padding: 0 35px;
+}
+
+.inp.id .label{
+  padding-left: 0;
+}
+
+.inp.id input{
+  padding-left: 0;
+}
+
+
+}

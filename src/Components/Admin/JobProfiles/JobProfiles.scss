@@ -1,0 +1,105 @@
+.jobProfiles {
+    width: 1285px;
+    margin: auto;
+
+    p {
+        width: 557px;
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.5;
+        letter-spacing: 0.4px;
+        color: #02529c;
+    }
+    .filter {
+        margin: 10px 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px dashed #333333;
+    }
+
+    #heading label{
+        display: block;
+        color: #02529c;
+    }
+
+    #filter, #heading{
+        display: inline-table;
+    }
+
+    .radios {
+        display: block;
+        width: fit-content;
+    }
+
+    .mainSection {
+        border-radius: 8px;
+        border: solid 1px #e6e9ec;
+        background-color: #ffffff;
+    }
+
+    #jp {
+        width: 221px;
+        height: 15px;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 3.75;
+        letter-spacing: 0.3px;
+        
+    }
+
+    #count {
+        width: 123px;
+        height: 15px;
+        font-size: 18px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.5;
+        letter-spacing: 0.4px;
+    }
+
+    .results {
+        margin: 0 30px;
+    }
+
+    table {
+        position: relative;
+        width: 1227px;
+        text-align: center;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.57;
+        letter-spacing: 0.9px;
+        font-size: 14px;
+        border-collapse: collapse;
+    }
+
+    .thead td {
+        font-weight: bold;
+        height: 70px;
+    }
+
+    tr td{
+        color: #333333;
+        height: 70px;
+    }
+
+    .thead td {
+        font-weight: bold;
+        height: 70px;
+        
+        color: #0091d1;
+    }
+
+    tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .action:hover {
+        cursor: pointer;
+    }
+}

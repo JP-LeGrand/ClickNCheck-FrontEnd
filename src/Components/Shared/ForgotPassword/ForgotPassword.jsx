@@ -6,13 +6,14 @@ import imgMain from '../../../Assets/main.svg';
 import { BASE_URL, FORGOT_PASSWORD_EMAIL,FORGOT_PASSWORD_PHONE } from '../../../Shared/Constants';
 import axios from 'axios';
 import Footer from '../Footer/Footer';
-import FooterPreviousNext from '../FooterPreviousNext/FooterPreviousNext';
+import rollingImg from '../../../Assets/Rolling.svg';
+import { ZERO, ONE, TEN } from '../../../Shared/IntConstants';
 function RecieveMethod(props){
     if (props.sendVia === 'phone') {
         return ( 
             <div className="send">
                 <label className="inp">
-                    <input placeholder="&nbsp;" value={props.phoneEmail} onChange={props.handleEmailPhone}/>
+                    <input placeholder="&nbsp;" value={props.phoneEmail} maxLength={'10'} onChange={props.handleEmailPhone}/>
                     <span className="label">Enter Phone Number</span>
                     <span className="border"></span>
                 </label>
@@ -38,7 +39,7 @@ function IdentityMethod(props){
         return ( 
             <div className="send">
                 <label className="inp">
-                    <input placeholder="&nbsp;" value={props.passportNumber} onChange={props.handlePassportID}/>
+                    <input placeholder="&nbsp;" value={props.passportNumber} maxLength={'13'} onChange={props.handlePassportID}/>
                     <span className="label">Enter ID Number</span>
                     <span className="border"></span>
                 </label>
@@ -63,7 +64,7 @@ class ForgotPassword extends React.PureComponent{
     constructor(props) {
         super(props);
         this.state = {
-            sending: null,
+            loading: false,
             sendEmail: false,
             sendPassword: false,
             idType: '',/*id or passport */
@@ -91,61 +92,61 @@ class ForgotPassword extends React.PureComponent{
         
     }
 
-    async handleSubmit(){
+    handleSubmit(){
         if (this.state.sendVia === 'email' && this.state.validEmail){
             const body = { 
                 passportNumber: this.state.passportNumber, 
                 email: this.state.phoneEmail 
             };
-            if (this.state.useID && this.state.validID) {
-                await axios.post(BASE_URL + FORGOT_PASSWORD_EMAIL, body)
-                    .then(function () {
-                        alert('Forgot password request succesfully sent to email');
-                        localStorage.setItem('sentTo', 'email');
-                        window.location = '/forgotPasswordSuccess';
-                    })
-                    .catch(function (error) {
-                        alert('Oops something went wrong' + error);
-                    });
-            } else if (this.state.usePassport && this.state.validPassport) {
-                await axios.post(BASE_URL + FORGOT_PASSWORD_EMAIL, body)
-                    .then(function () {
-                        alert('Forgot password request succesfully sent to email');
-                        localStorage.setItem('sentTo', 'email');
-                        window.location = '/forgotPasswordSuccess';
-                    })
-                    .catch(function (error) {
-                        alert('Oops something went wrong' + error);
-                    });
+            if ( this.state.useID && this.state.validID || this.state.usePassport && this.state.validPassport) {
+                this.setState({ loading: true }, () => {
+                    axios.post(BASE_URL + FORGOT_PASSWORD_EMAIL, body)
+                        .then(() => {
+                            this.setState({
+                                loading: false
+                            });
+                            alert('Forgot password request succesfully sent to email');
+                            localStorage.setItem('sentTo', 'email');
+                            window.location = '/forgotPasswordSuccess';
+                        })
+                        .catch((error) => {
+                            this.setState({
+                                loading: false
+                            });
+                            alert('Oops something went wrong' + error);
+                        });
+                });
+               
             } else {
                 alert('Passport or ID is invalid');
             }
             
-        } else if (this.state.sendVia === 'phone' && this.state.validPhone){
+        } else if (this.state.sendVia === 'phone' && this.state.validPhone) {
+            let myStr = this.state.phoneEmail;
+            let phoneNumber = myStr.substring(ZERO, ZERO) + '+27' + myStr.substring(ONE);
             const body = { 
                 passportNumber: this.state.passportNumber, 
-                phonenumber: this.state.phoneEmail 
+                phonenumber: phoneNumber
             };
-            if (this.state.useID && this.state.validID) {
-                await axios.post(BASE_URL + FORGOT_PASSWORD_PHONE, body)
-                    .then(function () {
-                        alert('Forgot password request succesfully sent to phone number');
-                        localStorage.setItem('sentTo', 'phone');
-                        window.location = '/forgotPasswordSuccess';
-                    })
-                    .catch(function (error) {
-                        alert('Oops something went wrong' + error);
-                    });
-            } else if (this.state.usePassport && this.state.validPassport) {
-                await axios.post(BASE_URL + FORGOT_PASSWORD_PHONE, body)
-                    .then(function () {
-                        alert('Forgot password request succesfully sent to phone number');
-                        localStorage.setItem('sentTo', 'phone');
-                        window.location = '/forgotPasswordSuccess';
-                    })
-                    .catch(function (error) {
-                        alert('Oops something went wrong' + error);
-                    });
+            alert(body);
+            if (this.state.useID && this.state.validID || this.state.usePassport && this.state.validPassport) {
+                this.setState({ loading: true }, () => { 
+                    axios.post(BASE_URL + FORGOT_PASSWORD_PHONE, body)
+                        .then(() => {
+                            this.setState({
+                                loading: false
+                            });
+                            alert('Forgot password request succesfully sent to phone number');
+                            window.location = '/forgotPasswordSuccess';
+                        })
+                        .catch((error) => {
+                            this.setState({
+                                loading: false
+                            });
+                            alert('Oops something went wrong' + error);
+                        });
+                });
+               
             } else {
                 alert('Passport or ID is invalid');
             }
@@ -154,6 +155,7 @@ class ForgotPassword extends React.PureComponent{
             alert('Email or Phone Number is invalid');
         }
     }
+    
     handlePasswordCheck(event){
         this.setState({ sendPassword: event.target.checked });
     }
@@ -215,17 +217,7 @@ class ForgotPassword extends React.PureComponent{
                 validEmail: emailValid
             });
         } else if (this.state.sendViaPhone) {
-            const LOCAL_NUMBER = 10;
-            const INTERNATIONAL = 12;
-            const ZERO = '0';
-            const INT_ZERO = 0;
-            const PLUS = '+';
-            if (checkPhoneEmail.charAt(INT_ZERO) === ZERO && checkPhoneEmail.length === LOCAL_NUMBER && checkPhoneEmail.match(/[0-9]{10}/)) {
-                console.log('phone number passed: ' + checkPhoneEmail.charAt(INT_ZERO));
-                this.setState({
-                    validPhone: true
-                });
-            } else if (checkPhoneEmail.charAt(INT_ZERO) === PLUS && checkPhoneEmail.length === INTERNATIONAL && checkPhoneEmail.match(/[+][0-9]{11}/)) {
+            if (checkPhoneEmail.charAt(ZERO) === '0' && checkPhoneEmail.length === TEN && checkPhoneEmail.match(/[0-9]{10}/) ) {
                 this.setState({
                     validPhone: true
                 });
@@ -238,12 +230,14 @@ class ForgotPassword extends React.PureComponent{
     }
     handlePhoneOrEmail(event) {
         this.setState({ sendVia: event.target.value });
-        if (event.target.value === 'phone'){
+        if (event.target.value === 'phone') {
+            localStorage.setItem('sentTo', 'SMS');
             this.setState({
                 sendViaEmail: false,
                 sendViaPhone:true 
             });
         } else if (event.target.value === 'email') {
+            localStorage.setItem('sentTo', 'email');
             this.setState({
                 sendViaEmail: true,
                 sendViaPhone:false 
@@ -265,16 +259,6 @@ class ForgotPassword extends React.PureComponent{
 
                 <div className="mainSection">
                     <div className="registrationHeading">Forgot Password</div> 
-                    <div id="checkSection" className="sendWhat">
-                        <p className="send sub">Select what you would like us to send you</p>
-                        <div className="send">
-                            <input id="username" onChange={this.handleEmailCheck} checked={this.state.sendEmail} type="checkbox" className ="sendInfo"/><label className="sub" htmlFor="username">Username</label>
-                        </div>
-                        <br/>
-                        <div className="send">
-                            <input id="password" onChange={this.handlePasswordCheck} checked={this.state.sendPassword} type="checkbox" className="sendInfo" /><label className="sub" htmlFor="password">Password</label>
-                        </div>
-                    </div>
                     <div id="idHead" className="sendWhat">
                         <p className="send sub">We need to Identify you before we send you the details </p>
                     </div>
@@ -310,7 +294,11 @@ class ForgotPassword extends React.PureComponent{
                     <div className="sendWhat">
                         <button id="btnSend" onClick={this.handleSubmit} >Send</button>
                     </div> 
+                    <div className="loading">
+                        {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                    </div>
                 </div>
+                <Footer />
             </div>
         );
         
