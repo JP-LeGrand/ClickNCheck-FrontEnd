@@ -19,17 +19,19 @@ class RecruiterCheckBox extends Component {
      render() { 
          const { label } = this.props;
          const { isChecked } = this.state;
+         let one = 1;
          return (
-             
+            
              <div className="checkbox">
                  <label>
+                     
                      <input
                          type="checkbox"
-                         value={label['id']}
+                         value={label[one]['ID']}
                          checked={isChecked}
                          onChange={this.toggleCheckboxChange}
                      />
-                     {label['name'] + ' ' + label['surname']}
+                     {label[one]['Name'] + ' ' + label[one]['Surname']}
                  </label>
              </div>
          );
