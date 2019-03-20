@@ -3,11 +3,6 @@ import './assignRecruiters.scss';
 import RecruitersCheckbox from './RecruitersCheckBox';
 import axios from 'axios';
 
-const Recruiters = [
-    'Joseph LeGrand',
-    'Keoabetswe Morake',
-    'Fiwa Lekhuleni',
-];
 class AssignRecruiters extends Component {
 
     state={
