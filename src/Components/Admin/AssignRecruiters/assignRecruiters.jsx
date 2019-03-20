@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './assignRecruiters.scss';
 import RecruitersCheckbox from './RecruitersCheckBox';
+import AdminNavBar from '../AdminNavBar/adminNavBar';
 import axios from 'axios';
 
 class AssignRecruiters extends Component {
@@ -58,17 +59,20 @@ class AssignRecruiters extends Component {
 
     render() { 
         return(
-            <div className="assignRecruiters">
-                <form className="Rectangle-Copy" onSubmit={this.handleFormSubmit}>
-                    <div>
-                        <label className="Assign-Recruiters">Assign Recruiter(s) to Job Profile:</label>
-                        <br/>
-                        <label className="Call-Centre-Supervis" >Call Centre Supervisor</label >
-                        {this.createCheckboxes()}
-                    </div>
-                    <a href="/Admin/AdminPage" className="Cancel">Cancel</a>                  
-                    <button type="sumbit" className="Rectangle-Copy-14">Done</button>                     
-                </form>
+            <div>
+                <AdminNavBar />
+                <div className="assignRecruiters">
+                    <form className="Rectangle-Copy" onSubmit={this.handleFormSubmit}>
+                        <div>
+                            <label className="Assign-Recruiters">Assign Recruiter(s) to Job Profile:</label>
+                            <br/>
+                            <label className="Call-Centre-Supervis" >Call Centre Supervisor</label >
+                            {this.createCheckboxes()}
+                        </div>
+                        <a href="/Admin/AdminPage" className="Cancel">Cancel</a>                  
+                        <button type="sumbit" className="Rectangle-Copy-14">Done</button>                     
+                    </form>
+                </div>
             </div>
             
         );
