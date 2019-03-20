@@ -46,6 +46,10 @@ class adminNavBar extends React.PureComponent {
         window.location = '/';
     }
 
+    AddUser(){
+        window.location='/Admin/AddUser';
+    }
+
     render() {
         return (
             <div>
@@ -105,7 +109,7 @@ class adminNavBar extends React.PureComponent {
                                     <label className="navLabel">Candidates</label>
                                 </div>
                             </a>
-                            <a href="#" className="">
+                            <a href="#" onClick={this.AddUser()} className="">
                                 <div className="navTab">
                                     <img className="navIcon" src={Users} alt="clickncheck" />
                                     <label className="navLabel">Users</label>
