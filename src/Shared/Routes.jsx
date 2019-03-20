@@ -45,7 +45,7 @@ const Routes = () => {
                 <Route path="/JobProfiles" exact component={JobProfiles} />
                 <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters} />
                 <Route path="/Admin/Congratulations" exact component={Congratulations} />
-                <Route path="/Admin/CreateJobProfilePage3" exact component={Congratulations} />
+                <Route path="/Admin/CreateJobProfilePage3" exact component={CreateJobProfilePage3} />
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>
