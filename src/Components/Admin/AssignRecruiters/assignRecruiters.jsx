@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 import './assignRecruiters.scss';
 import RecruitersCheckbox from './RecruitersCheckBox';
+import axios from 'axios';
 
-const Recruiters = [
-    'Joseph LeGrand',
-    'Keoabetswe Morake',
-    'Fiwa Lekhuleni',
-];
 class AssignRecruiters extends Component {
+
+    state={
+        Recruiter:[]
+    };
+
+    componentDidMount() {
+        axios.get('https://clickncheck.azurewebsites.net/api/Users/Organization/1/recruiters')
+            .then(response => {
+                const recr=[];
+                response.data.forEach(recruiter => {
+                    recr.push(recruiter);
+                });
+                //Setting Recruiter state to the response
+                this.setState({ Recruiter:recr });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
     componentWillMount = () => {
         this.selectedCheckboxes = new Set();
@@ -29,16 +44,16 @@ class AssignRecruiters extends Component {
         window.location='/Admin/Congratulations';
     }
 
-    createCheckbox = label => (
+    createCheckbox = (label, val) => (
         <RecruitersCheckbox
             label={label}
             handleCheckboxChange={this.toggleCheckbox}
-            key={label}
+            key={val}
         />
     )
 
     createCheckboxes = () => (
-        Recruiters.map(this.createCheckbox)
+        this.state.Recruiter.map(this.createCheckbox)
     )
 
     render() { 

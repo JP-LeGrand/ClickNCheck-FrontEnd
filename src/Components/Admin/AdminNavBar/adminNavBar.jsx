@@ -46,6 +46,10 @@ class adminNavBar extends React.PureComponent {
         window.location = '/';
     }
 
+    AddUser(){
+        window.location='/Admin/AddUser';
+    }
+
     render() {
         return (
             <div>
@@ -64,16 +68,21 @@ class adminNavBar extends React.PureComponent {
                         </div>
 
                         <div id="mobile">
-                            <a href="#" className="">
+                            <a href="/admin/recuiterJopProfiles"
+                                className={
+                                    this.getLocation('/admin/recuiterJopProfiles')
+                                        ? 'active'
+                                        : 'inactive'
+                                }>
                                 <div className="navTab">
                                     <img className="navIcon" src={Dashboard} alt="clickncheck" />
                                     <label className="navLabel">Dashboard</label>
                                 </div>
                             </a>
                             <a
-                                href="/NewVerificationRequest"
+                                href="/Admin/CreateJobProfile"
                                 className={
-                                    this.getLocation('/NewVerificationRequest')
+                                    this.getLocation('/Admin/CreateJobProfile')
                                         ? 'active'
                                         : 'inactive'
                                 }
@@ -84,10 +93,16 @@ class adminNavBar extends React.PureComponent {
                                         src={VerificationRequest}
                                         alt="clickncheck"
                                     />
-                                    <label className="navLabel">Verification Request</label>
+                                    <label className="navLabel">Create Job Profile</label>
                                 </div>
                             </a>
-                            <a href="#" className="">
+                            <a href="/JobProfiles"
+                                className={
+                                    this.getLocation('/JobProfiles')
+                                        ? 'active'
+                                        : 'inactive'
+                                }
+                            >
                                 <div className="navTab">
                                     <img className="navIcon" src={JobProfile} alt="clickncheck" />
                                     <label className="navLabel">Job Profiles</label>
@@ -105,7 +120,7 @@ class adminNavBar extends React.PureComponent {
                                     <label className="navLabel">Candidates</label>
                                 </div>
                             </a>
-                            <a href="#" className="">
+                            <a href="#" onClick={this.AddUser()} className="">
                                 <div className="navTab">
                                     <img className="navIcon" src={Users} alt="clickncheck" />
                                     <label className="navLabel">Users</label>
