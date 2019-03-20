@@ -2,7 +2,6 @@ import React from 'react';
 import './CreateJobProfile.scss';
 import Footer from '../../Shared/Footer/Footer';
 import NavBar from '../AdminNavBar/adminNavBar';
-import { BASE_URL } from '../../../Shared/Constants';
 
 class CreateJobProfile extends React.Component {
     constructor(props) {
