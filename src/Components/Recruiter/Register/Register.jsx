@@ -81,7 +81,7 @@ class Register extends React.PureComponent{
               this.setState({
                   errorMessage: 'password must be min 8 characters',
               });
-          } else {
+          } else { 
               capsCount = (password.match(/[A-Z]/g) || []).length;
               smallCount = (password.match(/[a-z]/g) || []).length;
               numberCount = (password.match(/[0-9]/g) || []).length;
@@ -190,6 +190,20 @@ class Register extends React.PureComponent{
       handleChange(e){
           this.setState({ selectedManager: e.selectedManager });
       }
+      
+      changePassword(){
+          this.setState({ loading:true });
+          let userid = this.state.userId;
+          let pl = [ userid,this.state.password,this.state.selectedManager.toString() ];
+          const url = BASE_URL+'users/register';
+          const config = {
+              headers: {
+                  'content-type': 'application/json'
+              }
+          };
+
+          return Axios.post(url,pl,config);
+      }
 
       fileUpload(file){
           let userid = this.state.userId;
@@ -203,6 +217,7 @@ class Register extends React.PureComponent{
           };
           return Axios.post(url, formData,config);
       }
+
       otp(){
           let userid = this.state.userId;
           const url = BASE_URL + OTP_AUTHENTICATION;
@@ -212,11 +227,12 @@ class Register extends React.PureComponent{
               } };
           return Axios.post(url,userid,config);
       }
+
       onFormSubmit(e){
           e.preventDefault(); // Stop form submit
-          this.fileUpload(this.state.file).then((response)=>{
+          this.changePassword().then( () => this.fileUpload(this.state.file).then((response)=>{
               if (response.data === 'Upload Success'){
-                  this.otp().then((response) => response.json())
+                  this.otp().then((otpresponse) => otpresponse.json())
                       .then(
                           () => {
                               window.location = '/otp';
@@ -230,7 +246,10 @@ class Register extends React.PureComponent{
           (error) => {
               alert(error);
           }
-          );
+          ),
+          (error) => {
+              alert(error);
+          });
       }
 
       render(){
