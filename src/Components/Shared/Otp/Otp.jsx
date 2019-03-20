@@ -109,6 +109,7 @@ class Otp extends React.PureComponent {
                                 window.location = '/NewVerificationRequest';
                             } else if (response[one] === 'admin') {
                                 alert('hey admin');
+                                window.location = '/admin/recuiterJopProfiles';
                             }
                         } else {
                             alert('other');
