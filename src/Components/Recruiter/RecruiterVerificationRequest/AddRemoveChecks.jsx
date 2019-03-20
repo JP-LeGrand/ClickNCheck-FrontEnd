@@ -15,7 +15,7 @@ class AddRemoveChecks extends React.Component {
     }
 
     prevStep(){
-        //this.setState({ display: 'block' });
+        //@TODO move to JobProfiles.jsx or NewVerificationRequest??
     }
 
     checkboxClicked(e){
