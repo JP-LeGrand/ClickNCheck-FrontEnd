@@ -48,6 +48,7 @@ class Login extends React.PureComponent {
     }
     handleSubmit(event){
         event.preventDefault();
+        console.log(this.state);
         let credentials = [ this.state.email, this.state.password ];
         this.setState({ isLoading: true }, () => { 
             fetch(BASE_URL + AUTHENTICATE_LOGIN, {
