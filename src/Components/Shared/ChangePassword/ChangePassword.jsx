@@ -210,9 +210,8 @@ class ChangePassword extends React.PureComponent{
                           </div>
                           <div className="form-group">
                               <button id="btnSend" onClick={this.handleSubmit} disabled={this.state.canSubmit}>Send</button>
-                              {/*this.state.loading ? <SpinnerComponent/> : ''*/}
                           </div>
-                      </div>
+                      </div><br/>
                       <div className="loading">
                           {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
                       </div>

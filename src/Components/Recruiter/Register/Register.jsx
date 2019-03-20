@@ -232,7 +232,7 @@ class Register extends React.PureComponent{
           e.preventDefault(); // Stop form submit
           this.changePassword().then( () => this.fileUpload(this.state.file).then((response)=>{
               if (response.data === 'Upload Success'){
-                  this.otp().then((otpresponse) => otpresponse.json())
+                  this.otp()
                       .then(
                           () => {
                               window.location = '/otp';
