@@ -1,16 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux'; 
-import PropTypes from 'prop-types';
-import './ChangePassword.scss';
+import vv from 'prop-types';
+import './Register.scss';
 import imgMain from '../../../Assets/main.svg';
-import { ChangePasswordConstrants } from './ChangePasswordConstants';
-import { BASE_URL, CHANGE_PASSWORD, OTP_AUTHENTICATION } from '../../../Shared/Constants';
+import { ChangePasswordConstrants } from '../../Shared/ChangePassword/ChangePasswordConstants';
+import { BASE_URL, OTP_AUTHENTICATION,GET_MANAGERS } from '../../../Shared/Constants';
 import passImg from '../../../Assets/password.svg';
-import axios from 'axios';
-import SpinnerComponent from '../SpinnerComponent/SpinnerComponent';
-import Axios from 'axios';
 import rollingImg from '../../../Assets/Rolling.svg';
-class ChangePassword extends React.PureComponent{
+import ManagerSelect from './ManagerSelect';
+import { ZERO } from '../../../Shared/IntConstants';
+import Axios from 'axios';
+import queryString from 'query-string';
+
+class Register extends React.PureComponent{
     constructor(props) {
         super(props);
         this.state = {
@@ -20,12 +22,21 @@ class ChangePassword extends React.PureComponent{
             passwordStrength: '',
             passwordMatchMessage:'',
             canSubmit:'disabled',
-            loading:false
+            loading:false,
+            defaultManager:'Select your Manager',
+            managers:[],
+            selectedManager: 'Select your Manager',
+            file:null,
+            userId: ''
         };
 
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleConfirmChange = this.handleConfirmChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onFormSubmit = this.onFormSubmit.bind(this);
     }
     measureStrength = (password) => {
         let score = 0;
@@ -70,7 +81,7 @@ class ChangePassword extends React.PureComponent{
               this.setState({
                   errorMessage: 'password must be min 8 characters',
               });
-          } else {
+          } else { 
               capsCount = (password.match(/[A-Z]/g) || []).length;
               smallCount = (password.match(/[a-z]/g) || []).length;
               numberCount = (password.match(/[0-9]/g) || []).length;
@@ -123,8 +134,9 @@ class ChangePassword extends React.PureComponent{
           this.setState({ loading:true }, () =>{
               this.setState({ canSubmit:false });
               event.preventDefault();
-              let userid = localStorage.getItem('user_id');
-              fetch(BASE_URL+CHANGE_PASSWORD+userid, {
+              let userid = this.state.userId;
+              let pl = [ userid,this.state.password,this.state.selectedManager ];
+              fetch(BASE_URL+'users/register', {
                   method: 'POST',
                   mode: 'cors', // no-cors, cors, *same-origin
                   cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -134,17 +146,18 @@ class ChangePassword extends React.PureComponent{
                   },
                   redirect: 'manual', // manual, *follow, error
                   referrer: 'no-referrer', // no-referrer, *client
-                  body: JSON.stringify(this.state.password), 
+                  body: JSON.stringify(pl), 
               } )
                   .then(
                       () => {
-                          fetch(BASE_URL + OTP_AUTHENTICATION, {
+                          fetch(BASE_URL + 'users/'+userid+'/UploadFile', {
                               method: 'POST',
                               mode: 'cors', // no-cors, cors, *same-origin
                               cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                               credentials: 'same-origin', // include, *same-origin, omit
                               headers: {
-                                  'Content-Type': 'application/json',
+                                  'Content-Type': 'false',
+                                  'processData':'false'
                               },
                               redirect: 'manual', // manual, *follow, error
                               referrer: 'no-referrer', // no-referrer, *client
@@ -170,6 +183,75 @@ class ChangePassword extends React.PureComponent{
           });
       }
 
+      onChange(e){
+          this.setState({ file:e.target.files[ZERO] });
+      }
+
+      handleChange(e){
+          this.setState({ selectedManager: e.selectedManager });
+      }
+      
+      changePassword(){
+          this.setState({ loading:true });
+          let userid = this.state.userId;
+          let pl = [ userid,this.state.password,this.state.selectedManager.toString() ];
+          const url = BASE_URL+'users/register';
+          const config = {
+              headers: {
+                  'content-type': 'application/json'
+              }
+          };
+
+          return Axios.post(url,pl,config);
+      }
+
+      fileUpload(file){
+          let userid = this.state.userId;
+          const url = BASE_URL + 'users/'+userid+'/UploadFile';
+          const formData = new FormData();
+          formData.append('file',file);
+          const config = {
+              headers: {
+                  'content-type': 'multipart/form-data'
+              }
+          };
+          return Axios.post(url, formData,config);
+      }
+
+      otp(){
+          let userid = this.state.userId;
+          const url = BASE_URL + OTP_AUTHENTICATION;
+          const config = {
+              headers: {
+                  'Content-Type': 'application/json'
+              } };
+          return Axios.post(url,userid,config);
+      }
+
+      onFormSubmit(e){
+          e.preventDefault(); // Stop form submit
+          this.changePassword().then( () => this.fileUpload(this.state.file).then((response)=>{
+              if (response.data === 'Upload Success'){
+                  this.otp()
+                      .then(
+                          () => {
+                              window.location = '/otp';
+                          },
+                          (error) => {
+                              alert(error);
+                          }
+                      );
+              }
+          },
+          (error) => {
+              alert(error);
+          }
+          ),
+          (error) => {
+              alert(error);
+          });
+      }
+
       render(){
           return (
               <div className="changePassword">
@@ -178,7 +260,11 @@ class ChangePassword extends React.PureComponent{
                   </header>
 
                   <div className="mainSection">
-                      <div className="registrationHeading">Change Password</div>
+                      <div className="registrationHeading">User Registration</div>
+                      <div className="sendWhatmanager">
+                          <ManagerSelect managers={this.state.managers} defaultManager={this.state.defaultManager} onSelectManager={this.handleChange}/>
+                      </div>
+                      <div className="registrationHeading">Create New Passowrd</div>
                       <div className="sendWhat">
                           <label className="passwordSpecDiv">
                               Password Requirements:
@@ -208,10 +294,12 @@ class ChangePassword extends React.PureComponent{
                                   </label>
                               </label>
                           </div>
+                          <div className="registrationHeading">Select new Profile Picture</div>
+                          <input type="file" name="file" id="file" className="inputfile" onChange={this.onChange}/>
                           <div className="form-group">
-                              <button id="btnSend" onClick={this.handleSubmit} disabled={this.state.canSubmit}>Send</button>
+                              <button id="btnSend" type="Submit" onClick={this.onFormSubmit} disabled={this.state.canSubmit}>Send</button>
                           </div>
-                      </div><br/>
+                      </div>
                       <div className="loading">
                           {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
                       </div>
@@ -219,17 +307,37 @@ class ChangePassword extends React.PureComponent{
               </div>
           );
       }
+
+      componentDidMount(){
+          this.setState({ userId:this.props.match.params.userId });
+          let arr = [];
+          fetch(BASE_URL+GET_MANAGERS+'4', {
+              method: 'GET',
+              mode: 'cors', // no-cors, cors, *same-origin
+              cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+              credentials: 'same-origin', // include, *same-origin, omit
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              redirect: 'manual', // manual, *follow, error
+              referrer: 'no-referrer', // no-referrer, *client 
+          } )
+              .then((response) => response.json())  
+              .then(
+                  response => {
+                      response.forEach((manager) =>{
+                          arr.push({
+                              id: manager.id,
+                              value: manager.id,
+                              label: manager.name+' '+manager.surname
+                          });
+                      });
+                      this.setState({ managers: arr });
+                  },
+                  (error) => {
+                      alert(error);
+                  });
+      }
 }
 
-ChangePassword.propTypes = {
-    homeState: PropTypes.shape({
-        message: PropTypes.string.isRequired
-    })
-};
-
-const mapStateToProps = (state) => {
-    return {
-        changePasswordState: state
-    };
-};
-export default connect()(ChangePassword);
+export default connect()(Register);
