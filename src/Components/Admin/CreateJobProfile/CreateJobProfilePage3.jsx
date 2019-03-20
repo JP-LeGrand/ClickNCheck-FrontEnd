@@ -11,7 +11,7 @@ class CreateJobProfilePage3 extends React.PureComponent {
         this.nextStep = this.nextStep.bind(this);
     }
     nextStep() {
-        window.location = '/candidate/individual';
+        window.location = '../AssignRecruiters/assignRecruiters.jsx';
     }
     rendor() {
         return (
