@@ -28,6 +28,7 @@ class CreateJobProfilePage3 extends React.PureComponent {
         //and store them in the local storage
         window.location = '/Admin/AssignRecruiters';
     }
+
     render() {
         return (
             <div className="bodyPage">

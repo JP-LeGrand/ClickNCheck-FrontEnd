@@ -45,7 +45,7 @@ class CreateJobProfile extends React.Component {
          * side of the page depending on whether it came with the jobProfile or not
         */
         return (
-            <div className="createJobProfile">
+            <div className="bodyPage">
                 <NavBar />
                 <div id="spanHolder">
                     <span className="New-Verification-Req">New Job Profile</span>
