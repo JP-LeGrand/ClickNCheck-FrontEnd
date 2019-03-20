@@ -3,33 +3,43 @@ import './CreateJobProfile.scss';
 import Footer from '../../Shared/Footer/Footer';
 import NavBar from '../AdminNavBar/adminNavBar';
 import { BASE_URL } from '../../../Shared/Constants';
-//import ReactSelect from '../../Recruiter/RecruiterVerificationRequest/ReactSelect';
 
 class CreateJobProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            jobProfiles: [],
-            selectedProfile: 'e.g Job profile here'
+            jobProfileName: '',
+            jobProfileCode: ''
         };
         this.nextSteps = this.nextSteps.bind(this);
+        this.handleJPName = this.handleJPName.bind(this);
+        this.handleJPCode = this.handleJPCode.bind(this);
+    }
+
+    handleJPName(event) {
+        this.setState({
+            jobProfileName: event.target.value,
+
+        });
+    }
+
+    handleJPCode(event) {
+        this.setState({
+            jobProfileCode: event.target.value,
+
+        });
     }
     nextSteps() {
-        if (this.state.selectedProfile === 'e.g Job profile here' || this.state.selectedProfile === '') {
+        if (this.state.jobProfileName === null || this.state.jobProfileCode === null) {
             return;
         } else {
-            this.state.jobProfiles.forEach((jp) => {
-                if (jp.label === this.state.selectedProfile) {
-                    localStorage.setItem('jpID', jp.id);
-                    localStorage.setItem('jp', jp.value);
-                }
-            });
-            window.location = '/CreateJobProfilePage2';
+
+            localStorage.setItem('jobProfileName', this.state.jobProfileName);
+            localStorage.setItem('jobProfileCode', this.state.jobProfileCode);
+
+            window.location = '/Admin/CreateJobProfilePage2';
         }
 
-    }
-    handleChange = (e) => {
-        this.setState({ selectedProfile: e.selectedProfile });
     }
     render() {
         /**Run through the tasks array inside state and put each check on the left or right
@@ -54,13 +64,13 @@ class CreateJobProfile extends React.Component {
 
                         <div className="form-group">
                             <label className="autocomplete">
-                                <input id="profileName" placeholder="Enter Job Profile Title" />
+                                <input id="profileName" name="profileName" value={this.state.jobProfileName} placeholder="Enter Job Profile Title" onChange={(event) => this.handleJPName(event)} />
                             </label>
                         </div>
                         <div id="profileError"></div>
                         <div className="form-group">
                             <label className="autocomplete">
-                                <input id="jobCode" placeholder="Enter Job Profile Code" />
+                                <input id="jobCode" name="jobCode" value={this.state.jobProfileCode} placeholder="Enter Job Profile Code" onChange={(event) => this.handleJPCode(event)} />
                             </label>
                         </div>
                         <div id="codeError"></div>
@@ -73,37 +83,6 @@ class CreateJobProfile extends React.Component {
                 <Footer />
             </div>
         );
-    }
-
-    componentDidMount() {
-        let arr = [];
-        fetch(BASE_URL + 'JobProfiles/recruiterJobs', {
-            method: 'GET',
-            mode: 'cors', // no-cors, cors, *same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + sessionStorage.getItem('token')
-            },
-            redirect: 'manual', // manual, *follow, error
-            referrer: 'no-referrer', // no-referrer, *client 
-        })
-            .then((response) => response.json())
-            .then(
-                response => {
-                    response.forEach((check) => {
-                        arr.push({
-                            id: check.id,
-                            value: check.title,
-                            label: check.title
-                        });
-                    });
-                    this.setState({ jobProfiles: arr });
-                },
-                (error) => {
-                    alert(error);
-                });
     }
 }
 

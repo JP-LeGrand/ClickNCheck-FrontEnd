@@ -6,14 +6,16 @@ import './CreateJobProfile.scss';
 class CreateJobProfilePage3 extends React.PureComponent {
     constructor(props) {
         super(props);
-        this.state.props = {};
+        this.state = {
+            JobProfile: {}
+        };
 
         this.nextStep = this.nextStep.bind(this);
     }
     nextStep() {
-        window.location = '../AssignRecruiters/assignRecruiters.jsx';
+        window.location = '/Admin/AssignRecruiters';
     }
-    rendor() {
+    render() {
         return (
             <div className="bodyPage">
                 <NavBar />
@@ -30,7 +32,7 @@ class CreateJobProfilePage3 extends React.PureComponent {
                     <div id="buttonFooter">
                         <button id="prev" onClick={this.verificationChecks}>BACK</button>
                         <button id="save" onClick={this.saveProgress}>Save and continue later</button>
-                        <button id="next" onClick={this.individualForm}>NEXT</button>
+                        <button id="next" onClick={this.nextStep}>NEXT</button>
                     </div>
                 </div>
                 <Footer />
