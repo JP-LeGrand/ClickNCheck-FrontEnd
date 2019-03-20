@@ -17,7 +17,6 @@ class AssignRecruiters extends Component {
     componentDidMount() {
         axios.get('https://clickncheck.azurewebsites.net/api/Users/Organization/1/recruiters')
             .then(response => {
-                console.log(response.data);
                 const recr=[];
                 response.data.forEach(recruiter => {
                     recr.push(recruiter);
@@ -50,16 +49,16 @@ class AssignRecruiters extends Component {
         window.location='/Admin/Congratulations';
     }
 
-    createCheckbox = label => (
+    createCheckbox = (label, val) => (
         <RecruitersCheckbox
             label={label}
             handleCheckboxChange={this.toggleCheckbox}
-            key={label}
+            key={val}
         />
     )
 
     createCheckboxes = () => (
-        Recruiters.map(this.createCheckbox)
+        this.state.Recruiter.map(this.createCheckbox)
     )
 
     render() { 
