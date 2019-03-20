@@ -74,12 +74,11 @@
         font-stretch: normal;
         line-height: 1.57;
         letter-spacing: 0.9px;
-        color: #0091d1;
         font-size: 14px;
         border-collapse: collapse;
     }
 
-    thead td {
+    .thead td {
         font-weight: bold;
         height: 70px;
     }
@@ -87,6 +86,13 @@
     tr td{
         color: #333333;
         height: 70px;
+    }
+
+    .thead td {
+        font-weight: bold;
+        height: 70px;
+        
+        color: #0091d1;
     }
 
     tr:hover {
