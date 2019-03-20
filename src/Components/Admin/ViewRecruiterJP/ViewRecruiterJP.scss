@@ -8,6 +8,8 @@
         line-height: 3.21;
         letter-spacing: 0.3px;
         color: #02529c;
+        margin-left: 228px;
+        margin-right: 228px;
         #bold{
             font-weight: bold;
         }
@@ -17,6 +19,10 @@
     }
     #angleRight{
         margin: 14px 0px;
+    }
+    .head{
+        margin-left: 228px;
+        margin-right: 228px;
     }
     #headTitle{
         float:left;
@@ -50,6 +56,7 @@
         flex-flow: row;
     }
     .tHeading{
+        text-align: center;
         label{
             height: 20px;
             font-size: 24px;
@@ -62,11 +69,11 @@
         width:50%;
     }
     .tContent{
+        text-align: center;
         label{
             align-items: center;
         }
         width:50%;
-        
     }
     .hImage{
         height: 15px;

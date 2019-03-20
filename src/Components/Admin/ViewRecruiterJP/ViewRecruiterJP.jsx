@@ -31,23 +31,18 @@ class ViewRecruiterJP extends React.PureComponent{
     handleRecruiterChange(e){
         let arr = [];
       
-        console.log('from e in vp:' + e);
         this.setState({
             selectedRecruiter: e.label,
             recruiterID: e.value
         });
-        console.log(this.state);
         axios.get(BASE_URL + GET_RECRUITER_JOB_PROFILE + e.value)
             .then((response) => {
                 response.data.map((index, row) => {
-                    console.log('row: ' + index.title);
                     arr.push({ title :index.title, id:index.id } );
                 });
-                console.log('arr: '+JSON.stringify(arr));
                 this.setState({
                     JobProfiles: arr
                 });
-                console.log('JPstate: '+this.state.JobProfiles);
             });
        
     }
@@ -111,9 +106,7 @@ class ViewRecruiterJP extends React.PureComponent{
             .then((response) => response.json())
             .then(
                 response => {
-                    console.log(response.Recruiters);
                     response.Recruiters.forEach((recruiters) => {
-                        console.log(recruiters);
                         arr.push({
                             id: recruiters.ID,
                             value: recruiters.ID,
