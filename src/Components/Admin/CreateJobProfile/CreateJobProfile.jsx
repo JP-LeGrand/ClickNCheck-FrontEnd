@@ -67,6 +67,7 @@ class CreateJobProfile extends React.Component {
                     </fieldset>
                 </div>
                 <div id="buttonFooter">
+                    <button id="save" onClick={this.saveProgress}>Save and continue later</button>
                     <button id="next" onClick={this.nextSteps}>NEXT</button>
                 </div>
                 <Footer />
