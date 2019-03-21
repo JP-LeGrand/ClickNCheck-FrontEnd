@@ -19,6 +19,7 @@ import assignRecruiters from '../Components/Admin/AssignRecruiters/assignRecruit
 import Congratulations from '../Components/Admin/Congratulations/Congratulations';
 import CreateJobProfilePage2 from '../Components/Admin/CreateJobProfile/CreateJobProfilePage2';
 import CreateJobProfilePage3 from '../Components/Admin/CreateJobProfile/CreateJobProfilePage3';
+import CreateJobProfilePage4 from '../Components/Admin/CreateJobProfile/Page4/CreateJobProfilePage4';
 import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks';
 import ViewRecruiterJP from '../Components/Admin/ViewRecruiterJP/ViewRecruiterJP';
 import Register from '../Components/Recruiter/Register/Register';
@@ -55,6 +56,7 @@ const Routes = () => {
                 <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
                 <Route path="/Admin/Congratulations" exact component={Congratulations} />
                 <Route path="/Recruiter/Register/:userId" exact component={Register} />
+                <Route path="/Admin/CreateJobProfilePage4" exact component={CreateJobProfilePage4} />
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>
