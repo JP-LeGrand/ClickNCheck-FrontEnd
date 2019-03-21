@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { prototype } from 'events';
 
+
 class ReviewChecks extends React.Component {
     constructor(props){
         super(props);
@@ -73,7 +74,7 @@ class ReviewChecks extends React.Component {
     }
     render() {
         return (
-            <div className="bodyPage">
+            <div className="bodyStyles">
                 <NavBar />
                 <div id="spanHolder">
                     <span className="New-Verification-Req">New Verification Request</span>

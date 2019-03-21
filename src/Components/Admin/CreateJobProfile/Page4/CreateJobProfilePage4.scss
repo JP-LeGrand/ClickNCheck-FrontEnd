@@ -1,0 +1,114 @@
+.createJobProfilePage4{
+    .title{
+        width: 463px;
+        height: 35px;
+        font-size: 18px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.5;
+        letter-spacing: 0.4px;
+        color: #02529c;
+        margin-bottom: 43px;
+        margin-left: 14vh;
+        margin-right: 14vh;
+    }
+
+    #formContainer {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid white;
+        margin: 14vh;
+        margin-top: 0;
+        border-radius: 8px;
+        font-family: helvetica;
+        position: relative;
+        box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+    }
+    .body{
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+    .navbar{
+        margin-left: 14vh;
+        margin-right: 14vh;
+    }
+    .links{
+        width: 592px;
+        height: 30px;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.5;
+        letter-spacing: 0.8px;
+        text-align: center;
+        color: #0091d1;
+        text-decoration: none;
+    }
+    .bold{
+        width: 442px;
+        height: 22px;
+        font-size: 14px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.57;
+        letter-spacing: 0.9px;
+        text-align: center;
+        color: #2b3844;
+    }
+    #progress_bar {
+        overflow: hidden;
+        counter-reset: step;
+        padding-left: 0px;
+        width: 100%;
+    }
+
+    #progress_bar li {
+        list-style-type: none;
+        color: black;
+        width: 25%;
+        float: left;
+        position: relative;
+        text-align: center;
+    }
+    #progress_bar li:before {
+        content: counter(step);
+        counter-increment: step;
+        width: 45px;
+        line-height: 45px;
+        display: block;
+        color: #2b3844;
+        height: 45px;
+        background-color: #ffffff;
+        text-align: center;
+        border: 1px solid #2b3844;
+        border-radius: 50%;
+        margin: 0 auto 10px auto;
+    }
+
+    #progress_bar li:after {
+        content: "";
+        width: 100%;
+        height: 10px;
+        background: #e6e9ec;
+        position: absolute;
+        left: -50%;
+        top: 18px;
+        z-index: -1; /*put it behind the numbers*/
+    }
+    #progress_bar li:first-child:after {
+        /*connector not needed before the first step*/
+        content: none;
+    }
+
+    #progress_bar li.active:before,
+    #progress_bar li.active:after {
+        color: #ffffff;
+        background-color: #0091d1;
+        border: 1px solid #ffffff;
+        font-weight: bold;
+    }
+}
