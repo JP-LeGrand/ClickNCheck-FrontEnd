@@ -12,15 +12,24 @@ class CreateJobProfilePage3 extends React.PureComponent {
         };
 
         this.nextStep = this.nextStep.bind(this);
+        this.saveProgress = this.saveProgress.bind(this);
         this.prevStep = this.prevStep.bind(this);
     }
     prevStep() {
         window.location = '/Admin/CreateJobProfilePage2';
     }
 
+    saveProgress() {
+        //TODO
+        //Save this to the database.
+    }
+
     nextStep() {
+        //make the job profile object
+        //and store them in the local storage
         window.location = '/Admin/AssignRecruiters';
     }
+
     render() {
         return (
             <div className="bodyPage">

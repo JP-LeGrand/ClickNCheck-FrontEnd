@@ -212,6 +212,7 @@
   #progress_bar {
     overflow: hidden;
     counter-reset: step;
+    margin-left: 150px;
   }
 
   #progress_bar li {
