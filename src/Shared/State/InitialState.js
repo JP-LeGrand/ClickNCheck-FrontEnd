@@ -30,6 +30,12 @@ const InitialState = {
         jobProfileChecks: [],
         allChecks: [],
         displayChecks: true
+    },
+    jobProfileState: {
+        jobProfiles: [],
+        allChecks: [],
+        selectedProfile: '',
+        nowDisplaying: 'default'
     }
 
 };

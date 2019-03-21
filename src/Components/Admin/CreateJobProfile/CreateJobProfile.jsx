@@ -2,44 +2,37 @@ import React from 'react';
 import './CreateJobProfile.scss';
 import Footer from '../../Shared/Footer/Footer';
 import NavBar from '../AdminNavBar/adminNavBar';
+import ReactSelect from './ReactSelect';
+import * as JobProfileActions from './JobProfileActions';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 class CreateJobProfile extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            jobProfileName: '',
-            jobProfileCode: ''
-        };
-        this.nextSteps = this.nextSteps.bind(this);
-        this.handleJPName = this.handleJPName.bind(this);
-        this.handleJPCode = this.handleJPCode.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.nextDisplay = this.nextDisplay.bind(this);
+        this.prevDisplay = this.prevDisplay.bind(this);
     }
 
-    handleJPName(event) {
-        this.setState({
-            jobProfileName: event.target.value,
-
-        });
+    componentDidMount(){
+        this.props.fetchJobProfiles();
     }
 
-    handleJPCode(event) {
-        this.setState({
-            jobProfileCode: event.target.value,
-
-        });
+    handleChange(e){
+        console.log('Selected '+e);
+        this.props.updateSelectedProfile(e);
     }
-    nextSteps() {
-        if (this.state.jobProfileName === null || this.state.jobProfileCode === null) {
-            return;
-        } else {
 
-            localStorage.setItem('jobProfileName', this.state.jobProfileName);
-            localStorage.setItem('jobProfileCode', this.state.jobProfileCode);
-
-            window.location = '/Admin/CreateJobProfilePage2';
-        }
+    nextDisplay(e){
 
     }
+
+    prevDisplay(e){
+
+    }
+
     render() {
         /**Run through the tasks array inside state and put each check on the left or right
          * side of the page depending on whether it came with the jobProfile or not
@@ -48,7 +41,7 @@ class CreateJobProfile extends React.Component {
             <div className="createJobProfile">
                 <NavBar />
                 <div id="spanHolder">
-                    <span className="New-Verification-Req">New Job Profile</span>
+                    <span className="New-Job-Profile">New Job Profile</span>
                 </div>
                 <div id="formContainer">
                     <ul id="progress_bar">
@@ -57,27 +50,12 @@ class CreateJobProfile extends React.Component {
                         <li>Re-order Check Sequence</li>
                         <li>Next Steps</li>
                     </ul>
-
-                    <fieldset className="mainContents">
-                        <h3>Enter New Job Profile Details</h3>
-
-                        <div className="form-group">
-                            <label className="autocomplete">
-                                <input id="profileName" name="profileName" value={this.state.jobProfileName} placeholder="Enter Job Profile Title" onChange={(event) => this.handleJPName(event)} />
-                            </label>
-                        </div>
-                        <div id="profileError"></div>
-                        <div className="form-group">
-                            <label className="autocomplete">
-                                <input id="jobCode" name="jobCode" value={this.state.jobProfileCode} placeholder="Enter Job Profile Code" onChange={(event) => this.handleJPCode(event)} />
-                            </label>
-                        </div>
-                        <div id="codeError"></div>
-                    </fieldset>
+                    <h3>Select Job profile</h3>
+                    <ReactSelect defaultProf="e.g Job profile here" jobProfiles={this.props.jobProfiles} onSelectProfile={this.handleChange}/>
                 </div>
                 <div id="buttonFooter">
-                    <button id="save" onClick={this.saveProgress}>Save and continue later</button>
-                    <button id="next" onClick={this.nextSteps}>NEXT</button>
+                    <button id="prev"  onClick={this.nextDisplay}>BACK</button>
+                    <button id="next" onClick={this.prevDisplay}>NEXT</button>
                 </div>
                 <Footer />
             </div>
@@ -85,4 +63,25 @@ class CreateJobProfile extends React.Component {
     }
 }
 
-export default CreateJobProfile;
+CreateJobProfile.propTypes = {
+    fetchChecks: PropTypes.func.isRequired,
+    checks: PropTypes.array,
+    toggleDisplay: PropTypes.func,
+    displayChecks: PropTypes.bool,
+    allChecks: PropTypes.array,
+    addProfileCheck: PropTypes.func,
+    removeProfileCheck: PropTypes.func
+};
+
+const mapStateToProps = state => ({
+    jobProfiles: state.jobProfileState.jobProfiles,
+    nowDisplaying: state.jobProfileState.nowDisplaying,
+    allChecks: state.jobProfileState.allChecks
+});
+
+const mapActionsToProps = (dispatch) => ({
+    fetchJobProfiles: bindActionCreators(JobProfileActions.fetchJobProfiles, dispatch),
+    updateSelectedProfile: bindActionCreators(JobProfileActions.updateSelectedProfile, dispatch)
+});
+
+export default connect(mapStateToProps, mapActionsToProps) (CreateJobProfile);
