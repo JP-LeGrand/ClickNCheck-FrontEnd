@@ -3,6 +3,7 @@ import Footer from '../../../Shared/Footer/Footer';
 import AdminNavBar from '../../AdminNavBar/adminNavBar';
 import check from '../../../../Assets/green_check.svg';
 import './CreateJobProfilePage4.scss';
+import './Modal.scss';
 import 'typeface-roboto';
 class CreateJobProfilePage4 extends React.PureComponent {
     constructor(props) {
@@ -54,6 +55,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
                                 <label className="modal__bg" htmlFor="modal-2"></label>
                                 <div className="modal__inner">
                                     <label className="modal__close" htmlFor="modal-2"></label>
+
                                     <h2>Sleppy sloth</h2>
                                     <p><img src="https://i.imgur.com/TPx9zYo.gif" alt="" />Aliquam in sagittis nulla. Curabitur euismod diam eget risus venenatis, sed dictum lectus bibendum. Nunc nunc nisi, hendrerit eget nisi id, rhoncus rutrum velit. Nunc vel mauris dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam fringilla quis nisi eget imperdiet.</p>
                                 </div>
