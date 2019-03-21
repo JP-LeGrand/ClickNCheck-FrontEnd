@@ -49,7 +49,7 @@ class CreateJobProfilePage2 extends React.Component {
                         <li>Re-order Check Sequence</li>
                         <li>Next Steps</li>
                     </ul>
-                    <h3>Select Verification Checks Required for</h3><h2>Java Developer JVD34C</h2>
+                    <h3>Select Verification Checks Required for</h3><h2>{this.state.jobProfileName}</h2>
                     <hr className="Line" />
 
                     <fieldset className="field2">
