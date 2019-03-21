@@ -1,9 +1,11 @@
 import React from 'react';
-
+import './Modal.scss';
 class Modal extends React.PureComponent{
     render() {
         return (
             <div className="modalComponent">
+                <label htmlFor="modal-2">Click for more</label>
+
                 <input className="modal-state" id="modal-2" type="checkbox" />
                 <div className="modal">
                     <label className="modal__bg" htmlFor="modal-2"></label>

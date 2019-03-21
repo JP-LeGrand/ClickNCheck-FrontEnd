@@ -23,7 +23,7 @@ import CreateJobProfilePage4 from '../Components/Admin/CreateJobProfile/Page4/Cr
 import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks';
 import ViewRecruiterJP from '../Components/Admin/ViewRecruiterJP/ViewRecruiterJP';
 import Register from '../Components/Recruiter/Register/Register';
-import Modal from '../Components/Admin/CreateJobProfile/Page4/modal';
+import Modal from '../Components/Admin/CreateJobProfile/Page4/Modal';
 const Routes = () => {
     return (
         <BrowserRouter>
