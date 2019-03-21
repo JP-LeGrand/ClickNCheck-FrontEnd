@@ -2,9 +2,7 @@
   margin: 0 auto;
   text-align: center;
   height: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+
   body {
     margin: 0 auto;
     padding: 0;
@@ -60,7 +58,7 @@
     letter-spacing: 0.6px;
     text-align: center;
     color: #2b3844;
-    margin-top: 5%;
+   
   }
 
   .personalDetailsHeader {
@@ -124,12 +122,6 @@
     margin: 0 20vh;
     border-radius: 8px;
     position: relative;
-    flex-basis: auto;
-    width: auto;
-    margin: 0 auto;
-    display: inline-block;
-    vertical-align: middle;
-    padding-bottom: 50px;
   }
   .innerFormBox {
     display: flex;

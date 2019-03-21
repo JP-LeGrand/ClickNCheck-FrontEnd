@@ -88,9 +88,9 @@ class CaptureCandidateDetails extends React.PureComponent {
             .then((response) => {
                 window.location = '/VerificationConfirmed';
             },
-                (error) => {
-                    console.log(error);
-                }
+            (error) => {
+                console.log(error);
+            }
 
             );
     }
@@ -154,45 +154,38 @@ class CaptureCandidateDetails extends React.PureComponent {
             }
             break;
 
-                } else {
-                    this.setState({
-                        errorEmail: '',
-                    });
-                }
-                break;
+        case 'id':
+            idValid = value.length === RecruiterConstants.idNumberLen;
+            tableValidationErrors.id = idValid ? true : false;
+            if (!tableValidationErrors.id) {
+                this.setState({
+                    errorID: 'invalid id number'
+                });
 
-            case 'id':
-                idValid = value.length === RecruiterConstants.idNumberLen;
-                tableValidationErrors.id = idValid ? true : false;
-                if (!tableValidationErrors.id) {
-                    this.setState({
-                        errorID: 'invalid id number'
-                    });
+            } else {
+                this.setState({
+                    errorID: '',
+                });
+            }
+            break;
 
-                } else {
-                    this.setState({
-                        errorID: '',
-                    });
-                }
-                break;
+        case 'phone':
+            numberValid = value.length === RecruiterConstants.phoneNumberLen;
+            tableValidationErrors.phone = numberValid ? true : false;
+            if (!tableValidationErrors.phone) {
+                this.setState({
+                    errorPhone: 'invalid phone number'
+                });
 
-            case 'phone':
-                numberValid = value.length === RecruiterConstants.phoneNumberLen;
-                tableValidationErrors.phone = numberValid ? true : false;
-                if (!tableValidationErrors.phone) {
-                    this.setState({
-                        errorPhone: 'invalid phone number'
-                    });
+            } else {
+                this.setState({
+                    errorPhone: '',
+                });
+            }
+            break;
 
-                } else {
-                    this.setState({
-                        errorPhone: '',
-                    });
-                }
-                break;
-
-            default:
-                break;
+        default:
+            break;
 
         }
         this.setState(
@@ -436,7 +429,7 @@ class CaptureCandidateDetails extends React.PureComponent {
     }
     render() {
         return (
-            <div>
+            <div className="candidateNav">
                 <NavBar />
                 {!this.state.div ? this.individual() : <MainContainer />}
 

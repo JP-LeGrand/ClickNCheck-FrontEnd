@@ -17,7 +17,7 @@ class MainContainer extends React.PureComponent {
             excelRows: [],
             fieldState: [],
             getFile: false,
-
+            fileSize: '',
             email: '',
             id: '',
             number: '',
@@ -117,11 +117,9 @@ class MainContainer extends React.PureComponent {
         newRows[index][propName] = event.target.value;
         this.setState({ 
             excelRows : newRows,
-            tableValid: this.state.emailValid && this.state.idValid && this.state.numberValid
-          
+            tableValid: this.state.emailValid && this.state.idValid && this.state.numberValid         
         });
-
-
+        
     }
     nextStep(){
         window.location = '/VerificationConfirmed';
@@ -142,11 +140,15 @@ class MainContainer extends React.PureComponent {
             let exceRows = XLSX.utils.sheet_to_row_object_array(
                 workbook.Sheets[firstSheet]
             );
-
+            let number = exceRows.length;
             this.setState({
                 excelRows: exceRows,
-                getFile: true
+                getFile: true,
+                fileSize: number
             });
+          
+
+            console.log(this.state.fileSize)
 
         };
         reader.readAsBinaryString(inputFile.files[0]);
@@ -164,13 +166,13 @@ class MainContainer extends React.PureComponent {
                                     <li className="active">Candidate Details</li>
                                     <li>Next Steps</li>
                                 </ul>
-                                <label className="candidateDetails">Capture Candidate Details</label>
-                                <div className="uploadSwitch">
-                                    <button className="indi" id="individual" onClick={event => this.changeDiv(event)}>INDIVIDUAL</button>
-                                    <button className="bulk" id="bulk" onClick={event => this.changeDiv(event)}> BULK</button>
-
-                                </div>
-                                <br className="Line" />
+                                <br/>
+                                <label className="candidateDetails" >Review Uploaded Candidate Details</label>
+                                
+                                <br/>
+                                <br/>
+                                <br/>    
+                                <label className="candidateDetails" ><strong>{this.state.fileSize} entries</strong>(Click to edit)</label>
                                 <fieldset className="field1 current">
                                     <table className="ImportTable">
                                         <thead className="Headers">
