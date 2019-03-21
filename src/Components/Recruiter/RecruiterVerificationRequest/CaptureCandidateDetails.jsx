@@ -17,6 +17,7 @@ import Axios from 'axios';
 import { RecruiterConstants } from './recruiterConstants';
 import rollingImg from '../../../Assets/Rolling.svg';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
+import './candidateUploadContainer.scss';
 
 class CaptureCandidateDetails extends React.PureComponent {
     constructor(props) {
@@ -138,8 +139,7 @@ class CaptureCandidateDetails extends React.PureComponent {
         case 'email':
             emailValid = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
             tableValidationErrors.email = emailValid ? true : false;
-            console.log('valud', emailValid);
-            console.log('.ll', tableValidationErrors.email);
+     
             if (!tableValidationErrors.email){
                 this.setState({
                     errorEmail : 'invalid email'

@@ -15,7 +15,9 @@ class MainContainer extends React.PureComponent {
         this.state = {
             switchDiv: false,
             excelRows: [],
+            fieldState: [],
             getFile: false,
+
             email: '',
             id: '',
             number: '',
@@ -24,9 +26,6 @@ class MainContainer extends React.PureComponent {
             idValid: false,
             numberValid: false,
             tableValid: false,
-            fieldID: 'FieldValue',
-            fieldEmail: 'FieldValue',
-            fieldPhone: 'FieldValue',
             loading:false,
         };
         this.submit = this.submit.bind(this);
@@ -37,7 +36,7 @@ class MainContainer extends React.PureComponent {
         this.prevStep = this.prevStep.bind(this);
     }
 
-    removeRow(index, user){
+    removeRow(index){
         
         let arrayRows = this.state.excelRows.filter((value, i) => i !== index);
         this.setState({
@@ -62,9 +61,8 @@ class MainContainer extends React.PureComponent {
 
     }
     handleUserInput(index, event) {
-        
+
         let propName = '';
-        console.log(event.target.name.value);
         switch (event.target.name) {
         case 'name':
             propName = 'Name';
@@ -77,111 +75,60 @@ class MainContainer extends React.PureComponent {
             break;
         case 'id':
             propName = 'ID_Passport';
+            if (event.target.value.length !== RecruiterConstants.idNumberLen){
+                document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
+              
+            } else {
+                document.getElementById(event.target.id).setAttribute('class', 'FieldValue');  
+                this.setState({
+                    idValid: true
+                });
+            }
             break;
         case 'dob':
             propName = 'Birthday';
             break;
         case 'email':
             propName = 'Email';
+            if (!event.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+                document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
+              
+            } else {
+                document.getElementById(event.target.id).setAttribute('class', 'FieldValue');  
+                this.setState({
+                    idValid: true
+                });
+            }
             break;
         default:
             propName = 'Phone';
+            if (event.target.value.length !== RecruiterConstants.phoneNumberLen){
+                document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
+              
+            } else {
+                document.getElementById(event.target.id).setAttribute('class', 'FieldValue');  
+                this.setState({
+                    numberValid: true
+                });
+            }
         }
         
-        const newRows = [...this.state.excelRows];
+        const newRows = [ ...this.state.excelRows ];
         newRows[index][propName] = event.target.value;
-        let val = newRows[index]
-        console.log(index)
-        this.validateField(event.target.name,index,val);
-        console.log(newRows[index][propName])
         this.setState({ 
-            excelRows : newRows
+            excelRows : newRows,
+            tableValid: this.state.emailValid && this.state.idValid && this.state.numberValid
+          
         });
 
-        // const name = event.target.name;
-        /* this.setState({ name:event.target.value }); */
+
     }
-
-    validateField(fieldName, index, value) {
-        let emailValid = this.state.emailValid;
-        let idValid = this.state.idValid;
-        let numberValid = this.state.numberValid;
-        let tableValidationErrors = this.state.tableErrors;
-
-        switch (fieldName) {
-        case 'email' || 'Email' :
-            emailValid = value.match(
-                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-            );
-            tableValidationErrors.email = emailValid ? true : false;
-            break;
-
-        case 'id':
-            idValid = value.length === RecruiterConstants.idNumberLen;
-            tableValidationErrors.id = idValid ? true : false;
-            break;
-
-        case 'phone':
-            numberValid = value.length === RecruiterConstants.phoneNumberLen;
-            tableValidationErrors.phone = numberValid ? true : false;
-            break;
-
-        default:
-            break;
-        }
-        this.setState(
-            {
-                tableErrors: tableValidationErrors,
-                emailValid: emailValid,
-                numberValid: numberValid,
-                idValid: idValid
-            },
-            this.validateTable
-        );
-    }
-
     nextStep(){
         window.location = '/VerificationConfirmed';
     }
     prevStep(){
         window.location = '/ReviewChecks';
     }
-    validateTable() {
-        this.setState({
-            tableValid:
-        this.state.emailValid && this.state.idValid && this.state.numberValid
-        });
-        if (this.state.idValid === false) {
-            this.setState({
-                fieldID: 'InvalidField'
-            });
-        } else {
-            this.setState({
-                fieldID: 'FieldValue'
-            });
-        }
-
-        if (this.state.emailValid === false) {
-            this.setState({
-                fieldEmail: 'InvalidField'
-            });
-        } else {
-            this.setState({
-                fieldEmail: 'FieldValue'
-            });
-        }
-
-        if (this.state.numberValid === false) {
-            this.setState({
-                fieldPhone: 'InvalidField'
-            });
-        } else {
-            this.setState({
-                fieldPhone: 'FieldValue'
-            });
-        }
-    }
-
     submit() {
         let inputFile = document.getElementById('getFile');
         let reader = new FileReader();
@@ -201,13 +148,6 @@ class MainContainer extends React.PureComponent {
                 getFile: true
             });
 
-            // this.state.excelRows.map(name => {
-            //     return (
-            //         this.validateField('email', name.Email),
-            //         this.validateField('id', name.IDorPassport),
-            //         this.validateField('phone', name.Phone)
-            //     );
-            // });
         };
         reader.readAsBinaryString(inputFile.files[0]);
     }
@@ -251,17 +191,16 @@ class MainContainer extends React.PureComponent {
                                                         <td className="fieldContainer"><input className="FieldValue" type="text" name="name" value={user.Name} onChange={event => this.handleUserInput(index, event)}/></td>
                                                         <td className="fieldContainer"><input className="FieldValue" type="text" name="surname" value={user.Surname} onChange={event => this.handleUserInput(index, event)}/></td>
                                                         <td className="fieldContainer"><input className="FieldValue" type="text" name="madein" defaultValue={user.Maiden_Surname} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className={this.state.fieldEmail} type="text" key={index} name="id" value={user.ID_Passport} onChange={event => this.handleUserInput(index, event)}/></td>
+                                                        <td className="fieldContainer"><input className="FieldValue" type="text" id={index+'id'} name="id" value={user.ID_Passport} onChange={event => this.handleUserInput(index, event)}/></td>
                                                         <td className="fieldContainer"><input className="FieldValue" type="text" name="dob" value={user.Birthday} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className={this.state.fieldEmail} type="text" name="email" value={user.Email} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className={this.state.fieldPhone} type="text" name="phone" value={user.Phone} onChange={event => this.handleUserInput(index, event)}/></td>
+                                                        <td className="fieldContainer"><input className="FieldValue" type="text" id={index+'email'} name="email" value={user.Email} onChange={event => this.handleUserInput(index, event)}/></td>
+                                                        <td className="fieldContainer"><input className="FieldValue" type="text" id={index+'phone'} name="phone" value={user.Phone} onChange={event => this.handleUserInput(index, event)}/></td>
                                                         <td><a href="#" onClick={(user) => this.removeRow(index, user)}><img src="https://img.icons8.com/ultraviolet/20/000000/delete.png" /></a></td>
                                                     </tr>
                                                 );
                                             })}
                                         </tbody>
-                                        <validationErrors tableErrors={this.state.tableErrors} />
-                 
+                                   
                                     </table>
                                 </fieldset>
                             </div>
@@ -271,7 +210,7 @@ class MainContainer extends React.PureComponent {
 
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.prevStep}>BACK</button>
-                    <button id="next" onClick={this.addBulkCandidates}>SUBMIT</button>
+                    <button id="next" disabled={!this.state.tableValid} onClick={this.addBulkCandidates}>SUBMIT</button>
                     <div className="loading">{this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}</div> 
                 </div>
                 <Footer />
@@ -282,13 +221,13 @@ class MainContainer extends React.PureComponent {
     addBulkCandidates(){
         this.setState({
             loading : true,
-        })
+        });
         
         let body = {
             candidates : this.state.excelRows,
-        }
+        };
         console.log(body);
-        let var_check = localStorage.getItem("ver_check");
+        let var_check = localStorage.getItem('ver_check');
         Axios.post(BASE_URL + CREATE_CANDIDATE + var_check, body)
             .then(() => {
                 window.location = '/VerificationConfirmed';
@@ -332,10 +271,7 @@ class MainContainer extends React.PureComponent {
                                                     id="getFile"
                                                     onChange={() => this.submit()}
                                                 />
-                                                <a
-                                                    href="https://cncdocuments.blob.core.windows.net/recruiters/CandidateTemplate.xlsx"
-                                                    download
-                                                >
+                                                <a href="https://cncdocuments.blob.core.windows.net/recruiters/CandidateTemplate.xlsx" download>
                                                     <img
                                                         src={require('../../../Assets/downloadFile.svg')}
                                                         alt="download-fav"
