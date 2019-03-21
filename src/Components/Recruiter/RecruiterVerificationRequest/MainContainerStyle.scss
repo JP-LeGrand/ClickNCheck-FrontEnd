@@ -431,7 +431,7 @@
 
   #addChecks,
   #removeChecks {
-    text-decoration: none;
+    color:black;
   }
 
   a.addChecks {
@@ -1048,14 +1048,6 @@
     cursor: pointer;
   }
 
-#formContainer #addRemoveChecks{
-    width: 1742px;
-    height: 922px;
-    background-color: #ffffff;
-    color: #02529c;
-    margin-left: 60px;
-  }
-
   #formContainer #reorderChecks{
     width: 214px;
     height: 22px;
@@ -1083,4 +1075,5 @@
     height: 20px;
     float: left;
   }
+  
 }
