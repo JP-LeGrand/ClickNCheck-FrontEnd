@@ -39,11 +39,13 @@ class MainContainer extends React.PureComponent {
     removeRow(index){
         
         let arrayRows = this.state.excelRows.filter((value, i) => i !== index);
+        let newNum = arrayRows.length;
+     
         this.setState({
             excelRows : arrayRows,
-        }, () => {
-            console.log(JSON.stringify(this.state.excelRows, null, 3));
+            fileSize: newNum
         });
+
     }
 
     changeDiv(event) {
