@@ -1,6 +1,8 @@
 import React from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
+import DropdownInput from 'react-dropdown-input';
+import { throws } from 'assert';
 
 class ReactSelect extends React.Component {
     constructor(props){
@@ -44,11 +46,11 @@ class ReactSelect extends React.Component {
         }; 
 
         return <div id="selectElement">
-            <Select 
+            <DropdownInput 
                 options={this.props.jobProfiles}
-                styles={customStyle}
-                defaultValue={{ value: this.props.defaultProf, label: this.props.defaultProf }}
+                defaultValue={{ value: this.props.defaultProf}}
                 onChange={this.handleChange}
+                onSelect={this.handleChange}
             />
         </div>;
     }

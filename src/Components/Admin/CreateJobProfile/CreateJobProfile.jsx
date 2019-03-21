@@ -41,7 +41,7 @@ class CreateJobProfile extends React.Component {
         case 'selectVendors':
             this.props.updateDisplay('selectVendors');
             localStorage.setItem('services', this.props.selectedChecks);
-            window.location = '';
+            window.location = '/Admin/CreateJobProfilePage3';
         default: 
             this.props.updateDisplay(this.props.nowDisplaying);
 
@@ -67,6 +67,12 @@ class CreateJobProfile extends React.Component {
         /**Run through the tasks array inside state and put each check on the left or right
          * side of the page depending on whether it came with the jobProfile or not
         */
+        let jps = this.props.jobProfiles.forEach(element => {
+            return element.title;
+        });
+        let codes = this.props.jobProfiles.forEach(element => {
+            return element.jobCode;
+        });
         return (
             <div className="createJobProfile">
                 <NavBar />
@@ -80,6 +86,8 @@ class CreateJobProfile extends React.Component {
                         <li>Re-order Check Sequence</li>
                         <li>Next Steps</li>
                     </ul>
+                    <h3>Select Job profile</h3>
+                    <ReactSelect defaultProf="e.g Job profile here" jobProfiles={jps} onSelectProfile={this.handleChange}/>
                     {this.state.currentView}
                 </div>
                 <div id="buttonFooter">
@@ -94,12 +102,6 @@ class CreateJobProfile extends React.Component {
     componentDidMount(){
         this.props.fetchAllChecks();
         this.props.fetchJobProfiles();
-        this.setState({
-            currentView: <div>
-                <h3>Select Job profile</h3>
-                <ReactSelect defaultProf="e.g Job profile here" jobProfiles={this.props.jobProfiles} onSelectProfile={this.handleChange}/>
-            </div>
-        });
         this.props.updateDisplay('default');
     }
 }
