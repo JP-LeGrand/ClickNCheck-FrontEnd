@@ -42,21 +42,15 @@ const Routes = () => {
                 <Route path="/VerificationConfirmed" exact component={VerificationConfirmed} />
                 <Route path="/Admin/CreateJobProfile" exact component={CreateJobProfile} />
                 <Route path="/Admin/AdminPage" exact component={AdminPage} />
-                <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters} />
                 <Route path="/Admin/CreateJobProfilePage2" exact component={CreateJobProfilePage2} />
-                <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters} />
-                <Route path="/Admin/Congratulations" exact component={Congratulations} />
                 <Route path="/JobProfiles" exact component={JobProfiles} />
-                <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters} />
-                <Route path="/Admin/Congratulations" exact component={Congratulations} />
                 <Route path="/Admin/CreateJobProfilePage3" exact component={CreateJobProfilePage3} />
-                <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters} />
-                <Route path="/Admin/Congratulations" exact component={Congratulations} />
                 <Route path="/admin/recuiterJopProfiles" exact component={ViewRecruiterJP} />
                 <Route path="/AddRemoveChecks" exact component={AddRemoveChecks} />
-                <Route path="/Admin/Congratulations" exact component={Congratulations} />
                 <Route path="/Recruiter/Register/:userId" exact component={Register} />
                 <Route path="/Admin/CreateJobProfilePage4" exact component={CreateJobProfilePage4} />
+                <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters} />
+                <Route path="/Admin/Congratulations" exact component={Congratulations} />
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>
