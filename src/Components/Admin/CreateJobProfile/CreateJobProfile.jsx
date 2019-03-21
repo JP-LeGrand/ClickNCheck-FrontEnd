@@ -59,7 +59,7 @@ class CreateJobProfile extends React.Component {
                     </ul>
 
                     <fieldset className="mainContents">
-                        <h3>Enter New Job Profile Details</h3>
+                        <h3>Select job profile to base checks on</h3>
 
                         <div className="form-group">
                             <label className="autocomplete">

@@ -7,6 +7,7 @@ class CreateJobProfilePage3 extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
+            jobProfileName: localStorage.getItem('jobProfileName'),
             JobProfile: {}
         };
 
@@ -34,6 +35,10 @@ class CreateJobProfilePage3 extends React.PureComponent {
                         <li className="active">Re-order Check Sequence</li>
                         <li>Next Steps</li>
                     </ul>
+                    <h3 className="Re-order-Check-Seque">Re-order Check Sequence for</h3>
+                    <h4 className="Re-order-Check-Seque text-style-1">{this.state.jobProfileName}</h4>
+                    <p className="The-checks-with-the">The checks with the highest candidate failure / dropout rates will be done first</p>
+                    <hr className="Line" />
                     <div id="buttonFooter">
                         <button id="prev" onClick={this.prevStep}>BACK</button>
                         <button id="save" onClick={this.saveProgress}>Save and continue later</button>

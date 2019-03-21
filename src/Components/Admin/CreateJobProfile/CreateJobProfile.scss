@@ -1085,5 +1085,67 @@
       height: 20px;
       float: left;
     }
+
+    .Re-order-Check-Seque{
+      font-family: Roboto;
+      font-size: 24px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.38;
+      letter-spacing: normal;
+      text-align: center;
+      color: #2b3844;
+      margin-bottom: 0;
+    }
+
+    .Re-order-Check-Seque.text-style-1{
+      font-size: 24px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.38;
+      letter-spacing: normal;
+      text-align: center;
+      color: #2b3844;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .The-checks-with-the{
+      font-size: 14px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 2.36;
+      letter-spacing: normal;
+      text-align: center;
+      color: #2b3844;
+      margin-top: 3px;
+      margin-bottom:5px;
+    }
+    #progressbar{
+      ul{
+        li{
+          font-size: 18px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.33;
+          letter-spacing: 0.4px;
+          text-align: center;
+          color: #2b3844;
+        }
+        li.active{
+          font-size: 18px;
+          font-weight: bold;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.33;
+          letter-spacing: 0.4px;
+          text-align: center;
+          color: #2b3844;
+        }
+      }
+    }
   }
   
