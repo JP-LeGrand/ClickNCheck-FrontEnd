@@ -5,6 +5,7 @@ import check from '../../../../Assets/green_check.svg';
 import './CreateJobProfilePage4.scss';
 import './Modal.scss';
 import 'typeface-roboto';
+import AssignRecruiters from '../../AssignRecruiters/assignRecruiters';
 class CreateJobProfilePage4 extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -46,24 +47,19 @@ class CreateJobProfilePage4 extends React.PureComponent {
                         <img src={check} />
                         <h1 id="congrats">Congratulations!</h1>
                         <p>You have successfully created a new Job Profile: </p>
-                        <p className="bold">{this.state.jobTitle}</p>
+                        <p className="bold">{localStorage.getItem('jobProfileName')}</p>
                         <p>Would you like to</p>
                         <div className="modalComponent">
-                            <label htmlFor="modal-2">Click for Modal Assign</label>
+                            <label className="links" htmlFor="modal-2">Assign this Jop Profile to a recruiter</label>
                             <input className="modal-state" id="modal-2" type="checkbox" />
                             <div className="modal">
                                 <label className="modal__bg" htmlFor="modal-2"></label>
                                 <div className="modal__inner">
                                     <label className="modal__close" htmlFor="modal-2"></label>
-
-                                    <h2>Sleppy sloth</h2>
-                                    <p><img src="https://i.imgur.com/TPx9zYo.gif" alt="" />Aliquam in sagittis nulla. Curabitur euismod diam eget risus venenatis, sed dictum lectus bibendum. Nunc nunc nisi, hendrerit eget nisi id, rhoncus rutrum velit. Nunc vel mauris dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam fringilla quis nisi eget imperdiet.</p>
+                                    <AssignRecruiters />
                                 </div>
                             </div>
                         </div>
-                        <a className="links " href="#">
-                            Assign this {this.state.jobTitle} to a recruiter
-                        </a>
                         <a className="links" href="/Admin/CreateJobProfile">Create a new Job Profile</a>
                         <a className="links" href="#" onClick={this.logout}>Logout</a>
                     </div>

@@ -6,7 +6,7 @@ import gridview from '../../../Assets/gridview.svg';
 import saveImg from '../../../Assets/save.svg';
 import dragImg from '../../../Assets/drag.svg';
 import { sortableContainer, sortableElement } from 'react-sortable-hoc';
-import arrayMove from 'array-move';
+import {arrayMove} from 'array-move';
 
 const SortableItem = sortableElement(({ value }) => <li><img src={gridview}/>{value}</li>);
 
