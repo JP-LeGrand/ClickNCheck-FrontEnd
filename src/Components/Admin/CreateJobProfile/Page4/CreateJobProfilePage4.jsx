@@ -8,8 +8,8 @@ class CreateJobProfilePage4 extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            jobTitle: 'Software Developer',
-            jobCode:''
+            jobTitle: localStorage.getItem('jobProfileName'),
+            jobCode: localStorage.getItem('jobProfileCode')
         };
         //get this value from local storage or
         //it is passed to you at creation of page 
@@ -32,7 +32,8 @@ class CreateJobProfilePage4 extends React.PureComponent {
                 <AdminNavBar />
                 <div className="title">
                     New job profile
-                    </div>
+                </div>
+                
                 <div id="formContainer">
                     <ul id="progress_bar">
                         <li className="active">Job Profile Name</li>
@@ -46,7 +47,9 @@ class CreateJobProfilePage4 extends React.PureComponent {
                         <p>You have successfully created a new Job Profile: </p>
                         <p className="bold">{this.state.jobTitle}</p>
                         <p>Would you like to</p>
-                        <a className="links" href="#">Assign this {this.state.jobTitle} to a recruiter</a>
+                        <a className="links " href="#">
+                            Assign this {this.state.jobTitle} to a recruiter
+                        </a>
                         <a className="links" href="/Admin/CreateJobProfile">Create a new Job Profile</a>
                         <a className="links" href="#" onClick={this.logout}>Logout</a>
                     </div>

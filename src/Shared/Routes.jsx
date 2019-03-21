@@ -23,11 +23,12 @@ import CreateJobProfilePage4 from '../Components/Admin/CreateJobProfile/Page4/Cr
 import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks';
 import ViewRecruiterJP from '../Components/Admin/ViewRecruiterJP/ViewRecruiterJP';
 import Register from '../Components/Recruiter/Register/Register';
+import Modal from '../Components/Admin/CreateJobProfile/Page4/modal';
 const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={Login} />
+                <Route path="/" exact component={Modal} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/otp" exact component={Otp} />
                 <Route path="/candidate/consent" exact component={Consent} />
