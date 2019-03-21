@@ -35,11 +35,7 @@ class CreateJobProfilePage2 extends React.Component {
     }
 
     render() {
-        let checks = {};
 
-        this.state.checks.forEach((check) => {
-            checks[check.location].push(check);
-        });
         return (
             <div className="bodyPage">
                 <NavBar />
@@ -58,9 +54,7 @@ class CreateJobProfilePage2 extends React.Component {
 
                     <fieldset className="field2">
                         <h2>Select Verification Checks Required for</h2>
-                        <table>
-                            <AllChecksTable />
-                        </table>
+                        <AllChecksTable />
                     </fieldset>
                 </div>
                 <div id="buttonFooter">
@@ -92,12 +86,12 @@ class CreateJobProfilePage2 extends React.Component {
                 response => {
                     response.forEach((check) => {
                         arr.push({
-                            id: check.id,
-                            value: check.title,
-                            label: check.title
+                            name: check.name,
+                            isavailable: check.isAvailable,
+                            checktype: check.checkType
                         });
                     });
-                    this.setState({ jobProfiles: arr });
+                    this.setState({ checks: arr });
                 },
                 (error) => {
                     alert(error);
