@@ -2,7 +2,7 @@
 import React from 'react';
 import './CreateJobProfile.scss';
 import Footer from '../../Shared/Footer/Footer';
-import { BASE_URL } from '../../../Shared/Constants';
+import { BASE_URL, GET_ALL_SERVICES } from '../../../Shared/Constants';
 import NavBar from '../AdminNavBar/adminNavBar';
 import AllChecksTable from './AllChecksTable';
 import { connect } from 'react-redux';
@@ -11,70 +11,31 @@ class CreateJobProfilePage2 extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            cursor: 'grab',
+            jobProfileName: localStorage.getItem('jobProfileName'),
+            jobProfileCode: localStorage.getItem('jobProfileCode'),
             checks: []
         };
-        this.individualForm = this.individualForm.bind(this);
+
+        this.backSteps = this.backSteps.bind(this);
+        this.saveProgress = this.saveProgress.bind(this);
+        this.nextSteps = this.nextSteps.bind(this);
     }
 
-    verificationChecks() {
-        window.location = '/NewVerificationRequest';
+    nextSteps() {
+        window.location = '/Admin/CreateJobProfilePage3';
     }
 
-    addRemoveChecks() {
-        window.location = '/AddRemoveChecks';
+    backSteps() {
+        window.location = '/Admin/CreateJobProfile';
     }
 
-    reorderChecks() {
-        window.location = '/ReorderChecks';
+    saveProgress() {
+        //TODO
+        //
     }
 
-    individualForm() {
-        let checks = [];
-        this.state.checks.forEach((check) => {
-            if (check.location == 'onLeft') {
-                checks.push(check.id);
-            }
-        });
-        let createVerReq = {
-            checks: checks,
-            IsComplete: true
-        };
-        fetch(BASE_URL + 'VerificationChecks/CreateVerificationCheck/' + localStorage.getItem('jpID'), {
-            method: 'POST',
-            mode: 'cors', // no-cors, cors, *same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + sessionStorage.getItem('token')
-            },
-            body: JSON.stringify(createVerReq),
-            redirect: 'manual', // manual, *follow, error
-            referrer: 'no-referrer', // no-referrer, *client 
-        })
-            .then((response) => response.json())
-            .then(
-                response => {
-                    localStorage.setItem('ver_check', response);
-                    window.location = '/candidate/individual';
-                },
-                (error) => {
-                    alert(error);
-                });
-    }
     render() {
-        let checks = {
-            onLeft: [],
-            onRight: []
-        };
 
-        /**Run through the tasks array inside state and put each check on the left or right
-     * side of the page depending on whether it came with the jobProfile or not*/
-
-        this.state.checks.forEach((check) => {
-            checks[check.location].push(check);
-        });
         return (
             <div className="bodyPage">
                 <NavBar />
@@ -83,8 +44,8 @@ class CreateJobProfilePage2 extends React.Component {
                 </div>
                 <div id="formContainer">
                     <ul id="progress_bar">
-                        <li className="active">Job Profile Name</li>
-                        <li>Select Verification Checks</li>
+                        <li>Job Profile Name</li>
+                        <li className="active">Select Verification Checks</li>
                         <li>Re-order Check Sequence</li>
                         <li>Next Steps</li>
                     </ul>
@@ -93,64 +54,48 @@ class CreateJobProfilePage2 extends React.Component {
 
                     <fieldset className="field2">
                         <h2>Select Verification Checks Required for</h2>
-                        <table>
-                            <AllChecksTable />
-                        </table>
+                        <AllChecksTable />
                     </fieldset>
                 </div>
                 <div id="buttonFooter">
-                    <button id="prev" onClick={this.verificationChecks}>BACK</button>
+                    <button id="prev" onClick={this.backSteps}>BACK</button>
                     <button id="save" onClick={this.saveProgress}>Save and continue later</button>
-                    <button id="next" onClick={this.individualForm}>NEXT</button>
+                    <button id="next" onClick={this.nextSteps}>NEXT</button>
                 </div>
                 <Footer />
             </div>
         );
     }
 
-    onDrop = (ev, pos) => {
-        let vendor = ev.dataTransfer.getData('vendor');
-        let cat = ev.dataTransfer.getData('category');
-        let tasks = this.state.checks.filter((check) => {
-            if (check.vendors[0] == vendor) {
-                check.location = pos;
-                if (check.bgColor == '#FFFFFF') {
-                    check.bgColor = '#0091d1';
-                    check.color = 'white';
-                } else {
-                    check.bgColor = '#FFFFFF';
-                    check.color = 'black';
-                }
-                this.state.checks.forEach((c) => {
-                    if (c.category == cat && c.location != pos) {
-                        c.vendors.push(check.vendors[0]);
-                        return c;
-                    }
+    componentDidMount() {
+        let arr = [];
+        fetch(BASE_URL + GET_ALL_SERVICES, {
+            method: 'GET',
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + sessionStorage.getItem('token')
+            },
+            redirect: 'manual', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client 
+        })
+            .then((response) => response.json())
+            .then(
+                response => {
+                    response.forEach((check) => {
+                        arr.push({
+                            name: check.name,
+                            isavailable: check.isAvailable,
+                            checktype: check.checkType
+                        });
+                    });
+                    this.setState({ checks: arr });
+                },
+                (error) => {
+                    alert(error);
                 });
-            }
-            return check;
-        });
-
-        this.setState({
-            ...this.state,
-            tasks
-        });
-        this.setState({ cursor: 'grab' });
-    }
-
-    onDragOver(event) {
-        event.preventDefault();
-        this.setState({ cursor: 'grabbing' });
-    }
-
-    onDragStart(event, vendor, cat) {
-        this.setState({ cursor: 'grabbing' });
-        event.dataTransfer.setData('vendor', vendor);
-        event.dataTransfer.setData('category', cat);
-    }
-
-    onDragEnd(e) {
-        this.setState({ cursor: 'grab' });
     }
 }
 

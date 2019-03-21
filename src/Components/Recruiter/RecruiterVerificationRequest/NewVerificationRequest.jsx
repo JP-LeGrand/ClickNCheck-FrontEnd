@@ -1,5 +1,5 @@
 import React from 'react';
-import './MainContainerStyle.scss';
+import './ReviewCheckStyles.scss';
 import Footer from '../../Shared/Footer/Footer';
 import NavBar from '../NavBar/NavBar';
 import { BASE_URL } from '../../../Shared/Constants';
@@ -36,7 +36,7 @@ class NewVerificationRequest extends React.Component {
          * side of the page depending on whether it came with the jobProfile or not
         */
         return (
-            <div className="bodyPage">
+            <div className="bodyStyles">
                 <NavBar />
                 <div id="spanHolder">
                     <span className="New-Verification-Req">New Verification Request</span>

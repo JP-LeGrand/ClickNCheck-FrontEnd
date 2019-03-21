@@ -22,6 +22,7 @@ class NavBar extends React.PureComponent {
         this.getLocation = this.getLocation.bind(this);
         this.btnShow = this.btnShow.bind(this);
         this.btnUnshow = this.btnUnshow.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     handleMenuButton() {
@@ -59,7 +60,7 @@ class NavBar extends React.PureComponent {
         //check online or offline
 			
         return (
-            <div>
+            <div className="recNavBar">
                 <div className="navbar">
                     <div className={this.state.isTopNav ? 'topnav' : 'topnav responsive'} id="myTopnav">
                         <div className="noHover">
@@ -120,7 +121,7 @@ class NavBar extends React.PureComponent {
                             <button id="toggle" type="button" className={navigator.onLine ? 'btn btn-sm btn-secondary btn-toggle active' : 'btn btn-sm btn-secondary btn-toggle' } data-toggle="button" aria-pressed="false" autoComplete="off">
                                 <div className="handle"></div>
                             </button>
-                            <div id="user">
+                            <div onMouseEnter={this.btnShow} onMouseLeave={this.btnUnshow} id="user">
                                 <img id="user_img" className="user" src={sessionStorage.getItem('user_img')} />
                                 <label className="user" id="user_name">{sessionStorage.getItem('user_name')}</label>
                                 <div className="dropdown">
@@ -129,7 +130,7 @@ class NavBar extends React.PureComponent {
                                         <a href="mailto:clickncheckservice@gmail.com?subject=User Profile Help">
                                             <label className="dropLabel">Help</label>
                                         </a>
-                                        <a href="#" onClick={this.logout}>
+                                        <a href="#" onClick={()=>this.logout()}>
                                             <label className="dropLabel">logout</label>
                                         </a>
                                     </div>
