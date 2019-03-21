@@ -6,13 +6,14 @@ import Footer from '../../Shared/Footer/Footer';
 import Axios from 'axios';
 import rollingImg from '../../../Assets/Rolling.svg';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
+import CaptureCandidateDetails from './CaptureCandidateDetails';
 
 
 class MainContainer extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            div: true,
+            switchDiv: false,
             excelRows: [],
             getFile: false,
             email: '',
@@ -51,11 +52,11 @@ class MainContainer extends React.PureComponent {
         console.log(indi);
         if (indi === 'individual') {
             this.setState({
-                div: false
+                switchDiv: true
             });
         } else {
             this.setState({
-                div: true
+                switchDiv: false
             });
         }
 
@@ -63,7 +64,7 @@ class MainContainer extends React.PureComponent {
     handleUserInput(index, event) {
         
         let propName = '';
-        console.log(event.target.name);
+        console.log(event.target.name.value);
         switch (event.target.name) {
         case 'name':
             propName = 'Name';
@@ -89,7 +90,9 @@ class MainContainer extends React.PureComponent {
         
         const newRows = [...this.state.excelRows];
         newRows[index][propName] = event.target.value;
-        this.validateField(event.target.name, event.target.value);
+        let val = newRows[index]
+        console.log(index)
+        this.validateField(event.target.name,index,val);
         console.log(newRows[index][propName])
         this.setState({ 
             excelRows : newRows
@@ -99,15 +102,7 @@ class MainContainer extends React.PureComponent {
         /* this.setState({ name:event.target.value }); */
     }
 
-    // handleUserInput(event) {
-    //     const name = event.target.name;
-    //     const value = event.target.value;
-    //     this.setState({ [name]: value }, () => {
-    //         this.validateField(name, value);
-    //     });
-    // }
-  
-    validateField(fieldName, value) {
+    validateField(fieldName, index, value) {
         let emailValid = this.state.emailValid;
         let idValid = this.state.idValid;
         let numberValid = this.state.numberValid;
@@ -145,7 +140,6 @@ class MainContainer extends React.PureComponent {
         );
     }
 
-  
     nextStep(){
         window.location = '/VerificationConfirmed';
     }
@@ -257,7 +251,7 @@ class MainContainer extends React.PureComponent {
                                                         <td className="fieldContainer"><input className="FieldValue" type="text" name="name" value={user.Name} onChange={event => this.handleUserInput(index, event)}/></td>
                                                         <td className="fieldContainer"><input className="FieldValue" type="text" name="surname" value={user.Surname} onChange={event => this.handleUserInput(index, event)}/></td>
                                                         <td className="fieldContainer"><input className="FieldValue" type="text" name="madein" defaultValue={user.Maiden_Surname} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className={this.state.fieldID} type="text" name="id" value={user.ID_Passport} onChange={event => this.handleUserInput(index, event)}/></td>
+                                                        <td className="fieldContainer"><input className={this.state.fieldEmail} type="text" key={index} name="id" value={user.ID_Passport} onChange={event => this.handleUserInput(index, event)}/></td>
                                                         <td className="fieldContainer"><input className="FieldValue" type="text" name="dob" value={user.Birthday} onChange={event => this.handleUserInput(index, event)}/></td>
                                                         <td className="fieldContainer"><input className={this.state.fieldEmail} type="text" name="email" value={user.Email} onChange={event => this.handleUserInput(index, event)}/></td>
                                                         <td className="fieldContainer"><input className={this.state.fieldPhone} type="text" name="phone" value={user.Phone} onChange={event => this.handleUserInput(index, event)}/></td>
@@ -296,9 +290,9 @@ class MainContainer extends React.PureComponent {
         console.log(body);
         let var_check = localStorage.getItem("ver_check");
         Axios.post(BASE_URL + CREATE_CANDIDATE + var_check, body)
-        .then(() => {
-            window.location = '/VerificationConfirmed';
-        });
+            .then(() => {
+                window.location = '/VerificationConfirmed';
+            });
         
     }
 
@@ -367,7 +361,9 @@ class MainContainer extends React.PureComponent {
     }
 
     render() {
-        return <div>{!this.state.getFile ? this.bulk() : this.review()}</div>;
+        return <div>
+            {!this.state.getFile ? this.bulk() : this.review()}
+        </div>;
     }
 }
 export default MainContainer;
