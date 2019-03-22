@@ -202,4 +202,20 @@
   #checksTable tr td {
     border-bottom: 1px solid rgba(43, 56, 68, 0.15);
   }
+
+  #jobProfileInput, #jobCodeInput{
+    height: 30px;
+    border: 0px;
+    width: 300px;
+    border-bottom: 1px solid #000000;
+    outline: none;
+  }
+
+  #inputWrapper{
+    position: relative;
+    margin-left: 450px;
+    width: 300px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+  }
 }

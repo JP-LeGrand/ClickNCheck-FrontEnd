@@ -23,9 +23,10 @@ export const fetchJobProfiles = () =>{
                     response.forEach((check) =>{
                         obj = {
                             value: check.id,
-                            label: check.title+' '+check.jobCode,
+                            key: check.title,
+                            text: check.title,
                             title: check.title,
-                            jobCode: check.jobCode,
+                            jobCode: check.jobCode
                         };
                         arr.push(obj);
                     });
@@ -79,7 +80,6 @@ export const fetchAllChecks = () => {
 };
 
 export const updateDisplay = (currentDisplay) => {
-    console.log('Change to: '+currentDisplay);
     return function (dispatch){
         dispatch({
             type: Types.UPDATE_DISPLAY,
@@ -89,11 +89,19 @@ export const updateDisplay = (currentDisplay) => {
 };
 
 export const updateChecks = (checks) => {
-    console.log('Change to: '+checks);
     return function (dispatch){
         dispatch({
             type: Types.UPDATE_SELECTED_CHECKS,
             payload: checks
+        });
+    };
+};
+
+export const updateCode = (code) => {
+    return function (dispatch){
+        dispatch({
+            type: Types.UPDATE_CODE,
+            payload: code
         });
     };
 };

@@ -2,7 +2,6 @@ import InitialState from '../../../Shared/State/InitialState';
 import * as Types from './JobProfileTypes';
 
 const JobProfileReducer = (state = InitialState.verificationChecksState, action) => {
-    console.log('Reduce to '+action.type);
     switch (action.type) {
     case Types.FETCH_JOB_PROFILES:
         return {
@@ -27,7 +26,12 @@ const JobProfileReducer = (state = InitialState.verificationChecksState, action)
     case Types.UPDATE_SELECTED_CHECKS:
         return {
             ...state,
-            selectedProfile: action.payload
+            selectedChecks: action.payload
+        };
+    case Types.UPDATE_CODE:
+        return {
+            ...state,
+            code: action.payload
         };
     default: 
         return state;

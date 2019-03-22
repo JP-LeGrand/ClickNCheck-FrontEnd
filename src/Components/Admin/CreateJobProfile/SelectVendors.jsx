@@ -14,11 +14,24 @@ class SelectVendors extends React.Component {
 
     checkboxClicked(e){
         if (e.target.checked){
-            this.setState({selectedChecks: this.state.selectedChecks.concat(e.target.value)});
+            let arr = [];
+            arr.push(e.target.value);
+            arr = this.state.selectedChecks.concat(arr);
+            this.setState({selectedChecks: arr});
         } else {
             this.setState({selectedChecks: this.state.selectedChecks.splice(this.state.selectedChecks.indexOf(e.target.value),1)});
         }
-        this.props.onCheckBoxClicked(this.state.selectedChecks);
+
+        let services = [];
+        for (let k = 0; k < this.state.selectedChecks.length; k++) {
+            for (let c = 0; c < this.props.allChecks.length; c++){
+                if (this.props.allChecks[c].id.toString() == this.state.selectedChecks[k].toString()){
+                    services.push(this.props.allChecks[c]);
+                } 
+            }
+        }
+
+        this.props.onCheckBoxClicked(services);
     }
 
     componentDidMount(){
@@ -26,7 +39,7 @@ class SelectVendors extends React.Component {
         let checkIDs = [];
         let count = 0;
         for (let c = 0; c < this.props.allChecks.length; c++){
-            if(!checkIDs.includes(this.props.allChecks[c].checkTypeID)){
+            if (!checkIDs.includes(this.props.allChecks[c].checkTypeID)){
                 checkIDs.push(this.props.allChecks[c].checkTypeID);
                 checks[this.props.allChecks[c].checkTypeID] = {
                     checkType: this.props.allChecks[c].checkType,
@@ -87,7 +100,6 @@ class SelectVendors extends React.Component {
     }
 
     render() {
-        
         return (
             <div>
                 <h3>Select verification checks required for {this.props.jobProfile}</h3>
