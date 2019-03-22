@@ -17,7 +17,7 @@ import white_save from '../../../Assets/white_save.svg';
 import 'typeface-roboto';
 import Axios from 'axios';
 import { RecruiterConstants } from './recruiterConstants';
-import rollingImg from '../../../Assets/Rolling.svg';
+import { rollingImg } from '../../../Assets/Rolling.svg';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
 //import { Form, Radio } from 'semantic-ui-react';
 
@@ -385,13 +385,11 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                     </td>
                                                     <td>
                                                         <div className="form-group">
-                                                            <label className={this.state.fieldID}>
-                                                                <input id="DoB" placeholder="&nbsp;" type="date" data-date-format="dd/mm/yyyy" name="DoB" value={this.state.dob} onChange={(event) => this.dob(event)} />
+                                                            <label className="inp">
+                                                                <input id="DoB" placeholder="&nbsp;" ref="date" type="date" data-date-format="MM/DD/YY" name="DoB" value={this.state.dob} onChange={(event) => this.dob(event)} />
                                                                 <span className="label">Birthday</span>
                                                                 <span className="border"></span>
-                                                                <label className="error">
-                                                                    {this.state.errorID}
-                                                                </label>
+
                                                             </label>
                                                         </div>
                                                     </td>
@@ -440,7 +438,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.prevStep}>BACK</button>
                     <button id="next" disabled={!this.state.tableValid} onClick={this.sendCandidates}>SUBMIT</button>
-                    <div className="loading">{this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}</div>
+                    <div className="loading">{this.state.loading ? <img src={rollingImg} id="spinner" alt="loading..." /> : "dd"}</div>
 
                 </div>
                 <Footer />

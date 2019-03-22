@@ -2,15 +2,15 @@
   margin: 0 auto;
   text-align: center;
   height: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+
   body {
     margin: 0 auto;
     padding: 0;
     text-align: center;
     background-color: #ffffff;
   }
+
+
   .loading{
     width: 25px;
     height: 25px;
@@ -58,7 +58,7 @@
     letter-spacing: 0.6px;
     text-align: center;
     color: #2b3844;
-    margin-top: 5%;
+   
   }
 
   .personalDetailsHeader {
