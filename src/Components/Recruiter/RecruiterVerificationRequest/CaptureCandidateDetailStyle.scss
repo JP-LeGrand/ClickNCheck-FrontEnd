@@ -117,14 +117,14 @@
     position: relative;
     overflow: hidden;
     border: 1px solid #e6e9ec;
-    height: 533px;
+    height: 600px;
     padding: 0px;
     margin: 0 20vh;
     border-radius: 8px;
     position: relative;
     flex-basis: auto;
-    width: auto;
-    margin: 0 auto;
+    width: 1119px;
+    // margin: 0 auto;
     display: inline-block;
     vertical-align: middle;
     padding-bottom: 50px;
@@ -234,10 +234,11 @@
   }
   
   .Rectangle {
-    width: 286px;
+    width: 285px;
     height: 40px;
     border-left: 4px solid #2b3844;
     background-color: #f9f9f9;
+    margin-left: -2px;
 
     .Candidate {
       width: 149px;
@@ -268,6 +269,7 @@
   .candidatesColumn {
     border-right: 0.5px solid black;
     margin-right: 1%;
+    margin-left: -23px;
   }
   .buttonsLayout {
     width: 100%;
@@ -318,7 +320,7 @@
   .form-group {
     display: block;
     width: 300px;
-    height: 45px;
+    height: 50px;
     margin: 0 auto;
     font-size: 20px;
   }
@@ -514,11 +516,11 @@ td {
 }
 .saveCandidate{
   margin-left: 9%;
-  width: 188px;
-  height: 30px;
+  width: 198px;
+  height: 50px;
   border-radius: 7px;
   background-color: #4e9821;
-  margin-top: 5.5px;
+  margin-top: 2%;
   font-size: 12px;
   font-weight: bold;
   font-style: normal;
@@ -529,6 +531,7 @@ td {
   color: #ffffff;
   border-color: #ffffff;
   border-style:  hidden;
+  // float: right;
 }
 
 #progress_bar{
@@ -553,7 +556,7 @@ td {
   letter-spacing: 0.4px;
   color: #02529c;
   align-self: flex-start;
-  padding-left: 8%;
+  padding-left: 4%;
 }
 
 #JPTitle{
@@ -568,7 +571,7 @@ td {
   letter-spacing: 0.3px;
   color: #02529c;
   align-self: flex-start;
-  padding-left: 11%;
+  padding-left: 7%;
   padding-bottom: 1%;
   margin-top: -2%;
 }
@@ -586,5 +589,8 @@ td {
   height: 30px;
 }
 
+svg.MuiSvgIcon-root-38{
+  color : #2b3844
+}
 
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import './CaptureCandidateDetailStyle.scss';
 import './MainContainerStyle.scss';
 import Radio from '@material-ui/core/Radio';
+//import 'semantic-ui-css/semantic.min.css';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -13,12 +14,12 @@ import userImg from '../../../Assets/user.svg';
 import email from '../../../Assets/email.svg';
 import phone from '../../../Assets/phone.svg';
 import white_save from '../../../Assets/white_save.svg';
-
 import 'typeface-roboto';
 import Axios from 'axios';
 import { RecruiterConstants } from './recruiterConstants';
 import rollingImg from '../../../Assets/Rolling.svg';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
+//import { Form, Radio } from 'semantic-ui-react';
 
 class CaptureCandidateDetails extends React.PureComponent {
     constructor(props) {
@@ -67,7 +68,7 @@ class CaptureCandidateDetails extends React.PureComponent {
             this.setState({
                 div: true
             });
-        } else {
+        } else if (indi === 'individual') {
             this.setState({
                 div: false
             });
@@ -404,11 +405,14 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                                 </label>
                                                             </label>
                                                         </div>
+
                                                     </td>
+
                                                 </tr>
+
                                             </tbody>
                                         </table>
-
+                                        <button className="saveCandidate" disabled={!this.state.tableValid} onClick={this.addCandidate}><img id="white-save" src={white_save} />Save Candidate</button>
                                     </div>
                                 </div>
                             </div>
