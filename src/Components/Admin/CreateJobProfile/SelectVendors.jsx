@@ -1,3 +1,4 @@
+/* eslint-disable no-invalid-this */
 import React from 'react';
 import './CreateJobProfile.scss';
 import { connect } from 'react-redux';
@@ -17,21 +18,30 @@ class SelectVendors extends React.Component {
             let arr = [];
             arr.push(e.target.value);
             arr = this.state.selectedChecks.concat(arr);
-            this.setState({selectedChecks: arr});
+            this.setState({selectedChecks: arr }, function(){
+                let services = [];
+                for (let k = 0; k < this.state.selectedChecks.length; k++) {
+                    for (let c = 0; c < this.props.allChecks.length; c++){
+                        if (this.props.allChecks[c].id.toString() == this.state.selectedChecks[k].toString()){
+                            services.push(this.props.allChecks[c]);
+                        } 
+                    }
+                }
+                this.props.onCheckBoxClicked(services);
+            });
         } else {
-            this.setState({selectedChecks: this.state.selectedChecks.splice(this.state.selectedChecks.indexOf(e.target.value),1)});
+            this.setState({selectedChecks: this.state.selectedChecks.splice(this.state.selectedChecks.indexOf(e.target.value),1)}, function(){
+                let services = [];
+                for (let k = 0; k < this.state.selectedChecks.length; k++) {
+                    for (let c = 0; c < this.props.allChecks.length; c++){
+                        if (this.props.allChecks[c].id.toString() == this.state.selectedChecks[k].toString()){
+                            services.push(this.props.allChecks[c]);
+                        } 
+                    }
+                }
+                this.props.onCheckBoxClicked(services);
+            });
         }
-
-        let services = [];
-        for (let k = 0; k < this.state.selectedChecks.length; k++) {
-            for (let c = 0; c < this.props.allChecks.length; c++){
-                if (this.props.allChecks[c].id.toString() == this.state.selectedChecks[k].toString()){
-                    services.push(this.props.allChecks[c]);
-                } 
-            }
-        }
-
-        this.props.onCheckBoxClicked(services);
     }
 
     componentDidMount(){

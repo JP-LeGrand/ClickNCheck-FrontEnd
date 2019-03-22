@@ -41,10 +41,14 @@ class CreateJobProfile extends React.Component {
     nextDisplay(e){
         switch (this.props.nowDisplaying){
         case 'default':
+            this.props.updateSelectedProfile(this.state.profile);
+            this.props.updateCode(this.state.code);
             this.props.updateDisplay('selectVendors');
+            localStorage.setItem('jobProfile', this.state.profile);
+            localStorage.setItem('jobCode', this.state.code);
             break;
         case 'selectVendors':
-            sessionStorage.setItem('services', this.props.selectedChecks);
+            sessionStorage.setItem('services', JSON.stringify(this.props.selectedChecks));
             window.location = '/Admin/CreateJobProfilePage3';
             break;
         default: 
@@ -66,7 +70,7 @@ class CreateJobProfile extends React.Component {
          * side of the page depending on whether it came with the jobProfile or not
         */
         let def = <div><ReactSelect defaultProf="e.g Job profile here" jobProfiles={this.props.jobProfiles} onEnterProfile={this.profile} onEnterCode={this.code} /></div>;
-        let selectVendors = <div><SelectVendors allChecks={this.props.allChecks} onCheckBoxClicked={this.onCheckBoxClicked} jobProfile={this.props.selectedProfile}/></div>;
+        let selectVendors = <div><SelectVendors allChecks={this.props.allChecks} onCheckBoxClicked={this.onCheckBoxClicked} jobProfile={this.state.profile+' '+this.state.code}/></div>;
         let view = this.props.nowDisplaying == 'default' ? def : selectVendors;
         return (
             <div className="createJobProfile">
