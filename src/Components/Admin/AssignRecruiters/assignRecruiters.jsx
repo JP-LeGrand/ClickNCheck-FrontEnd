@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './assignRecruiters.scss';
 import RecruitersCheckbox from './RecruitersCheckBox';
-import { BASE_URL, GET_RECRUITERS } from '../../../Shared/Constants';
+import { BASE_URL, GET_RECRUITERS,GET_RECRUITERS_NAMES } from '../../../Shared/Constants';
 import axios from 'axios';
 import Congratulations from '../Congratulations/Congratulations';
 
@@ -16,7 +16,8 @@ class AssignRecruiters extends Component {
             JpName:'',
             testing1: '',
             //This is the Job Id we are assigning recruiters to
-            jobProfileCode: 0
+            jobProfileCode: 0,
+            done: false
         };
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
@@ -87,12 +88,12 @@ class AssignRecruiters extends Component {
         axios.post(BASE_URL +'JobProfiles/'+ this.state.jobProfileCode +'/AssignRecruiters', body);
 
         console.log(userIds);
-        const response = await axios.post('https://localhost:44347/api/Users/GetRecruiterNames', userIds);
+        const response = await axios.post(BASE_URL + GET_RECRUITERS_NAMES, userIds);
         this.setState({ RecruiterNames:response.data });
         console.log("pos",response.data);
         console.log("test", this.state.RecruiterNames);
-        //window.location='/Admin/Congratulations';
-        this.props.handleSubmitted();
+        
+        this.setState({ done: true });
     }
 
     createCheckbox = (label, val) => <RecruitersCheckbox
@@ -107,7 +108,7 @@ class AssignRecruiters extends Component {
         return (
             <div>
                 <div className="assignRecruiters">
-                    <form className="Rectangle-Copy" onSubmit={this.handleFormSubmit}>
+                    {!this.state.done && <form className="Rectangle-Copy" onSubmit={this.handleFormSubmit}>
                         <div>
                             <label className="Assign-Recruiters">Assign Recruiter(s) to Job Profile:</label>
                             <br/>
@@ -117,13 +118,13 @@ class AssignRecruiters extends Component {
                             </div>
                         </div>
                         <div className="assignFooter">
-                            <button type="sumbit" onClick className="Rectangle-Copy-14">Done</button> 
+                            <button type="sumbit" className="Rectangle-Copy-14">Done</button> 
                             <a href="/Admin/CreateJobProfilePage4" className="Cancel">Cancel</a>
                         </div>
-                                           
-                    </form>
+                                        
+                    </form>}
+                    { this.state.done && <Congratulations JobProfileName={this.state.JpName} RecruitersIDs={this.state.RecruiterNames}/>}
                 </div>
-                <Congratulations JobProfileName={this.state.JpName} RecruitersIDs={this.state.RecruiterNames}/>
             </div>
             
         );

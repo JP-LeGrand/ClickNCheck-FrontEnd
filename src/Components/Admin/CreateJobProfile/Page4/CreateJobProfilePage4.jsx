@@ -40,7 +40,6 @@ class CreateJobProfilePage4 extends React.PureComponent {
     }
     render() {
         return (
-            
             <div className="createJobProfilePage4">
                 <AdminNavBar />
                 <div className="title">
@@ -71,7 +70,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
                                 </div>
                             </div>
                         </div>
-                        <div className="modalComponent">
+                        {/*<div className="modalComponent">
                             <input className="modal-state" id="modal-1" checked={this.state.assigned} type="checkbox" />
                             <div className="modal">
                                 <label className="modal__bg" htmlFor="modal-1"></label>
@@ -80,7 +79,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
                                     <Congratulations /> 
                                 </div>
                             </div>
-                        </div>
+                        </div>*/}
                         <a className="links" href="/Admin/CreateJobProfile">Create a new Job Profile</a>
                         <a className="links" href="#" onClick={this.logout}>Logout</a>
                     </div>
