@@ -126,7 +126,6 @@ class CreateAmendUser extends Component {
             'jobprofiles': [ this.state.rec_jobprofiles ]
         };
 
-        console.log(body);
         event.preventDefault();
         this.setState({ isLoading: true }, () => { 
             fetch(BASE_URL + CREATE_AMEND_USER, {
