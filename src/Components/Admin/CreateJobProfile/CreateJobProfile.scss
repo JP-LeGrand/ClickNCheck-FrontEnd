@@ -31,6 +31,8 @@
   #progress_bar{
       overflow: hidden;
       counter-reset: step;
+      padding-left: 0px;
+      width: 100%;
   }
 
   #progress_bar li{
@@ -39,6 +41,7 @@
       width:25%;
       float:left;
       position: relative;
+      text-align: center;
   }
 
   #progress_bar li:before{
@@ -58,14 +61,13 @@
   }
 
   #progress_bar li:after {
-      content: '';
-    width: 100%;
-    height: 10px;
-    background: #e6e9ec;
-    position: absolute;
-    left: -50%;
-    top: 18px;
-    z-index: -1; /*put it behind the numbers*/
+      content: "";
+      width: 85.6%;
+      height: 10px;
+      background: #e6e9ec;
+      position: absolute;
+      left: -43.3%;
+      top: 18px;
   }
   #progress_bar li:first-child:after {
   /*connector not needed before the first step*/
@@ -94,7 +96,7 @@
     FOOTER, NEXT & PREV
   */
 
-  #prev{
+  #prev {
     width: 100px;
     float: left;
     text-align: center;
@@ -109,15 +111,15 @@
     border-radius: 5px;
   }
 
-#next{
+  #next {
     margin-right: 20px;
     width: 100px;
     float: right;
-    text-align: center;;
+    text-align: center;
     padding: 10px 10px;
     font-size: 16px;
     vertical-align: middle;
-    font-family: Arial;
+    font-family: Roboto;
     color: white;
     border-style: solid;
     border-color: #0091d1;
@@ -135,6 +137,29 @@
     bottom: 45px;
     left: 0;
     right: 0;
+  }
+
+  #saveButtonDiv{
+    position: absolute;
+    left: 250px;
+    top: 15px;
+    img{
+      color:#02529c;
+    }
+  }
+
+  #save{
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    color: #02529c;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.83;
+    letter-spacing: 0.8px;
+    margin-left:5px;
   }
 
   footer {

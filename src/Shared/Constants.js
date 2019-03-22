@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://clicknchecksite.z13.web.core.windows.net/api/';/* alternative url for testing on local db https://localhost:44347/api/ or https://clicknchecksite.z13.web.core.windows.net/api/ */
+export const BASE_URL = 'https://localhost:44347/api/';/* alternative url for testing on local db https://localhost:44347/api/ or https://clicknchecksite.z13.web.core.windows.net/api/ */
 export const IS_LOGGED_IN = 'authentication/isLoggedIn';
 export const ADD_USER = 'Users/PostUsers';
 export const GET_USER_TYPES = 'Users/userTypes';

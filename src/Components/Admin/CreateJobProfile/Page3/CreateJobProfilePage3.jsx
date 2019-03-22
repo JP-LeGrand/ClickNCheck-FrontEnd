@@ -21,9 +21,9 @@ class CreateJobProfilePage3 extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            jobProfileName: localStorage.getItem('jobProfileName'),
+            jobProfileName: localStorage.getItem('jobProfile'),
             token: sessionStorage.getItem('token'),
-            jobProfileCode: localStorage.getItem('jobProfileCode'),
+            jobProfileCode: localStorage.getItem('jobCode'),
             JobProfile: {},
             checks: JSON.parse(sessionStorage.getItem('services'))
         };
@@ -33,7 +33,7 @@ class CreateJobProfilePage3 extends React.PureComponent {
         this.prevStep = this.prevStep.bind(this);
     }
     prevStep() {
-        window.location = '/Admin/CreateJobProfilePage2';
+        window.location = '/Admin/CreateJobProfile';
     }
 
     saveProgress() {
@@ -95,7 +95,7 @@ class CreateJobProfilePage3 extends React.PureComponent {
                         <li >Next Steps</li>
                     </ul>
                     <h3 className="Re-order-Check-Seque">Re-order Check Sequence for</h3>
-                    <h4 className="Re-order-Check-Seque text-style-1">{this.state.jobProfileName}</h4>
+                    <h4 className="Re-order-Check-Seque text-style-1">{this.state.jobProfileName} {this.state.jobProfileCode}</h4>
                     <p className="The-checks-with-the">The checks with the highest candidate failure / dropout rates will be done first</p>
                     <hr className="Line" />
                     <div className="flex-container">

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SelectVendors from './SelectVendors';
+import saveImg from '../../../Assets/save.svg';
 
 class CreateJobProfile extends React.Component {
     constructor(props) {
@@ -39,6 +40,7 @@ class CreateJobProfile extends React.Component {
     }
 
     nextDisplay(e){
+        
         switch (this.props.nowDisplaying){
         case 'default':
             this.props.updateSelectedProfile(this.state.profile);
@@ -48,6 +50,10 @@ class CreateJobProfile extends React.Component {
             localStorage.setItem('jobCode', this.state.code);
             break;
         case 'selectVendors':
+            if (this.props.selectedChecks == undefined){
+                return;
+            }
+            this.props.updateDisplay('reorderChecks');
             sessionStorage.setItem('services', JSON.stringify(this.props.selectedChecks));
             window.location = '/Admin/CreateJobProfilePage3';
             break;
@@ -59,7 +65,11 @@ class CreateJobProfile extends React.Component {
     prevDisplay(e){
         switch (this.props.nowDisplaying){
         case 'selectVendors':
-            this.props.updateDisplay('default')
+            this.props.updateDisplay('default');
+            break;
+        case 'reorderChecks':
+            this.props.updateDisplay('selectVendors');
+            break;
         default: 
             this.props.updateDisplay(this.props.nowDisplaying);
         }
@@ -89,6 +99,10 @@ class CreateJobProfile extends React.Component {
                 </div>
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.prevDisplay}>BACK</button>
+                    <div id="saveButtonDiv">
+                        <img src={saveImg} alt="save img"/>
+                        <button id="save" onClick={this.saveProgress}>Save and continue later</button>
+                    </div>
                     <button id="next" onClick={this.nextDisplay}>NEXT</button>
                 </div>
                 <Footer />
