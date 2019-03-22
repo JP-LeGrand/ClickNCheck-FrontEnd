@@ -71,9 +71,9 @@ class AssignRecruiters extends Component {
         let body = {
             ids: userIds
         };
-        axios.post(BASE_URL +'JobProfiles'+ this.state.jobProfileCode +'AssignRecruiters', body);
-
-        window.location='/Admin/Congratulations';
+        axios.post(BASE_URL + 'JobProfiles' + this.state.jobProfileCode + 'AssignRecruiters', body);
+        this.props.handleSubmitted();
+        //window.location='/Admin/Congratulations';
     }
 
     createCheckbox = (label, val) => <RecruitersCheckbox
@@ -98,7 +98,7 @@ class AssignRecruiters extends Component {
                             </div>
                         </div>
                         <div className="assignFooter">
-                            <button type="sumbit" className="Rectangle-Copy-14">Done</button> 
+                            <button type="sumbit" onClick className="Rectangle-Copy-14">Done</button> 
                             <a href="/Admin/CreateJobProfilePage4" className="Cancel">Cancel</a>
                         </div>
                                            
