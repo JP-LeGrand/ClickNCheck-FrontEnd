@@ -63,6 +63,7 @@
         margin: 9px 0px;
       }
       .assignFooter{
+        margin-top: 2px;
         height: 524px;
         height: 40px;
         display: flex;
@@ -82,13 +83,22 @@
         flex-flow: column;
         align-items: left;
         label{
-          width: 100%;
           left: 0;
           text-align: start;
           width: 100%;
-          padding-top: 10.8px;
-          padding-bottom: 10.8px;
+          padding-top: 9.8px;
+          padding-bottom: 9.8px;
+          font-size: 14px;
+          font-weight: 300;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 1.57;
+          letter-spacing: 0.9px;
+          color: #2b3844;
+          border: solid 1px #e6e9ec;
+          vertical-align: middle;
         }
+        
         input{
           margin: 0 20px;
         }
@@ -97,5 +107,4 @@
         background: #e6e9ec;
         font-weight: bold;
       }
-       
     }
