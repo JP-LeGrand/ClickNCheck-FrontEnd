@@ -22,9 +22,8 @@ class RecruiterCheckBox extends Component {
          let one = 1;
          return (
             
-             <div className="checkbox">
-                 <label>
-                     
+             <div className={'checkbox'}>
+                 <label className={this.state.isChecked ? 'tickedBox' : ' '}>
                      <input
                          type="checkbox"
                          value={label[one]['ID']}
