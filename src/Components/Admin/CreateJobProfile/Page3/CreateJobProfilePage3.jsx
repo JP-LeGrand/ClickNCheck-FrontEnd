@@ -25,7 +25,7 @@ class CreateJobProfilePage3 extends React.PureComponent {
             token: sessionStorage.getItem('token'),
             jobProfileCode: localStorage.getItem('jobProfileCode'),
             JobProfile: {},
-            checks: [ { 'id':'1','Name':'Experian Credit Report' } ,{ 'id':'2','Name':'SAPS Criminal Report' },{ 'id':'3','Name':'TransUnion Credit Report' }]
+            checks: JSON.parse(sessionStorage.getItem('services'))
         };
          
         this.nextStep = this.nextStep.bind(this);
@@ -57,16 +57,15 @@ class CreateJobProfilePage3 extends React.PureComponent {
         this.setState(({ checks }) => ({
             checks: arrayMove(checks, oldIndex, newIndex),
         }));
-        
-        let ids = this.state.checks.map(x=>x.id);
-        console.log(ids);
     };
 
     createJobProfile(){
+        
+        let ids = this.state.checks.map(x=>x.id);
         const JobProfile = { 'title':this.state.jobProfileName,
             'code':this.state.jobProfileCode,
             'isCompleted':true,
-            'checks':this.state.checks,
+            'checks':ids,
             'checksNeedVerification':true
         };
         const url = BASE_URL+CREATE_JOBPROFILE;
@@ -105,7 +104,7 @@ class CreateJobProfilePage3 extends React.PureComponent {
                     </div>
                     <div id="Sortable-Checks">
                         <SortableContainer onSortEnd={this.onSortEnd}>
-                            {checks.map((value, index) => <SortableItem key={`item-${value.id}`} index={index} value={value.Name} />)}
+                            {checks.map((value, index) => <SortableItem key={`item-${value.id}`} index={index} value={value.name} />)}
                         </SortableContainer>
                     </div>
                     <div id="buttonFooter">
