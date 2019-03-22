@@ -59,14 +59,14 @@
         text-align: center;
         color: #2b3844;
     }
-    #progress_bar {
+    #progress_bar_taf {
         overflow: hidden;
         counter-reset: step;
         padding-left: 0px;
         width: 100%;
     }
 
-    #progress_bar li {
+    #progress_bar_taf li {
         list-style-type: none;
         color: black;
         width: 25%;
@@ -74,7 +74,7 @@
         position: relative;
         text-align: center;
     }
-    #progress_bar li:before {
+    #progress_bar_taf li:before {
         content: counter(step);
         counter-increment: step;
         width: 45px;
@@ -89,7 +89,7 @@
         margin: 0 auto 10px auto;
     }
 
-    #progress_bar li:after {
+    #progress_bar_taf li:after {
         content: "";
         width: 100%;
         height: 10px;
@@ -99,13 +99,13 @@
         top: 18px;
         z-index: -1; /*put it behind the numbers*/
     }
-    #progress_bar li:first-child:after {
+    #progress_bar_taf li:first-child:after {
         /*connector not needed before the first step*/
         content: none;
     }
 
-    #progress_bar li.active:before,
-    #progress_bar li.active:after {
+    #progress_bar_taf li.active:before,
+    #progress_bar_taf li.active:after {
         color: #ffffff;
         background-color: #0091d1;
         border: 1px solid #ffffff;

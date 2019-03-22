@@ -48,7 +48,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
                 </div>
                 
                 <div id="formContainer">
-                    <ul id="progress_bar">
+                    <ul id="progress_bar_taf">
                         <li className="active">Job Profile Name</li>
                         <li className="active">Select verification checks</li>
                         <li className="active">Re-order Check Sequence</li>
