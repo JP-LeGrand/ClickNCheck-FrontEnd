@@ -84,14 +84,15 @@ class AssignRecruiters extends Component {
         this.setState({
             RecruitersIds:userIds 
         });
-        console.log("sdsds", this.state.RecruitersIds);
-        axios.post(BASE_URL +'JobProfiles/'+ this.state.jobProfileCode +'/AssignRecruiters', body);
-
-        console.log(userIds);
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': 'Bearer ' +sessionStorage.getItem('token')
+            }
+        };
+        axios.post(BASE_URL +'JobProfiles/'+ this.state.jobProfileCode +'/AssignRecruiters', body,config);
         const response = await axios.post(BASE_URL + GET_RECRUITERS_NAMES, userIds);
         this.setState({ RecruiterNames:response.data });
-        console.log("pos",response.data);
-        console.log("test", this.state.RecruiterNames);
         
         this.setState({ done: true });
     }

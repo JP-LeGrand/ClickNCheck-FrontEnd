@@ -6,7 +6,7 @@ import ForgotPasswordReducer from '../../Components/Shared/ForgotPassword/Forgot
 import ChangPasswordReducer from '../../Components/Shared/ChangePassword/ChangePasswordReducer';
 import ReviewChecksReducer from '../../Components/Recruiter/RecruiterVerificationRequest/ReviewChecksReducer';
 import JobProfileReducer from '../../Components/Admin/CreateJobProfile/JobProfileReducer';
-import JobProfileReducer from '../../Components/Admin/AssignRecruiters/jobProfileReducer';
+//import JobProfileReducer from '../../Components/Admin/AssignRecruiters/jobProfileReducer';
 
 const RootReducer = combineReducers({
     homeState: HomeReducer,

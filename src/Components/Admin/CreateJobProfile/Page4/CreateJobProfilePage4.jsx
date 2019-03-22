@@ -11,7 +11,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            jobTitle: localStorage.getItem('jobProfileName'),
+            jobProfileName: localStorage.getItem('jobProfile'),
             jobCode: localStorage.getItem('jobProfileCode'),
             assigned: false
         };
@@ -57,7 +57,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
                         <img src={check} />
                         <h1 id="congrats">Congratulations!</h1>
                         <p>You have successfully created a new Job Profile: </p>
-                        <p className="bold">{localStorage.getItem('jobProfileName')}</p>
+                        <p className="bold">{this.state.jobProfileName}</p>
                         <p>Would you like to</p>
                         <div className="modalComponent">
                             <label className="links" htmlFor="modal-2">Assign this Jop Profile to a recruiter</label>
