@@ -32,9 +32,12 @@ const InitialState = {
         displayChecks: true
     },
     jobProfileState: {
-        loading: false,
-        errorMessage: null,
-        recruiterList: []
+        jobProfiles: [],
+        allChecks: [],
+        selectedChecks: [],
+        selectedProfile: '',
+        nowDisplaying: '',
+        code: ''
     }
 
 };
