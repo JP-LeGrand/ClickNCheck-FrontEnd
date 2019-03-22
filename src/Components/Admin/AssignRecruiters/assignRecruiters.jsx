@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './assignRecruiters.scss';
 import RecruitersCheckbox from './RecruitersCheckBox';
-import AdminNavBar from '../AdminNavBar/adminNavBar';
 import { BASE_URL, GET_RECRUITERS } from '../../../Shared/Constants';
 import axios from 'axios';
 import Congratulations from '../Congratulations/Congratulations';
@@ -93,6 +92,7 @@ class AssignRecruiters extends Component {
         console.log("pos",response.data);
         console.log("test", this.state.RecruiterNames);
         //window.location='/Admin/Congratulations';
+        this.props.handleSubmitted();
     }
 
     createCheckbox = (label, val) => <RecruitersCheckbox
@@ -106,18 +106,21 @@ class AssignRecruiters extends Component {
     render() { 
         return (
             <div>
-                <AdminNavBar />
                 <div className="assignRecruiters">
                     <form className="Rectangle-Copy" onSubmit={this.handleFormSubmit}>
                         <div>
                             <label className="Assign-Recruiters">Assign Recruiter(s) to Job Profile:</label>
                             <br/>
-                            <label className="Call-Centre-Supervis" >Call Centre Supervisor</label >
-                            {this.createCheckboxes()}
-                            
+                            <label className="Call-Centre-Supervis" >{localStorage.getItem('jobProfileName')}</label >
+                            <div className="checkBoxesContainer">
+                                {this.createCheckboxes()}
+                            </div>
                         </div>
-                        <a href="/Admin/AdminPage" className="Cancel">Cancel</a>                  
-                        <button type="sumbit" className="Rectangle-Copy-14">Done</button>                    
+                        <div className="assignFooter">
+                            <button type="sumbit" onClick className="Rectangle-Copy-14">Done</button> 
+                            <a href="/Admin/CreateJobProfilePage4" className="Cancel">Cancel</a>
+                        </div>
+                                           
                     </form>
                 </div>
                 <Congratulations JobProfileName={this.state.JpName} RecruitersIDs={this.state.RecruiterNames}/>
