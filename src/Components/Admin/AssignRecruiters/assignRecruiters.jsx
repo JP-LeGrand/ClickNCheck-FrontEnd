@@ -4,16 +4,24 @@ import RecruitersCheckbox from './RecruitersCheckBox';
 import AdminNavBar from '../AdminNavBar/adminNavBar';
 import { BASE_URL, GET_RECRUITERS } from '../../../Shared/Constants';
 import axios from 'axios';
+import Congratulations from '../Congratulations/Congratulations';
 
 class AssignRecruiters extends Component {
-
-    state={
-        Recruiter:[],
-        //Array of recruiter Ids that we will assign to a job
-        RecruitersID:[],
-        //This is the Job Id we are assigning recruiters to
-        jobProfileCode: 0
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            Recruiter:[],
+            //Array of recruiter Names that have been assign to a job
+            RecruitersIds:[],
+            RecruiterNames:[],
+            JpName:'',
+            testing1: '',
+            //This is the Job Id we are assigning recruiters to
+            jobProfileCode: 0
+        };
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    }
+   
 
     componentDidMount() {
         fetch(BASE_URL + GET_RECRUITERS, {
@@ -43,7 +51,8 @@ class AssignRecruiters extends Component {
                 alert(error);
             }
             );
-            this.setState({ jobProfileCode:localStorage.getItem('jobProfileCode') });
+        this.setState({ jobProfileCode:sessionStorage.getItem('JobProfileID') });
+        this.setState({ JpName: localStorage.getItem('jobProfileName') });
     }
 
     componentWillMount = () => {
@@ -58,23 +67,32 @@ class AssignRecruiters extends Component {
         }
     }
     
-    handleFormSubmit = formSubmitEvent => {
-        formSubmitEvent.preventDefault();
-    
+    async handleFormSubmit(FormEvent) {
+        FormEvent.preventDefault();
         for (const checkbox of this.selectedCheckboxes) {
             console.log(checkbox, 'is selected.');
         }
-        const userIds= [];
+        let userIds= [...this.state.RecruitersIds];
         //Adding the IDs to the recruiter array
         this.selectedCheckboxes.forEach(recruiter => {
             userIds.push(recruiter);
         });
+      
         let body = {
             ids: userIds
         };
-        axios.post(BASE_URL +'JobProfiles'+ this.state.jobProfileCode +'AssignRecruiters', body);
+        this.setState({
+            RecruitersIds:userIds 
+        });
+        console.log("sdsds", this.state.RecruitersIds);
+        axios.post(BASE_URL +'JobProfiles/'+ this.state.jobProfileCode +'/AssignRecruiters', body);
 
-        window.location='/Admin/Congratulations';
+        console.log(userIds);
+        const response = await axios.post('https://localhost:44347/api/Users/GetRecruiterNames', userIds);
+        this.setState({ RecruiterNames:response.data });
+        console.log("pos",response.data);
+        console.log("test", this.state.RecruiterNames);
+        //window.location='/Admin/Congratulations';
     }
 
     createCheckbox = (label, val) => <RecruitersCheckbox
@@ -99,9 +117,10 @@ class AssignRecruiters extends Component {
                             
                         </div>
                         <a href="/Admin/AdminPage" className="Cancel">Cancel</a>                  
-                        <button type="sumbit" className="Rectangle-Copy-14">Done</button>                     
+                        <button type="sumbit" className="Rectangle-Copy-14">Done</button>                    
                     </form>
                 </div>
+                <Congratulations JobProfileName={this.state.JpName} RecruitersIDs={this.state.RecruiterNames}/>
             </div>
             
         );

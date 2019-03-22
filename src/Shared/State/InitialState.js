@@ -30,6 +30,11 @@ const InitialState = {
         jobProfileChecks: [],
         allChecks: [],
         displayChecks: true
+    },
+    jobProfileState: {
+        loading: false,
+        errorMessage: null,
+        recruiterList: []
     }
 
 };
