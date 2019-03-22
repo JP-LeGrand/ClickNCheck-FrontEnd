@@ -8,7 +8,11 @@ import axios from 'axios';
 class AssignRecruiters extends Component {
 
     state={
-        Recruiter:[]
+        Recruiter:[],
+        //Array of recruiter Ids that we will assign to a job
+        RecruitersID:[],
+        //This is the Job Id we are assigning recruiters to
+        jobProfileCode: 0
     };
 
     componentDidMount() {
@@ -39,6 +43,7 @@ class AssignRecruiters extends Component {
                 alert(error);
             }
             );
+            this.setState({ jobProfileCode:localStorage.getItem('jobProfileCode') });
     }
 
     componentWillMount = () => {
@@ -52,20 +57,31 @@ class AssignRecruiters extends Component {
             this.selectedCheckboxes.add(label);
         }
     }
+    
     handleFormSubmit = formSubmitEvent => {
         formSubmitEvent.preventDefault();
     
         for (const checkbox of this.selectedCheckboxes) {
             console.log(checkbox, 'is selected.');
         }
-        //window.location='/Admin/Congratulations';
+        const userIds= [];
+        //Adding the IDs to the recruiter array
+        this.selectedCheckboxes.forEach(recruiter => {
+            userIds.push(recruiter);
+        });
+        let body = {
+            ids: userIds
+        };
+        axios.post(BASE_URL +'JobProfiles'+ this.state.jobProfileCode +'AssignRecruiters', body);
+
+        window.location='/Admin/Congratulations';
     }
 
     createCheckbox = (label, val) => <RecruitersCheckbox
-            label={label}
-            handleCheckboxChange={this.toggleCheckbox}
-            key={val}
-        />
+        label={label}
+        handleCheckboxChange={this.toggleCheckbox}
+        key={val}
+    />
 
     createCheckboxes = () => this.state.Recruiter.map(this.createCheckbox)
 
@@ -80,6 +96,7 @@ class AssignRecruiters extends Component {
                             <br/>
                             <label className="Call-Centre-Supervis" >Call Centre Supervisor</label >
                             {this.createCheckboxes()}
+                            
                         </div>
                         <a href="/Admin/AdminPage" className="Cancel">Cancel</a>                  
                         <button type="sumbit" className="Rectangle-Copy-14">Done</button>                     

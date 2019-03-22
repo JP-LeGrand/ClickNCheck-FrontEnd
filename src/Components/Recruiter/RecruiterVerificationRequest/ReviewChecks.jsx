@@ -13,26 +13,25 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { prototype } from 'events';
 
-
 class ReviewChecks extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.addRemoveChecks = this.addRemoveChecks.bind(this);
         this.individualForm = this.individualForm.bind(this);
         this.verificationChecks = this.verificationChecks.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.props.fetchChecks();
         this.props.toggleDisplay(this.props.displayChecks);
         this.props.fetchAllChecks();
     }
-    verificationChecks(){
+    verificationChecks() {
 
         window.location = '/NewVerificationRequest';
     }
-    addRemoveChecks(){
-        if (this.props.displayChecks){
+    addRemoveChecks() {
+        if (this.props.displayChecks) {
             this.props.toggleDisplay(false);
         }
         else {
@@ -40,7 +39,7 @@ class ReviewChecks extends React.Component {
         }
     }
 
-    individualForm(){
+    individualForm() {
         let checks = [];
         this.props.checks.forEach((check) => {
             checks.push(check.id);
@@ -49,28 +48,28 @@ class ReviewChecks extends React.Component {
             checks: checks,
             IsComplete: true
         };
-        fetch(BASE_URL+'VerificationChecks/CreateVerificationCheck/'+localStorage.getItem('jpID'), {
+        fetch(BASE_URL + 'VerificationChecks/CreateVerificationCheck/' + localStorage.getItem('jpID'), {
             method: 'POST',
             mode: 'cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             credentials: 'same-origin', // include, *same-origin, omit
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer '+ sessionStorage.getItem('token')
+                Authorization: 'Bearer ' + sessionStorage.getItem('token')
             },
             body: JSON.stringify(createVerReq),
             redirect: 'manual', // manual, *follow, error
             referrer: 'no-referrer', // no-referrer, *client 
-        } )
-        .then((response) => response.json())  
-        .then(
-            response => {
-                localStorage.setItem('ver_check', response);
-                window.location = '/candidate/individual';
-            },
-            (error) => {
-                alert(error);
-            });
+        })
+            .then((response) => response.json())
+            .then(
+                response => {
+                    localStorage.setItem('ver_check', response);
+                    window.location = '/candidate/individual';
+                },
+                (error) => {
+                    alert(error);
+                });
     }
     render() {
         return (
@@ -84,15 +83,14 @@ class ReviewChecks extends React.Component {
                     <ul id="progress_bar">
                         <li className="active">Select verification checks</li>
                         <li>Candidate Details</li>
-                        <li>Next Steps</li> 
+                        <li>Next Steps</li>
                     </ul>
                     <h3>Job Profile</h3>
-                    <ReactSelect defaultProf={localStorage.getItem('jp')}/>
+                    <ReactSelect defaultProf={localStorage.getItem('jp')} />
                     <hr className="Line" />
                     {
-                        this.props.displayChecks ?
-                        <ProfileChecks addRemove={this.addRemoveChecks} checks={this.props.checks}/> : <AddRemoveChecks  updateAllChecks={this.props.updateAllChecks}addRemove={this.addRemoveChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck}/>
-                        
+                        this.props.displayChecks ? <ProfileChecks addRemove={this.addRemoveChecks} checks={this.props.checks} />
+                            : <AddRemoveChecks updateAllChecks={this.props.updateAllChecks} addRemove={this.addRemoveChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck} />
                     }
                 </div>
                 <div id="buttonFooter">
@@ -130,4 +128,4 @@ const mapActionsToProps = (dispatch) => ({
     updateAllChecks: bindActionCreators(ReviewChecksActions.updateAllChecks, dispatch)
 });
 
-export default connect(mapStateToProps, mapActionsToProps) (ReviewChecks);
+export default connect(mapStateToProps, mapActionsToProps)(ReviewChecks);
