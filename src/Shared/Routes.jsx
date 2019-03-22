@@ -24,6 +24,8 @@ import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationReques
 import ViewRecruiterJP from '../Components/Admin/ViewRecruiterJP/ViewRecruiterJP';
 import Register from '../Components/Recruiter/Register/Register';
 import AddUser from '../Components/Admin/AddUsers/AddUsers';
+import adminNavBar from '../Components/Admin/AdminNavBar/adminNavBar';
+
 const Routes = () => {
     return (
         <BrowserRouter>
