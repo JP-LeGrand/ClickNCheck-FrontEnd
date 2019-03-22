@@ -269,13 +269,13 @@
 
   #progress_bar li:after {
     content: "";
-    width: 100%;
+    width: 86%;
     height: 10px;
     background: #e6e9ec;
     position: absolute;
-    left: -50%;
+    left: -44;
     top: 18px;
-    z-index: -1;
+    /*z-index: -1;
     /*put it behind the numbers*/
   }
   #progress_bar li:first-child:after {
