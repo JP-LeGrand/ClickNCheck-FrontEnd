@@ -1,12 +1,14 @@
 import React from 'react';
-import Footer from '../../Shared/Footer/Footer';
-import NavBar from '../AdminNavBar/adminNavBar';
-import './CreateJobProfile.scss';
-import gridview from '../../../Assets/gridview.svg';
-import saveImg from '../../../Assets/save.svg';
-import dragImg from '../../../Assets/drag.svg';
+import Footer from '../../../Shared/Footer/Footer';
+import NavBar from '../../AdminNavBar/adminNavBar';
+import '../Page3/CreateJobProfilePage3.scss';
+import gridview from '../../../../Assets/gridview.svg';
+import saveImg from '../../../../Assets/save.svg';
+import dragImg from '../../../../Assets/drag.svg';
 import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
+import { BASE_URL, CREATE_JOBPROFILE } from '../../../../Shared/Constants';
+import Axios from 'axios';
 
 const SortableItem = sortableElement(({ value }) => <li><img src={gridview}/>{value}</li>);
 
@@ -19,8 +21,10 @@ class CreateJobProfilePage3 extends React.PureComponent {
         super(props);
         this.state = {
             jobProfileName: localStorage.getItem('jobProfileName'),
+            token: sessionStorage.getItem('token'),
+            jobProfileCode: localStorage.getItem('jobProfileCode'),
             JobProfile: {},
-            checks: [ 'TransUnion Credit Report','Experian Credit Report','XDS Credit Report','Criminal Check - Attach Fingerprints Captured' ]
+            checks: [ 1,2,3 ]
         };
 
         this.nextStep = this.nextStep.bind(this);
@@ -36,10 +40,16 @@ class CreateJobProfilePage3 extends React.PureComponent {
         //Save this to the database.
     }
 
-    nextStep() {
-        //make the job profile object
-        //and store them in the local storage
-        window.location = '/Admin/CreateJobProfilePage4';
+    nextStep(e) {
+        e.preventDefault();
+        this.createJobProfile().then((response)=>{
+            sessionStorage.setItem('JobProfileID',response);
+            window.location = '/Admin/CreateJobProfilePage4';
+        },
+        (error) => {
+            alert(error);
+        }
+        );
     }
 
     onSortEnd = ({ oldIndex, newIndex }) => {
@@ -48,20 +58,38 @@ class CreateJobProfilePage3 extends React.PureComponent {
         }));
     };
 
+    createJobProfile(){
+        const JobProfile = { 'title':this.state.jobProfileName,
+            'code':this.state.jobProfileCode,
+            'isCompleted':true,
+            'checks':this.state.checks,
+            'checksNeedVerification':true
+        };
+        const url = BASE_URL+CREATE_JOBPROFILE;
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': 'Bearer ' +sessionStorage.getItem('token')
+            }
+        };
+
+        return Axios.post(url,JobProfile,config);
+    }
+
     render() {
         const { checks } = this.state;
         return (
-            <div className="createJobProfile">
+            <div className="createJobProfile3">
                 <NavBar />
                 <div id="spanHolder">
                     <span className="New-Verification-Req">New Job Profile</span>
                 </div>
                 <div id="formContainer">
                     <ul id="progress_bar">
-                        <li>Job Profile Name</li>
-                        <li>Select Verification Checks</li>
+                        <li className="active">Job Profile Name</li>
+                        <li className="active">Select Verification Checks</li>
                         <li className="active">Re-order Check Sequence</li>
-                        <li>Next Steps</li>
+                        <li >Next Steps</li>
                     </ul>
                     <h3 className="Re-order-Check-Seque">Re-order Check Sequence for</h3>
                     <h4 className="Re-order-Check-Seque text-style-1">{this.state.jobProfileName}</h4>

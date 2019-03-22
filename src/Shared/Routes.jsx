@@ -18,7 +18,7 @@ import JobProfiles from '../Components/Admin/JobProfiles/JobProfiles';
 import assignRecruiters from '../Components/Admin/AssignRecruiters/assignRecruiters';
 import Congratulations from '../Components/Admin/Congratulations/Congratulations';
 import CreateJobProfilePage2 from '../Components/Admin/CreateJobProfile/CreateJobProfilePage2';
-import CreateJobProfilePage3 from '../Components/Admin/CreateJobProfile/CreateJobProfilePage3';
+import CreateJobProfilePage3 from '../Components/Admin/CreateJobProfile/Page3/CreateJobProfilePage3';
 import CreateJobProfilePage4 from '../Components/Admin/CreateJobProfile/Page4/CreateJobProfilePage4';
 import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks';
 import ViewRecruiterJP from '../Components/Admin/ViewRecruiterJP/ViewRecruiterJP';
