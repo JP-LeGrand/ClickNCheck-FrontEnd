@@ -46,6 +46,7 @@ class CaptureCandidateDetails extends React.PureComponent {
             errorPhone: '',
             errorEmail: '',
             loading: false,
+            dob: '',
         };
         this.userNameHandler = this.userNameHandler.bind(this);
         this.userSurnameHandler = this.userSurnameHandler.bind(this);
@@ -57,6 +58,7 @@ class CaptureCandidateDetails extends React.PureComponent {
         this.userChoice = this.userChoice.bind(this);
         this.sendCandidates = this.sendCandidates.bind(this);
         this.validateField = this.validateField.bind(this);
+        this.dob = this.dob.bind(this);
     }
 
     prevStep() {
@@ -129,6 +131,9 @@ class CaptureCandidateDetails extends React.PureComponent {
     userChoice(event) {
         this.setState({ idChoice: event.target.value });
 
+    }
+    dob(event) {
+        this.setState({ dob: event.target.value });
     }
 
     validateField(fieldName, value) {
@@ -371,6 +376,18 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                             <label className={this.state.fieldID}>
                                                                 <input id="idNumberForm" placeholder="&nbsp;" maxLength={'13'} name="id" value={this.state.idNumber} onChange={(event) => this.userIdNumber(event)} />
                                                                 <span className="label">ID Number</span>
+                                                                <span className="border"></span>
+                                                                <label className="error">
+                                                                    {this.state.errorID}
+                                                                </label>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="form-group">
+                                                            <label className={this.state.fieldID}>
+                                                                <input id="DoB" placeholder="&nbsp;" type="date" data-date-format="dd/mm/yyyy" name="DoB" value={this.state.dob} onChange={(event) => this.dob(event)} />
+                                                                <span className="label">Birthday</span>
                                                                 <span className="border"></span>
                                                                 <label className="error">
                                                                     {this.state.errorID}
