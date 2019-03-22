@@ -9,6 +9,7 @@ import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import { BASE_URL, CREATE_JOBPROFILE } from '../../../../Shared/Constants';
 import Axios from 'axios';
+import { element } from 'prop-types';
 
 const SortableItem = sortableElement(({ value }) => <li><img src={gridview}/>{value}</li>);
 
@@ -24,9 +25,9 @@ class CreateJobProfilePage3 extends React.PureComponent {
             token: sessionStorage.getItem('token'),
             jobProfileCode: localStorage.getItem('jobProfileCode'),
             JobProfile: {},
-            checks: [ 1,2,3 ]
+            checks: [ { 'id':'1','Name':'Experian Credit Report' } ,{ 'id':'2','Name':'SAPS Criminal Report' },{ 'id':'3','Name':'TransUnion Credit Report' }]
         };
-
+         
         this.nextStep = this.nextStep.bind(this);
         this.saveProgress = this.saveProgress.bind(this);
         this.prevStep = this.prevStep.bind(this);
@@ -56,6 +57,9 @@ class CreateJobProfilePage3 extends React.PureComponent {
         this.setState(({ checks }) => ({
             checks: arrayMove(checks, oldIndex, newIndex),
         }));
+        
+        let ids = this.state.checks.map(x=>x.id);
+        console.log(ids);
     };
 
     createJobProfile(){
@@ -85,7 +89,7 @@ class CreateJobProfilePage3 extends React.PureComponent {
                     <span className="New-Verification-Req">New Job Profile</span>
                 </div>
                 <div id="formContainer">
-                    <ul id="progress_bar">
+                    <ul id="progress_bar_taf">
                         <li className="active">Job Profile Name</li>
                         <li className="active">Select Verification Checks</li>
                         <li className="active">Re-order Check Sequence</li>
@@ -101,7 +105,7 @@ class CreateJobProfilePage3 extends React.PureComponent {
                     </div>
                     <div id="Sortable-Checks">
                         <SortableContainer onSortEnd={this.onSortEnd}>
-                            {checks.map((value, index) => <SortableItem key={`item-${index}`} index={index} value={value} />)}
+                            {checks.map((value, index) => <SortableItem key={`item-${value.id}`} index={index} value={value.Name} />)}
                         </SortableContainer>
                     </div>
                     <div id="buttonFooter">

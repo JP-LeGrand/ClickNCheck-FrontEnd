@@ -102,7 +102,6 @@
     }
   
     #formContainer {
-      position: relative;
       width: 1286px;
       border-radius: 8px;
       border: solid 1px rgba(43, 56, 68, 0.15);
@@ -221,22 +220,6 @@
   
     #submitCandidate {
       width: 30vw;
-    }
-  
-    #progress_bar {
-      overflow: hidden;
-      counter-reset: step;
-      width: 100%;
-    }
-  
-    #progress_bar li {
-      list-style-type: none;
-      color: black;
-      width: 25%;
-      float: left;
-      font-family: 'Roboto';
-      position: relative;
-      text-align: center;
     }
 
     #bulk,
@@ -1078,76 +1061,7 @@
       margin-top: 3px;
       margin-bottom:5px;
     }
-    
-    #progress_bar{
-      padding-inline-start:0;
-      li{
-        font-size: 18px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.33;
-        letter-spacing: 0.4px;
-        text-align: center;
-        color: #2b3844;
-      }
-      li.active{
-        font-weight: bold;
-      }
-
-      li:before {
-        content: counter(step);
-        counter-increment: step;
-        width: 45px;
-        line-height: 45px;
-        display: block;
-        color: #2b3844;
-        height: 45px;
-        background-color: #ffffff;
-        text-align: center;
-        border: 1px solid #2b3844;
-        border-radius: 50%;
-        margin: 0 auto 10px auto;
-      }
-    }
-
-    #progress_bar li:before {
-      content: counter(step);
-      counter-increment: step;
-      width: 45px;
-      line-height: 45px;
-      display: block;
-      color: #2b3844;
-      height: 45px;
-      background-color: #ffffff;
-      text-align: center;
-      border: 1px solid #2b3844;
-      border-radius: 50%;
-      margin: 0 auto 10px auto;
-    }
-
-    #progress_bar li:after {
-      content: "";
-      width: 100%;
-      height: 10px;
-      background: #316497;
-      position: absolute;
-      left: -50%;
-      top: 18px;
-      z-index: -1; /*put it behind the numbers*/
-    }
-    #progress_bar li:first-child:after {
-      /*connector not needed before the first step*/
-      content: none;
-    }
-
-    #progress_bar li.active:before,
-    #progress_bar li.active:after {
-      color: #ffffff;
-      background-color: #0091d1;
-      border: 1px solid #ffffff;
-      font-weight: bold;
-    }
+      
     .Change-the-sequence {
       font-family: Roboto;
       font-size: 14px;
@@ -1159,6 +1073,7 @@
       text-align: center;
       color: #2b3844;
     }
+
     .flex-container {
       display: flex;
       align-items: center;
@@ -1166,6 +1081,7 @@
       align-items: baseline;
       margin-left: 35%;
     }
+
     #saveButtonDiv{
       position: absolute;
       left: 250px;
@@ -1174,6 +1090,7 @@
         color:#02529c;
       }
     }
+
     #save{
       background: none!important;
       border: none;
@@ -1221,4 +1138,57 @@
         vertical-align: middle;
         }
     }
+
+    #progress_bar_taf {
+      overflow: hidden;
+      counter-reset: step;
+      padding-left: 0px;
+      width: 100%;
+      }
+      
+      #progress_bar_taf li {
+          list-style-type: none;
+          color: black;
+          width: 25%;
+          float: left;
+          position: relative;
+          text-align: center;
+      }
+      #progress_bar_taf li:before {
+          content: counter(step);
+          counter-increment: step;
+          width: 45px;
+          line-height: 45px;
+          display: block;
+          color: #2b3844;
+          height: 45px;
+          background-color: #ffffff;
+          text-align: center;
+          border: 1px solid #2b3844;
+          border-radius: 50%;
+          margin: 0 auto 10px auto;
+          z-index: 2;
+      }
+      
+      #progress_bar_taf li:after {
+          content: "";
+          width: 85.6%;
+          height: 10px;
+          background: #e6e9ec;
+          position: absolute;
+          left: -43.3%;
+          top: 18px;
+      }
+      #progress_bar_taf li:first-child:after {
+          /*connector not needed before the first step*/
+          content: none;
+      }
+      
+      #progress_bar_taf li.active:before,
+      #progress_bar_taf li.active:after {
+          color: #ffffff;
+          background-color: #0091d1;
+          border: 1px solid #ffffff;
+          font-weight: bold;
+      }
 }
