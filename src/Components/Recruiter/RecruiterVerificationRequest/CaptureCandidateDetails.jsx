@@ -438,7 +438,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.prevStep}>BACK</button>
                     <button id="next" disabled={!this.state.tableValid} onClick={this.sendCandidates}>SUBMIT</button>
-                    <div className="loading">{this.state.loading ? <img src={rollingImg} id="spinner" alt="loading..." /> : "dd"}</div>
+                    <div className="loading">{this.state.loading ? <img src={rollingImg} id="spinner" alt="loading..." /> : ""}</div>
 
                 </div>
                 <Footer />
