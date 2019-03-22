@@ -2,53 +2,81 @@ import React from 'react';
 import './CreateJobProfile.scss';
 import Footer from '../../Shared/Footer/Footer';
 import NavBar from '../AdminNavBar/adminNavBar';
+import ReactSelect from './ReactSelect';
+import * as JobProfileActions from './JobProfileActions';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import SelectVendors from './SelectVendors';
 
 class CreateJobProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            jobProfileName: '',
-            jobProfileCode: ''
+            currentView: '',
+            code: '',
+            profile: ''
         };
-        this.nextSteps = this.nextSteps.bind(this);
-        this.handleJPName = this.handleJPName.bind(this);
-        this.handleJPCode = this.handleJPCode.bind(this);
+        this.nextDisplay = this.nextDisplay.bind(this);
+        this.prevDisplay = this.prevDisplay.bind(this);
+        this.onCheckBoxClicked = this.onCheckBoxClicked.bind(this);
+        this.profile = this.profile.bind(this);
+        this.code = this.code.bind(this);
     }
 
-    handleJPName(event) {
-        this.setState({
-            jobProfileName: event.target.value,
-
-        });
+    onCheckBoxClicked(checks){
+        this.props.updateChecks(checks);
     }
 
-    handleJPCode(event) {
-        this.setState({
-            jobProfileCode: event.target.value,
-
-        });
+    profile(e){
+        this.setState({profile: e.target.value});
+        this.props.updateSelectedProfile(this.state.profile);
     }
-    nextSteps() {
-        if (this.state.jobProfileName === null || this.state.jobProfileCode === null) {
-            return;
-        } else {
+    
+    code(e){
+        this.setState({code: e.target.value});
+        this.props.updateCode(this.state.code);
+    }
 
-            localStorage.setItem('jobProfileName', this.state.jobProfileName);
-            localStorage.setItem('jobProfileCode', this.state.jobProfileCode);
-
-            window.location = '/Admin/CreateJobProfilePage2';
+    nextDisplay(e){
+        switch (this.props.nowDisplaying){
+        case 'default':
+            this.props.updateSelectedProfile(this.state.profile);
+            this.props.updateCode(this.state.code);
+            this.props.updateDisplay('selectVendors');
+            localStorage.setItem('jobProfile', this.state.profile);
+            localStorage.setItem('jobCode', this.state.code);
+            break;
+        case 'selectVendors':
+            sessionStorage.setItem('services', JSON.stringify(this.props.selectedChecks));
+            window.location = '/Admin/CreateJobProfilePage3';
+            break;
+        default: 
+            this.props.updateDisplay(this.props.nowDisplaying);
         }
-
     }
+
+    prevDisplay(e){
+        switch (this.props.nowDisplaying){
+        case 'selectVendors':
+            this.props.updateDisplay('default')
+        default: 
+            this.props.updateDisplay(this.props.nowDisplaying);
+        }
+    }
+
     render() {
         /**Run through the tasks array inside state and put each check on the left or right
          * side of the page depending on whether it came with the jobProfile or not
         */
+        let def = <div><ReactSelect defaultProf="e.g Job profile here" jobProfiles={this.props.jobProfiles} onEnterProfile={this.profile} onEnterCode={this.code} /></div>;
+        let selectVendors = <div><SelectVendors allChecks={this.props.allChecks} onCheckBoxClicked={this.onCheckBoxClicked} jobProfile={this.state.profile+' '+this.state.code}/></div>;
+        let view = this.props.nowDisplaying == 'default' ? def : selectVendors;
         return (
             <div className="createJobProfile">
                 <NavBar />
                 <div id="spanHolder">
-                    <span className="New-Verification-Req">New Job Profile</span>
+                    <span className="New-Job-Profile">New Job Profile</span>
                 </div>
                 <div id="formContainer">
                     <ul id="progress_bar">
@@ -57,32 +85,53 @@ class CreateJobProfile extends React.Component {
                         <li>Re-order Check Sequence</li>
                         <li>Next Steps</li>
                     </ul>
-
-                    <fieldset className="mainContents">
-                        <h3>Select job profile to base checks on</h3>
-
-                        <div className="form-group">
-                            <label className="autocomplete">
-                                <input id="profileName" name="profileName" value={this.state.jobProfileName} placeholder="Enter Job Profile Title" onChange={(event) => this.handleJPName(event)} />
-                            </label>
-                        </div>
-                        <div id="profileError"></div>
-                        <div className="form-group">
-                            <label className="autocomplete">
-                                <input id="jobCode" name="jobCode" value={this.state.jobProfileCode} placeholder="Enter Job Profile Code" onChange={(event) => this.handleJPCode(event)} />
-                            </label>
-                        </div>
-                        <div id="codeError"></div>
-                    </fieldset>
+                    {view}
                 </div>
                 <div id="buttonFooter">
-                    <button id="save" onClick={this.saveProgress}>Save and continue later</button>
-                    <button id="next" onClick={this.nextSteps}>NEXT</button>
+                    <button id="prev" onClick={this.prevDisplay}>BACK</button>
+                    <button id="next" onClick={this.nextDisplay}>NEXT</button>
                 </div>
                 <Footer />
             </div>
         );
     }
+
+    componentDidMount(){
+        this.props.fetchAllChecks();
+        this.props.updateDisplay('default');
+    }
 }
 
-export default CreateJobProfile;
+CreateJobProfile.propTypes = {
+    fetchAllChecks: PropTypes.func.isRequired,
+    fetchJobProfiles: PropTypes.func.isRequired,
+    updateDisplay: PropTypes.func.isRequired,
+    updateChecks: PropTypes.func.isRequired,
+    updateCode: PropTypes.func.isRequired,
+    updateSelectedProfile: PropTypes.func.isRequired,
+    jobProfiles: PropTypes.array,
+    nowDisplaying: PropTypes.string,
+    allChecks: PropTypes.array,
+    selectedprofile: PropTypes.string,
+    selectedChecks: PropTypes.array
+};
+
+const mapStateToProps = state => ({
+    jobProfiles: state.jobProfileState.jobProfiles,
+    nowDisplaying: state.jobProfileState.nowDisplaying,
+    allChecks: state.jobProfileState.allChecks,
+    selectedChecks: state.jobProfileState.selectedChecks,
+    code: state.jobProfileState.code,
+    selectedProfile: state.jobProfileState.selectedProfile
+});
+
+const mapActionsToProps = (dispatch) => ({
+    fetchJobProfiles: bindActionCreators(JobProfileActions.fetchJobProfiles, dispatch),
+    updateSelectedProfile: bindActionCreators(JobProfileActions.updateSelectedProfile, dispatch),
+    fetchAllChecks: bindActionCreators(JobProfileActions.fetchAllChecks, dispatch),
+    updateDisplay: bindActionCreators(JobProfileActions.updateDisplay, dispatch),
+    updateChecks: bindActionCreators(JobProfileActions.updateChecks, dispatch),
+    updateCode: bindActionCreators(JobProfileActions.updateCode, dispatch)
+});
+
+export default connect(mapStateToProps, mapActionsToProps) (CreateJobProfile);
