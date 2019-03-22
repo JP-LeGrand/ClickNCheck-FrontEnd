@@ -399,7 +399,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                         <div className="form-group">
                                                             <img src={email} />
                                                             <label className={this.state.fieldEmail}>
-                                                                <input id="email" placeholder="&nbsp;" name="email" value={this.state.email} onChange={(event) => this.userEmailHandler(event)} />
+                                                                <input id="email" placeholder="" name="email" value={this.state.email} onChange={(event) => this.userEmailHandler(event)} />
                                                                 <span className="label">Email Address</span>
                                                                 <span className="border"></span>
                                                                 <label className="error">
