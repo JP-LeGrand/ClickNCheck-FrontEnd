@@ -26,7 +26,7 @@ class CreateAmendUser extends Component {
             allJobProfiles: '',
             roles: [
                 {
-                    id: 1,
+                    id: 3,
                     role: 'Recruiter'
                 } ]
 
