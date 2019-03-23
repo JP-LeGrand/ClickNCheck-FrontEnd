@@ -5,26 +5,27 @@ import Footer from '../../Shared/Footer/Footer';
 import rollingImg from '../../../Assets/Rolling.svg';
 import CaptureCandidateDetails from './CaptureCandidateDetails';
 import MainContainer from './MainContainer';
+import * as CandidateActions from './CandidateActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 class ParentContainer extends React.PureComponent {
 
     constructor(props){
         super(props);
-        this.state = {
-            switchState: true,
-        
-        };
         this.changeDiv = this.changeDiv.bind(this);
 
     }
 
     changeDiv (e) {
-        this.setState({
-            switchState : e,
-          
-        });
-    }
-    render () {
+    
+            this.props.changeView(e);
+    
 
+    }
+   
+    render () {
+        console.log(this.props);
         return (
             <div className="candidateNav">
                 <NavBar />
@@ -41,7 +42,7 @@ class ParentContainer extends React.PureComponent {
                                         <li>Next Steps</li>
                                     </ul>
                                     <label className="candidateDetails">Capture Candidate Details</label>
-                                    {this.state.switchState ? 
+                                    {this.props.candidateState ? 
                                         <div className="uploadSwitch">
                                             <button className="indi" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
                                             <button className="bulk" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
@@ -56,16 +57,15 @@ class ParentContainer extends React.PureComponent {
                                     }
                                     
                                     <section>
-                                        {this.state.switchState ? <CaptureCandidateDetails/> : <MainContainer />}
+                                        {this.props.candidateState ? <CaptureCandidateDetails/> : <MainContainer />}
                                     </section>
                                 </div>
                             </div>
                         
                         </fieldset>
                         <div id="buttonFooter">
-                            <button id="prev" onClick={this.prevStep}>BACK</button>
-                            <button id="next" disabled={!this.state.tableValid} onClick={this.sendCandidates}>SUBMIT</button>
-                            <div className="loading">{this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}</div>
+                            <button id="prev">BACK</button>
+                            <button id="next" >SUBMIT</button>
                         </div>
                     </div>
                     <Footer />
@@ -75,4 +75,16 @@ class ParentContainer extends React.PureComponent {
         );
     }
 }
-export default ParentContainer;
+
+ParentContainer.propTypes = {
+    candidateState: PropTypes.bool,
+    changeView: PropTypes.func
+}
+const mapStateToProps = state => ({
+    candidateState: state.candidateState.displayCandidate
+});
+
+const mapActionsToProps = (dispatch) => ({
+    changeView : bindActionCreators(CandidateActions.changeView, dispatch)
+});
+export default connect(mapStateToProps, mapActionsToProps) (ParentContainer);
