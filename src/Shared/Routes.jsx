@@ -23,13 +23,13 @@ import CreateJobProfilePage4 from '../Components/Admin/CreateJobProfile/Page4/Cr
 import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationRequest/AddRemoveChecks';
 import ViewRecruiterJP from '../Components/Admin/ViewRecruiterJP/ViewRecruiterJP';
 import Register from '../Components/Recruiter/Register/Register';
-import adminNavBar from '../Components/Admin/AdminNavBar/adminNavBar';
+import ParentContainer from '../Components/Recruiter/RecruiterVerificationRequest/ParentContainer';
 
 const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={Login} />
+                <Route path="/" exact component={ParentContainer} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/otp" exact component={Otp} />
                 <Route path="/candidate/consent" exact component={Consent} />

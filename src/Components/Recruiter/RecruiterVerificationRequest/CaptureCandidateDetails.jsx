@@ -34,6 +34,7 @@ class CaptureCandidateDetails extends React.PureComponent {
             phone: '',
             idNumber: '',
             idChoice: '',
+            dob: '',
             tableErrors: { email: '', id: '', phone: '' },
             emailValid: true,
             idValid: true,
@@ -57,24 +58,13 @@ class CaptureCandidateDetails extends React.PureComponent {
         this.userChoice = this.userChoice.bind(this);
         this.sendCandidates = this.sendCandidates.bind(this);
         this.validateField = this.validateField.bind(this);
+        this.userDobHandler = this.userDobHandler.bind(this);
     }
 
     prevStep() {
         window.location = '/ReviewChecks';
     }
-    changeDiv(event) {
-        const indi = event.target.id;
-        if (indi === 'bulk') {
-            this.setState({
-                div: true
-            });
-        } else {
-            this.setState({
-                div: false
-            });
-        }
 
-    }
     sendCandidates() {
         this.setState({
             loading: true
@@ -129,6 +119,9 @@ class CaptureCandidateDetails extends React.PureComponent {
     userChoice(event) {
         this.setState({ idChoice: event.target.value });
 
+    }
+    userDobHandler(event) {
+        this.setState({ dob: event.target.value });
     }
 
     validateField(fieldName, value) {
@@ -276,163 +269,128 @@ class CaptureCandidateDetails extends React.PureComponent {
     }
 
     individual() {
-        return (
-
-            <div className="bodyPage">
-                <h2 id="newVTitile"><b>New Verification Request</b></h2>
-                <h3 id="JPTitle">Job Profile</h3>
-                <div className="formBox">
-                    <fieldset className="field1 current">
-                        <div id="singleForm">
-                            <div className="">
-                                <ul id="progress_bar">
-                                    <li className="active">Select Verification Checks</li>
-                                    <li className="active"><b>Candidate Details</b></li>
-                                    <li>Next Steps</li>
-                                </ul>
-                                <label className="candidateDetails">Capture Candidate Details</label>
-                                <div className="uploadSwitch">
-                                    <button className="indi" id="individual" onClick={event => this.changeDiv(event)}>INDIVIDUAL</button>
-                                    <button className="bulk" id="bulk" onClick={event => this.changeDiv(event)}> BULK</button>
-
-                                </div>
-                                <br className="Line" />
-                                <div className="innerFormBox">
-                                    <div className="candidatesColumn">
-                                        <h1 className="candidateHeader">Candidate(s)</h1>
-                                        {this.state.candidates.map((user, index) => {
-                                            return (
-                                                <div className="wrappingDiv" key={index}>
-                                                    <div className="Rectangle">
-                                                        <p className="Candidate">{user.Name} {user.Surname}</p>
-                                                    </div>
-
-                                                </div>
-                                            );
-                                        })
-                                        }
-                                        <p className="Add-another-candid">{this.state.tableValid ? <a href="#" onClick={this.addCandidate}>+ Add another candidate</a> : "Add another candidate"}</p>
-
-                                    </div>
-                                    <div id="singleForm">
-
-                                        <table className="rightTable">
-                                            <thead />
-
-                                            <tbody>
-                                                <h1 className="personalHeader">Personal Details</h1>
-                                                <tr>
-                                                    <td>
-                                                        <div className="form-group">
-                                                            <img src={userImg} />
-                                                            <label className="inp">
-                                                                <input id="firstName" placeholder="&nbsp;" name="firstName" value={this.state.firstName} onChange={this.userNameHandler} />
-                                                                <span className="label">Full First Name</span>
-                                                                <span className="border"></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className="form-group">
-                                                            <img src={userImg} />
-                                                            <label className="inp">
-                                                                <input id="surname" placeholder="&nbsp;" name="surname" value={this.state.surname} onChange={this.userSurnameHandler} />
-                                                                <span className="label">Surname</span>
-                                                                <span className="border"></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="form-group">
-                                                            <img src={userImg} />
-                                                            <label className="inp">
-                                                                <input id="maidenName" placeholder="&nbsp;" name="maidenName" value={this.state.mSurname} onChange={this.usermSurnameHandler} />
-                                                                <span className="label">Maiden Surname</span>
-                                                                <span className="border"></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <div className="radios">
-                                                    <FormControl component="fieldset">
-                                                        <FormLabel component="legend" />
-                                                        <RadioGroup roboto-label="ID or Passport" name="ID or Passport" className="radios" color="black" onClick={(event) => this.userChoice(event)}>
-                                                            <FormControlLabel id="ID" className="" value="ID" control={<Radio />} label="ID" />
-                                                            <FormControlLabel id="passport" className="" value="Passport" control={<Radio />} label="Passport" />
-                                                        </RadioGroup>
-                                                    </FormControl>
-                                                </div>
-                                                <tr>
-                                                    <td>
-                                                        <div className="form-group">
-                                                            <label className={this.state.fieldID}>
-                                                                <input id="idNumberForm" placeholder="&nbsp;" maxLength={'13'} name="id" value={this.state.idNumber} onChange={(event) => this.userIdNumber(event)} />
-                                                                <span className="label">ID Number</span>
-                                                                <span className="border"></span>
-                                                                <label className="error">
-                                                                    {this.state.errorID}
-                                                                </label>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div className="form-group">
-                                                            <img src={email} />
-                                                            <label className={this.state.fieldEmail}>
-                                                                <input id="email" placeholder="&nbsp;" name="email" value={this.state.email} onChange={(event) => this.userEmailHandler(event)} />
-                                                                <span className="label">Email Address</span>
-                                                                <span className="border"></span>
-                                                                <label className="error">
-                                                                    {this.state.errorEmail}
-                                                                </label>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div className="form-group">
-                                                            <img src={phone} />
-                                                            <label className={this.state.fieldPhone}>
-                                                                <input id="phone" placeholder="&nbsp;" name="phone" maxLength={'10'} value={this.state.phone} onChange={(event) => this.userPhoneHandler(event)} />
-                                                                <span className="label">Telephone Number</span>
-                                                                <span className="border"></span>
-                                                                <label className="error">
-                                                                    {this.state.errorPhone}
-                                                                </label>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-
-                <div id="buttonFooter">
-                    <button id="prev" onClick={this.prevStep}>BACK</button>
-                    <button id="next" disabled={!this.state.tableValid} onClick={this.sendCandidates}>SUBMIT</button>
-                    <div className="loading">{this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}</div>
-
-                </div>
-                <Footer />
-            </div>
-
-        );
+       
     }
     render() {
         return (
-            <div className="candidateNav">
-                <NavBar />
-                {!this.state.div ? this.individual() : <MainContainer />}
 
+            <div className="innerFormBox">
+                <div className="candidatesColumn">
+                    <h1 className="candidateHeader">Candidate(s)</h1>
+                    {this.state.candidates.map((user, index) => {
+                        return (
+                            <div className="wrappingDiv" key={index}>
+                                <div className="Rectangle">
+                                    <p className="Candidate">{user.Name} {user.Surname}</p>
+                                </div>
+
+                            </div>
+                        );
+                    })
+                    }
+                    <p className="Add-another-candid">{this.state.tableValid ? <a href="#" onClick={this.addCandidate}>+ Add another candidate</a> : "Add another candidate"}</p>
+
+                </div>
+                <div id="singleForm">
+
+                    <table className="rightTable">
+                        <thead />
+
+                        <tbody>
+                            <h1 className="personalHeader">Personal Details</h1>
+                            <tr>
+                                <td>
+                                    <div className="form-group">
+                                        <img src={userImg} />
+                                        <label className="inp">
+                                            <input id="firstName" placeholder="&nbsp;" name="firstName" value={this.state.firstName} onChange={this.userNameHandler} />
+                                            <span className="label">Full First Name</span>
+                                            <span className="border"></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className="form-group">
+                                        <img src={userImg} />
+                                        <label className="inp">
+                                            <input id="surname" placeholder="&nbsp;" name="surname" value={this.state.surname} onChange={this.userSurnameHandler} />
+                                            <span className="label">Surname</span>
+                                            <span className="border"></span>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div className="form-group">
+                                        <img src={userImg} />
+                                        <label className="inp">
+                                            <input id="maidenName" placeholder="&nbsp;" name="maidenName" value={this.state.mSurname} onChange={this.usermSurnameHandler} />
+                                            <span className="label">Maiden Surname</span>
+                                            <span className="border"></span>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <div className="radios">
+                                    <FormControl component="fieldset">
+                                        <FormLabel component="legend" />
+                                        <RadioGroup roboto-label="ID or Passport" name="ID or Passport" className="radios" color="black" onClick={(event) => this.userChoice(event)}>
+                                            <FormControlLabel id="ID" className="" value="ID" control={<Radio />} label="ID" />
+                                            <FormControlLabel id="passport" className="" value="Passport" control={<Radio />} label="Passport" />
+                                        </RadioGroup>
+                                    </FormControl>
+                                </div>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div className="form-group">
+                                        <img src={userImg} />
+                                        <label className={this.state.fieldID}>
+                                            <input id="idNumberForm" placeholder="&nbsp;" maxLength={'13'} name="id" value={this.state.idNumber} onChange={(event) => this.userIdNumber(event)} />
+                                            <span className="label">ID Number</span>
+                                            <span className="border"></span>
+                                            <label className="error">
+                                                {this.state.errorID}
+                                            </label>
+                                        </label>
+                                    </div>
+                                </td>
+                            
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div className="form-group">
+                                        <img src={email} />
+                                        <label className={this.state.fieldEmail}>
+                                            <input id="email" placeholder="&nbsp;" name="email" value={this.state.email} onChange={(event) => this.userEmailHandler(event)} />
+                                            <span className="label">Email Address</span>
+                                            <span className="border"></span>
+                                            <label className="error">
+                                                {this.state.errorEmail}
+                                            </label>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className="form-group">
+                                        <img src={phone} />
+                                        <label className={this.state.fieldPhone}>
+                                            <input id="phone" placeholder="&nbsp;" name="phone" maxLength={'10'} value={this.state.phone} onChange={(event) => this.userPhoneHandler(event)} />
+                                            <span className="label">Telephone Number</span>
+                                            <span className="border"></span>
+                                            <label className="error">
+                                                {this.state.errorPhone}
+                                            </label>
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         );
     }

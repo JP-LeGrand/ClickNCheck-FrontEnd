@@ -158,68 +158,38 @@ class MainContainer extends React.PureComponent {
     review() {
     
         return (
-            <div className="bodyPage">
-                <div className="formBox">
-                    <fieldset className="field1 current">
-                        <div id="singleForm">
-                            <div className="">
-                                <ul id="progress_bar">
-                                    <li className="active">Create Job Profile Name</li>
-                                    <li className="active">Candidate Details</li>
-                                    <li>Next Steps</li>
-                                </ul>
-                                <br/>
-                                <label className="candidateDetails" >Review Uploaded Candidate Details</label>
-                                
-                                <br/>
-                                <br/>
-                                <br/>    
-                                <label className="candidateDetails" ><strong>{this.state.fileSize} entries</strong>(Click to edit)</label>
-                                <fieldset className="field1 current">
-                                    <table className="ImportTable">
-                                        <thead className="Headers">
-                                            <tr className="Headers">
-                                                <th>First Full Name</th>
-                                                <th>Surname</th>
-                                                <th>Maiden Name</th>
-                                                <th>ID/Passport</th>
-                                                <th>Birthday</th>
-                                                <th>Email</th>
-                                                <th>Phone</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="Headers">
-                                            {this.state.excelRows.map((user, index) => {
-                                                return (
-                                                    <tr className="Shape" key={index}>
-                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="name" value={user.Name} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="surname" value={user.Surname} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="madein" defaultValue={user.Maiden_Surname} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className="FieldValue" type="text" id={index+'id'} name="id" value={user.ID_Passport} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="dob" value={user.Birthday} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className="FieldValue" type="text" id={index+'email'} name="email" value={user.Email} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className="FieldValue" type="text" id={index+'phone'} name="phone" value={user.Phone} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td><a href="#" onClick={(user) => this.removeRow(index, user)}><img src="https://img.icons8.com/ultraviolet/20/000000/delete.png" /></a></td>
-                                                    </tr>
-                                                );
-                                            })}
-                                        </tbody>
-                                   
-                                    </table>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-
-                <div id="buttonFooter">
-                    <button id="prev" onClick={this.prevStep}>BACK</button>
-                    <button id="next" disabled={!this.state.tableValid} onClick={this.addBulkCandidates}>SUBMIT</button>
-                    <div className="loading">{this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}</div> 
-                </div>
-                <Footer />
-            </div>
-
+            <fieldset className="field1 current">
+                <table className="ImportTable">
+                    <thead className="Headers">
+                        <tr className="Headers">
+                            <th>First Full Name</th>
+                            <th>Surname</th>
+                            <th>Maiden Name</th>
+                            <th>ID/Passport</th>
+                            <th>Birthday</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody className="Headers">
+                        {this.state.excelRows.map((user, index) => {
+                            return (
+                                <tr className="Shape" key={index}>
+                                    <td className="fieldContainer"><input className="FieldValue" type="text" name="name" value={user.Name} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className="fieldContainer"><input className="FieldValue" type="text" name="surname" value={user.Surname} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className="fieldContainer"><input className="FieldValue" type="text" name="madein" defaultValue={user.Maiden_Surname} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className="fieldContainer"><input className="FieldValue" type="text" id={index+'id'} name="id" value={user.ID_Passport} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className="fieldContainer"><input className="FieldValue" type="text" name="dob" value={user.Birthday} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className="fieldContainer"><input className="FieldValue" type="text" id={index+'email'} name="email" value={user.Email} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className="fieldContainer"><input className="FieldValue" type="text" id={index+'phone'} name="phone" value={user.Phone} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td><a href="#" onClick={(user) => this.removeRow(index, user)}><img src="https://img.icons8.com/ultraviolet/20/000000/delete.png" /></a></td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                                    
+                </table>
+            </fieldset>
         );
     }
     addBulkCandidates(){
@@ -241,62 +211,35 @@ class MainContainer extends React.PureComponent {
 
     bulk() {
         return (
-            <div className="bodyPage">
-                <div className="formBox">
-                    <fieldset className="field1 current">
-                        <div id="singleForm">
-                            <div className="">
-                                <ul id="progress_bar">
-                                    <li className="active">Create Job Profile Name</li>
-                                    <li className="active">Candidate Details</li>
-                                    <li>Next Steps</li>
-                                </ul>
-                                <label className="candidateDetails">Capture Candidate Details</label>
-                                <div className="uploadSwitch">
-                                    <button className="indi" id="individual" onClick={event => this.changeDiv(event)}>INDIVIDUAL</button>
-                                    <button className="bulk" id="bulk" onClick={event => this.changeDiv(event)}> BULK</button>
+            <fieldset className="field1 current">
+                <div id="bulkForm">
+                    <div className="upload-area" id="uploadfile">
+                        <img
+                            src={require('../../../Assets/upload-file.svg')}
+                            alt="upload files here"
+                        />
+                        <h3>Drag and Drop or Click to upload File</h3>
+                        <br />
 
-                                </div>
-                                <br className="Line" />
-                                <fieldset className="field1 current">
-                                    <div id="bulkForm">
-                                        <div className="upload-area" id="uploadfile">
-                                            <img
-                                                src={require('../../../Assets/upload-file.svg')}
-                                                alt="upload files here"
-                                            />
-                                            <h3>Drag and Drop or Click to upload File</h3>
-                                            <br />
-
-                                            <div className="upload-btn-wrapper">
-                                                <input
-                                                    type="file"
-                                                    name="file"
-                                                    id="getFile"
-                                                    onChange={() => this.submit()}
-                                                />
-                                                <a href="https://cncdocuments.blob.core.windows.net/recruiters/CandidateTemplate.xlsx" download>
-                                                    <img
-                                                        src={require('../../../Assets/downloadFile.svg')}
-                                                        alt="download-fav"
-                                                    />
+                        <div className="upload-btn-wrapper">
+                            <input
+                                type="file"
+                                name="file"
+                                id="getFile"
+                                onChange={() => this.submit()}
+                            />
+                            <a href="https://cncdocuments.blob.core.windows.net/recruiters/CandidateTemplate.xlsx" download>
+                                <img
+                                    src={require('../../../Assets/downloadFile.svg')}
+                                    alt="download-fav"
+                                />
                 Download Excel Template
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
+                            </a>
                         </div>
-                    </fieldset>
+                    </div>
                 </div>
-
-                <div id="buttonFooter">
-                    <button id="prev" onClick={this.prevStep}>BACK</button>
-                </div>
-                <Footer />
-            </div>
-
+            </fieldset>
+                           
         );
     }
 
