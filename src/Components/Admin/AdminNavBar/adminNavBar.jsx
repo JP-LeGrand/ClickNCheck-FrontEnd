@@ -10,7 +10,6 @@ import Users from '../../../Assets/users.svg';
 import Notification from '../../../Assets/notification.svg';
 import { FaBars, FaAngleDown } from 'react-icons/fa';
 import 'typeface-roboto';
-import logoutImg from '../../../Assets/logout.svg';
 
 class adminNavBar extends React.PureComponent {
     constructor(props) {
@@ -18,7 +17,6 @@ class adminNavBar extends React.PureComponent {
         this.state = {
             isTopNav: true,
             user_img: '',
-            isTopNav: true,
             showContent: false
         };
         this.handleMenuButton = this.handleMenuButton.bind(this);
@@ -128,9 +126,9 @@ class adminNavBar extends React.PureComponent {
                                     <label className="navLabel">Candidates</label>
                                 </div>
                             </a>
-                            <a href="/Admin/AddUser"
+                            <a href="/Admin/Users/CreateAmendUser"
                                 className={
-                                    this.getLocation('/Admin/AddUser')
+                                    this.getLocation('/Admin/Users/CreateAmendUser')
                                         ? 'active'
                                         : 'inactive'
                                 }>

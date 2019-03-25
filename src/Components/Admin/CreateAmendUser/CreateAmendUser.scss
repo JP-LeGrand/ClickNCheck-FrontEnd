@@ -1,0 +1,178 @@
+.createAmendUser {
+    width: 1285px;
+    margin: auto;
+
+    p {
+        width: 557px;
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.5;
+        letter-spacing: 0.4px;
+        color: #02529c;
+    }
+
+    .userSummary {
+        margin: 10px 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #333333;
+    }
+
+    .userSummary img {
+        width: 129px;
+        height: 129px;
+        border-radius: 100%;
+    }
+
+    #usr_img, #heading {
+        display: inline-block;
+    }
+
+    #heading label{
+        display: block;
+        color: #02529c;
+    }
+
+    .mainSection {
+        border-radius: 8px;
+        border: solid 1px #e6e9ec;
+        background-color: #ffffff;
+        overflow: auto;
+    }
+
+    table {
+        margin: 10px 30px;
+        padding-bottom: 30px;
+    }
+
+    #roles {
+        width: 146px;
+        height: 22px;
+        font-family: Roboto;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 3.75;
+        letter-spacing: 0.3px;
+        color: #2b3844;    
+    }
+
+    #name {
+        width: 328px;
+        height: 25px;
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 2.5;
+        letter-spacing: 0.4px;
+        color: #02529c;
+    }
+
+      input:focus {
+        background: none;
+        outline: none;
+      }
+      
+      label {
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 3.75;
+        letter-spacing: 0.3px;
+        color: #2b3844;
+      }
+      
+      input, select{
+        width: 295px;
+        border: 0;
+        border-bottom: solid 1px #e6e9ec;
+        background: none;
+        border-radius: 0;
+        font-size: 14px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.57;
+        letter-spacing: 0.9px;
+        color: #222a31;
+      }
+
+      select option:first-child{
+        color: white;
+      }
+
+      td {
+        padding: 30px 149px;
+        padding-left: 0;
+      }
+
+      button {
+        float: right;
+        width: 120px;
+        height: 14px;
+        font-family: Roboto;
+        font-size: 12px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #ffffff;
+      }
+
+      #deactivate {
+        width: 208px;
+        border: 0;
+        height: 50px;
+        border-radius: 7px;
+        background-color: #ff4a93;
+        margin-right: 22px;
+      }
+
+      #apply {
+        width: 125px;
+        height: 50px;
+        border-radius: 7px;
+        background-color: #0091d1;
+        border: 0;
+        margin-right: 30px;
+      }
+
+      li {
+        display: inline-block;
+        margin-right: 18px;
+        background-color: #f9f9f9;
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 3.75;
+        letter-spacing: 0.3px;
+        text-align: center;
+        color: #2b3844;
+      }
+
+      li span {
+        padding-left: 32px;
+        padding-top: 11.1px;
+        padding-bottom: 11.1px;
+      }
+
+      li img {
+        padding-left: 22.9px;
+        padding-right: 18.1px;
+      }
+
+      ul {
+        padding: 0;
+        position: relative;
+        top: 25px;
+      }
+}
