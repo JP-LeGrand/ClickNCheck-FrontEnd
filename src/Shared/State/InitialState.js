@@ -38,6 +38,10 @@ const InitialState = {
         selectedProfile: '',
         nowDisplaying: '',
         code: ''
+    },
+    candidateState: {
+        displayCandidate: true,
+        candidateBody: []
     }
 
 };
