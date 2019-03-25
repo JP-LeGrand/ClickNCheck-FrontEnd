@@ -25,11 +25,12 @@ import ViewRecruiterJP from '../Components/Admin/ViewRecruiterJP/ViewRecruiterJP
 import Register from '../Components/Recruiter/Register/Register';
 import AddUser from '../Components/Admin/AddUsers/AddUsers';
 import CreateAmendUser from '../Components/Admin/CreateAmendUser/CreateAmendUser';
+import Home from '../Components/Home/Home';
 const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={Login} />
+                <Route path="/" exact component={Home} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/otp" exact component={Otp} />
                 <Route path="/candidate/consent" exact component={Consent} />
