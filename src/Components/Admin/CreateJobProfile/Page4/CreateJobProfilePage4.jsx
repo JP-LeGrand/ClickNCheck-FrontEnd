@@ -3,7 +3,7 @@ import Footer from '../../../Shared/Footer/Footer';
 import AdminNavBar from '../../AdminNavBar/adminNavBar';
 import check from '../../../../Assets/green_check.svg';
 import './CreateJobProfilePage4.scss';
-import './Modal.scss';
+import './modal.scss';
 import 'typeface-roboto';
 import AssignRecruiters from '../../AssignRecruiters/assignRecruiters';
 import Congratulations from '../../Congratulations/Congratulations';
