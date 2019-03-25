@@ -6,15 +6,19 @@ import Footer from '../../Shared/Footer/Footer';
 import Axios from 'axios';
 import rollingImg from '../../../Assets/Rolling.svg';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
-
+import CaptureCandidateDetails from './CaptureCandidateDetails';
+import * as CandidateActions from './CandidateActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class MainContainer extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            div: true,
             excelRows: [],
+            fieldState: [],
             getFile: false,
+            fileSize: '',
             email: '',
             id: '',
             number: '',
@@ -23,10 +27,7 @@ class MainContainer extends React.PureComponent {
             idValid: false,
             numberValid: false,
             tableValid: false,
-            fieldID: 'FieldValue',
-            fieldEmail: 'FieldValue',
-            fieldPhone: 'FieldValue',
-            loading:false,
+            loading: false,
         };
         this.submit = this.submit.bind(this);
         this.addBulkCandidates = this.addBulkCandidates.bind(this);
@@ -36,34 +37,20 @@ class MainContainer extends React.PureComponent {
         this.prevStep = this.prevStep.bind(this);
     }
 
-    removeRow(index, user){
-        
-        let arrayRows = this.state.excelRows.filter((value, i) => i !== index);
-        this.setState({
-            excelRows : arrayRows,
-        }, () => {
-            console.log(JSON.stringify(this.state.excelRows, null, 3));
-        });
-    }
+    removeRow(index) {
 
-    changeDiv(event) {
-        const indi = event.target.id;
-        console.log(indi);
-        if (indi === 'individual') {
-            this.setState({
-                div: false
-            });
-        } else {
-            this.setState({
-                div: true
-            });
-        }
+        let arrayRows = this.state.excelRows.filter((value, i) => i !== index);
+        let newNum = arrayRows.length;
+
+        this.setState({
+            excelRows: arrayRows,
+            fileSize: newNum
+        });
 
     }
     handleUserInput(index, event) {
-        
+
         let propName = '';
-        console.log(event.target.name);
         switch (event.target.name) {
         case 'name':
             propName = 'Name';
@@ -76,118 +63,59 @@ class MainContainer extends React.PureComponent {
             break;
         case 'id':
             propName = 'ID_Passport';
+            if (event.target.value.length !== RecruiterConstants.idNumberLen) {
+                document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
+
+            } else {
+                document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
+                this.setState({
+                    idValid: true
+                });
+            }
             break;
         case 'dob':
             propName = 'Birthday';
             break;
         case 'email':
             propName = 'Email';
+            if (!event.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+                document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
+
+            } else {
+                document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
+                this.setState({
+                    idValid: true
+                });
+            }
             break;
         default:
             propName = 'Phone';
+            if (event.target.value.length !== RecruiterConstants.phoneNumberLen) {
+                document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
+
+            } else {
+                document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
+                this.setState({
+                    numberValid: true
+                });
+            }
         }
-        
+
         const newRows = [...this.state.excelRows];
         newRows[index][propName] = event.target.value;
-        this.validateField(event.target.name, event.target.value);
-        console.log(newRows[index][propName])
-        this.setState({ 
-            excelRows : newRows
+        this.setState({
+            excelRows: newRows,
+            tableValid: this.state.emailValid && this.state.idValid && this.state.numberValid
         });
-
-        // const name = event.target.name;
-        /* this.setState({ name:event.target.value }); */
+        this.props.update(this.state.excelRows)
+        
     }
-
-    // handleUserInput(event) {
-    //     const name = event.target.name;
-    //     const value = event.target.value;
-    //     this.setState({ [name]: value }, () => {
-    //         this.validateField(name, value);
-    //     });
-    // }
-  
-    validateField(fieldName, value) {
-        let emailValid = this.state.emailValid;
-        let idValid = this.state.idValid;
-        let numberValid = this.state.numberValid;
-        let tableValidationErrors = this.state.tableErrors;
-
-        switch (fieldName) {
-        case 'email' || 'Email' :
-            emailValid = value.match(
-                /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-            );
-            tableValidationErrors.email = emailValid ? true : false;
-            break;
-
-        case 'id':
-            idValid = value.length === RecruiterConstants.idNumberLen;
-            tableValidationErrors.id = idValid ? true : false;
-            break;
-
-        case 'phone':
-            numberValid = value.length === RecruiterConstants.phoneNumberLen;
-            tableValidationErrors.phone = numberValid ? true : false;
-            break;
-
-        default:
-            break;
-        }
-        this.setState(
-            {
-                tableErrors: tableValidationErrors,
-                emailValid: emailValid,
-                numberValid: numberValid,
-                idValid: idValid
-            },
-            this.validateTable
-        );
-    }
-
-  
-    nextStep(){
+    nextStep() {
         window.location = '/VerificationConfirmed';
     }
-    prevStep(){
+    prevStep() {
         window.location = '/ReviewChecks';
     }
-    validateTable() {
-        this.setState({
-            tableValid:
-        this.state.emailValid && this.state.idValid && this.state.numberValid
-        });
-        if (this.state.idValid === false) {
-            this.setState({
-                fieldID: 'InvalidField'
-            });
-        } else {
-            this.setState({
-                fieldID: 'FieldValue'
-            });
-        }
-
-        if (this.state.emailValid === false) {
-            this.setState({
-                fieldEmail: 'InvalidField'
-            });
-        } else {
-            this.setState({
-                fieldEmail: 'FieldValue'
-            });
-        }
-
-        if (this.state.numberValid === false) {
-            this.setState({
-                fieldPhone: 'InvalidField'
-            });
-        } else {
-            this.setState({
-                fieldPhone: 'FieldValue'
-            });
-        }
-    }
-
     submit() {
         let inputFile = document.getElementById('getFile');
         let reader = new FileReader();
@@ -201,173 +129,116 @@ class MainContainer extends React.PureComponent {
             let exceRows = XLSX.utils.sheet_to_row_object_array(
                 workbook.Sheets[firstSheet]
             );
-
+            let number = exceRows.length;
             this.setState({
                 excelRows: exceRows,
-                getFile: true
+                getFile: true,
+                fileSize: number
             });
-
-            // this.state.excelRows.map(name => {
-            //     return (
-            //         this.validateField('email', name.Email),
-            //         this.validateField('id', name.IDorPassport),
-            //         this.validateField('phone', name.Phone)
-            //     );
-            // });
         };
         reader.readAsBinaryString(inputFile.files[0]);
     }
-    review() {
-    
-        return (
-            <div className="bodyPage">
-                <div className="formBox">
-                    <fieldset className="field1 current">
-                        <div id="singleForm">
-                            <div className="">
-                                <ul id="progress_bar">
-                                    <li className="active">Create Job Profile Name</li>
-                                    <li className="active">Candidate Details</li>
-                                    <li>Next Steps</li>
-                                </ul>
-                                <label className="candidateDetails">Capture Candidate Details</label>
-                                <div className="uploadSwitch">
-                                    <button className="indi" id="individual" onClick={event => this.changeDiv(event)}>INDIVIDUAL</button>
-                                    <button className="bulk" id="bulk" onClick={event => this.changeDiv(event)}> BULK</button>
-
-                                </div>
-                                <br className="Line" />
-                                <fieldset className="field1 current">
-                                    <table className="ImportTable">
-                                        <thead className="Headers">
-                                            <tr className="Headers">
-                                                <th>First Full Name</th>
-                                                <th>Surname</th>
-                                                <th>Maiden Name</th>
-                                                <th>ID/Passport</th>
-                                                <th>Birthday</th>
-                                                <th>Email</th>
-                                                <th>Phone</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="Headers">
-                                            {this.state.excelRows.map((user, index) => {
-                                                return (
-                                                    <tr className="Shape" key={index}>
-                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="name" value={user.Name} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="surname" value={user.Surname} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="madein" defaultValue={user.Maiden_Surname} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className={this.state.fieldID} type="text" name="id" value={user.ID_Passport} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className="FieldValue" type="text" name="dob" value={user.Birthday} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className={this.state.fieldEmail} type="text" name="email" value={user.Email} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td className="fieldContainer"><input className={this.state.fieldPhone} type="text" name="phone" value={user.Phone} onChange={event => this.handleUserInput(index, event)}/></td>
-                                                        <td><a href="#" onClick={(user) => this.removeRow(index, user)}><img src="https://img.icons8.com/ultraviolet/20/000000/delete.png" /></a></td>
-                                                    </tr>
-                                                );
-                                            })}
-                                        </tbody>
-                                        <validationErrors tableErrors={this.state.tableErrors} />
-                 
-                                    </table>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-
-                <div id="buttonFooter">
-                    <button id="prev" onClick={this.prevStep}>BACK</button>
-                    <button id="next" onClick={this.addBulkCandidates}>SUBMIT</button>
-                    <div className="loading">{this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}</div> 
-                </div>
-                <Footer />
-            </div>
-
-        );
-    }
-    addBulkCandidates(){
+    addBulkCandidates() {
         this.setState({
-            loading : true,
-        })
-        
-        let body = {
-            candidates : this.state.excelRows,
-        }
-        console.log(body);
-        let var_check = localStorage.getItem("ver_check");
-        Axios.post(BASE_URL + CREATE_CANDIDATE + var_check, body)
-        .then(() => {
-            window.location = '/VerificationConfirmed';
+            loading: true,
         });
-        
+
+        let body = {
+            candidates: this.state.excelRows,
+        };
+        let var_check = localStorage.getItem('ver_check');
+        Axios.post(BASE_URL + CREATE_CANDIDATE + var_check, body)
+            .then(() => {
+                window.location = '/VerificationConfirmed';
+            });
+
+    }
+
+    review() {
+
+        return (
+            <fieldset className="field1 current">
+                <table className="ImportTable">
+                    <thead className="Headers">
+                        <tr className="Headers">
+                            <th>First Full Name</th>
+                            <th>Surname</th>
+                            <th>Maiden Name</th>
+                            <th>ID/Passport</th>
+                            <th>Birthday</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody className="Headers">
+                        {this.state.excelRows.map((user, index) => {
+                            return (
+                                <tr className="Shape" key={index}>
+                                    <td className=""><input className="FieldValue" type="text" name="name" value={user.Name} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className=""><input className="FieldValue" type="text" name="surname" value={user.Surname} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className=""><input className="FieldValue" type="text" name="madein" defaultValue={user.Maiden_Surname} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className=""><input className="FieldValue" type="text" id={index+'id'} name="id" maxLength={'13'} value={user.ID_Passport} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className=""><input className="FieldValue" type="text" name="dob" value={user.Birthday} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className=""><input className="FieldValue" type="text" id={index+'email'} name="email" value={user.Email} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className=""><input className="FieldValue" type="text" id={index+'phone'} name="phone" maxLength={'10'} value={user.Phone} onChange={event => this.handleUserInput(index, event)}/></td>
+                                    <td className="trash"><a href="#" onClick={(user) => this.removeRow(index, user)}><img src="https://img.icons8.com/ultraviolet/20/000000/delete.png" /></a></td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                                    
+                </table>
+            </fieldset>
+        );
     }
 
     bulk() {
         return (
-            <div className="bodyPage">
-                <div className="formBox">
-                    <fieldset className="field1 current">
-                        <div id="singleForm">
-                            <div className="">
-                                <ul id="progress_bar">
-                                    <li className="active">Create Job Profile Name</li>
-                                    <li className="active">Candidate Details</li>
-                                    <li>Next Steps</li>
-                                </ul>
-                                <label className="candidateDetails">Capture Candidate Details</label>
-                                <div className="uploadSwitch">
-                                    <button className="indi" id="individual" onClick={event => this.changeDiv(event)}>INDIVIDUAL</button>
-                                    <button className="bulk" id="bulk" onClick={event => this.changeDiv(event)}> BULK</button>
+            <fieldset className="field1 current">
+                <div id="bulkForm">
+                    <div className="upload-area" id="uploadfile">
+                        <img
+                            src={require('../../../Assets/upload-file.svg')}
+                            alt="upload files here"
+                        />
+                        <h3>Drag and Drop or Click to upload File</h3>
+                        <br />
 
-                                </div>
-                                <br className="Line" />
-                                <fieldset className="field1 current">
-                                    <div id="bulkForm">
-                                        <div className="upload-area" id="uploadfile">
-                                            <img
-                                                src={require('../../../Assets/upload-file.svg')}
-                                                alt="upload files here"
-                                            />
-                                            <h3>Drag and Drop or Click to upload File</h3>
-                                            <br />
-
-                                            <div className="upload-btn-wrapper">
-                                                <input
-                                                    type="file"
-                                                    name="file"
-                                                    id="getFile"
-                                                    onChange={() => this.submit()}
-                                                />
-                                                <a
-                                                    href="https://cncdocuments.blob.core.windows.net/recruiters/CandidateTemplate.xlsx"
-                                                    download
-                                                >
-                                                    <img
-                                                        src={require('../../../Assets/downloadFile.svg')}
-                                                        alt="download-fav"
-                                                    />
+                        <div className="upload-btn-wrapper">
+                            <input
+                                type="file"
+                                name="file"
+                                id="getFile"
+                                onChange={() => this.submit()}
+                            />
+                            <a href="https://cncdocuments.blob.core.windows.net/recruiters/CandidateTemplate.xlsx" download>
+                                <img
+                                    src={require('../../../Assets/downloadFile.svg')}
+                                    alt="download-fav"
+                                />
                 Download Excel Template
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
+                            </a>
                         </div>
-                    </fieldset>
+                    </div>
                 </div>
-
-                <div id="buttonFooter">
-                    <button id="prev" onClick={this.prevStep}>BACK</button>
-                </div>
-                <Footer />
-            </div>
-
+            </fieldset>
+                           
         );
     }
 
     render() {
-        return <div>{!this.state.getFile ? this.bulk() : this.review()}</div>;
+        return <div>
+            {!this.state.getFile ? this.bulk() : this.review()}
+        </div>;
     }
 }
-export default MainContainer;
+
+const mapStateToProps = state => ({
+    bulkArray : state.candidateState.candidateBody
+});
+
+const mapActionToProps = (dispatch) => ({
+    update : bindActionCreators (CandidateActions.updateArray, dispatch)
+});
+export default connect(mapStateToProps, mapActionToProps)(MainContainer);

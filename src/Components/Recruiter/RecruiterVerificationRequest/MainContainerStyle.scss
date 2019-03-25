@@ -27,21 +27,18 @@
 
   .Shape {
     width: 100%;
-    height: 60px;
+    //height: 60px;
     border: solid 1px #f9f9f9;
   }
   .fieldContainer {
-    padding-right: 1px;
     padding-right: 1%;
-   
   }
   .FieldValue {
-    margin-right: 100px;
-    margin-left: -30px;
+    /* margin-left: -30px; */
     max-width: 100%;
     min-width: 10px;
-    width: 10px;
-    height: 19px;
+    // width: 10px;
+    // height: 40px;
     font-family: Roboto;
     font-size: 14px;
     font-weight: normal;
@@ -54,12 +51,10 @@
   }
 
   .InvalidField {
-    margin-right: 100px;
-    margin-left: -30px;
     max-width: 100%;
     min-width: 10px;
     width: 10px;
-    height: 19px;
+    height: 40px;
     font-family: Roboto;
     font-size: 14px;
     font-weight: normal;
@@ -68,7 +63,7 @@
     line-height: 1.57;
     letter-spacing: 0.9px;
     text-align: center;
-    border-bottom: 1px solid #ff0000;
+    border: 1px dotted #ff0000;
   }
 
   .Headers {
@@ -209,9 +204,11 @@
     width: 30vw;
   }
 
+
   #progress_bar {
     overflow: hidden;
     counter-reset: step;
+    margin-left: 150px;
   }
 
   #progress_bar li {
@@ -266,13 +263,13 @@
 
   #progress_bar li:after {
     content: "";
-    width: 100%;
+    width: 86%;
     height: 10px;
     background: #e6e9ec;
     position: absolute;
-    left: -50%;
+    left: -44;
     top: 18px;
-    z-index: -1;
+    /*z-index: -1;
     /*put it behind the numbers*/
   }
   #progress_bar li:first-child:after {
@@ -411,6 +408,7 @@
     position: relative;
     border-collapse: collapse;
     width: 60vw;
+    margin-top: 42px;
   }
 
   tr {
@@ -427,7 +425,7 @@
 
   #addChecks,
   #removeChecks {
-    text-decoration: none;
+    color:black;
   }
 
   a.addChecks {
@@ -493,7 +491,7 @@
   }
   #bulkForm .upload-area {
     position: relative;
-    margin-top: -3vh;
+    margin-top: 0vh;
    
   }
 
@@ -639,6 +637,7 @@
     border-color: #0091d1;
     background-color: #0091d1;
     border-radius: 5px;
+    margin-right: 3%;
   }
   #dashboard {
     /*display: block;*/
@@ -791,6 +790,7 @@
     border: 1px solid #000000;
     background-color: #ffffff;
     border-radius: 7px;
+    margin-left: 3%;
   }
 
   #buttonFooter {
@@ -1044,14 +1044,6 @@
     cursor: pointer;
   }
 
-#formContainer #addRemoveChecks{
-    width: 1742px;
-    height: 922px;
-    background-color: #ffffff;
-    color: #02529c;
-    margin-left: 60px;
-  }
-
   #formContainer #reorderChecks{
     width: 214px;
     height: 22px;
@@ -1079,4 +1071,5 @@
     height: 20px;
     float: left;
   }
+  
 }

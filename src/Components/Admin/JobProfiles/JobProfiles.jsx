@@ -11,18 +11,12 @@ import './JobProfiles.scss';
 class JobProfiles extends Component {
     constructor(props) {
         super(props);
-        this.allJobProfiles();
-        this.state = {
-            results: 'there are no job profiles',
-            allJobProfiles: '',
-            countTotalJobProfiles: 0,
-            countJobProfiles: 0
-        };
         this.userChoice = this.userChoice.bind(this);
         this.assignRecruiter = this.assignRecruiter.bind(this);
         
     }
        
+
     userChoice(event){
         if (event.target.value === 'All'){
             this.setState({ results: 'All' });
@@ -129,24 +123,15 @@ class JobProfiles extends Component {
     render() {
         return ( 
             <div className="jobProfiles">
-                < AdminNavBar />
+                <AdminNavBar />
                 <p>Job Profiles</p>
                 <div className="mainSection">  
-                    <div className="filter">
-                        <div id="heading">
-                            <label id="jp">Job Profiles</label>
-                            <label id="count"><b>{this.state.countJobProfiles}</b>/{this.state.countTotalJobProfiles}</label>
-                        </div>
-                        <RadioGroup id="filter" defaultValue="All" className="radios classes.root" onClick={(event) => this.userChoice(event)}>
-                            <FormControlLabel id="All" className="radio" value="All" control={<Radio disableRipple defaultChecked color="primary" />} label="All" />
-                            <FormControlLabel id="Assigned" className="radio" value="Assigned" control={<Radio disableRipple color="primary"/>} label="Assigned" />
-                            <FormControlLabel id="Unassigned" className="radio" value="Unassigned" control={<Radio disableRipple color="primary"/>} label="Unassigned" />
-                        </RadioGroup>
-                    </div>
-
-                    <div className="results">
-                        {this.state.results==='All' || this.state.results==='Assigned' || this.state.results==='Unassigned' ? < JobProfileResults allJobProfiles={this.state.allJobProfiles} /> : <JobProfileResults allJobProfiles={this.state.allJobProfiles}/>}
-                    </div>
+                    <ul id='progress_bar'>
+                        <li class="active">Create Job Profile Name</li>
+                        <li>Select verification checks</li>
+                        <li>Re-order Check Sequence</li>
+                        <li>Next Steps</li> 
+                    </ul>
                 </div>
             </div>
         );

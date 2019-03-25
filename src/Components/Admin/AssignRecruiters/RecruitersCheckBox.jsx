@@ -4,32 +4,33 @@ class RecruiterCheckBox extends Component {
     state = { 
         isChecked: false
     }
-     toggleCheckboxChange = () => {
+     toggleCheckboxChange = (e) => {
          const { handleCheckboxChange, label } = this.props;
-    
+         console.log(e.target.value);
          this.setState(({ isChecked }) => (
              {
                  isChecked: !isChecked,
              }
          ));
     
-         handleCheckboxChange(label);
+         handleCheckboxChange(e.target.value);
      }
     
      render() { 
          const { label } = this.props;
          const { isChecked } = this.state;
+         let one = 1;
          return (
-             
-             <div className="checkbox">
-                 <label>
+            
+             <div className={'checkbox'}>
+                 <label className={this.state.isChecked ? 'tickedBox' : ' '}>
                      <input
                          type="checkbox"
-                         value={label['id']}
+                         value={label[one]['ID']}
                          checked={isChecked}
                          onChange={this.toggleCheckboxChange}
                      />
-                     {label['name'] + ' ' + label['surname']}
+                     {label[one]['Name'] + ' ' + label[one]['Surname']}
                  </label>
              </div>
          );

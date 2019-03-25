@@ -2,23 +2,33 @@
   margin: 0 auto;
   text-align: center;
   height: 100%;
+
   body {
     margin: 0 auto;
     padding: 0;
     text-align: center;
     background-color: #ffffff;
   }
+
+
   .loading{
     width: 25px;
     height: 25px;
     margin: 0 auto;
-    margin-top: 12px;
-    padding-left: 1000px;
+    margin-bottom: 30px;
+    margin-top: 15px;
+    
   }
   #spinner{
       display: block;
       width: 25px;
       height: 25px;
+  }
+  .error {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: red;
   }
   .Personal-Details {
     width: 235px;
@@ -49,7 +59,8 @@
     letter-spacing: 0.6px;
     text-align: center;
     color: #2b3844;
-    margin-top: 5%;
+    margin-top: 7px;
+   
   }
 
   .personalDetailsHeader {
@@ -104,16 +115,21 @@
     background-color: #2b3844;
   }
   .formBox {
-    display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
     border: 1px solid #e6e9ec;
-    height: 600px;
+    height: 620px;
     padding: 0px;
     margin: 0 20vh;
     border-radius: 8px;
     position: relative;
+    flex-basis: auto;
+    width: 1119px;
+    // margin: 0 auto;
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom: 50px;
   }
   .innerFormBox {
     display: flex;
@@ -142,6 +158,23 @@
     color: #ffffff;
     border: #ffffff;
   }
+  .indiNew {
+    width: 150px;
+    height: 40px;
+    border-radius: 7px;
+    border: solid 1px #0091d1;
+    background-color: #f4fcff;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #0091d1;
+  }
   .uploadSwitch{
     margin: auto;
     width: 300px;
@@ -162,6 +195,23 @@
     letter-spacing: 1px;
     text-align: center;
     color: #0091d1;
+  }
+  .bulkNew {
+    width: 150px;
+    height: 40px;
+    border-radius: 7px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background-color: #0091d1;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #ffffff;
+    border: #ffffff;
   }
 
   .Line {
@@ -207,10 +257,9 @@
 
   .personalHeader {
     width: 235px;
-    height: 27px;
+    height: 0px;
     font-size: 24px;
-   // padding-bottom: -50px;
-    padding-top: 21px;
+   padding-top: 21px;
     font-weight: 300;
     font-style: normal;
     font-stretch: normal;
@@ -220,10 +269,11 @@
   }
   
   .Rectangle {
-    width: 286px;
+    width: 285px;
     height: 40px;
     border-left: 4px solid #2b3844;
     background-color: #f9f9f9;
+    margin-left: -2px;
 
     .Candidate {
       width: 149px;
@@ -254,6 +304,7 @@
   .candidatesColumn {
     border-right: 0.5px solid black;
     margin-right: 1%;
+    margin-left: -23px;
   }
   .buttonsLayout {
     width: 100%;
@@ -353,7 +404,6 @@
     padding: 0;
     margin-left: 0px;
     padding-left: 30px;
-    padding-bottom: 500px;
     font-size: 14px;
     font-weight: normal;
     font-style: normal;
@@ -370,7 +420,7 @@
   .inp input{
     -webkit-appearance: none;
     width: 290px;
-    height: 14px;
+    height: 24px;
     border: 0;
     margin-left: 0px;;
     padding-left:20px; 
@@ -478,13 +528,16 @@
 
   
 td {
-  padding: 0 35px;
+  //padding: 0 35px;
 }
 
 .inp.id .label{
   padding-left: 0;
 }
-
+.trash{
+  display: flex;
+  width: 100px;
+}
 .inp.id input{
   padding-left: 0;
 }
@@ -493,6 +546,90 @@ td {
     display: block;
     width: fit-content;
     margin-left: 17px;
-    margin-top: 5px;
+    margin-top: -6px;
+    padding-top: 11px;
+    padding-bottom: -6px;
 }
+.MuiFormGroup-root-12 {
+    margin-bottom: 15px;
+}
+.saveCandidate{
+  margin-left: 9%;
+  width: 198px;
+  height: 50px;
+  border-radius: 7px;
+  background-color: #4e9821;
+  margin-top: 1%;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #ffffff;
+  border-color: #ffffff;
+  border-style:  hidden;
+  // float: right;
+}
+
+#progress_bar{
+  // margin-left: 0px;
+   margin-left: -2%;
+  align-self: auto;
+}
+#white-save{
+  height: 12px;
+  width: 16px;
+  padding-right: 3px;
+}
+
+#newVTitile{
+  width: 463px;
+  height: 35px;
+  font-size: 15px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 2.5;
+  letter-spacing: 0.4px;
+  color: #02529c;
+  align-self: flex-start;
+  padding-left: 4%;
+}
+
+#JPTitle{
+  width: 250px;
+  height: 13px;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 3.21;
+  letter-spacing: 0.3px;
+  color: #02529c;
+  align-self: flex-start;
+  padding-left: 7%;
+  padding-bottom: 1%;
+  margin-top: -2%;
+}
+
+#firstName{
+  margin-top: -3%
+}
+
+
+.MuiFormControl-root-1{
+  margin-top: 8px;
+  height: 55px;
+}
+#footer{
+  height: 30px;
+}
+
+svg.MuiSvgIcon-root-38{
+  color : #2b3844
+}
+
 }

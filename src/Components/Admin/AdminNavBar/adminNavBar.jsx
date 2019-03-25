@@ -10,16 +10,20 @@ import Users from '../../../Assets/users.svg';
 import Notification from '../../../Assets/notification.svg';
 import { FaBars, FaAngleDown } from 'react-icons/fa';
 import 'typeface-roboto';
-import logoutImg from '../../../Assets/logout.svg';
 
 class adminNavBar extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            isTopNav: true
+            isTopNav: true,
+            user_img: '',
+            showContent: false
         };
         this.handleMenuButton = this.handleMenuButton.bind(this);
         this.getLocation = this.getLocation.bind(this);
+        this.logout = this.logout.bind(this);
+        this.btnShow = this.btnShow.bind(this);
+        this.btnUnshow = this.btnUnshow.bind(this);
     }
 
     handleMenuButton() {
@@ -40,26 +44,28 @@ class adminNavBar extends React.PureComponent {
         return false;
     }
 
-    logout(){
+    logout() {
         localStorage.clear();
         sessionStorage.clear();
         window.location = '/';
     }
-
-    AddUser(){
-        window.location='/Admin/AddUser';
+    btnShow() {
+        this.setState({ showContent: true });
+    }
+    btnUnshow() {
+        this.setState({ showContent: false });
     }
 
     render() {
         return (
-            <div>
+            <div className="adminNavBar">
                 <div className="navbar">
                     <div
                         className={this.state.isTopNav ? 'topnav' : 'topnav responsive'}
                         id="myTopnav"
                     >
                         <div className="noHover">
-                            <a className="centerLogo" href="#">
+                            <a className="centerLogo" href="/admin/recuiterJopProfiles">
                                 <img id="logo" src={Logo} alt="clickncheck" />
                             </a>
                             <a className="icon" onClick={this.handleMenuButton}>
@@ -120,20 +126,16 @@ class adminNavBar extends React.PureComponent {
                                     <label className="navLabel">Candidates</label>
                                 </div>
                             </a>
-                            <a href="#" onClick={this.AddUser()} className="">
+                            <a href="/Admin/Users/CreateAmendUser"
+                                className={
+                                    this.getLocation('/Admin/Users/CreateAmendUser')
+                                        ? 'active'
+                                        : 'inactive'
+                                }>
                                 <div className="navTab">
                                     <img className="navIcon" src={Users} alt="clickncheck" />
                                     <label className="navLabel">Users</label>
                                 </div>
-                            </a>
-                            <a href="#" onClick={this.logout} className="">
-                                <div className="navTab">
-                                    <img
-                                        className="navIcon"
-                                        src={logoutImg}
-                                        alt="clickncheck" />
-                                    <label className="navLabel">logout</label>
-                                </div>  
                             </a>
                             <button
                                 id="toggle"
@@ -158,16 +160,20 @@ class adminNavBar extends React.PureComponent {
                                     />
                                 </div>
                             </a>
-                            <div id="user">
-                                <img
-                                    id="user_img"
-                                    className="user"
-                                    src={sessionStorage.getItem('user_img')}
-                                />
-                                <label className="user" id="user_name">
-                                    {sessionStorage.getItem('user_name')}
-                                </label>
-                                <FaAngleDown id="angleDown" />
+                            <div onMouseEnter={this.btnShow} onMouseLeave={this.btnUnshow} id="user">
+                                <img id="user_img" className="user" src={sessionStorage.getItem('user_img')} />
+                                <label className="user" id="user_name">{sessionStorage.getItem('user_name')}</label>
+                                <div className="dropdown">
+                                    <button className="dropbtn" onFocus={this.btnShow} onBlur={this.btnUnshow}><FaAngleDown id="angleDown" /></button>
+                                    <div className="dropdown-content" style={{ display: this.state.showContent ? 'inherit' : 'none' }}>
+                                        <a href="mailto:clickncheckservice@gmail.com?subject=User Profile Help">
+                                            <label className="dropLabel">Help</label>
+                                        </a>
+                                        <a href="#" onClick={() => this.logout()}>
+                                            <label className="dropLabel">logout</label>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

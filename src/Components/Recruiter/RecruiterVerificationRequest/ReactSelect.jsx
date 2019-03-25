@@ -32,7 +32,7 @@ class ReactSelect extends React.Component {
             option: given => ({
                 ...given,
                 backgroundColor: '#FFFFFF',
-                border: 'solid 1px #e6e9ec',
+                borderBottom: 'solid 1px #e6e9ec',
                 borderRadius: 3,
                 '&:hover': {
                     backgroundColor: '#e6e9ec',
