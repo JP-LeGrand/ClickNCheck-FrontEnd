@@ -1,3 +1,4 @@
+
 import { combineReducers } from 'redux';
 import HomeReducer from '../../Components/Home/HomeReducer';
 import ConsentReducer from '../../Components/Candidate/Consent/ConsentReducer';
@@ -5,6 +6,9 @@ import ForgotPasswordReducer from '../../Components/Shared/ForgotPassword/Forgot
 import ChangPasswordReducer from '../../Components/Shared/ChangePassword/ChangePasswordReducer';
 import ReviewChecksReducer from '../../Components/Recruiter/RecruiterVerificationRequest/ReviewChecksReducer';
 import CandidateReducer from '../../Components/Recruiter/RecruiterVerificationRequest/CandidateReducer';
+import JobProfileReducer from '../../Components/Admin/CreateJobProfile/JobProfileReducer';
+//import JobProfileReducer from '../../Components/Admin/AssignRecruiters/jobProfileReducer';
+
 const RootReducer = combineReducers({
     homeState: HomeReducer,
     consentState: ConsentReducer,
@@ -12,6 +16,8 @@ const RootReducer = combineReducers({
     changePasswordState: ChangPasswordReducer,
     reviewChecksState: ReviewChecksReducer,
     candidateState: CandidateReducer
+    reviewChecksState: ReviewChecksReducer,
+    jobProfileState: JobProfileReducer
 });
 
 export default RootReducer;

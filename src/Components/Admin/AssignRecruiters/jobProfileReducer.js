@@ -9,7 +9,7 @@ export default (state = InitialState.jobProfileState, action) => {
         return {
             ...state,
             ...action.jobProfileState
-        }   
+        }
     default: 
         return state;
     }

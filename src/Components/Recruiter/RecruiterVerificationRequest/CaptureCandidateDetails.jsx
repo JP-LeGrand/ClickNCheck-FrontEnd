@@ -2,6 +2,7 @@ import React from 'react';
 import './CaptureCandidateDetailStyle.scss';
 import './MainContainerStyle.scss';
 import Radio from '@material-ui/core/Radio';
+//import 'semantic-ui-css/semantic.min.css';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -19,9 +20,9 @@ import { bindActionCreators } from 'redux';
 import 'typeface-roboto';
 import Axios from 'axios';
 import { RecruiterConstants } from './recruiterConstants';
-import rollingImg from '../../../Assets/Rolling.svg';
+import { rollingImg } from '../../../Assets/Rolling.svg';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
-import './candidateUploadContainer.scss';
+//import { Form, Radio } from 'semantic-ui-react';
 
 class CaptureCandidateDetails extends React.PureComponent {
     constructor(props) {
@@ -49,6 +50,7 @@ class CaptureCandidateDetails extends React.PureComponent {
             errorPhone: '',
             errorEmail: '',
             loading: false,
+            dob: '',
         };
         this.userNameHandler = this.userNameHandler.bind(this);
         this.userSurnameHandler = this.userSurnameHandler.bind(this);
@@ -80,9 +82,9 @@ class CaptureCandidateDetails extends React.PureComponent {
             .then((response) => {
                 window.location = '/VerificationConfirmed';
             },
-            (error) => {
-                console.log(error);
-            }
+                (error) => {
+                    console.log(error);
+                }
 
             );
     }
@@ -133,54 +135,55 @@ class CaptureCandidateDetails extends React.PureComponent {
         let tableValidationErrors = this.state.tableErrors;
 
         switch (fieldName) {
-        case 'email':
-            emailValid = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
-            tableValidationErrors.email = emailValid ? true : false;
-     
-            if (!tableValidationErrors.email){
-                this.setState({
-                    errorEmail : 'invalid email'
-                });
-         
-            } else {
-                this.setState({
-                    errorEmail: '',
-                });
-            }
-            break;
+            case 'email':
+                emailValid = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+                tableValidationErrors.email = emailValid ? true : false;
+                console.log('valud', emailValid);
+                console.log('.ll', tableValidationErrors.email);
+                if (!tableValidationErrors.email) {
+                    this.setState({
+                        errorEmail: 'invalid email'
+                    });
 
-        case 'id':
-            idValid = value.length === RecruiterConstants.idNumberLen;
-            tableValidationErrors.id = idValid ? true : false;
-            if (!tableValidationErrors.id) {
-                this.setState({
-                    errorID: 'invalid id number'
-                });
+                } else {
+                    this.setState({
+                        errorEmail: '',
+                    });
+                }
+                break;
 
-            } else {
-                this.setState({
-                    errorID: '',
-                });
-            }
-            break;
+            case 'id':
+                idValid = value.length === RecruiterConstants.idNumberLen;
+                tableValidationErrors.id = idValid ? true : false;
+                if (!tableValidationErrors.id) {
+                    this.setState({
+                        errorID: 'invalid id number'
+                    });
 
-        case 'phone':
-            numberValid = value.length === RecruiterConstants.phoneNumberLen;
-            tableValidationErrors.phone = numberValid ? true : false;
-            if (!tableValidationErrors.phone) {
-                this.setState({
-                    errorPhone: 'invalid phone number'
-                });
+                } else {
+                    this.setState({
+                        errorID: '',
+                    });
+                }
+                break;
 
-            } else {
-                this.setState({
-                    errorPhone: '',
-                });
-            }
-            break;
+            case 'phone':
+                numberValid = value.length === RecruiterConstants.phoneNumberLen;
+                tableValidationErrors.phone = numberValid ? true : false;
+                if (!tableValidationErrors.phone) {
+                    this.setState({
+                        errorPhone: 'invalid phone number'
+                    });
 
-        default:
-            break;
+                } else {
+                    this.setState({
+                        errorPhone: '',
+                    });
+                }
+                break;
+
+            default:
+                break;
 
         }
         this.setState(

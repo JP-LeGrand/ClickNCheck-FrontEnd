@@ -270,13 +270,13 @@
 
   #progress_bar li:after {
     content: "";
-    width: 100%;
+    width: 86%;
     height: 10px;
     background: #e6e9ec;
     position: absolute;
-    left: -50%;
+    left: -44;
     top: 18px;
-    z-index: -1;
+    /*z-index: -1;
     /*put it behind the numbers*/
   }
   #progress_bar li:first-child:after {
@@ -644,6 +644,7 @@
     border-color: #0091d1;
     background-color: #0091d1;
     border-radius: 5px;
+    margin-right: 3%;
   }
   #dashboard {
     /*display: block;*/
@@ -796,6 +797,7 @@
     border: 1px solid #000000;
     background-color: #ffffff;
     border-radius: 7px;
+    margin-left: 3%;
   }
 
   #buttonFooter {

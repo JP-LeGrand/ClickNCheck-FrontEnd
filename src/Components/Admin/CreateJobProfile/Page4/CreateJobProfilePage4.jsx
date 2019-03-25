@@ -11,7 +11,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            jobTitle: localStorage.getItem('jobProfileName'),
+            jobProfileName: localStorage.getItem('jobProfile'),
             jobCode: localStorage.getItem('jobProfileCode'),
             assigned: false
         };
@@ -40,7 +40,6 @@ class CreateJobProfilePage4 extends React.PureComponent {
     }
     render() {
         return (
-            
             <div className="createJobProfilePage4">
                 <AdminNavBar />
                 <div className="title">
@@ -58,7 +57,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
                         <img src={check} />
                         <h1 id="congrats">Congratulations!</h1>
                         <p>You have successfully created a new Job Profile: </p>
-                        <p className="bold">{localStorage.getItem('jobProfileName')}</p>
+                        <p className="bold">{this.state.jobProfileName}</p>
                         <p>Would you like to</p>
                         <div className="modalComponent">
                             <label className="links" htmlFor="modal-2">Assign this Jop Profile to a recruiter</label>
@@ -71,7 +70,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
                                 </div>
                             </div>
                         </div>
-                        <div className="modalComponent">
+                        {/*<div className="modalComponent">
                             <input className="modal-state" id="modal-1" checked={this.state.assigned} type="checkbox" />
                             <div className="modal">
                                 <label className="modal__bg" htmlFor="modal-1"></label>
@@ -80,7 +79,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
                                     <Congratulations /> 
                                 </div>
                             </div>
-                        </div>
+                        </div>*/}
                         <a className="links" href="/Admin/CreateJobProfile">Create a new Job Profile</a>
                         <a className="links" href="#" onClick={this.logout}>Logout</a>
                     </div>
