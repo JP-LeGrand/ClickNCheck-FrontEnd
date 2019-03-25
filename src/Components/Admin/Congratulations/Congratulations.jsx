@@ -1,18 +1,35 @@
 import React, { Component } from 'react';
 import check from '../../../Assets/green_check.svg';
 import './congratulations.scss';
-import AdminNavBar from '../AdminNavBar/adminNavBar';
-class Congratulations extends Component {
+import * as JobProfileActions from '../AssignRecruiters/jobProfileActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+class Congratulations extends Component {
+    state={
+        RecruiterNames:[],
+        test: [],
+    }
+    // componentDidMount(){
+    
+    // }
     handleFormSubmit = () => {
        
         window.location='/Admin/AdminPage';
     }
-    state = {  }
+
+    componentDidMount() {
+        this.props.jobProfileActions.getRecruiters(this.props.userIds);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps.recruiterNames);
+    }
+    
     render() { 
+  
         return ( 
             <div>
-                <AdminNavBar />
                 <div className="congratulations">
                     <div className="Rectangle-Copy">
                         <div>
@@ -21,8 +38,8 @@ class Congratulations extends Component {
                             <br></br> 
                             <div className="You-have-successfully">
                                 <p>You have successfully assigned job title
-                                    <span className="text-style-1"> Call Centre Supervisor </span>to <span className="text-style-1">
-                            Kyle Lourens</span> </p>
+                                    <span className="text-style-1"> {this.props.JobProfileName} </span>to <span className="text-style-1">
+                                        {this.props.RecruitersIDs}</span> </p>
                             </div>                      
                         </div>
                         <br></br>
@@ -33,5 +50,14 @@ class Congratulations extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    // userIds: state.jobProfileActions.userIds,
+    // recruiterNames: state.jobProfileState.recruiterList
+});
+
+const mapActionsToProps = (dispatch) => ({
+    jobProfileActions: bindActionCreators(JobProfileActions, dispatch)
+});
  
-export default Congratulations;
+export default connect(mapStateToProps, mapActionsToProps)(Congratulations);
