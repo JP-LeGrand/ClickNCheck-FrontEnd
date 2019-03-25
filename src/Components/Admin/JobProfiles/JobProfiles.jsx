@@ -31,7 +31,7 @@ class JobProfiles extends Component {
             this.setState({ results: 'Assigned' });
             this.assignedJobProfiles();
         } else {
-            this.setState({ results: 'Unassigned' });
+            this.setState({ results: 'Unassigned' }); 
             this.unassignedJobProfiles();
         }
 
