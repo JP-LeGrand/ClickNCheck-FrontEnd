@@ -7,12 +7,9 @@ import { bindActionCreators } from 'redux';
 
 class Congratulations extends Component {
     state={
-        RecruiterNames:[],
-        test: [],
+        RecruiterNames:[]
     }
-    // componentDidMount(){
-    
-    // }
+  
     handleFormSubmit = () => {
        
         window.location='/Admin/AdminPage';
@@ -38,8 +35,11 @@ class Congratulations extends Component {
                             <br></br> 
                             <div className="You-have-successfully">
                                 <p>You have successfully assigned job title
-                                    <span className="text-style-1"> {this.props.JobProfileName} </span>to <span className="text-style-1">
-                                        {this.props.RecruitersIDs}</span> </p>
+                                    <span className="text-style-1"> {this.props.JobProfileName} </span>to 
+                                    <span className="text-style-1">
+                                        {this.props.RecruitersIDs}
+                                    </span>   
+                                </p>
                             </div>                      
                         </div>
                         <br></br>
