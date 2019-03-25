@@ -32,7 +32,8 @@ const InitialState = {
         displayChecks: true
     },
     candidateState: {
-        displayCandidate: true
+        displayCandidate: true,
+        candidateBody: []
     }
 
 };

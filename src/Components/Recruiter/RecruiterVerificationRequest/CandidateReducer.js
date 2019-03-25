@@ -8,7 +8,11 @@ const CandidateReducer = (state = InitialState.candidateState, action) => {
             ...state,
             displayCandidate: action.payload
         };
-
+    case Types.SUBMIT_CANDIDATE : 
+        return {
+            ...state,
+            candidateBody: action.payload
+        };
     default:
         return state;
     }

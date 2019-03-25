@@ -25,3 +25,4 @@ yarn-error.log*
 test-report.xml
 yarn.lock
 package-lock.json
+public/index\.html

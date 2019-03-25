@@ -8,3 +8,12 @@ export const changeView = (view) => {
         });
     };
 };
+
+export const updateArray = (body) => {
+    return function (dispatch) {
+        dispatch({
+            type: Types.SUBMIT_CANDIDATE,
+            payload: body
+        });
+    };
+};

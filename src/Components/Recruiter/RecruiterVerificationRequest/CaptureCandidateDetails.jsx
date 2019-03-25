@@ -13,7 +13,9 @@ import userImg from '../../../Assets/user.svg';
 import email from '../../../Assets/email.svg';
 import phone from '../../../Assets/phone.svg';
 import white_save from '../../../Assets/white_save.svg';
-
+import * as CandidateActions from './CandidateActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import 'typeface-roboto';
 import Axios from 'axios';
 import { RecruiterConstants } from './recruiterConstants';
@@ -246,7 +248,7 @@ class CaptureCandidateDetails extends React.PureComponent {
             this.setState({
                 candidates: aryCandaidate
             });
-
+            this.props.udpateIndividual(aryCandaidate);
             this.setState({
                 firstName: '',
                 surname: '',
@@ -268,10 +270,8 @@ class CaptureCandidateDetails extends React.PureComponent {
 
     }
 
-    individual() {
-       
-    }
     render() {
+        console.log(this.props)
         return (
 
             <div className="innerFormBox">
@@ -395,4 +395,11 @@ class CaptureCandidateDetails extends React.PureComponent {
         );
     }
 }
-export default CaptureCandidateDetails;
+const mapStateToProps = state => ({
+    candidateIndividual : state.candidateState.candidateBody
+});
+
+const mapActionToProps = (dispatch) => ({
+    udpateIndividual : bindActionCreators (CandidateActions.updateArray, dispatch)
+});
+export default connect(mapStateToProps, mapActionToProps) (CaptureCandidateDetails);

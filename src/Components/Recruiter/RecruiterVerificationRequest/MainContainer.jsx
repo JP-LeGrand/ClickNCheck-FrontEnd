@@ -7,7 +7,9 @@ import Axios from 'axios';
 import rollingImg from '../../../Assets/Rolling.svg';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
 import CaptureCandidateDetails from './CaptureCandidateDetails';
-
+import * as CandidateActions from './CandidateActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class MainContainer extends React.PureComponent {
     constructor(props) {
@@ -121,6 +123,7 @@ class MainContainer extends React.PureComponent {
             excelRows : newRows,
             tableValid: this.state.emailValid && this.state.idValid && this.state.numberValid         
         });
+        this.props.update(this.state.excelRows)
         
     }
     nextStep(){
@@ -148,7 +151,6 @@ class MainContainer extends React.PureComponent {
                 getFile: true,
                 fileSize: number
             });
-          
 
             console.log(this.state.fileSize)
 
@@ -169,6 +171,7 @@ class MainContainer extends React.PureComponent {
                             <th>Birthday</th>
                             <th>Email</th>
                             <th>Phone</th>
+                            <th>Remove</th>
                         </tr>
                     </thead>
                     <tbody className="Headers">
@@ -244,9 +247,19 @@ class MainContainer extends React.PureComponent {
     }
 
     render() {
+        console.log(this.props);
+        console.log(this.state.excelRows);
         return <div>
             {!this.state.getFile ? this.bulk() : this.review()}
         </div>;
     }
 }
-export default MainContainer;
+
+const mapStateToProps = state => ({
+    bulkArray : state.candidateState.candidateBody
+});
+
+const mapActionToProps = (dispatch) => ({
+    update : bindActionCreators (CandidateActions.updateArray, dispatch)
+});
+export default connect(mapStateToProps, mapActionToProps)(MainContainer);
