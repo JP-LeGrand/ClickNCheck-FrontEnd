@@ -118,13 +118,11 @@ class CreateAmendUser extends Component {
                 'Surname': this.state.Surname,
                 'Phone': this.state.Phone,
                 'Email': this.state.Email,
-                'StartDate': this.state.StartDate,
-                'EndDate': this.state.EndDate,
                 'OrganisationID': 1
             } ],
             'usertypes': [ this.state.rec_roles ],
             'jobprofiles': [ this.state.rec_jobprofiles ]
-        };
+        };  
 
         event.preventDefault();
         this.setState({ isLoading: true }, () => { 
