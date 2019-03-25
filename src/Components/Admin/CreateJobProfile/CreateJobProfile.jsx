@@ -82,6 +82,7 @@ class CreateJobProfile extends React.Component {
         let def = <div><ReactSelect defaultProf="e.g Job profile here" jobProfiles={this.props.jobProfiles} onEnterProfile={this.profile} onEnterCode={this.code} /></div>;
         let selectVendors = <div><SelectVendors allChecks={this.props.allChecks} onCheckBoxClicked={this.onCheckBoxClicked} jobProfile={this.state.profile+' '+this.state.code}/></div>;
         let view = this.props.nowDisplaying == 'default' ? def : selectVendors;
+        let active = this.props.nowDisplaying == 'default' ? '' : 'active';
         return (
             <div className="createJobProfile">
                 <NavBar />
@@ -91,7 +92,7 @@ class CreateJobProfile extends React.Component {
                 <div id="formContainer">
                     <ul id="progress_bar">
                         <li className="active">Job Profile Name</li>
-                        <li>Select Verification Checks</li>
+                        <li className={active}>Select Verification Checks</li>
                         <li>Re-order Check Sequence</li>
                         <li>Next Steps</li>
                     </ul>
