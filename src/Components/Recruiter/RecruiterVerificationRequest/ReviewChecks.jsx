@@ -73,7 +73,9 @@ class ReviewChecks extends React.Component {
     }
     render() {
         return (
+
             <div className="bodyStyles">
+            <div className="candidateNav">
                 <NavBar />
                 <div id="spanHolder">
                     <span className="New-Verification-Req">New Verification Request</span>
@@ -98,6 +100,7 @@ class ReviewChecks extends React.Component {
                     <button id="next" onClick={this.individualForm}>NEXT</button>
                 </div>
                 <Footer />
+            </div>
             </div>
         );
     }

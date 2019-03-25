@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
 import './assignRecruiters.scss';
 import RecruitersCheckbox from './RecruitersCheckBox';
-import { BASE_URL, GET_RECRUITERS } from '../../../Shared/Constants';
+import { BASE_URL, GET_RECRUITERS,GET_RECRUITERS_NAMES } from '../../../Shared/Constants';
 import axios from 'axios';
+import Congratulations from '../Congratulations/Congratulations';
 
 class AssignRecruiters extends Component {
-
-    state={
-        Recruiter:[],
-        //Array of recruiter Ids that we will assign to a job
-        RecruitersID:[],
-        //This is the Job Id we are assigning recruiters to
-        jobProfileCode: 0
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            Recruiter:[],
+            //Array of recruiter Names that have been assign to a job
+            RecruitersIds:[],
+            RecruiterNames:[],
+            JpName:'',
+            testing1: '',
+            //This is the Job Id we are assigning recruiters to
+            jobProfileCode: 0,
+            done: false
+        };
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    }
+   
 
     componentDidMount() {
         fetch(BASE_URL + GET_RECRUITERS, {
@@ -42,7 +51,8 @@ class AssignRecruiters extends Component {
                 alert(error);
             }
             );
-        this.setState({ jobProfileCode:localStorage.getItem('jobProfileCode') });
+        this.setState({ jobProfileCode:sessionStorage.getItem('JobProfileID') });
+        this.setState({ JpName: localStorage.getItem('jobProfileName') });
     }
 
     componentWillMount = () => {
@@ -57,23 +67,34 @@ class AssignRecruiters extends Component {
         }
     }
     
-    handleFormSubmit = formSubmitEvent => {
-        formSubmitEvent.preventDefault();
-    
+    async handleFormSubmit(FormEvent) {
+        FormEvent.preventDefault();
         for (const checkbox of this.selectedCheckboxes) {
             console.log(checkbox, 'is selected.');
         }
-        const userIds= [];
+        let userIds= [...this.state.RecruitersIds];
         //Adding the IDs to the recruiter array
         this.selectedCheckboxes.forEach(recruiter => {
             userIds.push(recruiter);
         });
+      
         let body = {
             ids: userIds
         };
-        axios.post(BASE_URL + 'JobProfiles' + this.state.jobProfileCode + 'AssignRecruiters', body);
-        this.props.handleSubmitted();
-        //window.location='/Admin/Congratulations';
+        this.setState({
+            RecruitersIds:userIds 
+        });
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': 'Bearer ' +sessionStorage.getItem('token')
+            }
+        };
+        axios.post(BASE_URL +'JobProfiles/'+ this.state.jobProfileCode +'/AssignRecruiters', body,config);
+        const response = await axios.post(BASE_URL + GET_RECRUITERS_NAMES, userIds);
+        this.setState({ RecruiterNames:response.data });
+        
+        this.setState({ done: true });
     }
 
     createCheckbox = (label, val) => <RecruitersCheckbox
@@ -88,7 +109,7 @@ class AssignRecruiters extends Component {
         return (
             <div>
                 <div className="assignRecruiters">
-                    <form className="Rectangle-Copy" onSubmit={this.handleFormSubmit}>
+                    {!this.state.done && <form className="Rectangle-Copy" onSubmit={this.handleFormSubmit}>
                         <div>
                             <label className="Assign-Recruiters">Assign Recruiter(s) to Job Profile:</label>
                             <br/>
@@ -98,11 +119,12 @@ class AssignRecruiters extends Component {
                             </div>
                         </div>
                         <div className="assignFooter">
-                            <button type="sumbit" onClick className="Rectangle-Copy-14">Done</button> 
+                            <button type="sumbit" className="Rectangle-Copy-14">Done</button> 
                             <a href="/Admin/CreateJobProfilePage4" className="Cancel">Cancel</a>
                         </div>
-                                           
-                    </form>
+                                        
+                    </form>}
+                    { this.state.done && <Congratulations JobProfileName={this.state.JpName} RecruitersIDs={this.state.RecruiterNames}/>}
                 </div>
             </div>
             

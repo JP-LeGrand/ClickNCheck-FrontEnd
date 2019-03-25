@@ -2,6 +2,7 @@ import React from 'react';
 import './CaptureCandidateDetailStyle.scss';
 import './MainContainerStyle.scss';
 import Radio from '@material-ui/core/Radio';
+//import 'semantic-ui-css/semantic.min.css';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -13,12 +14,12 @@ import userImg from '../../../Assets/user.svg';
 import email from '../../../Assets/email.svg';
 import phone from '../../../Assets/phone.svg';
 import white_save from '../../../Assets/white_save.svg';
-
 import 'typeface-roboto';
 import Axios from 'axios';
 import { RecruiterConstants } from './recruiterConstants';
-import rollingImg from '../../../Assets/Rolling.svg';
+import { rollingImg } from '../../../Assets/Rolling.svg';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
+//import { Form, Radio } from 'semantic-ui-react';
 
 class CaptureCandidateDetails extends React.PureComponent {
     constructor(props) {
@@ -45,6 +46,7 @@ class CaptureCandidateDetails extends React.PureComponent {
             errorPhone: '',
             errorEmail: '',
             loading: false,
+            dob: '',
         };
         this.userNameHandler = this.userNameHandler.bind(this);
         this.userSurnameHandler = this.userSurnameHandler.bind(this);
@@ -56,6 +58,7 @@ class CaptureCandidateDetails extends React.PureComponent {
         this.userChoice = this.userChoice.bind(this);
         this.sendCandidates = this.sendCandidates.bind(this);
         this.validateField = this.validateField.bind(this);
+        this.dob = this.dob.bind(this);
     }
 
     prevStep() {
@@ -67,7 +70,7 @@ class CaptureCandidateDetails extends React.PureComponent {
             this.setState({
                 div: true
             });
-        } else {
+        } else if (indi === 'individual') {
             this.setState({
                 div: false
             });
@@ -128,6 +131,9 @@ class CaptureCandidateDetails extends React.PureComponent {
     userChoice(event) {
         this.setState({ idChoice: event.target.value });
 
+    }
+    dob(event) {
+        this.setState({ dob: event.target.value });
     }
 
     validateField(fieldName, value) {
@@ -377,13 +383,23 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                             </label>
                                                         </div>
                                                     </td>
+                                                    <td>
+                                                        <div className="form-group">
+                                                            <label className="inp">
+                                                                <input id="DoB" placeholder="&nbsp;" ref="date" type="date" data-date-format="MM/DD/YY" name="DoB" value={this.state.dob} onChange={(event) => this.dob(event)} />
+                                                                <span className="label">Birthday</span>
+                                                                <span className="border"></span>
+
+                                                            </label>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
                                                         <div className="form-group">
                                                             <img src={email} />
                                                             <label className={this.state.fieldEmail}>
-                                                                <input id="email" placeholder="&nbsp;" name="email" value={this.state.email} onChange={(event) => this.userEmailHandler(event)} />
+                                                                <input id="email" placeholder="" name="email" value={this.state.email} onChange={(event) => this.userEmailHandler(event)} />
                                                                 <span className="label">Email Address</span>
                                                                 <span className="border"></span>
                                                                 <label className="error">
@@ -404,11 +420,14 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                                 </label>
                                                             </label>
                                                         </div>
+
                                                     </td>
+
                                                 </tr>
+
                                             </tbody>
                                         </table>
-
+                                        <button className="saveCandidate" disabled={!this.state.tableValid} onClick={this.addCandidate}><img id="white-save" src={white_save} />Save Candidate</button>
                                     </div>
                                 </div>
                             </div>
@@ -419,7 +438,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.prevStep}>BACK</button>
                     <button id="next" disabled={!this.state.tableValid} onClick={this.sendCandidates}>SUBMIT</button>
-                    <div className="loading">{this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}</div>
+                    <div className="loading">{this.state.loading ? <img src={rollingImg} id="spinner" alt="loading..." /> : ""}</div>
 
                 </div>
                 <Footer />
