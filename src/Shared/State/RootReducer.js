@@ -7,7 +7,6 @@ import ChangPasswordReducer from '../../Components/Shared/ChangePassword/ChangeP
 import ReviewChecksReducer from '../../Components/Recruiter/RecruiterVerificationRequest/ReviewChecksReducer';
 import CandidateReducer from '../../Components/Recruiter/RecruiterVerificationRequest/CandidateReducer';
 import JobProfileReducer from '../../Components/Admin/CreateJobProfile/JobProfileReducer';
-//import JobProfileReducer from '../../Components/Admin/AssignRecruiters/jobProfileReducer';
 
 const RootReducer = combineReducers({
     homeState: HomeReducer,
@@ -15,8 +14,7 @@ const RootReducer = combineReducers({
     forgotPasswordState: ForgotPasswordReducer,
     changePasswordState: ChangPasswordReducer,
     reviewChecksState: ReviewChecksReducer,
-    candidateState: CandidateReducer
-    reviewChecksState: ReviewChecksReducer,
+    candidateState: CandidateReducer,
     jobProfileState: JobProfileReducer
 });
 

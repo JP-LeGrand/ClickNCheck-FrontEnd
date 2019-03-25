@@ -22,12 +22,10 @@ class ParentContainer extends React.PureComponent {
     }
 
     sendCandidate () {
-        console.log(this.props.candidateArray) 
-
+  
     }
    
     render () {
-        console.log(this.props);
         return (
             <div className="bodyPage">
                 <h2 id="newVTitile"><b>New Verification Request</b></h2>

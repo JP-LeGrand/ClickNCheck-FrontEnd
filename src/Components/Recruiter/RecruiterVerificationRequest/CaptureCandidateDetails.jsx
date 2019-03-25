@@ -50,7 +50,6 @@ class CaptureCandidateDetails extends React.PureComponent {
             errorPhone: '',
             errorEmail: '',
             loading: false,
-            dob: '',
         };
         this.userNameHandler = this.userNameHandler.bind(this);
         this.userSurnameHandler = this.userSurnameHandler.bind(this);
@@ -82,9 +81,9 @@ class CaptureCandidateDetails extends React.PureComponent {
             .then((response) => {
                 window.location = '/VerificationConfirmed';
             },
-                (error) => {
-                    console.log(error);
-                }
+            (error) => {
+             
+            }
 
             );
     }
@@ -135,55 +134,53 @@ class CaptureCandidateDetails extends React.PureComponent {
         let tableValidationErrors = this.state.tableErrors;
 
         switch (fieldName) {
-            case 'email':
-                emailValid = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
-                tableValidationErrors.email = emailValid ? true : false;
-                console.log('valud', emailValid);
-                console.log('.ll', tableValidationErrors.email);
-                if (!tableValidationErrors.email) {
-                    this.setState({
-                        errorEmail: 'invalid email'
-                    });
+        case 'email':
+            emailValid = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+            tableValidationErrors.email = emailValid ? true : false;
+            if (!tableValidationErrors.email) {
+                this.setState({
+                    errorEmail: 'invalid email'
+                });
 
-                } else {
-                    this.setState({
-                        errorEmail: '',
-                    });
-                }
-                break;
+            } else {
+                this.setState({
+                    errorEmail: '',
+                });
+            }
+            break;
 
-            case 'id':
-                idValid = value.length === RecruiterConstants.idNumberLen;
-                tableValidationErrors.id = idValid ? true : false;
-                if (!tableValidationErrors.id) {
-                    this.setState({
-                        errorID: 'invalid id number'
-                    });
+        case 'id':
+            idValid = value.length === RecruiterConstants.idNumberLen;
+            tableValidationErrors.id = idValid ? true : false;
+            if (!tableValidationErrors.id) {
+                this.setState({
+                    errorID: 'invalid id number'
+                });
 
-                } else {
-                    this.setState({
-                        errorID: '',
-                    });
-                }
-                break;
+            } else {
+                this.setState({
+                    errorID: '',
+                });
+            }
+            break;
 
-            case 'phone':
-                numberValid = value.length === RecruiterConstants.phoneNumberLen;
-                tableValidationErrors.phone = numberValid ? true : false;
-                if (!tableValidationErrors.phone) {
-                    this.setState({
-                        errorPhone: 'invalid phone number'
-                    });
+        case 'phone':
+            numberValid = value.length === RecruiterConstants.phoneNumberLen;
+            tableValidationErrors.phone = numberValid ? true : false;
+            if (!tableValidationErrors.phone) {
+                this.setState({
+                    errorPhone: 'invalid phone number'
+                });
 
-                } else {
-                    this.setState({
-                        errorPhone: '',
-                    });
-                }
-                break;
+            } else {
+                this.setState({
+                    errorPhone: '',
+                });
+            }
+            break;
 
-            default:
-                break;
+        default:
+            break;
 
         }
         this.setState(
@@ -211,8 +208,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                 fieldID: 'inp'
             });
         }
-        console.log(this.state.tableErrors.email)
-        if (this.state.tableErrors.email === false) {
+         if (this.state.tableErrors.email === false) {
             this.setState({
                 fieldEmail: 'invalid'
             });
@@ -274,8 +270,7 @@ class CaptureCandidateDetails extends React.PureComponent {
     }
 
     render() {
-        console.log(this.props)
-        return (
+         return (
 
             <div className="innerFormBox">
                 <div className="candidatesColumn">
