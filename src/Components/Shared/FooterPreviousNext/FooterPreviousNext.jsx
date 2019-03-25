@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 class FooterPreviousNext extends React.PureComponent{
     constructor(props){
         super(props);
+        this.handleBackEvent = this.handleBackEvent.bind(this);
+        this.handleNextEvent = this.handleNextEvent.bind(this);
     }
 
     handleBackEvent(e){
