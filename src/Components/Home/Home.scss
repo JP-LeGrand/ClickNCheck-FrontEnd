@@ -1,0 +1,16 @@
+@import "../../Shared/Styles/mixins";
+@import "../../Shared/Styles/variables";
+
+.home{
+    @include body-container;// this is for the margin s of the 
+    button{
+        @include button-style;
+        background-color: $darkBlue;
+    }
+    .yourDiv{
+        @include main-section;
+        display: flex;
+        flex-flow: column;
+        text-align: center;   
+    }
+}
