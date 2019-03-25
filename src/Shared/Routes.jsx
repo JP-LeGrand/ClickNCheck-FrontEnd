@@ -30,7 +30,7 @@ const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={Home} />
+                <Route path="/" exact component={Login} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/otp" exact component={Otp} />
                 <Route path="/candidate/consent" exact component={Consent} />
