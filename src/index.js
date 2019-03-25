@@ -5,6 +5,7 @@ import * as serviceWorker from './Shared/serviceWorker';
 import { createAppState } from './Shared/State/AppState';
 import { Provider } from 'react-redux';
 import App from './Components/App/App';
+import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(<Provider store={createAppState()}><App /></Provider>, document.getElementById('root'));
 
