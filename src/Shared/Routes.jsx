@@ -25,6 +25,7 @@ import ViewRecruiterJP from '../Components/Admin/ViewRecruiterJP/ViewRecruiterJP
 import Register from '../Components/Recruiter/Register/Register';
 import AddUser from '../Components/Admin/AddUsers/AddUsers';
 import CreateAmendUser from '../Components/Admin/CreateAmendUser/CreateAmendUser';
+import Home from '../Components/Home/Home';
 const Routes = () => {
     return (
         <BrowserRouter>
