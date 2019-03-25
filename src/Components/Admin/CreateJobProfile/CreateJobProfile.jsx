@@ -101,14 +101,6 @@ class CreateJobProfile extends React.Component {
                     </ul>
                     {view}
                 </div>
-                {/*<div id="buttonFooter">
-                    <button id="prev" onClick={this.prevDisplay}>BACK</button>
-                    <div id="saveButtonDiv">
-                        <img src={saveImg} alt="save img"/>
-                        <button id="save" onClick={this.saveProgress}>Save and continue later</button>
-                    </div>
-                    <button id="next" onClick={this.nextDisplay}>NEXT</button>
-                </div>*/}
                 <UpperFooter prevPage={this.prevDisplay} nextPage={this.nextDisplay}/>
             </div>
         );
