@@ -26,7 +26,7 @@ import Register from '../Components/Recruiter/Register/Register';
 import AddUser from '../Components/Admin/AddUsers/AddUsers';
 import CreateAmendUser from '../Components/Admin/CreateAmendUser/CreateAmendUser';
 import adminNavBar from '../Components/Admin/AdminNavBar/adminNavBar';
-
+import Home from '../Components/Home/Home';
 const Routes = () => {
     return (
         <BrowserRouter>
