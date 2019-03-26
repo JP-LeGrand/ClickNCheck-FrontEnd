@@ -199,14 +199,6 @@ class CaptureCandidateDetails extends React.PureComponent {
             this.props.checkTableValid( this.state.emailValid, this.state.idValid)
         );
     }
-    // validateTable() {
-    //     this.setState({
-    //         tableValid:
-    //             this.state.emailValid && this.state.idValid && this.state.numberValid
-    //     });
-
-    // }
-
     addCandidate() {
 
         if (this.state.firstName !== '' && this.state.surname !== '' && this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== '') {
@@ -380,6 +372,7 @@ const mapStateToProps = state => ({
 
 const mapActionToProps = (dispatch) => ({
     udpateIndividual : bindActionCreators (CandidateActions.updateArray, dispatch),
-    checkTableValid : bindActionCreators (CandidateActions.isTableValid, dispatch)
+    checkTableValid : bindActionCreators (CandidateActions.isTableValid, dispatch),
+    sendBulk : bindActionCreators(CandidateActions.submitCandidate, dispatch)
 });
 export default connect(mapStateToProps, mapActionToProps) (CaptureCandidateDetails);
