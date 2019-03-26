@@ -1,14 +1,23 @@
+@import "../../../Shared/Styles/mixins";
+@import "../../../Shared/Styles/variables";
+
 .ParentContainerBody {
-    margin: 0 auto;
-    text-align: center;
-    height: 100%;
+    @include body-container;
 .body {
-    margin: 0 auto;
-    padding: 0;
+  @include body-container;
     text-align: center;
     background-color: #ffffff;
 
 }  
+
+.switchButton {
+  position: relative;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  vertical-align: middle;
+  /* height: 0px; */
+  padding-left: 30px;
+}
 .candidateNav{
     .recNavBar .navbar .topnav {
       margin: 0 20vh;

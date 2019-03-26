@@ -1,4 +1,7 @@
 .ViewRecruiterJP{
+    .topnav{
+        margin: 0px 228px;
+    }
     .title{
         display: flex;
         flex-flow: row;
@@ -59,7 +62,7 @@
         text-align: center;
         label{
             height: 20px;
-            font-size: 24px;
+            font-size: 14px;
         }
         .hImage{
             padding-top: 5px;
@@ -72,6 +75,7 @@
         text-align: center;
         label{
             align-items: center;
+            font-size: 12px;
         }
         width:50%;
     }
