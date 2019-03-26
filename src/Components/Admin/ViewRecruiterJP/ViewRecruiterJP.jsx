@@ -114,7 +114,6 @@ class ViewRecruiterJP extends React.PureComponent{
                         });
                     });
                     this.setState({ recruiters: arr });
-                    console.log(this.state);
                 },
                 (error) => {
                     alert(error);

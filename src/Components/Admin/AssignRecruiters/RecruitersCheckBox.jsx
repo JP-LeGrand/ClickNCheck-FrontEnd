@@ -6,7 +6,6 @@ class RecruiterCheckBox extends Component {
     }
      toggleCheckboxChange = (e) => {
          const { handleCheckboxChange, label } = this.props;
-         console.log(e.target.value);
          this.setState(({ isChecked }) => (
              {
                  isChecked: !isChecked,
