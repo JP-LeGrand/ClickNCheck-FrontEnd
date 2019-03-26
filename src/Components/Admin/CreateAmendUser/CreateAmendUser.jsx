@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import userImg from '../../../Assets/user.svg';
-import emailImg from '../../../Assets/email.svg';
-import phoneImg from '../../../Assets/phone.svg';
-import mainImg from '../../../Assets/main.svg';
-import email from '../../../Assets/email.svg';
-import phone from '../../../Assets/phone.svg';
+import smallx from '../../../Assets/smallx.svg';
 import AdminNavBar from '../AdminNavBar/adminNavBar';
 import { BASE_URL, GET_ALL_JOB_PROFILES, CREATE_AMEND_USER, GET_MANAGERS } from '../../../Shared/Constants';
-import { ONE, ZERO } from '../../../Shared/IntConstants';
+import { ONE } from '../../../Shared/IntConstants';
 import './CreateAmendUser.scss';
 
 class CreateAmendUser extends Component {
@@ -23,6 +18,30 @@ class CreateAmendUser extends Component {
             EndDate: '',
             rec_jobprofiles: '',
             rec_roles: '',
+            selected_roles: [ {
+                id: 3,
+                role: 'Recruiter'
+            },
+            {
+                id: 4,
+                role: 'Manager'
+            },
+            {
+                id: 5,
+                role: 'Operator'
+            } ],
+            selected_jobs: [ {
+                id: 3,
+                title: 'Recruiter'
+            },
+            {
+                id: 4,
+                title: 'Manager'
+            },
+            {
+                id: 5,
+                title: 'Operator'
+            } ],
             rec_manager: '',
             all_managers: '',
             allJobProfiles: '',
@@ -101,7 +120,6 @@ class CreateAmendUser extends Component {
             .then(
                 response => {
                     this.setState({ all_managers: response.Users });
-                    console.log(Object.entries(this.state.all_managers));
                 },
                 error => {
                     this.setState({
@@ -214,6 +232,10 @@ class CreateAmendUser extends Component {
         const manager_resultItems = Object.entries(this.state.all_managers).map((item, index) => <option key={index} value={item[ONE].ID}>{item[ONE].Name + ' ' + item[ONE].Surname}</option>
 
         );
+
+        const select_roles = Object.entries(this.state.selected_roles).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].role}</label><img src={smallx}/></li>
+
+        );
         return (
             <div className="createAmendUser">
                 < AdminNavBar />
@@ -295,6 +317,10 @@ class CreateAmendUser extends Component {
                                     <div className="form-group">
                                         <label>Roles</label>
                                         <br />
+                                        <ul>
+                                            {select_roles}
+                                        </ul>
+                                        
                                         <select onChange={this.rolesHandler}><option>...</option>{role_resultItems}</select>
                                     </div>
 
