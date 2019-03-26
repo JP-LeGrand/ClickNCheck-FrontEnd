@@ -52,7 +52,7 @@ class AssignRecruiters extends Component {
             }
             );
         this.setState({ jobProfileCode:sessionStorage.getItem('JobProfileID') });
-        this.setState({ JpName: localStorage.getItem('jobProfileName') });
+        this.setState({ JpName: localStorage.getItem('jobProfile') });
     }
 
     componentWillMount = () => {
@@ -90,7 +90,6 @@ class AssignRecruiters extends Component {
         axios.post(BASE_URL +'JobProfiles/'+ this.state.jobProfileCode +'/AssignRecruiters', body,config);
         const response = await axios.post(BASE_URL + GET_RECRUITERS_NAMES, userIds);
         this.setState({ RecruiterNames:response.data });
-        
         this.setState({ done: true });
     }
 
@@ -102,6 +101,10 @@ class AssignRecruiters extends Component {
 
     createCheckboxes = () => this.state.Recruiter.map(this.createCheckbox)
 
+    ReturnNames(){
+        this.state.RecruiterNames.map((Names)=> <li key={Names.toString()}>{Names}</li>);
+    }
+
     render() { 
         return (
             <div>
@@ -110,7 +113,7 @@ class AssignRecruiters extends Component {
                         <div>
                             <label className="Assign-Recruiters">Assign Recruiter(s) to Job Profile:</label>
                             <br/>
-                            <label className="Call-Centre-Supervis" >{localStorage.getItem('jobProfileName')}</label >
+                            <label className="Call-Centre-Supervis" >{localStorage.getItem('jobProfile')}</label >
                             <div className="checkBoxesContainer">
                                 {this.createCheckboxes()}
                             </div>
@@ -121,7 +124,8 @@ class AssignRecruiters extends Component {
                         </div>
                                         
                     </form>}
-                    { this.state.done && <Congratulations JobProfileName={this.state.JpName} RecruitersIDs={this.state.RecruiterNames}/>}
+                    { this.state.done && <Congratulations JobProfileName={this.state.JpName} 
+                        RecruitersIDs={this.state.RecruiterNames.map((Names)=> <li key={Names.toString()}>{Names}</li>)}/>}
                 </div>
             </div>
             

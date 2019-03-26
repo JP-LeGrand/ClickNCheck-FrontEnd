@@ -7,15 +7,12 @@ import { bindActionCreators } from 'redux';
 
 class Congratulations extends Component {
     state={
-        RecruiterNames:[],
-        test: [],
+        RecruiterNames:[]
     }
-    // componentDidMount(){
-    
-    // }
+  
     handleFormSubmit = () => {
        
-        window.location='/Admin/AdminPage';
+        window.location ='/Admin/CreateJobProfilePage4';
     }
 
     componentDidMount() {
@@ -34,12 +31,14 @@ class Congratulations extends Component {
                             <br></br> 
                             <div className="You-have-successfully">
                                 <p>You have successfully assigned job title
-                                    <span className="text-style-1"> {this.props.JobProfileName} </span>to <span className="text-style-1">
-                                        {this.props.RecruitersIDs}</span> </p>
+                                    <span className="text-style-1"> {this.props.JobProfileName} </span>to 
+                                    <span className="text-style-1">
+                                        {this.props.RecruitersIDs}
+                                    </span>   
+                                </p>
                             </div>                      
                         </div>
-                        <br></br>
-                        <button onClick={this.handleFormSubmit} className="Rectangle-Copy-14">Done</button>                     
+                        <button onClick={this.handleFormSubmit} className="Rectangle-Copy-13">Done</button>                     
                     </div>
                 </div>
             </div>
