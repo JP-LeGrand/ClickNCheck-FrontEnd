@@ -33,7 +33,7 @@ const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" exact component={ParentContainer} />
+                <Route path="/" exact component={Login} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/otp" exact component={Otp} />
                 <Route path="/candidate/consent" exact component={Consent} />
@@ -57,7 +57,7 @@ const Routes = () => {
                 <Route path="/Admin/CreateJobProfilePage4" exact component={CreateJobProfilePage4} />
                 <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters} />
                 <Route path="/Admin/Congratulations" exact component={Congratulations} />
-                <Route path="/Admin/AddUser" exaxct component={AddUser}/>
+                <Route path="/Admin/AddUser" exaxct component={AddUser} />
                 <Route path="/Admin/Users/CreateAmendUser" exact component={CreateAmendUser} />
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
