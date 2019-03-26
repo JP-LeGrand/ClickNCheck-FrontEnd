@@ -174,8 +174,6 @@ class CreateAmendUser extends Component {
                         </div>
                         
                         <div id="heading">
-                            <label id="name">Mpinane Mohale</label>
-                            <label id="roles"><b>Admin, Recruiter</b></label>
                         </div>
                     </div>
 

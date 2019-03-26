@@ -22,9 +22,7 @@ class JobProfileResults extends Component {
             <td>{ item[ONE]['Name']}</td>
             <td>{ item[ONE]['Surname']}</td>
             <td>{ item[ONE]['Roles']}</td>
-            <td className="action" id={ item[ONE]['ID']} onClick={(event) => this.assignRecruiter(event)}>
-                <u>Amend User</u>
-            </td>
+            
         </tr>
         );
         
@@ -35,7 +33,6 @@ class JobProfileResults extends Component {
                         <td>Name</td>
                         <td>Surname</td>
                         <td>Role(s)</td>
-                        <td>Action</td>
                     </tr>                
                 
                     {resultItems}
