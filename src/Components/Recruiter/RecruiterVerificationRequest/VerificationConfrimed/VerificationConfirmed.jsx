@@ -8,9 +8,17 @@ import Footer from '../../../Shared/Footer/Footer';
 class VerificationConfirmed extends React.PureComponent{
     render() {
         return (
-            <div>
+            <div className="verifcationConfirmed">
                 <NavBar />
-                <div className="verifcationConfirmed">
+                <div className="title-cont">
+                    <p className="New-verification-req">
+                        New verification request
+                    </p>
+                    <p className="Job-Profile">
+                        Job Profile
+                    </p>
+                </div>
+                <div>
                     <div id="formContainer">
                         <ul id="progress_bar">
                             <li className="active">Select verification checks</li>
