@@ -9,6 +9,9 @@
     background-color: #ffffff;
     text-align: center;
     padding-top: 50px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
     }
       .Congratulation {
         width: 372px;
@@ -23,12 +26,16 @@
         text-align: center;
         color: #2b3844;
       }
-      .Rectangle-Copy-14 {
+      .Rectangle-Copy-13 {
         width: 150px;
         height: 40px;
         border-radius: 7px;
         color: #ffffff;
         background-color: #0091d1;
+        border: 1px solid #0091d1;
+        bottom: 50px;
+        position: absolute;
+
       }
       .You-have-successfully {
         width: 507px;
