@@ -19,6 +19,7 @@ class ReviewChecks extends React.Component {
         this.addRemoveChecks = this.addRemoveChecks.bind(this);
         this.individualForm = this.individualForm.bind(this);
         this.verificationChecks = this.verificationChecks.bind(this);
+        this.reorderChecks = this.reorderChecks.bind(this);
     }
 
     componentDidMount() {
@@ -37,6 +38,11 @@ class ReviewChecks extends React.Component {
         else {
             this.props.toggleDisplay(true);
         }
+    }
+
+    reorderChecks(){
+        localStorage.setItem('isRecruiter', true);
+        console.log(localStorage.getItem('jp'));
     }
 
     individualForm() {
