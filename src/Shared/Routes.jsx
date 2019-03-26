@@ -44,7 +44,7 @@ const Routes = () => {
                 <Route path="/ReviewChecks" exact component={ReviewChecks} />
                 <Route path="/NewVerificationRequest" exact component={NewVerificationRequest} />
                 <Route path="/candidate/bulk" exact component={MainContainer} />
-                <Route path="/candidate/individual" exact component={CaptureCandidateDetails} />
+                <Route path="/candidate/individual" exact component={ParentContainer} />
                 <Route path="/VerificationConfirmed" exact component={VerificationConfirmed} />
                 <Route path="/Admin/CreateJobProfile" exact component={CreateJobProfile} />
                 <Route path="/Admin/AdminPage" exact component={AdminPage} />
