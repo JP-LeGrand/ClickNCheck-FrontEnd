@@ -25,7 +25,6 @@ class ParentContainer extends React.PureComponent {
         let candidates = {
             candidates: this.props.candidateArray
         };
-        ///this.props.sendBulk("1", candidates);
     }
    
     render () {
