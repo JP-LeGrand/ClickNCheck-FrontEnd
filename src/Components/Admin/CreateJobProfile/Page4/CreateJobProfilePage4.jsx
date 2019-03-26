@@ -3,7 +3,7 @@ import Footer from '../../../Shared/Footer/Footer';
 import AdminNavBar from '../../AdminNavBar/adminNavBar';
 import check from '../../../../Assets/green_check.svg';
 import './CreateJobProfilePage4.scss';
-import './modal.scss';
+import './Modal.scss';
 import 'typeface-roboto';
 import AssignRecruiters from '../../AssignRecruiters/assignRecruiters';
 class CreateJobProfilePage4 extends React.PureComponent {

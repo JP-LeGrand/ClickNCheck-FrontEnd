@@ -42,7 +42,6 @@ class ReviewChecks extends React.Component {
 
     reorderChecks(){
         localStorage.setItem('isRecruiter', true);
-        console.log(localStorage.getItem('jp'));
     }
 
     individualForm() {

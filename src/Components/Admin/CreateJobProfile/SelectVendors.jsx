@@ -91,7 +91,6 @@ class SelectVendors extends React.Component {
                         <img src={ require('../../../Assets/'+checks[c].checkType.toString().toLowerCase()+'.svg') } alt="VerificationChecks" style={{ width: 50, height:50, float: 'left' }}/>
                         <div id="checkDiv">
                             {vendors[0]}
-                            <br/>
                         </div>
                     </td>
                     <td>
@@ -99,7 +98,6 @@ class SelectVendors extends React.Component {
                         <img id="checkImage" src={require('../../../Assets/'+checks[c+1].checkType.toString().toLowerCase()+'.svg')} alt="Credit check" style={{ width: 50, height:50, float: 'left'}} />
                         <div id="checkDiv">
                             {vendors[1]}
-                            <br/>
                         </div>
                     </td>
                 </tr>
