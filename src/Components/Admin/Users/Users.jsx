@@ -4,14 +4,14 @@ import AdminNavBar from '../AdminNavBar/adminNavBar';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import JobProfileResults from './JobProfileResults';
-import { BASE_URL, GET_ALL_JOB_PROFILES, GET_UNASSIGNED_JOB_PROFILES, GET_ASSIGNED_JOB_PROFILES } from '../../../Shared/Constants';
-import './JobProfiles.scss';
+import UserResults from './UserResults';
+import { BASE_URL, GET_ASSIGNED_JOB_PROFILES, GET_ALL_USERS, GET_RECRUITERS } from '../../../Shared/Constants';
+import './Users.scss';
 
-class JobProfiles extends Component {
+class Users extends Component {
     constructor(props) {
         super(props);
-        this.allJobProfiles();
+        this.allUsers();
         this.state = {
             results: 'there are no job profiles',
             allJobProfiles: '',
@@ -26,13 +26,13 @@ class JobProfiles extends Component {
     userChoice(event){
         if (event.target.value === 'All'){
             this.setState({ results: 'All' });
-            this.allJobProfiles();
-        } else if (event.target.value === 'Assigned'){
-            this.setState({ results: 'Assigned' });
-            this.assignedJobProfiles();
+            this.allUsers();
+        } else if (event.target.value === 'Recruiters'){
+            this.setState({ results: 'Recruiters' });
+            this.recruiters();
         } else {
-            this.setState({ results: 'Unassigned' }); 
-            this.unassignedJobProfiles();
+            this.setState({ results: 'Operators' }); 
+            this.operators();
         }
 
     }
@@ -41,8 +41,8 @@ class JobProfiles extends Component {
         alert('Assign' + event.target.id);
     }
 
-    allJobProfiles(){
-        fetch(BASE_URL + GET_ALL_JOB_PROFILES, {
+    allUsers(){
+        fetch(BASE_URL + GET_ALL_USERS, {
             method: 'GET',
             mode: 'cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -57,9 +57,9 @@ class JobProfiles extends Component {
             .then(response => response.json())
             .then(
                 response => {
-                    this.setState({ allJobProfiles: response });
-                    this.setState({ countTotalJobProfiles: Object.entries(response).length });
-                    this.setState({ countJobProfiles: Object.entries(response).length });
+                    this.setState({ allJobProfiles: response['Users'] });
+                    this.setState({ countTotalJobProfiles: Object.entries(response['Users']).length });
+                    this.setState({ countJobProfiles: Object.entries(response['Users']).length });
                 },
                 error => {
                     this.setState({
@@ -70,8 +70,8 @@ class JobProfiles extends Component {
             );
     }
 
-    unassignedJobProfiles(){
-        fetch(BASE_URL + GET_UNASSIGNED_JOB_PROFILES, {
+    recruiters(){
+        fetch(BASE_URL + GET_RECRUITERS, {
             method: 'GET',
             mode: 'cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -86,8 +86,8 @@ class JobProfiles extends Component {
             .then(response => response.json())
             .then(
                 response => {
-                    this.setState({ allJobProfiles: response });
-                    this.setState({ countJobProfiles: Object.entries(response).length });
+                    this.setState({ allJobProfiles: response['Recruiters'] });
+                    this.setState({ countJobProfiles: Object.entries(response['Recruiters']).length });
                 },
                 error => {
                     this.setState({
@@ -98,7 +98,7 @@ class JobProfiles extends Component {
             );
     }
 
-    assignedJobProfiles(){
+    operators(){
         fetch(BASE_URL + GET_ASSIGNED_JOB_PROFILES, {
             method: 'GET',
             mode: 'cors', // no-cors, cors, *same-origin
@@ -130,26 +130,27 @@ class JobProfiles extends Component {
         return ( 
             <div className="jobProfiles">
                 <AdminNavBar />
-                <p>Job Profiles</p>
+                <p>Users</p>
+                <a href="/Admin/Users/CreateAmendUser"><button>CREATE USER</button></a>
                 <div className="mainSection">  
                     <div className="filter">
                         <div id="heading">
-                            <label id="jp">Job Profiles</label>
+                            <label id="jp">Users</label>
                             <label id="count"><b>{this.state.countJobProfiles}</b>/{this.state.countTotalJobProfiles}</label>
                         </div>
                         <RadioGroup id="filter" defaultValue="All" className="radios classes.root" onClick={(event) => this.userChoice(event)}>
                             <FormControlLabel id="All" className="radio" value="All" control={<Radio disableRipple defaultChecked color="primary" />} label="All" />
-                            <FormControlLabel id="Assigned" className="radio" value="Assigned" control={<Radio disableRipple color="primary"/>} label="Assigned" />
-                            <FormControlLabel id="Unassigned" className="radio" value="Unassigned" control={<Radio disableRipple color="primary"/>} label="Unassigned" />
+                            <FormControlLabel id="Recruiters" className="radio" value="Recruiters" control={<Radio disableRipple color="primary"/>} label="Recruiters" />
+                            <FormControlLabel id="Operators" className="radio" value="Operators" control={<Radio disableRipple color="primary"/>} label="Operators" />
                         </RadioGroup>
                     </div>
 
                     <div className="results">
-                        {this.state.results==='All' || this.state.results==='Assigned' || this.state.results==='Unassigned' ? < JobProfileResults allJobProfiles={this.state.allJobProfiles} /> : <JobProfileResults allJobProfiles={this.state.allJobProfiles}/>}
+                        {this.state.results==='All' || this.state.results==='Assigned' || this.state.results==='Unassigned' ? < UserResults allJobProfiles={this.state.allJobProfiles} /> : <UserResults allJobProfiles={this.state.allJobProfiles}/>}
                     </div>
                 </div>
             </div>
         );
     }
 }
-export default connect()(JobProfiles);
+export default connect()(Users);

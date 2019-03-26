@@ -52,6 +52,7 @@ class CreateAmendUser extends Component {
             credentials: 'omit', // include, *same-origin, omit
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ sessionStorage.getItem('token')
             },
             redirect: 'follow', // manual, *follow, error
             referrer: 'no-referrer', // no-referrer, *client
@@ -117,8 +118,7 @@ class CreateAmendUser extends Component {
                 'Name': this.state.Name,
                 'Surname': this.state.Surname,
                 'Phone': this.state.Phone,
-                'Email': this.state.Email,
-                'OrganisationID': 1
+                'Email': this.state.Email
             } ],
             'usertypes': [ this.state.rec_roles ],
             'jobprofiles': [ this.state.rec_jobprofiles ]
@@ -133,6 +133,7 @@ class CreateAmendUser extends Component {
                 credentials: 'same-origin', // include, *same-origin, omit
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+ sessionStorage.getItem('token')
                 },
                 redirect: 'manual', // manual, *follow, error
                 referrer: 'no-referrer', // no-referrer, *client
