@@ -56,7 +56,6 @@ class AllChecksTable extends React.PureComponent {
                             selected: false
                         });
                     });
-                    console.log(arr);
                     this.setState({ allServices: arr });
                 },
                 (error) => {

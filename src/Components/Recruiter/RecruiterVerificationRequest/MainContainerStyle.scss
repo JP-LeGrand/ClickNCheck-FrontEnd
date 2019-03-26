@@ -188,6 +188,22 @@
     margin-top: 5%;
     }
 
+    .reviewDetails{
+      width: 393px;
+      height: 27px;
+      font-family: Roboto;
+      padding-left: 4%; 
+      font-size: 20px;
+      font-weight: 300;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.13;
+      letter-spacing: 0.6px;
+      text-align: center;
+      color: #2b3844;
+      margin-top: 5%;
+      }
+
   .rightTable {
     float: right;
     margin-right: 26vw;
@@ -217,6 +233,7 @@
     width: 33.33%;
     float: left;
     font-family: 'Roboto';
+   
     position: relative;
   }
   #bulk,
@@ -263,11 +280,11 @@
 
   #progress_bar li:after {
     content: "";
-    width: 86%;
+    width: 87%;
     height: 10px;
     background: #e6e9ec;
     position: absolute;
-    left: -44;
+    left: -157px;
     top: 18px;
     /*z-index: -1;
     /*put it behind the numbers*/
@@ -300,6 +317,7 @@
     color: black;
     width: 33.33%;
     float: left;
+    
     position: relative;
   }
 
@@ -347,10 +365,6 @@
     text-align: center;
     color: #2b3844;
   }
-
-  /*
-    Styles for fildsets and input
-*/
 
   .field1 {
     border: 0px solid white;

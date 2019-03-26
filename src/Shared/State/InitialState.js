@@ -41,8 +41,11 @@ const InitialState = {
     },
     candidateState: {
         displayCandidate: true,
-        candidateBody: []
-    }
+        candidateBody: [],
+        fileState: true,
+        fileSize : '',
+        tableValid : false
+    },
 
 };
 

@@ -46,8 +46,6 @@ class AddUsers extends Component {
             users: body,
             usersTypes: this.state.recruiter,
         };
-
-        console.log(user);
     }
     render() {
         return (
