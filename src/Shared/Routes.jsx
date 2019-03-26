@@ -24,7 +24,6 @@ import AddRemoveChecks from '../Components/Recruiter/RecruiterVerificationReques
 import ViewRecruiterJP from '../Components/Admin/ViewRecruiterJP/ViewRecruiterJP';
 import Register from '../Components/Recruiter/Register/Register';
 import ParentContainer from '../Components/Recruiter/RecruiterVerificationRequest/ParentContainer';
-
 import AddUser from '../Components/Admin/AddUsers/AddUsers';
 import CreateAmendUser from '../Components/Admin/CreateAmendUser/CreateAmendUser';
 import adminNavBar from '../Components/Admin/AdminNavBar/adminNavBar';
@@ -45,7 +44,7 @@ const Routes = () => {
                 <Route path="/ReviewChecks" exact component={ReviewChecks} />
                 <Route path="/NewVerificationRequest" exact component={NewVerificationRequest} />
                 <Route path="/candidate/bulk" exact component={MainContainer} />
-                <Route path="/candidate/individual" exact component={CaptureCandidateDetails} />
+                <Route path="/candidate/individual" exact component={ParentContainer} />
                 <Route path="/VerificationConfirmed" exact component={VerificationConfirmed} />
                 <Route path="/Admin/CreateJobProfile" exact component={CreateJobProfile} />
                 <Route path="/Admin/AdminPage" exact component={AdminPage} />

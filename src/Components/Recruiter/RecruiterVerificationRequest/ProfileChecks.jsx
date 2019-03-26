@@ -17,8 +17,7 @@ class ProfileChecks extends React.Component {
             padding: '0 20px 0 0'
         };
 
-        const listItems = this.props.checks.map((item) =>
-            <div className="returnedCheckCategory">
+        const listItems = this.props.checks.map((item) => <div className="returnedCheckCategory">
                 <li id="jobProfileChecks"><img style={imgStyle} src={require('../../../Assets/' + item.category.toString().toLowerCase() + '.svg')}></img>   {item.category}</li>
 
             </div>

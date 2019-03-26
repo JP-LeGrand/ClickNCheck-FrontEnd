@@ -25,7 +25,8 @@ class CreateJobProfilePage3 extends React.PureComponent {
             token: sessionStorage.getItem('token'),
             jobProfileCode: localStorage.getItem('jobCode'),
             JobProfile: {},
-            checks: JSON.parse(sessionStorage.getItem('services'))
+            checks: JSON.parse(sessionStorage.getItem('services')),
+            isRecruiter: localStorage.getItem('isRecruiter')
         };
          
         this.nextStep = this.nextStep.bind(this);

@@ -22,13 +22,15 @@ class CreateJobProfilePage4 extends React.PureComponent {
         // after you have saved them into the database.
         // you do this in page 3.
         this.logout = this.logout.bind(this);
-        this.handleSubmitted = this.handleSubmitted.bind(this); 
+        this.handleSubmitted = this.handleSubmitted.bind(this);
         this.handleSubmittedCongrats = this.handleSubmittedCongrats.bind(this);
     }
     logout() {
         localStorage.clear();
         sessionStorage.clear();
         window.location = '/';
+
+        
     }
     handleSubmitted() {
         this.setState({ assigned: !this.state.assigned });
@@ -44,7 +46,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
                 <div className="title">
                     New job profile
                 </div>
-                
+
                 <div id="formContainer">
                     <ul id="progress_bar_taf">
                         <li className="active">Job Profile Name</li>

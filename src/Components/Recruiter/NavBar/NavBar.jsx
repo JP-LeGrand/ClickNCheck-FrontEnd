@@ -73,7 +73,7 @@ class NavBar extends React.PureComponent {
                         </div>
                         
                         <div id="mobile">
-                            <a href="#" className="">
+                            <a href="#" className="isDisabled">
                                 <div className="navTab">
                                     <img
                                         className="navIcon"
@@ -91,16 +91,7 @@ class NavBar extends React.PureComponent {
                                     <label className="navLabel">Verification Request</label>
                                 </div>
                             </a>
-                            <a href="#" className="">
-                                <div className="navTab">
-                                    <img
-                                        className="navIcon"
-                                        src={JobProfile}
-                                        alt="clickncheck" />
-                                    <label className="navLabel">Job Profiles</label>
-                                </div>
-                            </a>
-                            <a href="#" className="">
+                            <a href="#" className="isDisabled">
                                 <div className="navTab">
                                     <img
                                         className="navIcon"
@@ -109,7 +100,7 @@ class NavBar extends React.PureComponent {
                                     <label className="navLabel">Reports</label>
                                 </div>
                             </a>
-                            <a href="#" className="">
+                            <a href="#" className="isDisabled">
                                 <div className="navTab">
                                     <img
                                         className="navIcon"
