@@ -309,9 +309,11 @@ class Register extends React.PureComponent{
       }
 
       componentDidMount(){
-          this.setState({ userId:this.props.match.params.userId });
+          let id = this.props.match.params.userId;
+          this.setState({ userId:id });
+          localStorage.setItem('user_id', id);
           let arr = [];
-          fetch(BASE_URL+GET_MANAGERS+'4', {
+          fetch(BASE_URL+GET_MANAGERS+id, {
               method: 'GET',
               mode: 'cors', // no-cors, cors, *same-origin
               cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
