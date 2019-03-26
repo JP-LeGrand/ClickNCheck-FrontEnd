@@ -28,6 +28,14 @@ class CreateAmendUser extends Component {
                 {
                     id: 3,
                     role: 'Recruiter'
+                },
+                {
+                    id: 4,
+                    role: 'Manager'
+                },
+                {
+                    id: 5,
+                    role: 'Operator'
                 } ]
 
         };
