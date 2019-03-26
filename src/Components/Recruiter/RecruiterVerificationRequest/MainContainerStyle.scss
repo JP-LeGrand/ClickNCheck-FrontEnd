@@ -280,11 +280,11 @@
 
   #progress_bar li:after {
     content: "";
-    width: 87%;
+    width: 89%;
     height: 10px;
     background: #e6e9ec;
     position: absolute;
-    left: -157px;
+    left: -185px;
     top: 18px;
     /*z-index: -1;
     /*put it behind the numbers*/
@@ -429,7 +429,8 @@
     border-bottom: 1px solid #ccc;
   }
   tbody tr td {
-    margin-left: 2vw;
+    margin-left: 3vw;
+    margin-top: 1vw;
   }
 
   table tbody tr td a {

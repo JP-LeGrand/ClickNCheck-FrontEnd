@@ -114,8 +114,10 @@ class adminNavBar extends React.PureComponent {
                                     <label className="navLabel">Job Profiles</label>
                                 </div>
                             </a>
+
                             <a href="/Users"
                               
+
                                 className={
                                     this.getLocation('/Users')
                                         ? 'active'
