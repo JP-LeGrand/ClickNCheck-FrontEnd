@@ -186,6 +186,7 @@ class CreateAmendUser extends Component {
                                     <div className="form-group">
                                         <label>Start and End Date</label>
                                         <br/>
+                                        <span className="dateLabel">start date</span>
                                         <input id="start_date" type="date" placeholder="&nbsp;" name="start_date" value={this.state.startDate} onChange={(event) => this.startDateHandler(event)} />
                                     </div>
                                 </td>
@@ -211,6 +212,7 @@ class CreateAmendUser extends Component {
                                 <td>
                                     <br/>
                                     <br/>
+                                    <span className="dateLabel">end date</span>
                                     <input id="end_date" type="date" placeholder="&nbsp;" name="end_date" value={this.state.startDate} onChange={(event) => this.endDateHandler(event)} />
                                 </td>
 

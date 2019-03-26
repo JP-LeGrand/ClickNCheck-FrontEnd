@@ -130,8 +130,10 @@ class Users extends Component {
         return ( 
             <div className="jobProfiles">
                 <AdminNavBar />
-                <p>Users</p>
-                <a href="/Admin/Users/CreateAmendUser"><button>CREATE USER</button></a>
+                <div className="headSection">
+                    <p>Users</p>
+                    <a href="/Admin/Users/CreateAmendUser"><button>CREATE USER</button></a>
+                </div>
                 <div className="mainSection">  
                     <div className="filter">
                         <div id="heading">
@@ -141,12 +143,11 @@ class Users extends Component {
                         <RadioGroup id="filter" defaultValue="All" className="radios classes.root" onClick={(event) => this.userChoice(event)}>
                             <FormControlLabel id="All" className="radio" value="All" control={<Radio disableRipple defaultChecked color="primary" />} label="All" />
                             <FormControlLabel id="Recruiters" className="radio" value="Recruiters" control={<Radio disableRipple color="primary"/>} label="Recruiters" />
-                            <FormControlLabel id="Operators" className="radio" value="Operators" control={<Radio disableRipple color="primary"/>} label="Operators" />
                         </RadioGroup>
                     </div>
 
                     <div className="results">
-                        {this.state.results==='All' || this.state.results==='Assigned' || this.state.results==='Unassigned' ? < UserResults allJobProfiles={this.state.allJobProfiles} /> : <UserResults allJobProfiles={this.state.allJobProfiles}/>}
+                        {this.state.results==='All' || this.state.results==='Recruiters' ? < UserResults allJobProfiles={this.state.allJobProfiles} /> : <UserResults allJobProfiles={this.state.allJobProfiles}/>}
                     </div>
                 </div>
             </div>
