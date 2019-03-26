@@ -22,7 +22,7 @@ class MainContainer extends React.PureComponent {
             emailValid: false,
             idValid: false,
             numberValid: false,
-             loading: false,
+            sloading: false,
         };
         this.submit = this.submit.bind(this);
         this.addBulkCandidates = this.addBulkCandidates.bind(this);
@@ -60,6 +60,9 @@ class MainContainer extends React.PureComponent {
             propName = 'ID_Passport';
             if (event.target.value.length !== RecruiterConstants.idNumberLen) {
                 document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
+                this.setState({
+                    idValid: false
+                });
 
             } else {
                 document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
@@ -75,11 +78,13 @@ class MainContainer extends React.PureComponent {
             propName = 'Email';
             if (!event.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
                 document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
-
+                this.setState({
+                    emailValid: false
+                });
             } else {
                 document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
                 this.setState({
-                    idValid: true
+                    emailValid: true
                 });
             }
             break;
@@ -102,7 +107,9 @@ class MainContainer extends React.PureComponent {
             excelRows: newRows,
          });
         this.props.update(this.state.excelRows);
-        this.props.checkTableValid( this.state.emailValid, this.state.idValid)
+        console.log("id" + this.state.idValid);
+        console.log("enail" +  this.state.emailValid);
+        this.props.checkTableValid( this.state.emailValid, this.state.idValid);
         
     }
     nextStep() {
