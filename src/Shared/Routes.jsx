@@ -28,6 +28,7 @@ import AddUser from '../Components/Admin/AddUsers/AddUsers';
 import CreateAmendUser from '../Components/Admin/CreateAmendUser/CreateAmendUser';
 import adminNavBar from '../Components/Admin/AdminNavBar/adminNavBar';
 import Home from '../Components/Home/Home';
+import Users from '../Components/Admin/Users/Users';
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -43,7 +44,7 @@ const Routes = () => {
                 <Route path="/ReviewChecks" exact component={ReviewChecks} />
                 <Route path="/NewVerificationRequest" exact component={NewVerificationRequest} />
                 <Route path="/candidate/bulk" exact component={MainContainer} />
-                <Route path="/candidate/individual" exact component={CaptureCandidateDetails} />
+                <Route path="/candidate/individual" exact component={ParentContainer} />
                 <Route path="/VerificationConfirmed" exact component={VerificationConfirmed} />
                 <Route path="/Admin/CreateJobProfile" exact component={CreateJobProfile} />
                 <Route path="/Admin/AdminPage" exact component={AdminPage} />
@@ -58,6 +59,7 @@ const Routes = () => {
                 <Route path="/Admin/Congratulations" exact component={Congratulations} />
                 <Route path="/Admin/AddUser" exaxct component={AddUser}/>
                 <Route path="/Admin/Users/CreateAmendUser" exact component={CreateAmendUser} />
+                <Route path="/Users" exact component={Users} />
                 <Route render={() => <Redirect to="/" />} />
             </Switch>
         </BrowserRouter>
