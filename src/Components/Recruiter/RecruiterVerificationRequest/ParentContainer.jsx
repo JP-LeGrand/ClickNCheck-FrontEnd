@@ -30,7 +30,8 @@ class ParentContainer extends React.PureComponent {
    
     render () {
         return (
-            
+            <div className="candidateNav">
+            <NavBar />
             <div className="bodyPage">
                 <h2 id="newVTitile"><b>New Verification Request</b></h2>
                 <h3 id="JPTitle">Job Profile</h3>
@@ -79,7 +80,7 @@ class ParentContainer extends React.PureComponent {
                 </div>
                 <Footer />
             </div>
-         
+         </div>
         );
     }
 }
