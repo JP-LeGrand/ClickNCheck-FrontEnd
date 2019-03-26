@@ -1,15 +1,8 @@
 import React from 'react';
 import ReactSelect from './ReactSelect';
 import './ViewRecruiterJP.scss';
-import { FaAngleRight, FaMoneyBill } from 'react-icons/fa';
-import Logo from '../../../Assets/main.svg';
-import Dashboard from '../../../Assets/dashboard.svg';
-import VerificationRequest from '../../../Assets/verification.svg';
+import { FaAngleRight } from 'react-icons/fa';
 import JobProfile from '../../../Assets/job_profile.svg';
-import Reports from '../../../Assets/reports.svg';
-import Candidates from '../../../Assets/candidates.svg';
-import logoutImg from '../../../Assets/logout.svg';
-import Calendar from '../../../Assets/calendar.svg';
 import userImg from '../../../Assets/user.svg';
 import axios from 'axios';
 import { BASE_URL, GET_RECRUITERS, GET_RECRUITER_JOB_PROFILE } from '../../../Shared/Constants';

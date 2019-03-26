@@ -12,7 +12,7 @@ class Congratulations extends Component {
   
     handleFormSubmit = () => {
        
-        window.location='/Admin/AdminPage';
+        window.location ='/Admin/CreateJobProfilePage4';
     }
 
     componentDidMount() {
@@ -42,8 +42,7 @@ class Congratulations extends Component {
                                 </p>
                             </div>                      
                         </div>
-                        <br></br>
-                        <button onClick={this.handleFormSubmit} className="Rectangle-Copy-14">Done</button>                     
+                        <button onClick={this.handleFormSubmit} className="Rectangle-Copy-13">Done</button>                     
                     </div>
                 </div>
             </div>

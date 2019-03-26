@@ -52,7 +52,7 @@ class AssignRecruiters extends Component {
             }
             );
         this.setState({ jobProfileCode:sessionStorage.getItem('JobProfileID') });
-        this.setState({ JpName: localStorage.getItem('jobProfileName') });
+        this.setState({ JpName: localStorage.getItem('jobProfile') });
     }
 
     componentWillMount = () => {
@@ -116,7 +116,7 @@ class AssignRecruiters extends Component {
                         <div>
                             <label className="Assign-Recruiters">Assign Recruiter(s) to Job Profile:</label>
                             <br/>
-                            <label className="Call-Centre-Supervis" >{localStorage.getItem('jobProfileName')}</label >
+                            <label className="Call-Centre-Supervis" >{localStorage.getItem('jobProfile')}</label >
                             <div className="checkBoxesContainer">
                                 {this.createCheckboxes()}
                             </div>
