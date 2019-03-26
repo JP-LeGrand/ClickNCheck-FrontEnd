@@ -1,62 +1,35 @@
 .prevNextFooter{
-    background-color: #f9f9f9;
+    height: 100px;
     #buttonFooter{
-        background-color: #f9f9f9;
+        background-color: #e6e9ec;
         position: fixed;
+        bottom: 45px;
         left: 0;
         right: 0;
-        bottom: 45px;
-        margin-left: 10%;
-        margin-right: 10%;
-        .block{
-            display: inline;
-        }
-         #prev{
-            width: 125px;
-            height: 50px;
-            border-radius: 7px;
-            border: solid 1px #2b3844;
-            background-color: #ffffff;
-            display: inline-block;
-            color: black;
-            padding: 0;
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
-        #saveIcon{
-            margin-top: 10px;
-            margin-left: 30px;
-            display: inline-block;
-        }
-        #linkText{
-            font-size: 50px;
-        }
-        #saveText{
-            font-family: Roboto;
-            height: 30px;
-            font-size: 16px;
-            font-weight: bold;
-            font-style: normal;
-            font-stretch: normal;
-            line-height: 1.83;
-            letter-spacing: 0.8px;
-            color: #0091d1;
-            display: inline-block;
-            margin-top: 30px;
-            margin-bottom: 25px;
-            
-        }
-        #next{
-            width: 125px;
-            height: 50px;
-            border-radius: 7px;
-            padding: 0;
-            background-color: #0091d1;
-            float: right;
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
+        height: 50px;
+        text-align: center;
+        color: #e6e9ec;
     }
-   
 
+    #leftButton{
+        width: 90px;
+        height: 35px;
+        margin-top: 5px;
+        border-radius: 7px;
+        border: solid 1px #2b3844;
+        background-color: #ffffff;
+        float: left;
+        margin-left: 228px;
+    }
+    #rightButton{
+        width: 90px;
+        height: 35px;
+        margin-top: 5px;
+        color: #FFFFFF;
+        border-radius: 7px;
+        background-color: #0091d1;
+        border: 1px solid #0091d1;
+        float: right;
+        margin-right: 228px;
+    }
 }

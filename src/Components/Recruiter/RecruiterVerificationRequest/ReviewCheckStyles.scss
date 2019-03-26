@@ -28,6 +28,7 @@
     }
     
     #progress_bar li{
+        margin-top: 20px;
         list-style-type: none;
         color: black;
         width:33.33%;
@@ -37,6 +38,7 @@
     
     #progress_bar li:before{
         content: counter(step);
+        position: relative;
         counter-increment: step;
         width: 45px;
         line-height: 45px;
@@ -48,18 +50,19 @@
         border: 1px solid #2b3844;
         border-radius: 50%;
         margin: 0 auto 10px auto;
+        z-index: 10;
         
     }
     
     #progress_bar li:after {
       content: '';
-      width: 88%;
+      width: 98%;
       height: 10px;
       background: #e6e9ec;
       position: absolute;
-      left: -44%;
+      left: -50%;
       top: 18px;
-      /* z-index: -1; */  
+       z-index: 0; 
     }
     #progress_bar li:first-child:after {
     /*connector not needed before the first step*/
