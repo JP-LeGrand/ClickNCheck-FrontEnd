@@ -162,7 +162,6 @@ class CreateAmendUser extends Component {
         const roleresultItems = this.state.roles.map((item,index) => <option key={index} value={item.id}>{item.role}</option>
         
         );
-        //console.log(this.state.jobProfiles);
         return (
             <div className="createAmendUser">
                 < AdminNavBar />
