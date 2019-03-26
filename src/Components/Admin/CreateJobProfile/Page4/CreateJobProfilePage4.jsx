@@ -3,7 +3,7 @@ import Footer from '../../../Shared/Footer/Footer';
 import AdminNavBar from '../../AdminNavBar/adminNavBar';
 import check from '../../../../Assets/green_check.svg';
 import './CreateJobProfilePage4.scss';
-import './modal.scss';
+import './Modal.scss';
 import 'typeface-roboto';
 import AssignRecruiters from '../../AssignRecruiters/assignRecruiters';
 class CreateJobProfilePage4 extends React.PureComponent {
@@ -22,7 +22,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
         // after you have saved them into the database.
         // you do this in page 3.
         this.logout = this.logout.bind(this);
-        this.handleSubmitted = this.handleSubmitted.bind(this); 
+        this.handleSubmitted = this.handleSubmitted.bind(this);
         this.handleSubmittedCongrats = this.handleSubmittedCongrats.bind(this);
     }
     logout() {
@@ -46,7 +46,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
                 <div className="title">
                     New job profile
                 </div>
-                
+
                 <div id="formContainer">
                     <ul id="progress_bar_taf">
                         <li className="active">Job Profile Name</li>

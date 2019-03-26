@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SelectVendors from './SelectVendors';
 import saveImg from '../../../Assets/save.svg';
+import UpperFooter from '../../Shared/FooterPreviousNext/FooterPreviousNext';
 
 class CreateJobProfile extends React.Component {
     constructor(props) {
@@ -39,8 +40,7 @@ class CreateJobProfile extends React.Component {
         this.props.updateCode(this.state.code);
     }
 
-    nextDisplay(e){
-        
+    nextDisplay(e){  
         switch (this.props.nowDisplaying){
         case 'default':
             this.props.updateSelectedProfile(this.state.profile);
@@ -82,7 +82,7 @@ class CreateJobProfile extends React.Component {
         let def = <div><ReactSelect defaultProf="e.g Job profile here" jobProfiles={this.props.jobProfiles} onEnterProfile={this.profile} onEnterCode={this.code} /></div>;
         let selectVendors = <div><SelectVendors allChecks={this.props.allChecks} onCheckBoxClicked={this.onCheckBoxClicked} jobProfile={this.state.profile+' '+this.state.code}/></div>;
         let view = this.props.nowDisplaying == 'default' ? def : selectVendors;
-        let active = this.props.nowDisplaying == 'default' ? '' : 'active';
+        let activeClass = this.props.nowDisplaying == 'default' ? '' : 'active';
         return (
             <div className="createJobProfile">
                 <NavBar />
@@ -92,21 +92,13 @@ class CreateJobProfile extends React.Component {
                 <div id="formContainer">
                     <ul id="progress_bar">
                         <li className="active">Job Profile Name</li>
-                        <li className={active}>Select Verification Checks</li>
+                        <li className={activeClass}>Select Verification Checks</li>
                         <li>Re-order Check Sequence</li>
                         <li>Next Steps</li>
                     </ul>
                     {view}
                 </div>
-                <div id="buttonFooter">
-                    <button id="prev" onClick={this.prevDisplay}>BACK</button>
-                    <div id="saveButtonDiv">
-                        <img src={saveImg} alt="save img"/>
-                        <button id="save" onClick={this.saveProgress}>Save and continue later</button>
-                    </div>
-                    <button id="next" onClick={this.nextDisplay}>NEXT</button>
-                </div>
-                <Footer />
+                <UpperFooter prevPage={this.prevDisplay} nextPage={this.nextDisplay}/>
             </div>
         );
     }
