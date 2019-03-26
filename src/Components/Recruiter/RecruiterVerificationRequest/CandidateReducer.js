@@ -13,6 +13,21 @@ const CandidateReducer = (state = InitialState.candidateState, action) => {
             ...state,
             candidateBody: action.payload
         };
+    case Types.UPLOAD_FILE :
+        return {
+            ...state,
+            fileState : action.payload    
+        };
+    case Types.FILE_SIZE :
+        return {
+            ...state,
+            fileSize : action.payload
+        };    
+    case Types.TABLE_VALID :
+        return {
+            ...state,
+            tableValid: action.payload
+        };
     default:
         return state;
     }

@@ -28,7 +28,6 @@ class CaptureCandidateDetails extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            div: false,
             candidates: [],
             firstName: '',
             surname: '',
@@ -139,12 +138,14 @@ class CaptureCandidateDetails extends React.PureComponent {
             tableValidationErrors.email = emailValid ? true : false;
             if (!tableValidationErrors.email) {
                 this.setState({
-                    errorEmail: 'invalid email'
+                    errorEmail: 'invalid email',
+                    fieldEmail: 'invalid',
                 });
 
             } else {
                 this.setState({
                     errorEmail: '',
+                    fieldEmail: 'inp',
                 });
             }
             break;
@@ -154,12 +155,14 @@ class CaptureCandidateDetails extends React.PureComponent {
             tableValidationErrors.id = idValid ? true : false;
             if (!tableValidationErrors.id) {
                 this.setState({
-                    errorID: 'invalid id number'
+                    errorID: 'invalid id number',
+                    fieldID: 'invalid',
                 });
 
             } else {
                 this.setState({
                     errorID: '',
+                    fieldID: 'inp',
                 });
             }
             break;
@@ -169,12 +172,14 @@ class CaptureCandidateDetails extends React.PureComponent {
             tableValidationErrors.phone = numberValid ? true : false;
             if (!tableValidationErrors.phone) {
                 this.setState({
-                    errorPhone: 'invalid phone number'
+                    errorPhone: 'invalid phone number',
+                    fieldPhone: 'invalid',
                 });
 
             } else {
                 this.setState({
                     errorPhone: '',
+                    fieldPhone: 'inp',
                 });
             }
             break;
@@ -190,44 +195,17 @@ class CaptureCandidateDetails extends React.PureComponent {
                 numberValid: numberValid,
                 idValid: idValid
             },
-            this.validateTable
+          
+            this.props.checkTableValid( this.state.emailValid, this.state.idValid)
         );
     }
-    validateTable() {
-        this.setState({
-            tableValid:
-                this.state.emailValid && this.state.idValid && this.state.numberValid
-        });
+    // validateTable() {
+    //     this.setState({
+    //         tableValid:
+    //             this.state.emailValid && this.state.idValid && this.state.numberValid
+    //     });
 
-        if (this.state.idValid === false) {
-            this.setState({
-                fieldID: 'invalid'
-            });
-        } else {
-            this.setState({
-                fieldID: 'inp'
-            });
-        }
-         if (this.state.tableErrors.email === false) {
-            this.setState({
-                fieldEmail: 'invalid'
-            });
-        } else {
-            this.setState({
-                fieldEmail: 'inp'
-            });
-        }
-
-        if (this.state.numberValid === false) {
-            this.setState({
-                fieldPhone: 'invalid'
-            });
-        } else {
-            this.setState({
-                fieldPhone: 'inp'
-            });
-        }
-    }
+    // }
 
     addCandidate() {
 
@@ -270,134 +248,138 @@ class CaptureCandidateDetails extends React.PureComponent {
     }
 
     render() {
-         return (
+        return (
+            <div className= "candidatesRow">
+                <div className="innerFormBox ">
+                    <div className="candidatesColumn">
+                        <h1 className="candidateHeader">Candidate(s)</h1>
+                        {this.state.candidates.map((user, index) => {
+                            return (
+                                <div className="wrappingDiv" key={index}>
+                                    <div className="Rectangle">
+                                        <p className="Candidate">{user.Name} {user.Surname}</p>
+                                    </div>
 
-            <div className="innerFormBox">
-                <div className="candidatesColumn">
-                    <h1 className="candidateHeader">Candidate(s)</h1>
-                    {this.state.candidates.map((user, index) => {
-                        return (
-                            <div className="wrappingDiv" key={index}>
-                                <div className="Rectangle">
-                                    <p className="Candidate">{user.Name} {user.Surname}</p>
                                 </div>
+                            );
+                        })
+                        }
+                        <p className="Add-another-candid">{this.props.tableValid ? <a href="#" onClick={this.addCandidate}>+ Add another candidate</a> : "Add another candidate"}</p>
 
-                            </div>
-                        );
-                    })
-                    }
-                    <p className="Add-another-candid">{this.state.tableValid ? <a href="#" onClick={this.addCandidate}>+ Add another candidate</a> : "Add another candidate"}</p>
+                    </div>
+                    <div id="singleForm">
 
-                </div>
-                <div id="singleForm">
+                        <table className="rightTable">
+                            <thead />
 
-                    <table className="rightTable">
-                        <thead />
-
-                        <tbody>
-                            <h1 className="personalHeader">Personal Details</h1>
-                            <tr>
-                                <td>
-                                    <div className="form-group">
-                                        <img src={userImg} />
-                                        <label className="inp">
-                                            <input id="firstName" placeholder="&nbsp;" name="firstName" value={this.state.firstName} onChange={this.userNameHandler} />
-                                            <span className="label">Full First Name</span>
-                                            <span className="border"></span>
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="form-group">
-                                        <img src={userImg} />
-                                        <label className="inp">
-                                            <input id="surname" placeholder="&nbsp;" name="surname" value={this.state.surname} onChange={this.userSurnameHandler} />
-                                            <span className="label">Surname</span>
-                                            <span className="border"></span>
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div className="form-group">
-                                        <img src={userImg} />
-                                        <label className="inp">
-                                            <input id="maidenName" placeholder="&nbsp;" name="maidenName" value={this.state.mSurname} onChange={this.usermSurnameHandler} />
-                                            <span className="label">Maiden Surname</span>
-                                            <span className="border"></span>
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <div className="radios">
-                                    <FormControl component="fieldset">
-                                        <FormLabel component="legend" />
-                                        <RadioGroup roboto-label="ID or Passport" name="ID or Passport" className="radios" color="black" onClick={(event) => this.userChoice(event)}>
-                                            <FormControlLabel id="ID" className="" value="ID" control={<Radio />} label="ID" />
-                                            <FormControlLabel id="passport" className="" value="Passport" control={<Radio />} label="Passport" />
-                                        </RadioGroup>
-                                    </FormControl>
-                                </div>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div className="form-group">
-                                        <img src={userImg} />
-                                        <label className={this.state.fieldID}>
-                                            <input id="idNumberForm" placeholder="&nbsp;" maxLength={'13'} name="id" value={this.state.idNumber} onChange={(event) => this.userIdNumber(event)} />
-                                            <span className="label">ID Number</span>
-                                            <span className="border"></span>
-                                            <label className="error">
-                                                {this.state.errorID}
+                            <tbody>
+                                <h1 className="personalHeader"><strong>Personal</strong> Details</h1>
+                                <tr>
+                                    <td>
+                                        <div className="form-group">
+                                            <img src={userImg} />
+                                            <label className="inp">
+                                                <input id="firstName" placeholder="&nbsp;" name="firstName" value={this.state.firstName} onChange={this.userNameHandler} />
+                                                <span className="label">Full First Name</span>
+                                                <span className="border"></span>
                                             </label>
-                                        </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="form-group">
+                                            <img src={userImg} />
+                                            <label className="inp">
+                                                <input id="surname" placeholder="&nbsp;" name="surname" value={this.state.surname} onChange={this.userSurnameHandler} />
+                                                <span className="label">Surname</span>
+                                                <span className="border"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div className="form-group">
+                                            <img src={userImg} />
+                                            <label className="inp">
+                                                <input id="maidenName" placeholder="&nbsp;" name="maidenName" value={this.state.mSurname} onChange={this.usermSurnameHandler} />
+                                                <span className="label">Maiden Surname</span>
+                                                <span className="border"></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <div className="radios">
+                                        <FormControl component="fieldset">
+                                            <FormLabel component="legend" />
+                                            <RadioGroup roboto-label="ID or Passport" name="ID or Passport" className="radios" color="black" onClick={(event) => this.userChoice(event)}>
+                                                <FormControlLabel id="ID" className="" value="ID" control={<Radio />} label="ID" />
+                                                <FormControlLabel id="passport" className="" value="Passport" control={<Radio />} label="Passport" />
+                                            </RadioGroup>
+                                        </FormControl>
                                     </div>
-                                </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div className="form-group">
+                                            <img src={userImg} />
+                                            <label className={this.state.fieldID}>
+                                                <input id="idNumberForm" placeholder="&nbsp;" maxLength={'13'} name="id" value={this.state.idNumber} onChange={(event) => this.userIdNumber(event)} />
+                                                <span className="label">ID Number</span>
+                                                <span className="border"></span>
+                                                <label className="error">
+                                                    {this.state.errorID}
+                                                </label>
+                                            </label>
+                                        </div>
+                                    </td>
                             
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div className="form-group">
-                                        <img src={email} />
-                                        <label className={this.state.fieldEmail}>
-                                            <input id="email" placeholder="&nbsp;" name="email" value={this.state.email} onChange={(event) => this.userEmailHandler(event)} />
-                                            <span className="label">Email Address</span>
-                                            <span className="border"></span>
-                                            <label className="error">
-                                                {this.state.errorEmail}
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div className="form-group">
+                                            <img src={email} />
+                                            <label className={this.state.fieldEmail}>
+                                                <input id="email" placeholder="&nbsp;" name="email" value={this.state.email} onChange={(event) => this.userEmailHandler(event)} />
+                                                <span className="label">Email Address</span>
+                                                <span className="border"></span>
+                                                <label className="error">
+                                                    {this.state.errorEmail}
+                                                </label>
                                             </label>
-                                        </label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div className="form-group">
-                                        <img src={phone} />
-                                        <label className={this.state.fieldPhone}>
-                                            <input id="phone" placeholder="&nbsp;" name="phone" maxLength={'10'} value={this.state.phone} onChange={(event) => this.userPhoneHandler(event)} />
-                                            <span className="label">Telephone Number</span>
-                                            <span className="border"></span>
-                                            <label className="error">
-                                                {this.state.errorPhone}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="form-group">
+                                            <img src={phone} />
+                                            <label className={this.state.fieldPhone}>
+                                                <input id="phone" placeholder="&nbsp;" name="phone" maxLength={'10'} value={this.state.phone} onChange={(event) => this.userPhoneHandler(event)} />
+                                                <span className="label">Telephone Number</span>
+                                                <span className="border"></span>
+                                                <label className="error">
+                                                    {this.state.errorPhone}
+                                                </label>
                                             </label>
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
+                    </div>
                 </div>
-            </div>
+            </div>       
         );
     }
 }
 const mapStateToProps = state => ({
-    candidateIndividual : state.candidateState.candidateBody
+    candidateIndividual : state.candidateState.candidateBody,
+    tableValid : state.candidateState.tableValid
+
 });
 
 const mapActionToProps = (dispatch) => ({
-    udpateIndividual : bindActionCreators (CandidateActions.updateArray, dispatch)
+    udpateIndividual : bindActionCreators (CandidateActions.updateArray, dispatch),
+    checkTableValid : bindActionCreators (CandidateActions.isTableValid, dispatch)
 });
 export default connect(mapStateToProps, mapActionToProps) (CaptureCandidateDetails);

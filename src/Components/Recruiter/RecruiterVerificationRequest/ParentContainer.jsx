@@ -22,11 +22,15 @@ class ParentContainer extends React.PureComponent {
     }
 
     sendCandidate () {
-  
+        let candidates = {
+            candidates: this.props.candidateArray
+        };
     }
    
     render () {
         return (
+            <div className="candidateNav">
+            <NavBar />
             <div className="bodyPage">
                 <h2 id="newVTitile"><b>New Verification Request</b></h2>
                 <h3 id="JPTitle">Job Profile</h3>
@@ -41,19 +45,26 @@ class ParentContainer extends React.PureComponent {
                                 </ul>
                                 <label className="candidateDetails">Capture Candidate Details</label><br/>
                                 {this.props.candidateState ? 
-                                    <div className="btn-group">
+                                    <div className="switchButton">
                                         <button className="indi" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
                                         <button className="bulk" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
 
                                     </div>
                                     :
-                                    <div className="btn-group">
-                                        <button className="indiNew" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
-                                        <button className="bulkNew" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
+                                    this.props.fileState ?
 
-                                    </div>
-                                }
-                                    
+                                        <div className="switchButton">
+                                            <button className="indiNew" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
+                                            <button className="bulkNew" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
+
+                                        </div>
+                                        :
+                                        <div className = "">
+                                            <label className="reviewDetails">Review Candidate Details</label><br/><br/>
+                                            <label className="reviewDetails"><strong>{this.props.fileSize} Entries</strong> (click to edit)</label><br/>
+                                        </div>
+
+                                } 
                                 <section>
                                     {this.props.candidateState ? <CaptureCandidateDetails/> : <MainContainer />}
                                 </section>
@@ -68,8 +79,7 @@ class ParentContainer extends React.PureComponent {
                 </div>
                 <Footer />
             </div>
-   
-
+         </div>
         );
     }
 }
@@ -80,11 +90,15 @@ ParentContainer.propTypes = {
 };
 const mapStateToProps = state => ({
     candidateState: state.candidateState.displayCandidate,
-    candidateArray: state.candidateState.candidateBody
+    candidateArray: state.candidateState.candidateBody,
+    fileState : state.candidateState.fileState,
+    fileSize : state.candidateState.fileSize,
+    tableValid : state.candidateState.tableValid
 });
 
 const mapActionsToProps = (dispatch) => ({
     changeView : bindActionCreators(CandidateActions.changeView, dispatch),
+    sendBulk : bindActionCreators(CandidateActions.submitCandidate, dispatch)
    
 });
 export default connect(mapStateToProps, mapActionsToProps) (ParentContainer);
