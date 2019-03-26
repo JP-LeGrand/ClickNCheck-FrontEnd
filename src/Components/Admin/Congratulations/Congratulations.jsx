@@ -22,10 +22,6 @@ class Congratulations extends Component {
         this.props.jobProfileActions.getRecruiters(this.props.userIds);
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps.recruiterNames);
-    }
-    
     render() { 
   
         return ( 

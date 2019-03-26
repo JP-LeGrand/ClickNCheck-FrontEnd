@@ -69,9 +69,6 @@ class AssignRecruiters extends Component {
     
     async handleFormSubmit(FormEvent) {
         FormEvent.preventDefault();
-        for (const checkbox of this.selectedCheckboxes) {
-            console.log(checkbox, 'is selected.');
-        }
         let userIds= [...this.state.RecruitersIds];
         //Adding the IDs to the recruiter array
         this.selectedCheckboxes.forEach(recruiter => {

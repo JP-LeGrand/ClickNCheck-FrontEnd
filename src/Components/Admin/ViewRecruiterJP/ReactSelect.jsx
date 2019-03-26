@@ -8,7 +8,6 @@ class ReactSelect extends React.Component {
     }
     handleChange = (e) =>{
         this.props.handleRecruiterChange(e);
-        console.log('selected val in select event: '+e.value);
     }
     render(){
         let customStyle = {      
