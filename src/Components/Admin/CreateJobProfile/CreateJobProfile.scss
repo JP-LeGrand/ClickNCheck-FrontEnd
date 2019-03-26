@@ -60,7 +60,7 @@
       height: 45px;
       background-color: #FFFFFF;
       text-align: center;
-      border: 2px solid #2b3844;
+      border: 1px solid #2b3844;
       border-radius: 50%;
       margin: 0 auto 10px auto;
       z-index: 10;
@@ -144,9 +144,32 @@
 
 
   #checksTable {
+    display: block;
     margin-top: 40px;
-    margin-left: 150px;
+    margin-left: 42px;
     width: 980px;
+  }
+
+  td img{
+    margin-left: 30px;
+    margin-bottom: 40px;
+    width: 50px;
+    height: 50px;
+    background-color: #f9f9f9;
+  }
+
+  td div label{
+    position: relative;
+    border-bottom: solid 1px #e6e9ec;
+    float: left;
+    margin-left: 20px;
+  }
+  td div label{
+    border-top: solid 1px #e6e9ec;
+  }
+
+  td h3{
+    margin-bottom: 20px;
   }
 
   .Line {

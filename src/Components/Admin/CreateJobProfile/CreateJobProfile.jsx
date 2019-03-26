@@ -85,10 +85,7 @@ class CreateJobProfile extends React.Component {
         let activeClass = this.props.nowDisplaying == 'default' ? '' : 'active';
         return (
             <div className="createJobProfile">
-                {/** @TODO
-                    *Navbar to be added after 
-                    *Tafdav fixes it
-                <NavBar /> */}
+                <NavBar />
                 <div id="spanHolder">
                     <span className="New-Job-Profile">New Job Profile</span>
                 </div>
