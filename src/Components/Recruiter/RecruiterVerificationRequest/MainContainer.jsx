@@ -6,7 +6,6 @@ import Footer from '../../Shared/Footer/Footer';
 import Axios from 'axios';
 import rollingImg from '../../../Assets/Rolling.svg';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
-import CaptureCandidateDetails from './CaptureCandidateDetails';
 import * as CandidateActions from './CandidateActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,9 +15,6 @@ class MainContainer extends React.PureComponent {
         super(props);
         this.state = {
             excelRows: [],
-            fieldState: [],
-            getFile: false,
-            fileSize: '',
             email: '',
             id: '',
             number: '',
@@ -26,8 +22,7 @@ class MainContainer extends React.PureComponent {
             emailValid: false,
             idValid: false,
             numberValid: false,
-            tableValid: false,
-            loading: false,
+             loading: false,
         };
         this.submit = this.submit.bind(this);
         this.addBulkCandidates = this.addBulkCandidates.bind(this);
@@ -44,8 +39,8 @@ class MainContainer extends React.PureComponent {
 
         this.setState({
             excelRows: arrayRows,
-            fileSize: newNum
         });
+        this.props.getSize(newNum);
 
     }
     handleUserInput(index, event) {
@@ -101,13 +96,13 @@ class MainContainer extends React.PureComponent {
             }
         }
 
-        const newRows = [...this.state.excelRows];
+        const newRows = [ ...this.state.excelRows ];
         newRows[index][propName] = event.target.value;
         this.setState({
             excelRows: newRows,
-            tableValid: this.state.emailValid && this.state.idValid && this.state.numberValid
-        });
-        this.props.update(this.state.excelRows)
+         });
+        this.props.update(this.state.excelRows);
+        this.props.checkTableValid( this.state.emailValid, this.state.idValid)
         
     }
     nextStep() {
@@ -116,7 +111,7 @@ class MainContainer extends React.PureComponent {
     prevStep() {
         window.location = '/ReviewChecks';
     }
-    submit() {
+    submit(e) {
         let inputFile = document.getElementById('getFile');
         let reader = new FileReader();
 
@@ -132,9 +127,12 @@ class MainContainer extends React.PureComponent {
             let number = exceRows.length;
             this.setState({
                 excelRows: exceRows,
-                getFile: true,
-                fileSize: number
+               
             });
+            this.props.getFile(e);
+            this.props.getSize(number);
+
+           
         };
         reader.readAsBinaryString(inputFile.files[0]);
     }
@@ -201,18 +199,18 @@ class MainContainer extends React.PureComponent {
                         <img
                             src={require('../../../Assets/upload-file.svg')}
                             alt="upload files here"
-                        />
-                        <h3>Drag and Drop or Click to upload File</h3>
+                        /><br/>
+                        <label className="candidateDetails"><strong>Drag and Drop or Click to upload File</strong></label>
                         <br />
 
                         <div className="upload-btn-wrapper">
                             <input
                                 type="file"
-                                name="file"
+                                name="file" 
                                 id="getFile"
-                                onChange={() => this.submit()}
+                                onChange={() => this.submit(false)}
                             />
-                            <a href="https://cncdocuments.blob.core.windows.net/recruiters/CandidateTemplate.xlsx" download>
+                            <a href="https://clicknchecksite.blob.core.windows.net/excel-templates/CandidateTemplate.xlsx" download>
                                 <img
                                     src={require('../../../Assets/downloadFile.svg')}
                                     alt="download-fav"
@@ -228,17 +226,24 @@ class MainContainer extends React.PureComponent {
     }
 
     render() {
+        console.log(this.props.getFileState)
         return <div>
-            {!this.state.getFile ? this.bulk() : this.review()}
+            {this.props.getFileState ? this.bulk() : this.review()}
         </div>;
     }
 }
 
 const mapStateToProps = state => ({
-    bulkArray : state.candidateState.candidateBody
+    bulkArray : state.candidateState.candidateBody,
+    getFileState : state.candidateState.fileState,
+  
 });
 
 const mapActionToProps = (dispatch) => ({
-    update : bindActionCreators (CandidateActions.updateArray, dispatch)
+    update : bindActionCreators (CandidateActions.updateArray, dispatch),
+    getFile : bindActionCreators (CandidateActions.reviewBulk, dispatch),
+    getSize : bindActionCreators (CandidateActions.getFileSize, dispatch),
+    checkTableValid : bindActionCreators (CandidateActions.isTableValid, dispatch)
+
 });
 export default connect(mapStateToProps, mapActionToProps)(MainContainer);
