@@ -1,19 +1,29 @@
 .headSection button{
-border-radius: 7px;
-background-color: #02529c;
-width: 150px;
-height: 14px;
-font-family: Roboto;
-font-size: 12px;
-font-weight: bold;
-font-style: normal;
-font-stretch: normal;
-line-height: normal;
-letter-spacing: 1px;
-text-align: center;
-color: #ffffff;
-padding: 17px 31px;
-padding-bottom: 25px;
-border: 0;
-float: right;
-  }
+  border-radius: 7px;
+  background-color: #02529c;
+  width: 150px;
+  height: 14px;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #ffffff;
+  padding: 17px 31px;
+  padding-bottom: 25px;
+  border: 0;
+  float: right;
+  align-self: flex-end;
+  
+}
+.headSection a{
+  margin-top: 24px;
+  margin-left: 45%;
+}
+.headSection{
+  display: flex;
+  flex-flow: row;
+}
