@@ -114,17 +114,10 @@ class adminNavBar extends React.PureComponent {
                                     <label className="navLabel">Job Profiles</label>
                                 </div>
                             </a>
-
-                            <a href="#" className="">
-                                <div className="navTab">
-                                    <img className="navIcon" src={Candidates} alt="clickncheck" />
-                                    <label className="navLabel">Candidates</label>
-                                </div>
-                            </a>
                             <a href="/Users"
                               
                                 className={
-                                    this.getLocation('/Admin/Users/CreateAmendUser')
+                                    this.getLocation('/Users')
                                         ? 'active'
                                         : 'inactive'
                                 }>
