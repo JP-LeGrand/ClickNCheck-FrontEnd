@@ -2,134 +2,69 @@ import React from 'react';
 import { connect } from 'react-redux';
 import 'typeface-roboto';
 import './Login.scss';
-import { BASE_URL, AUTHENTICATE_LOGIN, OTP_AUTHENTICATION, PASS_EXPIRED } from '../../../Shared/Constants';
 import mainImg from '../../../Assets/main.svg';
 import userImg from '../../../Assets/user.svg';
 import passImg from '../../../Assets/password.svg';
 import rollingImg from '../../../Assets/Rolling.svg';
+import * as LoginActions from './LoginActions';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { ToolbarSeparator } from 'material-ui';
+
 class Login extends React.PureComponent {
     constructor(props) {
         if (localStorage.getItem('user_id') !== null) {
             window.history.forward();
         }
-
         super(props);
-        this.state = {
-            password: '',
-            email: '',
-            isPasswordVisible: false,
-            inputType: 'password',
-            isLoading: false
-        };
-        
         this.handleChangePass = this.handleChangePass.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleShowHide = this.handleShowHide.bind(this);
+        this.displayError = this.displayError.bind(this);
     }
     
+    displayError(error){
+        switch (error) {
+        case 'wrongCredentials':
+            return 'Login failed. Please check your credentials and try again';
+        case 'passExpired':
+            return 'The system encountered an error. Please try again later';
+        case 'noInput':
+            return 'Please fill in all details on the form';
+        default:
+            return '';
+        }
+    }
+
     handleChangeEmail(event) {
-        this.setState({ email: event.target.value });
+        this.props.updateEmail(event.target.value);
     }
 
     handleChangePass(event) {
-        this.setState({ password: event.target.value });
+        this.props.updatePassword(event.target.value);
     }
 
     handleShowHide() {
-        if ( this.state.isPasswordVisible === true) {
-            this.setState( { isPasswordVisible: false } );
-            this.setState( { inputType: 'password' } );
+        if (this.props.isPasswordVisible === true) {
+            this.props.togglePasswordVisibility(!this.props.isPasswordVisible);
+            this.props.updateInputType('password');
         } else {
-            this.setState( { isPasswordVisible: true } );
-            this.setState( { inputType: 'text' } );
+            this.props.togglePasswordVisibility(!this.props.isPasswordVisible);
+            this.props.updateInputType('text');
         }
         
     }
     handleSubmit(event){
         event.preventDefault();
-        let credentials = [ this.state.email, this.state.password ];
-        this.setState({ isLoading: true }, () => { 
-            fetch(BASE_URL + AUTHENTICATE_LOGIN, {
-                method: 'POST',
-                mode: 'cors', // no-cors, cors, *same-origin
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: 'same-origin', // include, *same-origin, omit
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                redirect: 'manual', // manual, *follow, error
-                referrer: 'no-referrer', // no-referrer, *client
-                body: JSON.stringify(credentials),
-            })
-                .then((response) => response.json())
-                .then(
-                    response => {
-                        localStorage.setItem('user_id', response);
-                        let userid = localStorage.getItem('user_id');
-                        fetch(BASE_URL + PASS_EXPIRED + response, {
-                            method: 'POST',
-                            mode: 'cors', // no-cors, cors, *same-origin
-                            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                            credentials: 'same-origin', // include, *same-origin, omit
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            redirect: 'manual', // manual, *follow, error
-                            referrer: 'no-referrer', // no-referrer, *client 
-                        })
-                            .then((pass_exp_response) => pass_exp_response.json())
-                            .then(
-                                (pass_exp_response) => {
-                                    if (pass_exp_response === true) {
-                                        window.location = '/changePassword';
-                                    } else if (pass_exp_response === false) {
-                                        fetch(BASE_URL + OTP_AUTHENTICATION, {
-                                            method: 'POST',
-                                            mode: 'cors', // no-cors, cors, *same-origin
-                                            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                                            credentials: 'same-origin', // include, *same-origin, omit
-                                            headers: {
-                                                'Content-Type': 'application/json',
-                                            },
-                                            redirect: 'manual', // manual, *follow, error
-                                            referrer: 'no-referrer', // no-referrer, *client
-                                            body: JSON.stringify(userid),
-                                        })
-                                            .then((otp_response) => otp_response.json())
-                                            .then(
-                                                () => {
-                                                    this.setState({
-                                                        isLoading: false
-                                                    });
-                                                    window.location = '/otp';
-                                                },
-                                                (error) => {
-                                                    this.setState({
-                                                        isLoading: false
-                                                    });
-                                                    alert(error);
-                                                }
-                                            );
-                                    }
-                                },
-                                (error) => {
-                                    this.setState({
-                                        isLoading: false
-                                    });
-                                    alert(error);
-                                }
-                            );
+        this.props.toggleLoading(true);
+        if (this.props.email.length < 1 || this.props.password < 1){
+            this.props.toggleLoading(false);
+            this.props.updateError('noInput');
+            return;
+        }
 
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoading: false
-                        });
-                        alert(error);
-                    }
-                );
-        });
+        this.props.loginProcess(this.props.email, this.props.password);
     } 
     
     render() {
@@ -144,7 +79,7 @@ class Login extends React.PureComponent {
                         <div className="form-group">
                             <img src={userImg}/>
                             <label className="inp">
-                                <input placeholder="&nbsp;" name="email" value ={this.state.email} onChange={this.handleChangeEmail} />
+                                <input placeholder="&nbsp;" name="email" value ={this.props.email} onChange={this.handleChangeEmail} />
                                 <span className="label">Email</span>
                                 <span className="border"></span>
                             </label>
@@ -153,10 +88,10 @@ class Login extends React.PureComponent {
                         <div className="form-group">
                             <img src={passImg}/>
                             <label className="inp">
-                                <input placeholder="&nbsp;" type={this.state.inputType} name="password" value ={this.state.password} onChange={this.handleChangePass} />
+                                <input placeholder="&nbsp;" type={this.props.inputType} name="password" value ={this.props.password} onChange={this.handleChangePass} />
                                 <span className="label">Enter Password</span>
                                 <span className="border"></span>
-                                <span className="showHide" onClick={this.handleShowHide}>{this.state.isPasswordVisible ? 'Hide' : 'Show'}</span>
+                                <span className="showHide" onClick={this.handleShowHide}>{this.props.isPasswordVisible ? 'Hide' : 'Show'}</span>
                             </label>
                             
                             <p>
@@ -168,12 +103,55 @@ class Login extends React.PureComponent {
                             <button onClick={this.handleSubmit}>Login</button>
                         </div> 
                     </form>
+                    <div style={{ display: this.props.error == '' ? 'none' : 'block', color: 'red' }}>
+                        {this.displayError(this.props.error)}
+                    </div>
                     <div className="logginIn">
-                        {this.state.isLoading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                        {this.props.isLoading && <img src={rollingImg} id="spinner" alt="loading..." />}
                     </div>
                 </div>
             </div>
         );
     }
 }
-export default connect()(Login);
+
+Login.propTypes = {
+    loginProcess: PropTypes.func.isRequired,
+    updatePassword: PropTypes.func.isRequired,
+    updateEmail: PropTypes.func.isRequired,
+    updateError: PropTypes.func.isRequired,
+    togglePasswordVisibility: PropTypes.func.isRequired,
+    updateInputType: PropTypes.func.isRequired,
+    toggleLoading: PropTypes.func.isRequired,
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    loginStatus: PropTypes.string.isRequired,
+    isPasswordVisible: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    inputType: PropTypes.string.isRequired,
+    fetchStatus: PropTypes.string.isRequired,
+    error: PropTypes.string.isRequired
+};
+
+const mapStateToProps = state => ({
+    email: state.loginState.email,
+    password: state.loginState.password,
+    loginStatus: state.loginState.loginStatus,
+    isPasswordVisible: state.loginState.isPasswordVisible,
+    fetchStatus: state.loginState.fetchStatus,
+    inputType: state.loginState.inputType,
+    isLoading: state.loginState.isLoading,
+    error: state.loginState.error
+});
+
+const mapActionsToProps = (dispatch) => ({
+    loginProcess: bindActionCreators(LoginActions.loginProcess, dispatch),
+    updateEmail: bindActionCreators(LoginActions.updateEmail, dispatch),
+    updatePassword: bindActionCreators(LoginActions.updatePassword, dispatch),
+    togglePasswordVisibility: bindActionCreators(LoginActions.togglePasswordVisibility, dispatch),
+    updateInputType: bindActionCreators(LoginActions.updateInputType, dispatch),
+    toggleLoading: bindActionCreators(LoginActions.toggleLoading, dispatch),
+    updateError: bindActionCreators(LoginActions.updateError, dispatch)
+});
+
+export default connect(mapStateToProps, mapActionsToProps)(Login);

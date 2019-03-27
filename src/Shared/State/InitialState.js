@@ -8,9 +8,14 @@ const InitialState = {
         checks: [ 'check-1', 'check-2', 'check-3', 'check-4', 'check-5' ]
     },
     loginState: {
-        canLogin: null,
-        email: null,
-        password: null,
+        password: '',
+        email: '',
+        loginStatus: '',
+        fetchStatus: '',
+        isPasswordVisible: false,
+        inputType: 'password',
+        isLoading: false,
+        error: ''
     },
     forgotPasswordState:{
         sending: null,

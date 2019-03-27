@@ -11,7 +11,6 @@ import ProfileChecks from './ProfileChecks';
 import * as ReviewChecksActions from './ReviewChecksActions';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { prototype } from 'events';
 
 class ReviewChecks extends React.Component {
     constructor(props) {
