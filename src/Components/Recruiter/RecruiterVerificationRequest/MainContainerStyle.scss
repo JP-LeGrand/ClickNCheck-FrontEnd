@@ -1,7 +1,5 @@
 /* Add a black background color to the top navigation */
 .bodyPage {
-
-  @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900);
   body {
     margin: 0 auto;
     padding: 0;
@@ -220,22 +218,6 @@
     width: 30vw;
   }
 
-
-  #progress_bar {
-    overflow: hidden;
-    counter-reset: step;
-    margin-left: 150px;
-  }
-
-  #progress_bar li {
-    list-style-type: none;
-    color: black;
-    width: 33.33%;
-    float: left;
-    font-family: 'Roboto';
-   
-    position: relative;
-  }
   #bulk,
   #individually {
     width: 150px;
@@ -262,49 +244,7 @@
     text-align: left;
    
   }
-  #progress_bar li:before {
-    content: counter(step);
-    counter-increment: step;
-    width: 45px;
-    line-height: 45px;
-    display: block;
-    color: #2b3844;
-    height: 45px;
-    font-family: 'Roboto';
-    background-color: #ffffff;
-    text-align: center;
-    border: 1px solid #2b3844;
-    border-radius: 50%;
-    margin: 0 auto 10px auto;
-  }
-
-  #progress_bar li:after {
-    content: "";
-    width: 87%;
-    height: 10px;
-    background: #e6e9ec;
-    position: absolute;
-    left: -157px;
-    top: 18px;
-    /*z-index: -1;
-    /*put it behind the numbers*/
-  }
-  #progress_bar li:first-child:after {
-    /*connector not needed before the first step*/
-    content: none;
-  }
-
-  #progress_bar li.active:before,
-  #progress_bar li.active:after {
-    color: #ffffff;
-    background-color: #0091d1;
-    border: 1px solid #ffffff;
-    font-weight: bold;
-    /*@TODO 
-        Make each subsequent text on step bold
-    */
-  }
-
+  
   /*Paragraph bar*/
 
   #paragraph {
@@ -320,6 +260,62 @@
     
     position: relative;
   }
+
+  #progress_bar{
+    overflow: hidden;
+    counter-reset: step;
+}
+
+#progress_bar li{
+    list-style-type: none;
+    color: black;
+    width:33.33%;
+    float:left;
+    position: relative;
+}
+
+#progress_bar li:before{
+    content: counter(step);
+    position: relative;
+    counter-increment: step;
+    width: 45px;
+    line-height: 45px;
+    display: block;
+    color: #2b3844;
+    height: 45px;
+    background-color: #FFFFFF;
+    text-align: center;
+    border: 1px solid #2b3844;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    z-index: 10;
+    
+}
+
+#progress_bar li:after {
+  content: '';
+  width: 98%;
+  height: 10px;
+  background: #e6e9ec;
+  position: absolute;
+  left: -50%;
+  top: 18px;
+   z-index: 0; 
+}
+#progress_bar li:first-child:after {
+/*connector not needed before the first step*/
+    content: none; 
+}
+
+#progress_bar li.active:before,  #progress_bar li.active:after{
+    color: #FFFFFF;
+    background-color: #0091d1;
+    border: 1px solid #0091d1;
+    font-weight: bold;
+    /*@TODO 
+        Make each subsequent text on step bold
+    */
+}
 
   #paragraph li:before {
     content: counter(step2);
@@ -429,7 +425,8 @@
     border-bottom: 1px solid #ccc;
   }
   tbody tr td {
-    margin-left: 2vw;
+    margin-left: 3vw;
+    margin-top: 1vw;
   }
 
   table tbody tr td a {

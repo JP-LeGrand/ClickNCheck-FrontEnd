@@ -1,8 +1,6 @@
 /* Add a black background color to the top navigation */
 .createJobProfile3 {
-
-    @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900);
-    body {
+  body {
       margin: 0 auto;
       padding: 0;
       background-color: #ffffff;
@@ -1139,56 +1137,76 @@
         }
     }
 
-    #progress_bar_taf {
+    #progress_bar_taf{
+      position: relative;
       overflow: hidden;
+      margin-top: 20px;
       counter-reset: step;
       padding-left: 0px;
       width: 100%;
-      }
-      
-      #progress_bar_taf li {
-          list-style-type: none;
-          color: black;
-          width: 25%;
-          float: left;
-          position: relative;
-          text-align: center;
-      }
-      #progress_bar_taf li:before {
-          content: counter(step);
-          counter-increment: step;
-          width: 45px;
-          line-height: 45px;
-          display: block;
-          color: #2b3844;
-          height: 45px;
-          background-color: #ffffff;
-          text-align: center;
-          border: 1px solid #2b3844;
-          border-radius: 50%;
-          margin: 0 auto 10px auto;
-          z-index: 2;
-      }
-      
-      #progress_bar_taf li:after {
-          content: "";
-          width: 85.6%;
-          height: 10px;
-          background: #e6e9ec;
-          position: absolute;
-          left: -43.3%;
-          top: 18px;
-      }
-      #progress_bar_taf li:first-child:after {
-          /*connector not needed before the first step*/
-          content: none;
-      }
-      
-      #progress_bar_taf li.active:before,
-      #progress_bar_taf li.active:after {
-          color: #ffffff;
-          background-color: #0091d1;
-          border: 1px solid #ffffff;
-          font-weight: bold;
-      }
+  }
+
+  #progress_bar_taf li{
+      list-style-type: none;
+      width:25%;
+      float:left;
+      position: relative;
+      font-family: Roboto;
+      font-size: 16px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.33;
+      letter-spacing: 0.4px;
+      text-align: center;
+      color: #2b3844;
+  }
+
+  #progress_bar_taf li:before{
+      position: relative;
+      content: counter(step);
+      counter-increment: step;
+      width: 45px;
+      line-height: 42px;
+      display: block;
+      color: #2b3844;
+      height: 45px;
+      background-color: #FFFFFF;
+      text-align: center;
+      border: 1px solid #2b3844;
+      border-radius: 50%;
+      margin: 0 auto 10px auto;
+      z-index: 10;
+  }
+
+  #progress_bar_taf li:after {
+      margin-left: 280px;
+      position: relative;
+      content: "";
+      width: 100%;
+      height: 10px;
+      background: #f9f9f9;
+      position: absolute;
+      left: -43.3%;
+      top: 18px;
+      z-index: 0;
+  }
+
+  #progress_bar_taf li.active:after{
+      color: #FFFFFF;
+      background: linear-gradient(90deg, #0091d1 100%, #f9f9f9 0%);
+      /*@TODO 
+          Make each subsequent text on step bold
+      */
+  }
+
+  #progress_bar_taf :last-child::after{
+    display: none;
+  }
+
+  #progress_bar_taf li.active:before{
+    color: #FFFFFF;
+    background: #0091d1;
+    border: 2px solid #0091d1;
+  }
 }

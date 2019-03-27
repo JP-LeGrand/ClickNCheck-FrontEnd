@@ -22,7 +22,13 @@ export const updateArray = (body) => {
 
 export const submitCandidate = (ver_check, candidate) => {
     return function () {
-        Axios.post(BASE_URL + CREATE_CANDIDATE + ver_check, candidate)
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': 'Bearer ' +sessionStorage.getItem('token')
+            }
+        };
+        Axios.post(BASE_URL + CREATE_CANDIDATE + ver_check, candidate,config)
         .then((response) => {
             window.location = '/VerificationConfirmed';
         })
