@@ -11,20 +11,21 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 class ParentContainer extends React.PureComponent {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             loading: false
-        }
+        };
         this.changeDiv = this.changeDiv.bind(this);
         this.sendCandidate = this.sendCandidate.bind(this);
+        this.sendCandidate = this.backstep.bind(this);
     }
 
-    changeDiv (e) {
+    changeDiv(e) {
         this.props.changeView(e);
     }
 
-    sendCandidate () {
+    sendCandidate() {
         this.setState({
             loading: true
         });
@@ -32,10 +33,13 @@ class ParentContainer extends React.PureComponent {
             candidates: this.props.candidateArray
         };
         this.props.sendBulk("1", candidates);
-       
+
     }
-   
-    render () {
+    backstep() {
+        window.location = '/ReviewChecks';
+    }
+
+    render() {
         return (
             <div className="candidateNav">
                 <NavBar />
@@ -51,8 +55,8 @@ class ParentContainer extends React.PureComponent {
                                         <li className="active"><b>Candidate Details</b></li>
                                         <li>Next Steps</li>
                                     </ul>
-                                    <label className="candidateDetails">Capture Candidate Details</label><br/>
-                                    {this.props.candidateState ? 
+                                    <label className="candidateDetails">Capture Candidate Details</label><br />
+                                    {this.props.candidateState ?
                                         <div className="switchButton">
                                             <button className="indi" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
                                             <button className="bulk" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
@@ -67,21 +71,21 @@ class ParentContainer extends React.PureComponent {
 
                                             </div>
                                             :
-                                            <div className = "">
-                                                <label className="reviewDetails">Review Candidate Details</label><br/><br/>
-                                                <label className="reviewDetails"><strong>{this.props.fileSize} Entries</strong> (click to edit)</label><br/>
+                                            <div className="">
+                                                <label className="reviewDetails">Review Candidate Details</label><br /><br />
+                                                <label className="reviewDetails"><strong>{this.props.fileSize} Entries</strong> (click to edit)</label><br />
                                             </div>
 
-                                    } 
+                                    }
                                     <section>
-                                        {this.props.candidateState ? <CaptureCandidateDetails/> : <MainContainer />}
+                                        {this.props.candidateState ? <CaptureCandidateDetails /> : <MainContainer />}
                                     </section>
                                 </div>
                             </div>
-                        
+
                         </fieldset>
                         <div id="buttonFooter">
-                            <button id="prev">BACK</button>
+                            <button id="prev" onClick={this.backstep}>BACK</button>
                             <button id="next" onClick={this.sendCandidate} >SUBMIT</button>
                             <div className="loading">
                                 {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
@@ -102,14 +106,14 @@ ParentContainer.propTypes = {
 const mapStateToProps = state => ({
     candidateState: state.candidateState.displayCandidate,
     candidateArray: state.candidateState.candidateBody,
-    fileState : state.candidateState.fileState,
-    fileSize : state.candidateState.fileSize,
-    tableValid : state.candidateState.tableValid
+    fileState: state.candidateState.fileState,
+    fileSize: state.candidateState.fileSize,
+    tableValid: state.candidateState.tableValid
 });
 
 const mapActionsToProps = (dispatch) => ({
-    changeView : bindActionCreators(CandidateActions.changeView, dispatch),
-    sendBulk : bindActionCreators(CandidateActions.submitCandidate, dispatch)
-   
+    changeView: bindActionCreators(CandidateActions.changeView, dispatch),
+    sendBulk: bindActionCreators(CandidateActions.submitCandidate, dispatch)
+
 });
-export default connect(mapStateToProps, mapActionsToProps) (ParentContainer);
+export default connect(mapStateToProps, mapActionsToProps)(ParentContainer);

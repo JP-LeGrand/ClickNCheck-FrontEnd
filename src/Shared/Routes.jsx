@@ -57,7 +57,7 @@ const Routes = () => {
                 <Route path="/Admin/CreateJobProfilePage4" exact component={CreateJobProfilePage4} />
                 <Route path="/Admin/AssignRecruiters" exact component={assignRecruiters} />
                 <Route path="/Admin/Congratulations" exact component={Congratulations} />
-                <Route path="/Admin/AddUser" exaxct component={AddUser}/>
+                <Route path="/Admin/AddUser" exaxct component={AddUser} />
                 <Route path="/Admin/Users/CreateAmendUser" exact component={CreateAmendUser} />
                 <Route path="/Users" exact component={Users} />
                 <Route render={() => <Redirect to="/" />} />
