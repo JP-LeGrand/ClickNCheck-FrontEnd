@@ -119,7 +119,7 @@ class Otp extends React.PureComponent {
                         this.setState({
                             loading: false
                         });
-                        toast.error('Error. Please enter the correct.',{
+                        toast.error('Error. Please enter the correct credentials.',{
                             autoClose: 3000
                         });
                     }
@@ -145,7 +145,7 @@ class Otp extends React.PureComponent {
             .then((otp_response) => otp_response.json())
             .then(
                 () => {
-                    toast.success('New OTP has been send!', {
+                    toast.success('New OTP has been sent!', {
                         autoClose : 3000
                     });
                 },
