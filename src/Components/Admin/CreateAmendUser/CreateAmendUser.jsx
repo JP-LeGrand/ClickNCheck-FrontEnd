@@ -190,11 +190,6 @@ class CreateAmendUser extends Component {
                 this.setState( { selected_roles: newSelected });
             }
         });
-        /*if (this.state.rec_roles === '') {
-            this.setState({ rec_roles: event.target.value });
-        } else {
-            this.setState({ rec_roles: this.state.rec_roles + ',' + event.target.value });
-        }*/
 
     }
 
@@ -206,14 +201,7 @@ class CreateAmendUser extends Component {
                 newSelected.push(job);
                 this.setState( { selected_jobs: newSelected });
             }
-
         });
-        /*this.setState( { selected_jobs: this.state.selected_jobs.push(event.target.value ) });
-        if (this.state.rec_jobprofiles === '') {
-            this.setState({ rec_jobprofiles: event.target.value });
-        } else {
-            this.setState({ rec_jobprofiles: this.state.rec_jobprofiles + ',' + event.target.value });
-        }*/
 
     }
 
