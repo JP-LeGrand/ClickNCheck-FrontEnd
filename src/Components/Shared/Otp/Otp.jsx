@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import './Otp.scss';
 import { BASE_URL, CHECK_OTP, OTP_AUTHENTICATION } from '../../../Shared/Constants';
 import mainImg from '../../../Assets/main.svg';
 import 'typeface-roboto';
 import rollingImg from '../../../Assets/Rolling.svg';
+import { ToastContainer, toast } from 'mdbreact';
 
 class Otp extends React.PureComponent {
     constructor(props) {
@@ -118,7 +119,9 @@ class Otp extends React.PureComponent {
                         this.setState({
                             loading: false
                         });
-                        alert(error);
+                        toast.error('Error. Please enter the correct.',{
+                            autoClose: 3000
+                        });
                     }
                 );
         });
@@ -142,14 +145,17 @@ class Otp extends React.PureComponent {
             .then((otp_response) => otp_response.json())
             .then(
                 () => {
-                    alert('Please check for the newly sent OTP');
-                    //window.location = '/otp';
+                    toast.success('New OTP has been send!', {
+                        autoClose : 3000
+                    });
                 },
                 (error) => {
                     this.setState({
                         isLoading: false
                     });
-                    alert(error);
+                    toast.error('An error occured. Please try again later', {
+                        autoClose : 3000
+                    });
                 }
             );
     }
@@ -157,62 +163,70 @@ class Otp extends React.PureComponent {
     render() {
         if (localStorage.getItem('user_id') !== null) {
             return (
-                <div className="otp">
-                    <header className="headSection">
-                        <img src={mainImg} />
-                    </header>
+                <Fragment>
+                    <ToastContainer
+                        hideProgressBar={true}
+                        newestOnTop={true}
+                        autoClose={5000}
+                    />
+                    <div className="otp">
+                        <header className="headSection">
+                            <img src={mainImg} />
+                        </header>
 
-                    <div className="mainSection">
-                        <div className="registrationHeading">
+                        <div className="mainSection">
+                            <div className="registrationHeading">
                             Enter the One-Time Pin sent to you
-                        </div>
+                            </div>
 
-                        <div className="form-group">
-                            <input
-                                placeholder="&nbsp;"
-                                type="number"
-                                value={this.state.digit1}
-                                onChange={this.handleChangeDigit1}
-                            />
-                            <input
-                                placeholder="&nbsp;"
-                                type="number"
-                                value={this.state.digit2}
-                                onChange={this.handleChangeDigit2}
-                            />
-                            <input
-                                placeholder="&nbsp;"
-                                type="number"
-                                value={this.state.digit3}
-                                onChange={this.handleChangeDigit3}
-                            />
-                            <input
-                                placeholder="&nbsp;"
-                                type="number"
-                                value={this.state.digit4}
-                                onChange={this.handleChangeDigit4}
-                            />
-                            <input
-                                placeholder="&nbsp;"
-                                type="number"
-                                value={this.state.digit5}
-                                onChange={this.handleChangeDigit5}
-                            />
-                        </div>
-                        <br />
-                        <br />
-                        <div className="form-group">
-                            <button onClick={this.handleSubmit}>SUBMIT</button>
-                            <p>
-                                <a id="resend" href="#" onClick={this.handleResubmit}> Resend </a>{' '} or need{' '} <a id="help" href="mailto:clickncheckservice@gmail.com?subject=Not Receiving OTP!"> Help?
-                                </a>
-                            </p>
-                        </div>
-                        <div className="loading">
-                            {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                            <div className="form-group">
+                                <input
+                                    placeholder="&nbsp;"
+                                    type="number"
+                                    value={this.state.digit1}
+                                    onChange={this.handleChangeDigit1}
+                                />
+                                <input
+                                    placeholder="&nbsp;"
+                                    type="number"
+                                    value={this.state.digit2}
+                                    onChange={this.handleChangeDigit2}
+                                />
+                                <input
+                                    placeholder="&nbsp;"
+                                    type="number"
+                                    value={this.state.digit3}
+                                    onChange={this.handleChangeDigit3}
+                                />
+                                <input
+                                    placeholder="&nbsp;"
+                                    type="number"
+                                    value={this.state.digit4}
+                                    onChange={this.handleChangeDigit4}
+                                />
+                                <input
+                                    placeholder="&nbsp;"
+                                    type="number"
+                                    value={this.state.digit5}
+                                    onChange={this.handleChangeDigit5}
+                                />
+                            </div>
+                            <br />
+                            <br />
+                            <div className="form-group">
+                                <button onClick={this.handleSubmit}>SUBMIT</button>
+                                <p>
+                                    <a id="resend" href="#" onClick={this.handleResubmit}> Resend </a>{' '} or need{' '} <a id="help" href="mailto:clickncheckservice@gmail.com?subject=Not Receiving OTP!"> Help?
+                                    </a>
+                                </p>
+                            </div>
+                            <div className="loading">
+                                {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </Fragment>
+                
             );
         } else {
             window.location = '/login';
