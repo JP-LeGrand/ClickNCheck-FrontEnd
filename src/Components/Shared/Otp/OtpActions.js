@@ -74,11 +74,13 @@ export const submitOtp = (user_id,otp) => {
                     sessionStorage.setItem('user_name', response[TWO]);
                     sessionStorage.setItem('user_img', response[THREE]);
                     let id_pass_manager = localStorage.getItem('id_pass_manager');
-                    localStorage.clear();
+                    
                     if (id_pass_manager === null) {
                         if (response[ONE] === 'recruiter') {
+                            localStorage.clear();
                             window.location = '/NewVerificationRequest';
                         } else if (response[ONE] === 'admin') {
+                            localStorage.clear();
                             window.location = '/admin/recuiterJopProfiles';
                         }
                     } else {
@@ -138,4 +140,12 @@ export const resendOtp = (userid) => {
                 }
             );
     };
+};
+export const assignUserId = (user_id) => {
+    return function (dispatch) {
+        dispatch({
+            type: Types.ASSIGN_USER,
+            payload: user_id
+        });
+    };   
 };
