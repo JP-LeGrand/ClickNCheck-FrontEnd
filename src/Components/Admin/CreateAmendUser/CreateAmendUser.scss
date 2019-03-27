@@ -146,40 +146,37 @@
 
       li {
         display: inline-block;
-        margin-right: 18px;
+        margin-right: 17px;
         background-color: #f9f9f9;
         font-size: 12px;
         font-weight: normal;
         font-style: normal;
         font-stretch: normal;
-        line-height: 3.75;
         letter-spacing: 0.3px;
-        text-align: center;
+        height: 30px;
         color: #2b3844;
-      }
-
-      li span {
-        padding-left: 32px;
-        padding-top: 11.1px;
-        padding-bottom: 11.1px;
+        margin-bottom: 8px;
+        padding: 4px 1em;
       }
 
       li img {
-        padding-left: 22.9px;
-        padding-right: 18.1px;
+        padding-left: 1em;
+        
+      position: relative;
+      bottom: 7px;
       }
 
-      ul {
+      ul{
         padding: 0;
-        position: relative;
-        top: 25px;
       }
 
-    span{
+    label{
       font-size: 12px;
       font-weight: normal;
       font-style: normal;
       font-stretch: normal;
       letter-spacing: 0.3px;
+      position: relative;
+      bottom: 7px;
       }
 }
