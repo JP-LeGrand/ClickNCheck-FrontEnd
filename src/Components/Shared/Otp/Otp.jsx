@@ -6,12 +6,15 @@ import mainImg from '../../../Assets/main.svg';
 import 'typeface-roboto';
 import rollingImg from '../../../Assets/Rolling.svg';
 import { ToastContainer, toast } from 'mdbreact';
+import * as OtpActions from './OtpActions' ;
+import { bindActionCreators } from '../../../../../../../Users/Kara Verster/AppData/Local/Microsoft/TypeScript/3.3/node_modules/redux';
+import PropTypes from 'prop-types';
 
 class Otp extends React.PureComponent {
     constructor(props) {
         window.history.forward();
         super(props);
-        this.state = {
+        /*this.state = {
             digit1: '',
             digit2: '',
             digit3: '',
@@ -19,64 +22,69 @@ class Otp extends React.PureComponent {
             digit5: '',
             loading: false
         };
-
         this.handleChangeDigit1 = this.handleChangeDigit1.bind(this);
         this.handleChangeDigit2 = this.handleChangeDigit2.bind(this);
         this.handleChangeDigit3 = this.handleChangeDigit3.bind(this);
         this.handleChangeDigit4 = this.handleChangeDigit4.bind(this);
         this.handleChangeDigit5 = this.handleChangeDigit5.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);*/
     }
 
     handleChangeDigit1(event) {
-        this.setState({ digit1: event.target.value });
+        this.props.handleChangeDigit1(event.target.value);
+        //this.setState({ digit1: event.target.value });
         if (event.target.value !== '') {
             event.target.nextSibling.focus();
         }
     }
 
     handleChangeDigit2(event) {
-        this.setState({ digit2: event.target.value });
+        this.props.handleChangeDigit2(event.target.value);
+        //this.setState({ digit2: event.target.value });
         if (event.target.value !== '') {
             event.target.nextSibling.focus();
         }
     }
 
     handleChangeDigit3(event) {
-        this.setState({ digit3: event.target.value });
+        this.props.handleChangeDigit3(event.target.value);
+        //this.setState({ digit3: event.target.value });
         if (event.target.value !== '') {
             event.target.nextSibling.focus();
         }
     }
 
     handleChangeDigit4(event) {
-        this.setState({ digit4: event.target.value });
+        this.props.handleChangeDigit4(event.target.value);
+        //this.setState({ digit4: event.target.value });
         if (event.target.value !== '') {
             event.target.nextSibling.focus();
         }
     }
 
     handleChangeDigit5(event) {
-        this.setState({ digit5: event.target.value });
+        this.props.handleChangeDigit5(event.target.value);
+        //this.setState({ digit5: event.target.value });
     }
 
     handleSubmit(event) {
         event.preventDefault();
+        
         let body = {
             OTP:
-        this.state.digit1 +
-        '' +
-        this.state.digit2 +
-        '' +
-        this.state.digit3 +
-        '' +
-        this.state.digit4 +
-        '' +
-        this.state.digit5
+                this.props.digit1 +
+                '' +
+                this.props.digit2 +
+                '' +
+                this.props.digit3 +
+                '' +
+                this.props.digit4 +
+                '' +
+                this.props.digit5
         };
-        let user_otp = [ localStorage.getItem('user_id'), body.OTP ];
-        
-        this.setState({ loading: true }, () => { 
+        //let user_otp = [ localStorage.getItem('user_id'), body.OTP ];
+        this.props.submitOtp(this.props.user_id, body.OTP);
+        /*this.setState({ loading: true }, () => { 
             fetch(BASE_URL + CHECK_OTP, {
                 method: 'POST',
                 mode: 'cors', // no-cors, cors, *same-origin
@@ -124,11 +132,13 @@ class Otp extends React.PureComponent {
                         });
                     }
                 );
-        });
+        });*/
         
     }
 
-    handleResubmit(){
+    handleResubmit() {
+        this.props.resendOtp(this.props.user_id);
+        /*
         let userid = localStorage.getItem('user_id');
         fetch(BASE_URL + OTP_AUTHENTICATION, {
             method: 'POST',
@@ -157,11 +167,11 @@ class Otp extends React.PureComponent {
                         autoClose : 3000
                     });
                 }
-            );
+            );*/
     }
 
     render() {
-        if (localStorage.getItem('user_id') !== null) {
+        //if (localStorage.getItem('user_id') !== null) {
             return (
                 <Fragment>
                     <ToastContainer
@@ -228,10 +238,46 @@ class Otp extends React.PureComponent {
                 </Fragment>
                 
             );
-        } else {
-            window.location = '/login';
-        }
+        //} else {
+            //window.location = '/login';
+        //}
     }
 }
 
-export default connect()(Otp);
+Otp.propTypes = {
+    digit1: PropTypes.string,
+    digit2: PropTypes.string,
+    digit3: PropTypes.string,
+    digit4: PropTypes.string,
+    digit5: PropTypes.string,
+    loading: PropTypes.bool,
+    user_id: PropTypes.string,
+    handleChangeDigit1: PropTypes.func.isRequired,
+    handleChangeDigit2: PropTypes.func.isRequired,
+    handleChangeDigit3: PropTypes.func.isRequired,
+    handleChangeDigit4: PropTypes.func.isRequired,
+    handleChangeDigit5: PropTypes.func.isRequired,
+    submitOtp: PropTypes.func.isRequired,
+    resendOtp: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+    digit1: state.otpState.digit1,
+    digit2: state.otpState.digit2,
+    digit3: state.otpState.digit3,
+    digit4: state.otpState.digit4,
+    digit5: state.otpState.digit5,
+    loading: state.otpState.loading,
+    user_id: state.otpState.user_id
+});
+
+const mapActionsToProps = (dispatch) => ({
+    handleChangeDigit1: bindActionCreators(OtpActions.handleChangeDigit1, dispatch),
+    handleChangeDigit2: bindActionCreators(OtpActions.handleChangeDigit2, dispatch),
+    handleChangeDigit3: bindActionCreators(OtpActions.handleChangeDigit3, dispatch),
+    handleChangeDigit4: bindActionCreators(OtpActions.handleChangeDigit4, dispatch),
+    handleChangeDigit5: bindActionCreators(OtpActions.handleChangeDigit5, dispatch),
+    submitOtp: bindActionCreators(OtpActions.submitOtp, dispatch),
+    resendOtp: bindActionCreators(OtpActions.resendOtp, dispatch)
+});
+export default connect(mapStateToProps, mapActionsToProps)(Otp);

@@ -46,7 +46,15 @@ const InitialState = {
         fileSize : '',
         tableValid : false
     },
-
+    otpState: {
+        digit1: '',
+        digit2: '',
+        digit3: '',
+        digit4: '',
+        digit5: '',
+        loading: false,
+        user_id: ''
+    },
 };
 
 export default InitialState;
