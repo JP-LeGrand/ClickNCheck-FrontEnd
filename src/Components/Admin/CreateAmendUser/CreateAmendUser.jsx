@@ -7,8 +7,8 @@ import mainImg from '../../../Assets/main.svg';
 import email from '../../../Assets/email.svg';
 import phone from '../../../Assets/phone.svg';
 import AdminNavBar from '../AdminNavBar/adminNavBar';
-import { BASE_URL, GET_ALL_JOB_PROFILES, CREATE_AMEND_USER } from '../../../Shared/Constants';
-import { ONE } from '../../../Shared/IntConstants';
+import { BASE_URL, GET_ALL_JOB_PROFILES, CREATE_AMEND_USER, GET_MANAGERS } from '../../../Shared/Constants';
+import { ONE, ZERO } from '../../../Shared/IntConstants';
 import './CreateAmendUser.scss';
 
 class CreateAmendUser extends Component {
@@ -23,16 +23,27 @@ class CreateAmendUser extends Component {
             EndDate: '',
             rec_jobprofiles: '',
             rec_roles: '',
+            rec_manager: '',
+            all_managers: '',
             allJobProfiles: '',
             roles: [
                 {
                     id: 3,
                     role: 'Recruiter'
-                }]
+                },
+                {
+                    id: 4,
+                    role: 'Manager'
+                },
+                {
+                    id: 5,
+                    role: 'Operator'
+                } ]
 
         };
 
         this.allJobProfiles = this.allJobProfiles.bind(this);
+        this.allManagers = this.allManagers.bind(this);
         this.startDateHandler = this.startDateHandler.bind(this);
         this.endDateHandler = this.endDateHandler.bind(this);
         this.nameHandler = this.nameHandler.bind(this);
@@ -41,7 +52,9 @@ class CreateAmendUser extends Component {
         this.phoneHandler = this.phoneHandler.bind(this);
         this.rolesHandler = this.rolesHandler.bind(this);
         this.jobsHandler = this.jobsHandler.bind(this);
+        this.managerHandler = this.managerHandler.bind(this);
         this.allJobProfiles();
+        this.allManagers();
     }
 
     allJobProfiles() {
@@ -61,6 +74,34 @@ class CreateAmendUser extends Component {
             .then(
                 response => {
                     this.setState({ allJobProfiles: response });
+                },
+                error => {
+                    this.setState({
+                        loading: false
+                    });
+                    alert(error);
+                }
+            );
+    }
+
+    allManagers() {
+        fetch(BASE_URL + GET_MANAGERS, {
+            method: 'GET',
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'omit', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+        })
+            .then(response => response.json())
+            .then(
+                response => {
+                    this.setState({ all_managers: response.Users });
+                    console.log(Object.entries(this.state.all_managers));
                 },
                 error => {
                     this.setState({
@@ -112,16 +153,23 @@ class CreateAmendUser extends Component {
         }
     }
 
+    managerHandler(event) {
+        this.setState({ rec_manager: event.target.value });
+    }
+
     handleSubmit(event) {
         let body = {
-            'users': [{
+            'users': [ {
                 'Name': this.state.Name,
                 'Surname': this.state.Surname,
                 'Phone': this.state.Phone,
-                'Email': this.state.Email
-            }],
-            'usertypes': [this.state.rec_roles],
-            'jobprofiles': [this.state.rec_jobprofiles]
+                'Email': this.state.Email,
+                'StartDate': this.state.StartDate,
+                'EndDate': this.state.EndDate,
+                'ManagerID': this.state.rec_manager
+            } ],
+            'usertypes': [ this.state.rec_roles ],
+            'jobprofiles': [ this.state.rec_jobprofiles ]
         };
 
         event.preventDefault();
@@ -139,10 +187,10 @@ class CreateAmendUser extends Component {
                 referrer: 'no-referrer', // no-referrer, *client
                 body: JSON.stringify(body),
             })
-                .then((response) => response.json())
                 .then(
-                    response => {
-                        alert(response);
+                    () => {
+                        alert('User Created');
+                        window.location = '/Users';
                     }, (error) => {
                         this.setState({
                             isLoading: false
@@ -155,11 +203,15 @@ class CreateAmendUser extends Component {
 
     render() {
 
-        const jobresultItems = Object.entries(this.state.allJobProfiles).map((item, index) => <option key={index} value={item[ONE]['ID']}>{item[ONE]['JobCode']} - {item[ONE]['Title']}</option>
+        const job_resultItems = Object.entries(this.state.allJobProfiles).map((item, index) => <option key={index} value={item[ONE].ID}>{item[ONE].JobCode} - {item[ONE].Title}</option>
 
         );
 
-        const roleresultItems = this.state.roles.map((item, index) => <option key={index} value={item.id}>{item.role}</option>
+        const role_resultItems = this.state.roles.map((item, index) => <option key={index} value={item.id}>{item.role}</option>
+
+        );
+
+        const manager_resultItems = Object.entries(this.state.all_managers).map((item, index) => <option key={index} value={item[ONE].ID}>{item[ONE].Name + ' ' + item[ONE].Surname}</option>
 
         );
         return (
@@ -233,9 +285,17 @@ class CreateAmendUser extends Component {
                             <tr>
                                 <td>
                                     <div className="form-group">
+                                        <label>Manager</label>
+                                        <br />
+                                        <select onChange={this.managerHandler}><option>...</option>{manager_resultItems}</select>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <div className="form-group">
                                         <label>Roles</label>
                                         <br />
-                                        <select onChange={this.rolesHandler}><option>...</option>{roleresultItems}</select>
+                                        <select onChange={this.rolesHandler}><option>...</option>{role_resultItems}</select>
                                     </div>
 
                                 </td>
@@ -243,7 +303,7 @@ class CreateAmendUser extends Component {
                                     <div className="form-group">
                                         <label>Job Profile</label>
                                         <br />
-                                        <select onChange={this.jobsHandler}><option>...</option>{jobresultItems}</select>
+                                        <select onChange={this.jobsHandler}><option>...</option>{job_resultItems}</select>
                                     </div>
                                 </td>
                             </tr>

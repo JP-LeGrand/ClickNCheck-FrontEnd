@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import 'typeface-roboto';
 import './Login.scss';
@@ -7,6 +7,7 @@ import mainImg from '../../../Assets/main.svg';
 import userImg from '../../../Assets/user.svg';
 import passImg from '../../../Assets/password.svg';
 import rollingImg from '../../../Assets/Rolling.svg';
+import { ToastContainer, toast } from 'mdbreact';
 class Login extends React.PureComponent {
     constructor(props) {
         if (localStorage.getItem('user_id') !== null) {
@@ -48,7 +49,7 @@ class Login extends React.PureComponent {
     }
     handleSubmit(event){
         event.preventDefault();
-        let credentials = [ this.state.email, this.state.password ];
+        let credentials = [ this.state.email, this.state.password ]; 
         this.setState({ isLoading: true }, () => { 
             fetch(BASE_URL + AUTHENTICATE_LOGIN, {
                 method: 'POST',
@@ -122,11 +123,13 @@ class Login extends React.PureComponent {
                             );
 
                     },
-                    (error) => {
+                    () => {
                         this.setState({
                             isLoading: false
                         });
-                        alert(error);
+                        toast.error('Error Logging In. Check credentials', {
+                            autoClose: 3000
+                        });
                     }
                 );
         });
@@ -134,45 +137,52 @@ class Login extends React.PureComponent {
     
     render() {
         return (
-            <div className="login">  
-                <header className="headSection">
-                    <img src={mainImg}/>
-                </header>
-                <div className="mainSection">
-                    <div className="loginHeading"><b>Sign In</b></div>
-                    <form onSubmit={this.handleSubmit}> 
-                        <div className="form-group">
-                            <img src={userImg}/>
-                            <label className="inp">
-                                <input placeholder="&nbsp;" name="email" value ={this.state.email} onChange={this.handleChangeEmail} />
-                                <span className="label">Email</span>
-                                <span className="border"></span>
-                            </label>
-                        </div>
+            <Fragment>
+                <ToastContainer
+                    hideProgressBar={true}
+                    newestOnTop={true}
+                    autoClose={5000}
+                />
+                <div className="login">  
+                    <header className="headSection">
+                        <img src={mainImg}/>
+                    </header>
+                    <div className="mainSection">
+                        <div className="loginHeading"><b>Sign In</b></div>
+                        <form onSubmit={this.handleSubmit}> 
+                            <div className="form-group">
+                                <img src={userImg}/>
+                                <label className="inp">
+                                    <input placeholder="&nbsp;" name="email" value ={this.state.email} onChange={this.handleChangeEmail} />
+                                    <span className="label">Email</span>
+                                    <span className="border"></span>
+                                </label>
+                            </div>
 
-                        <div className="form-group">
-                            <img src={passImg}/>
-                            <label className="inp">
-                                <input placeholder="&nbsp;" type={this.state.inputType} name="password" value ={this.state.password} onChange={this.handleChangePass} />
-                                <span className="label">Enter Password</span>
-                                <span className="border"></span>
-                                <span className="showHide" onClick={this.handleShowHide}>{this.state.isPasswordVisible ? 'Hide' : 'Show'}</span>
-                            </label>
+                            <div className="form-group">
+                                <img src={passImg}/>
+                                <label className="inp">
+                                    <input placeholder="&nbsp;" type={this.state.inputType} name="password" value ={this.state.password} onChange={this.handleChangePass} />
+                                    <span className="label">Enter Password</span>
+                                    <span className="border"></span>
+                                    <span className="showHide" onClick={this.handleShowHide}>{this.state.isPasswordVisible ? 'Hide' : 'Show'}</span>
+                                </label>
                             
-                            <p>
-                                <a href="/forgotPassword">Forgot Password?</a>
-                            </p>
-                        </div> 
+                                <p>
+                                    <a href="/forgotPassword">Forgot Password?</a>
+                                </p>
+                            </div> 
 
-                        <div id="btnDiv" className="form-group">
-                            <button onClick={this.handleSubmit}>Login</button>
-                        </div> 
-                    </form>
-                    <div className="logginIn">
-                        {this.state.isLoading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                            <div id="btnDiv" className="form-group">
+                                <button onClick={this.handleSubmit}>Login</button>
+                            </div> 
+                        </form>
+                        <div className="logginIn">
+                            {this.state.isLoading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }
