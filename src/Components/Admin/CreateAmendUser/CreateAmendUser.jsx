@@ -55,19 +55,22 @@ class CreateAmendUser extends Component {
         this.getUser = this.getUser.bind(this);
         this.removeJob = this.removeJob.bind(this);
         this.removeRole = this.removeRole.bind(this);
+    }
+
+    async componentDidMount(){
+        await this.allJobProfiles();
+        await this.allManagers();
         let url_string = window.location.href;
         let url = new URL(url_string);
         let id = url.searchParams.get('user_id');
+
         if (id !== null ){
-            this.getUser(id);
+            await this.getUser(id);
         }
-        this.allJobProfiles();
-        this.allManagers();
-        
     }
 
-    allJobProfiles() {
-        fetch(BASE_URL + GET_ALL_JOB_PROFILES, {
+    async allJobProfiles() {
+        await fetch(BASE_URL + GET_ALL_JOB_PROFILES, {
             method: 'GET',
             mode: 'cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -99,8 +102,8 @@ class CreateAmendUser extends Component {
             );
     }
 
-    allManagers() {
-        fetch(BASE_URL + GET_MANAGERS, {
+    async allManagers() {
+        await fetch(BASE_URL + GET_MANAGERS, {
             method: 'GET',
             mode: 'cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -126,9 +129,9 @@ class CreateAmendUser extends Component {
             );
     }
 
-    getUser(id) {
+    async getUser(id) {
         
-        fetch(BASE_URL + GET_USER + id, {
+        await fetch(BASE_URL + GET_USER + id, {
             method: 'GET',
             mode: 'cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -153,12 +156,13 @@ class CreateAmendUser extends Component {
                     this.setState({ PictureUrl: response.PictureUrl });
                     this.setState({ rec_manager: response.ManagerID });
                     this.setState({ selected_roles: response.Roles });
-                    this.state.selected_roles.forEach(element => {
-                        this.setState({ available_roles: this.state.available_roles.filter(item => item !== element) });
-                    });
-                    
                     this.setState({ selected_jobs: response.JobProfiles });
-                    
+                    this.state.selected_roles.forEach(element => {
+                        this.setState({ available_roles: this.state.available_roles.filter(item => item.id !== element.id) });
+                    });
+                    this.state.selected_jobs.forEach(element => {
+                        this.setState({ available_jobs: this.state.available_jobs.filter(item => item.id !== element.id) });
+                    });
                 },
                 error => {
                     this.setState({
@@ -261,7 +265,7 @@ class CreateAmendUser extends Component {
         };
         event.preventDefault();
         this.setState({ isLoading: true }, () => {
-            fetch(BASE_URL + CREATE_AMEND_USER, {
+            fetch(BASE_URL + CREATE_AMEND_USER + (this.state.user_id !== '' ? '?user_id=' + this.state.user_id : ''), {
                 method: 'POST',
                 mode: 'cors', // no-cors, cors, *same-origin
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
