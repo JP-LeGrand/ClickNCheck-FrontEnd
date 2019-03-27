@@ -40,7 +40,7 @@ class ReviewChecks extends React.Component {
         }
     }
 
-    reorderChecks(){
+    reorderChecks() {
         localStorage.setItem('isRecruiter', true);
     }
 
@@ -77,35 +77,67 @@ class ReviewChecks extends React.Component {
                 });
     }
     render() {
+        let customStyle = {
+            control: provided => ({
+                ...provided,
+                height: 2,
+                width: 300,
+                padding: 5,
+                marginBottom: 39,
+                marginLeft: 0,
+                border: '0',
+                borderRadius: 0,
+                boxShadow: '0 !important',
+                '&:hover': {
+                    borderBottom: '1px solid black'
+                },
+                borderBottom: '1px solid black',
+                fontSize: 18,
+                color: '#2b3844',
+                outline: 'none',
+                pointerEvents: 'none'
+            }),
+            option: given => ({
+                ...given,
+                backgroundColor: '#FFFFFF',
+                borderBottom: 'solid 1px #e6e9ec',
+                borderRadius: 3,
+                '&:hover': {
+                    backgroundColor: '#e6e9ec',
+                    zIndex: 20
+                },
+                zIndex: 22
+            })
+        };
         return (
 
             <div className="bodyStyles">
-            <div className="candidateNav">
-                <NavBar />
-                <div id="spanHolder">
-                    <span className="New-Verification-Req">New Verification Request</span>
-                    <span className="Job-Profile">Job Profile</span>
+                <div className="candidateNav">
+                    <NavBar />
+                    <div id="spanHolder">
+                        <span className="New-Verification-Req">New Verification Request</span>
+                        <span className="Job-Profile">Job Profile</span>
+                    </div>
+                    <div id="formContainer">
+                        <ul id="progress_bar">
+                            <li className="active">Select verification checks</li>
+                            <li>Candidate Details</li>
+                            <li>Next Steps</li>
+                        </ul>
+                        <h3>Job Profile</h3>
+                        <ReactSelect customStyle={customStyle} defaultProf={localStorage.getItem('jp')} />
+                        <hr className="Line" />
+                        {
+                            this.props.displayChecks ? <ProfileChecks addRemove={this.addRemoveChecks} checks={this.props.checks} />
+                                : <AddRemoveChecks updateAllChecks={this.props.updateAllChecks} addRemove={this.addRemoveChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck} />
+                        }
+                    </div>
+                    <div id="buttonFooter">
+                        <button id="prev" onClick={this.verificationChecks}>BACK</button>
+                        <button id="next" onClick={this.individualForm}>NEXT</button>
+                    </div>
+                    <Footer />
                 </div>
-                <div id="formContainer">
-                    <ul id="progress_bar">
-                        <li className="active">Select verification checks</li>
-                        <li>Candidate Details</li>
-                        <li>Next Steps</li>
-                    </ul>
-                    <h3>Job Profile</h3>
-                    <ReactSelect defaultProf={localStorage.getItem('jp')} />
-                    <hr className="Line" />
-                    {
-                        this.props.displayChecks ? <ProfileChecks addRemove={this.addRemoveChecks} checks={this.props.checks} />
-                            : <AddRemoveChecks updateAllChecks={this.props.updateAllChecks} addRemove={this.addRemoveChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck} />
-                    }
-                </div>
-                <div id="buttonFooter">
-                    <button id="prev" onClick={this.verificationChecks}>BACK</button>
-                    <button id="next" onClick={this.individualForm}>NEXT</button>
-                </div>
-                <Footer />
-            </div>
             </div>
         );
     }
