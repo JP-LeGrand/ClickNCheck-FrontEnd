@@ -76,15 +76,15 @@ class NewVerificationRequest extends React.Component {
                     <h3 className="Job-Profile">Job Profile</h3>
                     <div className="formBox">
                
-                    <div id="">
-                        <ul id="progress_bar">
-                            <li className="active">Select verification checks</li>
-                            <li>Candidate Details</li>
-                            <li>Next Steps</li>
-                        </ul>
-                        <h3>Job Profile</h3>
-                        <ReactSelect defaultProf={this.state.selectedProfile} jobProfiles={this.state.jobProfiles} onSelectProfile={this.handleChange} customStyle={customStyle} />
-                    </div>
+                        <div id="">
+                            <ul id="progress_bar">
+                                <li className="active">Select verification checks</li>
+                                <li>Candidate Details</li>
+                                <li>Next Steps</li>
+                            </ul>
+                            <h3>Job Profile</h3>
+                            <ReactSelect defaultProf={this.state.selectedProfile} jobProfiles={this.state.jobProfiles} onSelectProfile={this.handleChange} customStyle={customStyle} />
+                        </div>
                     </div>
                     <div id="buttonFooter">
                         <button id="next" onClick={this.nextSteps}>NEXT</button>
