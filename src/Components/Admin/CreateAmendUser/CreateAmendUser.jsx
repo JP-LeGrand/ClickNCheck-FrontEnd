@@ -128,7 +128,6 @@ class CreateAmendUser extends Component {
 
     getUser(id) {
         
-        debugger;
         fetch(BASE_URL + GET_USER + id, {
             method: 'GET',
             mode: 'cors', // no-cors, cors, *same-origin
@@ -168,7 +167,6 @@ class CreateAmendUser extends Component {
                     alert(error);
                 }
             );
-            debugger;
     }
 
     startDateHandler(event) {
@@ -305,7 +303,6 @@ class CreateAmendUser extends Component {
     }
   
     render() {
-        debugger;
         const job_resultItems = Object.entries(this.state.available_jobs).map((item, index) => <option key={index} value={item[ONE].id}>{item[ONE].code} - {item[ONE].title}</option>
 
         );
@@ -322,6 +319,8 @@ class CreateAmendUser extends Component {
 
         );
 
+        const s_roles = Object.entries(this.state.selected_roles).map((item, index) => item[ONE].role + ',');
+
         const select_jobs = Object.entries(this.state.selected_jobs).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].title}</label><img onClick={ (event) => this.removeJob(event, item[ONE])} src={smallx}/></li>
 
         );
@@ -334,6 +333,8 @@ class CreateAmendUser extends Component {
                     <div className="userSummary">
                         <div id="usr_img">
                             <img src={this.state.PictureUrl} />
+                            <label id="name">{this.state.Name + ' ' + this.state.Surname}</label>
+                            <label id="roles"><b>{s_roles}</b></label>
                         </div>
 
                         <div id="heading">
