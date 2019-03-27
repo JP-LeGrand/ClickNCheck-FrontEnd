@@ -72,18 +72,19 @@ class NewVerificationRequest extends React.Component {
             <div className="bodyStyles">
                 <div className="candidateNav">
                     <NavBar />
-                    <div id="spanHolder">
-                        <span className="New-Verification-Req">New Verification Request</span>
-                        <span className="Job-Profile">Job Profile</span>
-                    </div>
-                    <div id="formContainer">
-                        <ul id="progress_bar">
-                            <li className="active">Select verification checks</li>
-                            <li>Candidate Details</li>
-                            <li>Next Steps</li>
-                        </ul>
-                        <h3>Job Profile</h3>
-                        <ReactSelect defaultProf={this.state.selectedProfile} jobProfiles={this.state.jobProfiles} onSelectProfile={this.handleChange} customStyle={customStyle} />
+                    <h2 className="New-Verification-Req"><b>New Verification Request</b></h2>
+                    <h3 className="Job-Profile">Job Profile</h3>
+                    <div className="formBox">
+               
+                        <div id="">
+                            <ul id="progress_bar">
+                                <li className="active">Select verification checks</li>
+                                <li>Candidate Details</li>
+                                <li>Next Steps</li>
+                            </ul>
+                            <h3>Job Profile</h3>
+                            <ReactSelect defaultProf={this.state.selectedProfile} jobProfiles={this.state.jobProfiles} onSelectProfile={this.handleChange} customStyle={customStyle} />
+                        </div>
                     </div>
                     <div id="buttonFooter">
                         <button id="next" onClick={this.nextSteps}>NEXT</button>
