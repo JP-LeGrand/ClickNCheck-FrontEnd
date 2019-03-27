@@ -30,7 +30,7 @@ class CreateJobProfilePage4 extends React.PureComponent {
         sessionStorage.clear();
         window.location = '/';
 
-        
+
     }
     handleSubmitted() {
         this.setState({ assigned: !this.state.assigned });
