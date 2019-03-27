@@ -405,7 +405,7 @@ class CreateAmendUser extends Component {
                         <button id="apply" onClick={(event) => this.handleSubmit(event)}>APPLY</button>
                     </div>
                 </div>
-            </div>
+            </div> 
         );
     }
 }
