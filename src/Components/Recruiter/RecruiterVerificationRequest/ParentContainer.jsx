@@ -18,7 +18,7 @@ class ParentContainer extends React.PureComponent {
         };
         this.changeDiv = this.changeDiv.bind(this);
         this.sendCandidate = this.sendCandidate.bind(this);
-        this.sendCandidate = this.backstep.bind(this);
+        this.backstep = this.backstep.bind(this);
     }
 
     changeDiv(e) {
