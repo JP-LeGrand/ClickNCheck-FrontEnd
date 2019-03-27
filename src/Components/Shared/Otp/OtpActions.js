@@ -101,7 +101,6 @@ export const submitOtp = (user_id,otp) => {
 };
 export const resendOtp = (userid) => {
     return function (dispatch) {
-        //let userid = localStorage.getItem('user_id');
         dispatch({
             type: Types.SUBMIT_OTP,
             payload: true

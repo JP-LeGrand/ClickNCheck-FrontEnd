@@ -62,7 +62,7 @@ class Otp extends React.PureComponent {
     handleSubmit(event) {
         event.preventDefault();
         
-        let otp = this.props.digit1 +this.props.digit2 +this.props.digit3 + this.props.digit4 + this.props.digit5;
+        let otp = ''+this.props.digit1 +this.props.digit2 +this.props.digit3 + this.props.digit4 + this.props.digit5;
         
         this.props.submitOtp(this.props.user_id, otp);
         
@@ -137,8 +137,7 @@ class Otp extends React.PureComponent {
                             </div>
                         </div>
                     </div>
-                </Fragment>
-                
+                </Fragment>  
             );
         } else {
             window.location = '/login';
@@ -147,11 +146,11 @@ class Otp extends React.PureComponent {
 }
 
 Otp.propTypes = {
-    digit1: PropTypes.string,
-    digit2: PropTypes.string,
-    digit3: PropTypes.string,
-    digit4: PropTypes.string,
-    digit5: PropTypes.string,
+    digit1: PropTypes.number,
+    digit2: PropTypes.number,
+    digit3: PropTypes.number,
+    digit4: PropTypes.number,
+    digit5: PropTypes.number,
     loading: PropTypes.bool,
     user_id: PropTypes.string,
     handleChangeDigit1: PropTypes.func.isRequired,
