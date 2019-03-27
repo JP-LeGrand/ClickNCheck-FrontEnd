@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import smallx from '../../../Assets/smallx.svg';
 import AdminNavBar from '../AdminNavBar/adminNavBar';
-import { BASE_URL, GET_ALL_JOB_PROFILES, CREATE_AMEND_USER, GET_MANAGERS } from '../../../Shared/Constants';
+import { BASE_URL, GET_ALL_JOB_PROFILES, CREATE_AMEND_USER, GET_MANAGERS, GET_USER } from '../../../Shared/Constants';
 import { ONE } from '../../../Shared/IntConstants';
 import './CreateAmendUser.scss';
 
@@ -18,33 +18,12 @@ class CreateAmendUser extends Component {
             EndDate: '',
             rec_jobprofiles: '',
             rec_roles: '',
-            selected_roles: [ {
-                id: 3,
-                role: 'Recruiter'
-            },
-            {
-                id: 4,
-                role: 'Manager'
-            },
-            {
-                id: 5,
-                role: 'Operator'
-            } ],
-            selected_jobs: [ {
-                id: 3,
-                title: 'Recruiter'
-            },
-            {
-                id: 4,
-                title: 'Manager'
-            },
-            {
-                id: 5,
-                title: 'Operator'
-            } ],
+            selected_roles: [],
+            selected_jobs: [],
             rec_manager: '',
             all_managers: '',
             allJobProfiles: '',
+            user_id: '',
             roles: [
                 {
                     id: 3,
@@ -72,8 +51,18 @@ class CreateAmendUser extends Component {
         this.rolesHandler = this.rolesHandler.bind(this);
         this.jobsHandler = this.jobsHandler.bind(this);
         this.managerHandler = this.managerHandler.bind(this);
+        this.getUser = this.getUser.bind(this);
+        this.removeJob = this.removeJob.bind(this);
+        this.removeRole = this.removeRole.bind(this);
+        let url_string = window.location.href;
+        let url = new URL(url_string);
+        let id = url.searchParams.get('user_id');
+        if (id !== null ){
+            this.getUser(id);
+        }
         this.allJobProfiles();
         this.allManagers();
+        
     }
 
     allJobProfiles() {
@@ -130,6 +119,43 @@ class CreateAmendUser extends Component {
             );
     }
 
+    getUser(user_id) {
+        this.setState({ user_id: user_id });
+        fetch(BASE_URL + GET_USER + user_id, {
+            method: 'GET',
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'omit', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+        })
+            .then(response => response.json())
+            .then(
+                response => {
+                    this.setState({ Name: response.Name });
+                    this.setState({ Surname: response.Surname });
+                    this.setState({ Email: response.Email });
+                    this.setState({ Phone: response.Phone });
+                    this.setState({ StartDate: response.StartDate });
+                    this.setState({ EndDate: response.EndDate });
+                    this.setState({ rec_manager: response.ManagerID });
+                    this.setState({ selected_roles: response.Roles });
+                    this.setState({ selected_jobs: response.JobProfiles });
+                    this.refs.select_man.defaultValue = response.ManagerID;
+                },
+                error => {
+                    this.setState({
+                        loading: false
+                    });
+                    alert(error);
+                }
+            );
+    }
+
     startDateHandler(event) {
         this.setState({ StartDate: event.target.value });
     }
@@ -155,20 +181,40 @@ class CreateAmendUser extends Component {
     }
 
     rolesHandler(event) {
-        if (this.state.rec_roles === '') {
+        this.state.roles.forEach(element => {
+            if (parseInt(element.id, 10) === parseInt(event.target.value, 10)) {
+                const role = { id: element.id, role: element.role };
+                const newSelected = [ ...this.state.selected_roles ];
+                
+                newSelected.push(role);
+                this.setState( { selected_roles: newSelected });
+            }
+        });
+        /*if (this.state.rec_roles === '') {
             this.setState({ rec_roles: event.target.value });
         } else {
             this.setState({ rec_roles: this.state.rec_roles + ',' + event.target.value });
-        }
+        }*/
 
     }
 
     jobsHandler(event) {
+        this.state.allJobProfiles.forEach(element => {
+            if (parseInt(element.ID, 10) === parseInt(event.target.value, 10)) {
+                const job = { id: element.ID, title: element.Title };
+                const newSelected = [ ...this.state.selected_jobs ];
+                newSelected.push(job);
+                this.setState( { selected_jobs: newSelected });
+            }
+
+        });
+        /*this.setState( { selected_jobs: this.state.selected_jobs.push(event.target.value ) });
         if (this.state.rec_jobprofiles === '') {
             this.setState({ rec_jobprofiles: event.target.value });
         } else {
             this.setState({ rec_jobprofiles: this.state.rec_jobprofiles + ',' + event.target.value });
-        }
+        }*/
+
     }
 
     managerHandler(event) {
@@ -176,6 +222,25 @@ class CreateAmendUser extends Component {
     }
 
     handleSubmit(event) {
+        let rec_jobprofiles = '';
+        this.state.selected_jobs.forEach(element => {
+            if (rec_jobprofiles === '') {
+                rec_jobprofiles = element.id;
+            } else {
+                rec_jobprofiles = rec_jobprofiles + ',' + element.id;
+            }
+
+        });
+
+        let rec_roles = '';
+        this.state.selected_roles.forEach(element => {
+            if (rec_roles === '') {
+                rec_roles = element.id;
+            } else {
+                rec_roles = rec_roles + ',' + element.id;
+            }
+
+        });
         let body = {
             'users': [ {
                 'Name': this.state.Name,
@@ -186,8 +251,8 @@ class CreateAmendUser extends Component {
                 'EndDate': this.state.EndDate,
                 'ManagerID': this.state.rec_manager
             } ],
-            'usertypes': [ this.state.rec_roles ],
-            'jobprofiles': [ this.state.rec_jobprofiles ]
+            'usertypes': [ rec_roles ],
+            'jobprofiles': [ rec_jobprofiles ]
         };
 
         event.preventDefault();
@@ -219,6 +284,14 @@ class CreateAmendUser extends Component {
         });
     }
 
+    removeJob(event, job) {
+        this.setState({ selected_jobs: this.state.selected_jobs.filter(item => item !== job) } );
+    }
+
+    removeRole(event, role) {
+        this.setState({ selected_roles: this.state.selected_roles.filter(item => item !== role) } );
+    }
+
     render() {
 
         const job_resultItems = Object.entries(this.state.allJobProfiles).map((item, index) => <option key={index} value={item[ONE].ID}>{item[ONE].JobCode} - {item[ONE].Title}</option>
@@ -233,7 +306,11 @@ class CreateAmendUser extends Component {
 
         );
 
-        const select_roles = Object.entries(this.state.selected_roles).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].role}</label><img src={smallx}/></li>
+        const select_roles = Object.entries(this.state.selected_roles).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].role}</label><img onClick={(event) => this.removeRole(event, item[ONE])} src={smallx}/></li>
+
+        );
+
+        const select_jobs = Object.entries(this.state.selected_jobs).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].title}</label><img onClick={ (event) => this.removeJob(event, item[ONE])} src={smallx}/></li>
 
         );
         return (
@@ -309,7 +386,7 @@ class CreateAmendUser extends Component {
                                     <div className="form-group">
                                         <label>Manager</label>
                                         <br />
-                                        <select onChange={this.managerHandler}><option>...</option>{manager_resultItems}</select>
+                                        <select onChange={this.managerHandler} ref="select_man"><option>...</option>{manager_resultItems}</select>
                                     </div>
 
                                 </td>
@@ -320,16 +397,18 @@ class CreateAmendUser extends Component {
                                         <ul>
                                             {select_roles}
                                         </ul>
-                                        
-                                        <select onChange={this.rolesHandler}><option>...</option>{role_resultItems}</select>
+                                        <select onChange={(event) => this.rolesHandler(event)}><option>...</option>{role_resultItems}</select>
                                     </div>
 
                                 </td>
                                 <td>
                                     <div className="form-group">
-                                        <label>Job Profile</label>
+                                        <label>Job Profile(s)</label>
                                         <br />
-                                        <select onChange={this.jobsHandler}><option>...</option>{job_resultItems}</select>
+                                        <ul>
+                                            {select_jobs}
+                                        </ul>
+                                        <select onChange={(event) => this.jobsHandler(event)}><option>...</option>{job_resultItems}</select>
                                     </div>
                                 </td>
                             </tr>
