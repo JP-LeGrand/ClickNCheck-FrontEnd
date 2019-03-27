@@ -119,7 +119,7 @@ class Otp extends React.PureComponent {
                         this.setState({
                             loading: false
                         });
-                        toast.error('Error. Please enter the correct.',{
+                        toast.error('Error. Please enter the correct credentials.',{
                             autoClose: 3000
                         });
                     }
