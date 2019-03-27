@@ -11,16 +11,16 @@ class NewVerificationRequest extends React.Component {
         super(props);
         this.state = {
             jobProfiles: [],
-            selectedProfile: 'e.g Job profile here'
+            selectedProfile: localStorage.getItem('jp') === null ? 'e.g Job profile here' : localStorage.getItem('jp')
         };
         this.nextSteps = this.nextSteps.bind(this);
     }
     nextSteps() {
-        if (this.state.selectedProfile == 'e.g Job profile here' || this.state.selectedProfile == '') {
+        if (this.state.selectedProfile === 'e.g Job profile here' || this.state.selectedProfile === '') {
             return;
         } else {
             this.state.jobProfiles.forEach((jp) => {
-                if (jp.label == this.state.selectedProfile) {
+                if (jp.label === this.state.selectedProfile) {
                     localStorage.setItem('jpID', jp.id);
                     localStorage.setItem('jp', jp.value);
                 }
