@@ -1,4 +1,15 @@
 .verifcationConfirmed{
+  margin: 0 auto;
+  text-align: center;
+  height: 100%;
+
+  body {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    background-color: #ffffff;
+  }
+
   .navbar{
     width: 1240px;
     margin: auto;
@@ -11,25 +22,31 @@
     width: 463px;
     height: 35px;
     font-family: Roboto;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     font-style: normal;
     font-stretch: normal;
     line-height: 2.5;
     letter-spacing: 0.4px;
     color: #02529c;
+    align-self: flex-start;
+    padding-left: 1%;
   }
   .Job-Profile {
     width: 250px;
-    height: 15px;
+    height: 13px;
     font-family: Roboto;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     font-style: normal;
     font-stretch: normal;
     line-height: 3.21;
     letter-spacing: 0.3px;
     color: #02529c;
+    align-self: flex-start;
+    padding-left: 4.5%;
+    padding-bottom: 1%;
+    margin-top: -2%;
   }
     #congrats{
         width: 372px;
@@ -98,7 +115,7 @@
         width: 270px;
         height: 40px;
         border-radius: 7px;
-        background-color:  #0091d1;
+        background-color:  #97c7dd;
         border-color: solid 1px  #0091d1;
         border-style: none;
         color: white;
@@ -222,73 +239,78 @@
 }
 
 
-  #progress_bar {
-    overflow: hidden;
-    counter-reset: step;
-    padding-left: 0px;
-    width: 100%;
-  }
+#progress_bar{
+  overflow: hidden;
+  counter-reset: step;
+  margin-top: -12px;
+  padding-left: 0px;
+}
 
-  #progress_bar li {
-    list-style-type: none;
-    color: black;
-    width: 33.33%;
-    float: left;
-    position: relative;
-    text-align: center;
-  }
-   #progress_bar li:before {
-    content: counter(step);
-    counter-increment: step;
-    width: 45px;
-    line-height: 45px;
-    display: block;
-    color: #2b3844;
-    height: 45px;
-    background-color: #ffffff;
-    text-align: center;
-    border: 1px solid #2b3844;
-    border-radius: 50%;
-    margin: 0 auto 10px auto;
-  }
+#progress_bar li{
+  margin-top: 20px;
+  list-style-type: none;
+  color: black;
+  width:33.33%;
+  float:left;
+  position: relative;
+}
 
-  #progress_bar li:after {
-    content: "";
-    width: 100%;
-    height: 10px;
-    background: #e6e9ec;
-    position: absolute;
-    left: -50%;
-    top: 18px;
-    z-index: -1; /*put it behind the numbers*/
-  }
-  #progress_bar li:first-child:after {
-    /*connector not needed before the first step*/
-    content: none;
-  }
+#progress_bar li:before{
+  content: counter(step);
+  position: relative;
+  counter-increment: step;
+  width: 45px;
+  line-height: 45px;
+  display: block;
+  color: #2b3844;
+  height: 45px;
+  background-color: #FFFFFF;
+  text-align: center;
+  border: 1px solid #2b3844;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  z-index: 10;
+  
+}
 
-  #progress_bar li.active:before,
-  #progress_bar li.active:after {
-    color: #ffffff;
-    background-color: #0091d1;
-    border: 1px solid #ffffff;
-    font-weight: bold;
-    /*@TODO 
-        Make each subsequent text on step bold
-    */
-  }
+#progress_bar li:after {
+content: '';
+width: 98%;
+height: 10px;
+background: #e6e9ec;
+position: absolute;
+left: -50%;
+top: 18px;
+ z-index: 0; 
+}
+#progress_bar li:first-child:after {
+/*connector not needed before the first step*/
+  content: none; 
+}
+
+#progress_bar li.active:before,  #progress_bar li.active:after{
+  color: #FFFFFF;
+  background-color: #0091d1;
+  border: 1px solid #FFFFFF;
+  font-weight: bold;
+  /*@TODO 
+      Make each subsequent text on step bold
+  */
+}
    #formContainer {
+  flex-direction: column;
     position: relative;
     overflow: hidden;
-    border: 1px solid white;
-    padding-left: 100px;
-    padding-right: 100px;
-    margin: 20vh;
-    margin-top: 0;
+    border: 1px solid #e6e9ec;
+    height: 565px;
     border-radius: 8px;
-    font-family: helvetica;
     position: relative;
-    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.14);
+    flex-basis: auto;
+    width: 1200px;
+    // margin: 0 auto;
+    display: inline-block;
+    vertical-align: middle;
+   
   }
   #dashboard, .field4 a {
       margin-left: 37vw;

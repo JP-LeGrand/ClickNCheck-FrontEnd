@@ -5,7 +5,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import UserResults from './UserResults';
-import { BASE_URL, GET_ASSIGNED_JOB_PROFILES, GET_ALL_USERS, GET_RECRUITERS } from '../../../Shared/Constants';
+import { BASE_URL, GET_ASSIGNED_JOB_PROFILES, GET_ALL_USERS, GET_RECRUITERS, GET_MANAGERS, GET_OPERATORS } from '../../../Shared/Constants';
 import './Users.scss';
 
 class Users extends Component {
@@ -30,7 +30,10 @@ class Users extends Component {
         } else if (event.target.value === 'Recruiters'){
             this.setState({ results: 'Recruiters' });
             this.recruiters();
-        } else {
+        } else if (event.target.value === 'Managers'){
+            this.setState({ results: 'Managers' }); 
+            this.managers();
+        } else if (event.target.value === 'Operators'){
             this.setState({ results: 'Operators' }); 
             this.operators();
         }
@@ -57,7 +60,7 @@ class Users extends Component {
             .then(response => response.json())
             .then(
                 response => {
-                    this.setState({ allJobProfiles: response['Users'] });
+                    this.setState({ allJobProfiles: response.Users });
                     this.setState({ countTotalJobProfiles: Object.entries(response['Users']).length });
                     this.setState({ countJobProfiles: Object.entries(response['Users']).length });
                 },
@@ -86,7 +89,7 @@ class Users extends Component {
             .then(response => response.json())
             .then(
                 response => {
-                    this.setState({ allJobProfiles: response['Recruiters'] });
+                    this.setState({ allJobProfiles: response.Recruiters });
                     this.setState({ countJobProfiles: Object.entries(response['Recruiters']).length });
                 },
                 error => {
@@ -98,8 +101,8 @@ class Users extends Component {
             );
     }
 
-    operators(){
-        fetch(BASE_URL + GET_ASSIGNED_JOB_PROFILES, {
+    managers(){
+        fetch(BASE_URL + GET_MANAGERS, {
             method: 'GET',
             mode: 'cors', // no-cors, cors, *same-origin
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -114,8 +117,36 @@ class Users extends Component {
             .then(response => response.json())
             .then(
                 response => {
-                    this.setState({ allJobProfiles: response });
-                    this.setState({ countJobProfiles: Object.entries(response).length });
+                    this.setState({ allJobProfiles: response.Users });
+                    this.setState({ countJobProfiles: Object.entries(response.Users).length });
+                },
+                error => {
+                    this.setState({
+                        loading: false
+                    });
+                    alert(error);
+                }
+            );
+    }
+
+    operators(){
+        fetch(BASE_URL + GET_OPERATORS, {
+            method: 'GET',
+            mode: 'cors', // no-cors, cors, *same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'omit', // include, *same-origin, omit
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+ sessionStorage.getItem('token')
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // no-referrer, *client
+        })
+            .then(response => response.json())
+            .then(
+                response => {
+                    this.setState({ allJobProfiles: response.Users });
+                    this.setState({ countJobProfiles: Object.entries(response.Users).length });
                 },
                 error => {
                     this.setState({
@@ -143,11 +174,13 @@ class Users extends Component {
                         <RadioGroup id="filter" defaultValue="All" className="radios classes.root" onClick={(event) => this.userChoice(event)}>
                             <FormControlLabel id="All" className="radio" value="All" control={<Radio disableRipple defaultChecked color="primary" />} label="All" />
                             <FormControlLabel id="Recruiters" className="radio" value="Recruiters" control={<Radio disableRipple color="primary"/>} label="Recruiters" />
+                            <FormControlLabel id="Managers" className="radio" value="Managers" control={<Radio disableRipple color="primary"/>} label="Managers" />
+                            <FormControlLabel id="Operators" className="radio" value="Operators" control={<Radio disableRipple color="primary"/>} label="Operators" />
                         </RadioGroup>
                     </div>
 
                     <div className="results">
-                        {this.state.results==='All' || this.state.results==='Recruiters' ? < UserResults allJobProfiles={this.state.allJobProfiles} /> : <UserResults allJobProfiles={this.state.allJobProfiles}/>}
+                        {this.state.results==='All' || this.state.results==='Recruiters' || this.state.results==='Managers' || this.state.results==='Operator' ? < UserResults allJobProfiles={this.state.allJobProfiles} /> : <UserResults allJobProfiles={this.state.allJobProfiles}/>}
                     </div>
                 </div>
             </div>
