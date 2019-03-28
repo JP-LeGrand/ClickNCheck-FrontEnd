@@ -12,7 +12,7 @@ class ReactSelect extends React.Component {
             <h3 className="jobProfileHeading">Enter Job profile</h3>
             <input id="jobProfileInput" type="text" name="profile" placeholder="e.g Job profile here" onChange={this.props.onEnterProfile} />
             <h3 className="jobProfileHeading">Code</h3>
-            <input id="jobCodeInput" type="text" name="code"  placeholder="e.g Job code here" onChange={this.props.onEnterCode}/>
+            <input id="jobCodeInput" type="text" name="code" placeholder="e.g Job code here" onChange={this.props.onEnterCode}/>
         </div>;
     }
 }

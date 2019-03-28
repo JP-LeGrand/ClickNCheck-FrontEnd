@@ -75,12 +75,10 @@ class MainContainer extends React.PureComponent {
             let testing = event.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) 
             if (testing === null) {
                 document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
-                console.log('this is false')
                 test = false;
              this.props.checkEmail(false);
             } else {
                 document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
-                console.log('this is true')
                 test = true;
                 this.props.checkEmail(true);
             }

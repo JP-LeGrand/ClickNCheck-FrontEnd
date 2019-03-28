@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://clickncheck.azurewebsites.net/api/';/* alternative url for testing on local db https://clickncheck.azurewebsites.net/api/ */
+export const BASE_URL = 'https://clickncheck.azurewebsites.net/api/';/* alternative url for testing on local db https://localhost:44347/api/ on live https://clickncheck.azurewebsites.net/api/ */
 export const IS_LOGGED_IN = 'authentication/isLoggedIn';
 export const ADD_USER = 'Users/PostUsers';
 export const GET_USER_TYPES = 'Users/userTypes';
@@ -31,3 +31,4 @@ export const CREATE_JOBPROFILE = 'JobProfiles/CreateJobProfile';
 export const GET_RECRUITERS_NAMES='Users/GetRecruiterNames';
 export const GET_ALL_USERS='Users/GetAllUsers';
 export const GET_USER='Users/User/';
+export const CHANGE_STATUS = 'Users/ChangeSatus/';

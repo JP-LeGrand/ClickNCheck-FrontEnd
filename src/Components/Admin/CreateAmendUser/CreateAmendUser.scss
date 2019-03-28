@@ -80,7 +80,7 @@
         outline: none;
     }
       
-    label {
+    .details label {
         font-size: 12px;
         font-weight: bold;
         font-style: normal;
@@ -114,7 +114,7 @@
         padding-left: 0;
     }
 
-    button {
+    .details button {
         float: right;
         width: 120px;
         height: 14px;
@@ -129,6 +129,9 @@
         color: #ffffff;
     }
 
+    .details button:hover {
+        cursor: pointer;
+    }
 
     #apply {
         width: 125px;
@@ -160,11 +163,15 @@
         bottom: 7px;
     }
 
+    li img:hover {
+        cursor: pointer;
+    }
+
     ul{
         padding: 0;
     }
 
-    label{
+    .details label{
       font-size: 12px;
       font-weight: normal;
       font-style: normal;
@@ -226,6 +233,8 @@
             align-self: flex-end;
             flex-grow: 1;
         }
+
+        
     }
     
 }

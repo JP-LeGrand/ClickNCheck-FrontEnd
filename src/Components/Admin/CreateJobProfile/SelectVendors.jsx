@@ -79,26 +79,23 @@ class SelectVendors extends React.Component {
         let elements = [];
         for (let c = 1; c < checks.length-1; c += 2){
             for (let m = 0; m < checks[c].vendors.length; m++){
-                vendors[0].push(<label><input type="checkbox" id="checkbox" value={checks[c].vendors[m].id} name={checks[c].checkType.toString()} onClick={this.checkboxClicked} />{checks[c].vendors[m].name}</label>);
+                vendors[0].push(<label><input type="checkbox" id="checkbox" value={checks[c].vendors[m].id} name={checks[c].checkType.toString()} onClick={this.checkboxClicked} />{checks[c].vendors[m].name}<br /></label>);
             }
             for (let m = 0; m < checks[c+1].vendors.length; m++){
-                vendors[1].push(<label><input type="checkbox" id="checkbox" value={checks[c+1].vendors[m].id} name={checks[c+1].checkType.toString()} onClick={this.checkboxClicked}/>{checks[c+1].vendors[m].name}</label>);
+                vendors[1].push(<label><input type="checkbox" id="checkbox" value={checks[c+1].vendors[m].id} name={checks[c+1].checkType.toString()} onClick={this.checkboxClicked}/>{checks[c+1].vendors[m].name}<br /></label>);
             }
             elements.push(
                 <tr>
                     <td>
                         <h3>{checks[c].checkType}</h3>
-                        <img src={ require('../../../Assets/'+checks[c].checkType.toString().toLowerCase()+'.svg') } alt="VerificationChecks" style={{ width: 50, height:50, float: 'left' }}/>
-                        <div id="checkDiv">
-                            {vendors[0]}
-                        </div>
+                        <img id="checkImage" src={ require('../../../Assets/'+checks[c].checkType.toString().toLowerCase()+'.svg') } alt="VerificationChecks" />
+                        {vendors[0]}<br />
                     </td>
                     <td>
                         <h3>{checks[c+1].checkType}</h3>
-                        <img id="checkImage" src={require('../../../Assets/'+checks[c+1].checkType.toString().toLowerCase()+'.svg')} alt="Credit check" style={{ width: 50, height:50, float: 'left'}} />
-                        <div id="checkDiv">
-                            {vendors[1]}
-                        </div>
+                        <img id="checkImage" src={require('../../../Assets/'+checks[c+1].checkType.toString().toLowerCase()+'.svg')} alt="Credit check" />
+                        {vendors[1]}
+                        <br />
                     </td>
                 </tr>
             );

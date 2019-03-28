@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.scss';
 import Routes from '../../Shared/Routes';
-
+import ReactAI from 'react-appinsights';
 class App extends Component {
     render() {
         return (
@@ -10,4 +10,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default ReactAI.withTracking(App);
