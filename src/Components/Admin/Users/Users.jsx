@@ -7,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import UserResults from './UserResults';
 import { BASE_URL, GET_ASSIGNED_JOB_PROFILES, GET_ALL_USERS, GET_RECRUITERS, GET_MANAGERS, GET_OPERATORS } from '../../../Shared/Constants';
 import './Users.scss';
+import imgLoading from '../../../Assets/Rolling.svg';
 
 class Users extends Component {
     constructor(props) {
@@ -16,25 +17,37 @@ class Users extends Component {
             results: 'there are no job profiles',
             allJobProfiles: '',
             countTotalJobProfiles: 0,
-            countJobProfiles: 0
+            countJobProfiles: 0,
+            loading: true
         };
         this.userChoice = this.userChoice.bind(this);
         this.assignRecruiter = this.assignRecruiter.bind(this);
-        
     }
 
     userChoice(event){
         if (event.target.value === 'All'){
-            this.setState({ results: 'All' });
+            this.setState({
+                results: 'All',
+                loading: true
+            });
             this.allUsers();
         } else if (event.target.value === 'Recruiters'){
-            this.setState({ results: 'Recruiters' });
+            this.setState({
+                results: 'Recruiters',
+                loading: true
+            });
             this.recruiters();
         } else if (event.target.value === 'Managers'){
-            this.setState({ results: 'Managers' }); 
+            this.setState({
+                results: 'Managers',
+                loading: true
+            }); 
             this.managers();
         } else if (event.target.value === 'Operators'){
-            this.setState({ results: 'Operators' }); 
+            this.setState({
+                results: 'Operators',
+                loading: true
+            }); 
             this.operators();
         }
 
@@ -63,6 +76,7 @@ class Users extends Component {
                     this.setState({ allJobProfiles: response.Users });
                     this.setState({ countTotalJobProfiles: Object.entries(response['Users']).length });
                     this.setState({ countJobProfiles: Object.entries(response['Users']).length });
+                    this.setState({ loading: false });
                 },
                 error => {
                     this.setState({
@@ -91,6 +105,7 @@ class Users extends Component {
                 response => {
                     this.setState({ allJobProfiles: response.Recruiters });
                     this.setState({ countJobProfiles: Object.entries(response['Recruiters']).length });
+                    this.setState({ loading: false });
                 },
                 error => {
                     this.setState({
@@ -119,6 +134,7 @@ class Users extends Component {
                 response => {
                     this.setState({ allJobProfiles: response.Users });
                     this.setState({ countJobProfiles: Object.entries(response.Users).length });
+                    this.setState({ loading: false });
                 },
                 error => {
                     this.setState({
@@ -147,6 +163,7 @@ class Users extends Component {
                 response => {
                     this.setState({ allJobProfiles: response.Users });
                     this.setState({ countJobProfiles: Object.entries(response.Users).length });
+                    this.setState({ loading: false });
                 },
                 error => {
                     this.setState({
@@ -182,13 +199,16 @@ class Users extends Component {
                         </div>
 
                         <div className="results">
-                            {this.state.results==='All' || this.state.results==='Recruiters' || this.state.results==='Managers' || this.state.results==='Operator' ? < UserResults allJobProfiles={this.state.allJobProfiles} /> : <UserResults allJobProfiles={this.state.allJobProfiles}/>}
+                            {this.state.loading
+                                ? <img id="loading" src={imgLoading} alt={'loading...'} />
+                                : this.state.results === 'All' || this.state.results === 'Recruiters' || this.state.results === 'Managers' || this.state.results === 'Operator' ? < UserResults allJobProfiles={this.state.allJobProfiles} /> : <UserResults allJobProfiles={this.state.allJobProfiles} />
+                            }
                         </div>
                     </div>
                 </div>
             </div>
             
         );
-    }
+    } 
 }
 export default connect()(Users);
