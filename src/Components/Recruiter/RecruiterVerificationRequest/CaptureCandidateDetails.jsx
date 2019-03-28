@@ -315,10 +315,12 @@ class CaptureCandidateDetails extends React.PureComponent {
                                         <tr>
                                             <td>
                                                 <div className="form-group">
+
                                                     <img src={userImg} />
+                                                    <p id="required">*</p>
                                                     <label className="inp">
                                                         <input id="firstName" placeholder="&nbsp;" name="firstName" value={this.state.firstName} onChange={this.userNameHandler} />
-                                                        <span className="label">Full First Name<p id="required">*</p></span>
+                                                        <span className="label">Full First Name</span>
                                                         <span className="border"></span>
                                                     </label>
                                                 </div>
@@ -326,6 +328,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                             <td>
                                                 <div className="form-group">
                                                     <img src={userImg} />
+                                                    <p id="required">*</p>
                                                     <label className="inp">
                                                         <input id="surname" placeholder="&nbsp;" name="surname" value={this.state.surname} onChange={this.userSurnameHandler} />
                                                         <span className="label">Surname</span>
@@ -338,6 +341,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                             <td>
                                                 <div className="form-group">
                                                     <img src={userImg} />
+
                                                     <label className="inp">
                                                         <input id="maidenName" placeholder="&nbsp;" name="maidenName" value={this.state.mSurname} onChange={this.usermSurnameHandler} />
                                                         <span className="label">Maiden Surname</span>
@@ -348,6 +352,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                         </tr>
                                         <tr>
                                             <div className="radios">
+                                                <p id="requiredRadio">*</p>
                                                 <FormControl component="fieldset">
                                                     <FormLabel component="legend" />
                                                     <RadioGroup roboto-label="ID or Passport" name="ID or Passport" className="radios" color="black" onClick={(event) => this.userChoice(event)}>
@@ -361,6 +366,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                             <td>
                                                 <div className="form-group">
                                                     <img src={userImg} />
+                                                    <p id="required">*</p>
                                                     <label className={this.state.fieldID}>
                                                         <input id="idNumberForm" placeholder="&nbsp;" type="number" name="id" value={this.state.idNumber} onChange={(event) => this.userIdNumber(event)} />
                                                         <span className="label">ID Number</span>
@@ -377,6 +383,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                             <td>
                                                 <div className="form-group">
                                                     <img src={email} />
+                                                    <p id="required">*</p>
                                                     <label className={this.state.fieldEmail}>
                                                         <input id="email" placeholder="&nbsp;" name="email" value={this.state.email} onChange={(event) => this.userEmailHandler(event)} />
                                                         <span className="label">Email Address</span>
@@ -390,6 +397,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                             <td>
                                                 <div className="form-group">
                                                     <img src={phone} />
+                                                    <p id="required">*</p>
                                                     <label className={this.state.fieldPhone}>
                                                         <input id="phone" placeholder="&nbsp;" name="phone" type="number" maxLength={'10'} value={this.state.phone} onChange={(event) => this.userPhoneHandler(event)} />
                                                         <span className="label">Telephone Number</span>

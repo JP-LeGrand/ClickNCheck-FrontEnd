@@ -626,7 +626,7 @@ td {
 .radios {
   display: block;
   width: -webkit-fit-content;
-  width: -moz-fit-content;
+  width: 150px;
   width: fit-content;
   margin-left: 6px;
   margin-bottom: -4px;
@@ -634,6 +634,7 @@ td {
 }
 .MuiFormGroup-root-12 {
     margin-bottom: 15px;
+    width: 100%;
 }
 .saveCandidate{
   margin-left: 9%;
@@ -775,6 +776,20 @@ svg.MuiSvgIcon-root-38{
 }
 #required{
   color: #ff0f0f;
+  width: 0px;
+  height: 0px;
+  font-size: 15px;
+  margin: 0px;
+  padding-left: 100%;
+}
+#requiredRadio{
+  color: #ff0f0f;
+  width: 0px;
+  height: 0px;
+  font-size: 15px;
+  margin: 0px;
+  padding-left: 100%;
+  
 }
 
 }
