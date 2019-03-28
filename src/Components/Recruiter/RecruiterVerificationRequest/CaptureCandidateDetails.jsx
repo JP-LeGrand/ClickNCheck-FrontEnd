@@ -171,59 +171,59 @@ class CaptureCandidateDetails extends React.PureComponent {
         let tableValidationErrors = this.state.tableErrors;
 
         switch (fieldName) {
-            case 'email':
-                emailValid = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
-                tableValidationErrors.email = emailValid ? true : false;
-                if (!tableValidationErrors.email) {
-                    this.setState({
-                        errorEmail: 'invalid email',
-                        fieldEmail: 'invalid',
-                    });
+        case 'email':
+            emailValid = value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+            tableValidationErrors.email = emailValid ? true : false;
+            if (!tableValidationErrors.email) {
+                this.setState({
+                    errorEmail: 'invalid email',
+                    fieldEmail: 'invalid',
+                });
 
-                } else {
-                    this.setState({
-                        errorEmail: '',
-                        fieldEmail: 'inp',
-                    });
-                }
-                break;
+            } else {
+                this.setState({
+                    errorEmail: '',
+                    fieldEmail: 'inp',
+                });
+            }
+            break;
 
-            case 'id':
-                idValid = value.length === RecruiterConstants.idNumberLen;
-                tableValidationErrors.id = idValid ? true : false;
-                if (!tableValidationErrors.id) {
-                    this.setState({
-                        errorID: 'invalid id number',
-                        fieldID: 'invalid',
-                    });
+        case 'id':
+            idValid = value.length === RecruiterConstants.idNumberLen;
+            tableValidationErrors.id = idValid ? true : false;
+            if (!tableValidationErrors.id) {
+                this.setState({
+                    errorID: 'invalid id number',
+                    fieldID: 'invalid',
+                });
 
-                } else {
-                    this.setState({
-                        errorID: '',
-                        fieldID: 'inp',
-                    });
-                }
-                break;
+            } else {
+                this.setState({
+                    errorID: '',
+                    fieldID: 'inp',
+                });
+            }
+            break;
 
-            case 'phone':
-                numberValid = value.length === RecruiterConstants.phoneNumberLen;
-                tableValidationErrors.phone = numberValid ? true : false;
-                if (!tableValidationErrors.phone) {
-                    this.setState({
-                        errorPhone: 'invalid phone number',
-                        fieldPhone: 'invalid',
-                    });
+        case 'phone':
+            numberValid = value.length === RecruiterConstants.phoneNumberLen;
+            tableValidationErrors.phone = numberValid ? true : false;
+            if (!tableValidationErrors.phone) {
+                this.setState({
+                    errorPhone: 'invalid phone number',
+                    fieldPhone: 'invalid',
+                });
 
-                } else {
-                    this.setState({
-                        errorPhone: '',
-                        fieldPhone: 'inp',
-                    });
-                }
-                break;
+            } else {
+                this.setState({
+                    errorPhone: '',
+                    fieldPhone: 'inp',
+                });
+            }
+            break;
 
-            default:
-                break;
+        default:
+            break;
 
         }
         this.setState(
@@ -235,8 +235,10 @@ class CaptureCandidateDetails extends React.PureComponent {
             });
         if (tableValidationErrors.email && tableValidationErrors.phone && tableValidationErrors.id) {
             this.props.checkTableValid(true);
+        } else if (!tableValidationErrors.email || !tableValidationErrors.phone || !tableValidationErrors.id){
+            this.props.checkTableValid(false);
         }
-
+ 
     }
     addCandidate() {
         this.props.clearTable('');
