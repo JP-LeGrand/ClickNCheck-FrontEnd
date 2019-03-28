@@ -1,3 +1,6 @@
+@import '../../../Shared/Styles/mixins';
+@import '../../../Shared/Styles/variables';
+
 .createAmendUser {
     width: 1285px;
     margin: auto;
@@ -72,12 +75,12 @@
         color: #02529c;
     }
 
-      input:focus {
+    input:focus {
         background: none;
         outline: none;
-      }
+    }
       
-      label {
+    label {
         font-size: 12px;
         font-weight: bold;
         font-style: normal;
@@ -85,9 +88,9 @@
         line-height: 3.75;
         letter-spacing: 0.3px;
         color: #2b3844;
-      }
+    }
       
-      input, select{
+    input, select{
         width: 295px;
         border: 0;
         border-bottom: solid 1px #e6e9ec;
@@ -100,18 +103,18 @@
         line-height: 1.57;
         letter-spacing: 0.9px;
         color: #222a31;
-      }
+    }
 
-      select option:first-child{
+    select option:first-child{
         color: white;
-      }
+    }
 
-      td {
+    td {
         padding: 30px 149px;
         padding-left: 0;
-      }
+    }
 
-      button {
+    button {
         float: right;
         width: 120px;
         height: 14px;
@@ -124,27 +127,19 @@
         letter-spacing: 1px;
         text-align: center;
         color: #ffffff;
-      }
+    }
 
-      #deactivate {
-        width: 208px;
-        border: 0;
-        height: 50px;
-        border-radius: 7px;
-        background-color: #ff4a93;
-        margin-right: 22px;
-      }
 
-      #apply {
+    #apply {
         width: 125px;
         height: 50px;
         border-radius: 7px;
-        background-color: #0091d1;
+        background-color: $lightBlue;
         border: 0;
         margin-right: 30px;
-      }
+    }
 
-      li {
+    li {
         display: inline-block;
         margin-right: 17px;
         background-color: #f9f9f9;
@@ -157,18 +152,17 @@
         color: #2b3844;
         margin-bottom: 8px;
         padding: 4px 1em;
-      }
+    }
 
-      li img {
+    li img {
         padding-left: 1em;
-        
-      position: relative;
-      bottom: 7px;
-      }
+        position: relative;
+        bottom: 7px;
+    }
 
-      ul{
+    ul{
         padding: 0;
-      }
+    }
 
     label{
       font-size: 12px;
@@ -178,5 +172,60 @@
       letter-spacing: 0.3px;
       position: relative;
       bottom: 7px;
-      }
+    }
+    .error{
+        color: #d0021b;
+        width: fit-content;
+        margin: 0px;
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        letter-spacing: 0.3px;
+    }
+    .success{
+        color: #2f831c;
+        margin: 0px;
+        width: fit-content;
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        letter-spacing: 0.3px;
+    }
+    .userButtons{
+        display: flex;
+        flex-direction: row;
+        #closeIcon{
+            height: 12px;
+            margin-right: 18px;
+        }
+        #btnDeactivate{
+            width: 208px;
+            border: 0;
+            height: 50px;
+            border-radius: 7px;
+            background-color: #ff4a93;
+            margin-right: 22px;
+        }
+        #btnClearAll{
+            @include button-style;
+            font-weight: bold;
+            background-color: #ffffff;
+            color: #d0021b;
+            height: 50px;
+            margin-left: 78px;
+        }
+        #btnClearAll:focus {
+            outline: none;
+        }
+        .alignLeft{
+            align-self: flex-start;
+        }
+        .alignRight{
+            align-self: flex-end;
+            flex-grow: 1;
+        }
+    }
+    
 }
