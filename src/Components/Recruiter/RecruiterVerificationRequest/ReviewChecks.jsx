@@ -36,8 +36,7 @@ class ReviewChecks extends React.Component {
     addRemoveChecks() {
         if (this.props.displayChecks) {
             this.props.toggleDisplay(false);
-        }
-        else {
+        } else {
             this.props.toggleDisplay(true);
         }
     }
@@ -140,8 +139,8 @@ class ReviewChecks extends React.Component {
                         <hr className="Line" />
                         <div className="">
                         {
-                            this.props.displayChecks ? <ProfileChecks addRemove={this.addRemoveChecks} checks={this.props.checks} />
-                                : <AddRemoveChecks updateAllChecks={this.props.updateAllChecks} addRemove={this.addRemoveChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck} />
+                            this.props.displayChecks ? <ProfileChecks addRemove={this.addRemoveChecks} reorderChecks={this.props.updateReorderChecks} checks={this.props.checks} updateOrder={this.props.updateProfileChecks}/>
+                                : <AddRemoveChecks addRemove={this.addRemoveChecks} updateAllChecks={this.props.updateAllChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck} />
                         }
                         </div>
                     </div>
@@ -159,18 +158,24 @@ class ReviewChecks extends React.Component {
 
 ReviewChecks.propTypes = {
     fetchChecks: PropTypes.func.isRequired,
+    fetchAllChecks: PropTypes.func.isRequired,
     checks: PropTypes.array,
     toggleDisplay: PropTypes.func,
+    updateAllChecks: PropTypes.func,
+    updateReorderChecks: PropTypes.func,
+    reorderChecks: PropTypes.bool,
     displayChecks: PropTypes.bool,
     allChecks: PropTypes.array,
     addProfileCheck: PropTypes.func,
-    removeProfileCheck: PropTypes.func
+    removeProfileCheck: PropTypes.func,
+    updateProfileChecks: PropTypes.func
 };
 
 const mapStateToProps = state => ({
     checks: state.reviewChecksState.jobProfileChecks,
     displayChecks: state.reviewChecksState.displayChecks,
-    allChecks: state.reviewChecksState.allChecks
+    allChecks: state.reviewChecksState.allChecks,
+    reorderChecks: state.reviewChecksState.reorderChecks
 });
 
 const mapActionsToProps = (dispatch) => ({
@@ -179,7 +184,9 @@ const mapActionsToProps = (dispatch) => ({
     fetchAllChecks: bindActionCreators(ReviewChecksActions.fetchAllChecks, dispatch),
     addProfileCheck: bindActionCreators(ReviewChecksActions.addProfileCheck, dispatch),
     removeProfileCheck: bindActionCreators(ReviewChecksActions.removeProfileCheck, dispatch),
-    updateAllChecks: bindActionCreators(ReviewChecksActions.updateAllChecks, dispatch)
+    updateAllChecks: bindActionCreators(ReviewChecksActions.updateAllChecks, dispatch),
+    updateReorderChecks: bindActionCreators(ReviewChecksActions.updateReorderChecks, dispatch),
+    updateProfileChecks: bindActionCreators(ReviewChecksActions.updateProfileChecks, dispatch)
 });
 
 export default connect(mapStateToProps, mapActionsToProps)(ReviewChecks);
