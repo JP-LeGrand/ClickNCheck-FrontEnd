@@ -48,9 +48,9 @@ class CreateJobProfilePage3 extends React.PureComponent {
             sessionStorage.setItem('JobProfileID', response.data);
             window.location = '/Admin/CreateJobProfilePage4';
         },
-            (error) => {
-                alert(error);
-            }
+        (error) => {
+            alert(error);
+        }
         );
     }
 

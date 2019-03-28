@@ -38,7 +38,6 @@ class ViewRecruiterJP extends React.PureComponent{
         axios.get(BASE_URL + GET_RECRUITER_JOB_PROFILE + e.target.value, config)
             .then((response) => {
                 response.data.map((index) => {
-                    console.log(index);
                     arr.push({ title :index.title, id:index.id, code :index.jobCode } );
                 });
                 this.setState({
