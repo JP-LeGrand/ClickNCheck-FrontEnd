@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import './ReviewCheckStyles.scss';
 import './candidateUploadContainer.scss';
 import Footer from '../../Shared/Footer/Footer';
 import NavBar from '../NavBar/NavBar';
 import { BASE_URL } from '../../../Shared/Constants';
 import ReactSelect from '../RecruiterVerificationRequest/ReactSelect';
+import { ToastContainer, toast } from 'mdbreact';
 
 class NewVerificationRequest extends React.Component {
     constructor(props) {
@@ -17,6 +18,9 @@ class NewVerificationRequest extends React.Component {
     }
     nextSteps() {
         if (this.state.selectedProfile === 'e.g Job profile here' || this.state.selectedProfile === '') {
+            toast.warn('Oops! Please select Job Profile before proceeding', {
+                autoClose: 5000
+            });
             return;
         } else {
             this.state.jobProfiles.forEach((jp) => {
@@ -69,28 +73,36 @@ class NewVerificationRequest extends React.Component {
             })
         };
         return (
-            <div className="bodyStyles">
-                <div className="candidateNav">
-                    <NavBar />
-                    <div id="spanHolder">
-                        <span className="New-Verification-Req">New Verification Request</span>
-                        <span className="Job-Profile">Job Profile</span>
+                <Fragment>
+                <ToastContainer 
+                    hideProgressBar={true}
+                    newestOnTop={true}
+                    autoClose={5000}
+                />
+                <div className="bodyStyles">
+                    <div className="candidateNav">
+                        <NavBar />
+                        <h2 className="New-Verification-Req"><b>New Verification Request</b></h2>
+                        <h3 className="Job-Profile">Job Profile</h3>
+                        <div className="formBox">
+                
+                            <div id="">
+                                <ul id="progress_bar">
+                                    <li className="active">Select verification checks</li>
+                                    <li>Candidate Details</li>
+                                    <li>Next Steps</li>
+                                </ul>
+                                <h3>Job Profile</h3>
+                                <ReactSelect defaultProf={this.state.selectedProfile} jobProfiles={this.state.jobProfiles} onSelectProfile={this.handleChange} customStyle={customStyle} />
+                            </div>
+                        </div>
+                        <div id="buttonFooter">
+                            <button id="next" onClick={this.nextSteps}>NEXT</button>
+                        </div>
+                        <Footer />
                     </div>
-                    <div id="formContainer">
-                        <ul id="progress_bar">
-                            <li className="active">Select verification checks</li>
-                            <li>Candidate Details</li>
-                            <li>Next Steps</li>
-                        </ul>
-                        <h3>Job Profile</h3>
-                        <ReactSelect defaultProf={this.state.selectedProfile} jobProfiles={this.state.jobProfiles} onSelectProfile={this.handleChange} customStyle={customStyle} />
-                    </div>
-                    <div id="buttonFooter">
-                        <button id="next" onClick={this.nextSteps}>NEXT</button>
-                    </div>
-                    <Footer />
                 </div>
-            </div>
+            </Fragment>
         );
     }
 
@@ -121,7 +133,9 @@ class NewVerificationRequest extends React.Component {
                     this.setState({ jobProfiles: arr });
                 },
                 (error) => {
-                    alert(error);
+                    toast.error('Oops! Something went wrong. Please try again, if the problem persists, contact support', {
+                        autoClose: 5000
+                    });
                 });
     }
 }

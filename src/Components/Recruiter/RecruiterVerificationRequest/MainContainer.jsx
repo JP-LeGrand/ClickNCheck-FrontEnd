@@ -19,13 +19,13 @@ class MainContainer extends React.PureComponent {
             id: '',
             number: '',
             tableErrors: { email: '', id: '', phone: '' },
-            emailValid: false,
+            emailValid: '',
             idValid: false,
             numberValid: false,
             sloading: false,
         };
         this.submit = this.submit.bind(this);
-        this.addBulkCandidates = this.addBulkCandidates.bind(this);
+      
         this.handleUserInput = this.handleUserInput.bind(this);
         this.removeRow = this.removeRow.bind(this);
         this.nextStep = this.nextStep.bind(this);
@@ -60,15 +60,10 @@ class MainContainer extends React.PureComponent {
             propName = 'ID_Passport';
             if (event.target.value.length !== RecruiterConstants.idNumberLen) {
                 document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
-                this.setState({
-                    idValid: false
-                });
-
+                this.props.checkID(false);
             } else {
                 document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
-                this.setState({
-                    idValid: true
-                });
+                this.props.checkID(true);
             }
             break;
         case 'dob':
@@ -76,17 +71,18 @@ class MainContainer extends React.PureComponent {
             break;
         case 'email':
             propName = 'Email';
-            if (!event.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+            let test ='';
+            let testing = event.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) 
+            if (testing === null) {
                 document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
-                this.setState({
-                    emailValid: false
-                });
+                test = false;
+             this.props.checkEmail(false);
             } else {
                 document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
-                this.setState({
-                    emailValid: true
-                });
+                test = true;
+                this.props.checkEmail(true);
             }
+           
             break;
         default:
             propName = 'Phone';
@@ -95,9 +91,7 @@ class MainContainer extends React.PureComponent {
 
             } else {
                 document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
-                this.setState({
-                    numberValid: true
-                });
+           
             }
         }
 
@@ -105,12 +99,9 @@ class MainContainer extends React.PureComponent {
         newRows[index][propName] = event.target.value;
         this.setState({
             excelRows: newRows,
-         });
+        });
         this.props.update(this.state.excelRows);
-        console.log("id" + this.state.idValid);
-        console.log("enail" +  this.state.emailValid);
-        this.props.checkTableValid( this.state.emailValid, this.state.idValid);
-        
+
     }
     nextStep() {
         window.location = '/VerificationConfirmed';
@@ -138,26 +129,10 @@ class MainContainer extends React.PureComponent {
             });
             this.props.getFile(e);
             this.props.getSize(number);
-
-           
         };
         reader.readAsBinaryString(inputFile.files[0]);
     }
-    addBulkCandidates() {
-        this.setState({
-            loading: true,
-        });
 
-        let body = {
-            candidates: this.state.excelRows,
-        };
-        let var_check = localStorage.getItem('ver_check');
-        Axios.post(BASE_URL + CREATE_CANDIDATE + var_check, body)
-            .then(() => {
-                window.location = '/VerificationConfirmed';
-            });
-
-    }
 
     review() {
 
@@ -191,7 +166,7 @@ class MainContainer extends React.PureComponent {
                                 </tr>
                             );
                         })}
-                    </tbody>
+                    </tbody>    
                                     
                 </table>
             </fieldset>
@@ -233,7 +208,6 @@ class MainContainer extends React.PureComponent {
     }
 
     render() {
-        console.log(this.props.getFileState)
         return <div>
             {this.props.getFileState ? this.bulk() : this.review()}
         </div>;
@@ -243,6 +217,7 @@ class MainContainer extends React.PureComponent {
 const mapStateToProps = state => ({
     bulkArray : state.candidateState.candidateBody,
     getFileState : state.candidateState.fileState,
+    idValid : state.candidateState.idValid 
   
 });
 
@@ -250,7 +225,9 @@ const mapActionToProps = (dispatch) => ({
     update : bindActionCreators (CandidateActions.updateArray, dispatch),
     getFile : bindActionCreators (CandidateActions.reviewBulk, dispatch),
     getSize : bindActionCreators (CandidateActions.getFileSize, dispatch),
-    checkTableValid : bindActionCreators (CandidateActions.isTableValid, dispatch)
+    checkTableValid : bindActionCreators (CandidateActions.isTableValid, dispatch),
+    checkID : bindActionCreators (CandidateActions.idValid, dispatch),
+    checkEmail : bindActionCreators (CandidateActions.emailValid, dispatch)
 
 });
 export default connect(mapStateToProps, mapActionToProps)(MainContainer);

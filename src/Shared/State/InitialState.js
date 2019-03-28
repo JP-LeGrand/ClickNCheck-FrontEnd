@@ -8,18 +8,28 @@ const InitialState = {
         checks: [ 'check-1', 'check-2', 'check-3', 'check-4', 'check-5' ]
     },
     loginState: {
-        canLogin: null,
-        email: null,
-        password: null,
+        password: '',
+        email: '',
+        loginStatus: '',
+        fetchStatus: '',
+        isPasswordVisible: false,
+        inputType: 'password',
+        isLoading: false,
+        error: ''
     },
     forgotPasswordState:{
-        sending: null,
-        sendEmail:null,
-        sendPassword:null,
-        idType: '',/*id or passport */
-        sendVia:'',/*actual  */
-        passportNumber: null,
-        phoneEmail: null
+        loading: false,
+        validMessenger: false,
+        validIdentification: false,
+        emailOrSMS: false,
+        passportOrID: false,
+        sendPassword: false,
+        identitySelected: false,
+        messengerSelected: false,
+        identification: '',
+        messenger: '',
+        messageSent: false,
+        error: ''
     },
     changePasswordState:{
         password:null,
@@ -45,9 +55,19 @@ const InitialState = {
         candidateBody: [],
         fileState: true,
         fileSize : '',
+        idValid : '',
+        emailValid : '',
         tableValid : false
     },
-
+    otpState: {
+        digit1: '',
+        digit2: '',
+        digit3: '',
+        digit4: '',
+        digit5: '',
+        loading: false,
+        user_id: ''
+    },
 };
 
 export default InitialState;

@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import React, { Fragment } from 'react';
 import './MainContainerStyle.scss';
+import './candidateUploadContainer.scss';
 import Footer from '../../Shared/Footer/Footer';
 import { BASE_URL } from '../../../Shared/Constants';
 import NavBar from '../NavBar/NavBar';
@@ -11,6 +12,7 @@ import ProfileChecks from './ProfileChecks';
 import * as ReviewChecksActions from './ReviewChecksActions';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { ToastContainer, toast } from 'mdbreact';
 import { prototype } from 'events';
 import { ToastContainer } from 'mdbreact';
 
@@ -70,10 +72,16 @@ class ReviewChecks extends React.Component {
             .then(
                 response => {
                     localStorage.setItem('ver_check', response);
+                    toast.success("you have successfully creacted a verification check request", {
+                        autoClose: 5000
+                    });
                     window.location = '/candidate/individual';
                 },
                 (error) => {
-                    alert(error);
+                    toast.error("Error has occured", {
+                        autoClose: 5000
+                    });
+                    
                 });
     }
     render() {
@@ -111,19 +119,17 @@ class ReviewChecks extends React.Component {
         };
         return (
             <Fragment>
-                <ToastContainer
-                    hideProgressBar={true}
-                    newestOnTop={true}
-                    autoClose={5000}
-                />
-                 <div className="bodyStyles">
+            <ToastContainer 
+                hideProgressBar={true}
+                newestOnTop={true}
+                autoClose={5000}
+            />
+            <div className="bodyStyles">
                 <div className="candidateNav">
                     <NavBar />
-                    <div id="spanHolder">
-                        <span className="New-Verification-Req">New Verification Request</span>
-                        <span className="Job-Profile">Job Profile</span>
-                    </div>
-                    <div id="formContainer">
+                    <h2 className="New-Verification-Req"><b>New Verification Request</b></h2>
+                    <h3 className="Job-Profile">Job Profile</h3>
+                    <div className="formBox">
                         <ul id="progress_bar">
                             <li className="active">Select verification checks</li>
                             <li>Candidate Details</li>
@@ -132,10 +138,12 @@ class ReviewChecks extends React.Component {
                         <h3>Job Profile</h3>
                         <ReactSelect customStyle={customStyle} defaultProf={localStorage.getItem('jp')} />
                         <hr className="Line" />
+                        <div className="">
                         {
                             this.props.displayChecks ? <ProfileChecks addRemove={this.addRemoveChecks} reorderChecks={this.props.updateReorderChecks} checks={this.props.checks} updateOrder={this.props.updateProfileChecks}/>
                                 : <AddRemoveChecks addRemove={this.addRemoveChecks} updateAllChecks={this.props.updateAllChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck} />
                         }
+                        </div>
                     </div>
                     <div id="buttonFooter">
                         <button id="prev" onClick={this.verificationChecks}>BACK</button>

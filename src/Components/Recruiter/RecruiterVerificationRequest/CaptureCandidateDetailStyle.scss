@@ -54,7 +54,8 @@
     width: 393px;
     height: 27px;
     font-family: Roboto;
-    font-size: $headFont;
+    font-size: 19px;
+    margin-right: 45px;
     font-weight: 300;
     font-style: normal;
     font-stretch: normal;
@@ -122,27 +123,27 @@
     position: relative;
     overflow: hidden;
     border: 1px solid #e6e9ec;
-    height: 620px;
-    padding: 0px;
-    margin: 0 20vh;
+    height: 565px;
     border-radius: 8px;
     position: relative;
     flex-basis: auto;
-    width: 1286px;
+    width: 1200px;
     // margin: 0 auto;
     display: inline-block;
     vertical-align: middle;
     padding-bottom: 50px;
   }
   .innerFormBox {
+    display: -webkit-flex;
     display: flex;
+    -webkit-flex-direction: row;
     flex-direction: row;
     height: 400px;
     margin: auto;
     margin-left: 1%;
-    margin-top: 20px;
+    /* margin-top: -1px; */
     margin-right: 2%;
-    width: 970px;
+    width: 1130px;
     border-top: #0091d1;
   }
   .indi {
@@ -313,11 +314,50 @@
   }
 
   .candidatesRow{
-    border-top: 0.5px solid rgb(189, 176, 176);
-    margin-bottom: 37px;
-    margin-top: 39px;
-    width: 1064px;
-  }
+    
+  } 
+  .scrollbar
+{
+  overflow-y: scroll;
+  border-top: 0.5px solid rgb(189, 176, 176);
+  margin-bottom: 37px;
+  height: 350px;  
+  margin-top: 29px;
+	margin-left: 30px;
+	float: left;
+	height: 350px;
+
+	
+	//margin-bottom: 25px;
+}
+
+.force-overflow
+{
+	min-height: 450px;
+}
+
+
+#style-1::-webkit-scrollbar-track
+{
+//	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+//	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #0091d1;
+}
+
+
   .buttonsLayout {
     width: 100%;
     height: 80px;
@@ -368,7 +408,7 @@
     display: block;
     width: 300px;
     height: 50px;
-    margin: 0 auto;
+    margin: 5px auto;
     font-size: 20px;
   }
   .inp input:focus {
@@ -538,6 +578,35 @@
     right: 143px;
   }
 
+  .Rectangle-Copy-14 {
+    width: 198px;
+    height: 50px;
+    border-radius: 7px;
+    background-color: #4e9821;
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #ffffff;
+    float: right;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #saveImg{
+    width: 18px;
+    height: 18px;
+    margin-left: 25px;
+    margin-right: 5px;
+  }
+  #saveBtnText{
+
+  }
+
   
 td {
   //padding: 0 35px;
@@ -560,9 +629,7 @@ td {
   width: -moz-fit-content;
   width: fit-content;
   margin-left: 6px;
-  margin-top: -6px;
-  padding-top: 11px;
-  margin-bottom: -9px;
+  margin-bottom: -4px;
   padding-bottom: -6px;
 }
 .MuiFormGroup-root-12 {
@@ -589,9 +656,62 @@ td {
 }
 
 #progress_bar{
-  // margin-left: 0px;
-   margin-left: -2%;
-  align-self: auto;
+  overflow: hidden;
+  counter-reset: step;
+  margin-top: -12px;
+  padding-left: 0px;
+}
+
+#progress_bar li{
+  margin-top: 20px;
+  list-style-type: none;
+  color: black;
+  width:33.33%;
+  float:left;
+  position: relative;
+}
+
+#progress_bar li:before{
+  content: counter(step);
+  position: relative;
+  counter-increment: step;
+  width: 45px;
+  line-height: 45px;
+  display: block;
+  color: #2b3844;
+  height: 45px;
+  background-color: #FFFFFF;
+  text-align: center;
+  border: 1px solid #2b3844;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  z-index: 10;
+  
+}
+
+#progress_bar li:after {
+content: '';
+width: 98%;
+height: 10px;
+background: #e6e9ec;
+position: absolute;
+left: -50%;
+top: 18px;
+ z-index: 0; 
+}
+#progress_bar li:first-child:after {
+/*connector not needed before the first step*/
+  content: none; 
+}
+
+#progress_bar li.active:before,  #progress_bar li.active:after{
+  color: #FFFFFF;
+  background-color: #0091d1;
+  border: 1px solid #FFFFFF;
+  font-weight: bold;
+  /*@TODO 
+      Make each subsequent text on step bold
+  */
 }
 #white-save{
   height: 12px;
@@ -602,7 +722,8 @@ td {
 #newVTitile{
   width: 463px;
   height: 35px;
-  font-size: 15px;
+  font-family: Roboto;
+  font-size: 14px;
   font-weight: bold;
   font-style: normal;
   font-stretch: normal;
@@ -610,7 +731,7 @@ td {
   letter-spacing: 0.4px;
   color: #02529c;
   align-self: flex-start;
-  padding-left: 4%;
+  padding-left: 1%;
 }
 
 #JPTitle{
@@ -625,9 +746,15 @@ td {
   letter-spacing: 0.3px;
   color: #02529c;
   align-self: flex-start;
-  padding-left: 7%;
+  padding-left: 4.5%;
   padding-bottom: 1%;
   margin-top: -2%;
+}
+
+.formChecks{
+  display: block;
+  margin-top: 0em;
+  overflow: scroll;
 }
 
 #firstName{

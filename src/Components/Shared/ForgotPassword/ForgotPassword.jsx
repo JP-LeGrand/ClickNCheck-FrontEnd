@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import 'typeface-roboto';
 import './ForgotPassword.scss';
 import imgMain from '../../../Assets/main.svg';
-import { BASE_URL, FORGOT_PASSWORD_EMAIL,FORGOT_PASSWORD_PHONE } from '../../../Shared/Constants';
-import axios from 'axios';
 import Footer from '../Footer/Footer';
 import rollingImg from '../../../Assets/Rolling.svg';
 import { ZERO, ONE, TEN } from '../../../Shared/IntConstants';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import * as ForgotPasswordActions from './ForgotPasswordActions';
+
 function RecieveMethod(props){
     if (props.sendVia === 'phone') {
         return ( 
@@ -39,7 +41,7 @@ function IdentityMethod(props){
         return ( 
             <div className="send">
                 <label className="inp">
-                    <input placeholder="&nbsp;" value={props.passportNumber} maxLength={'13'} onChange={props.handlePassportID}/>
+                    <input placeholder="&nbsp;" value={props.passportNumber} maxLength={'13'} onChange={props.processIdentification}/>
                     <span className="label">Enter ID Number</span>
                     <span className="border"></span>
                 </label>
@@ -49,7 +51,7 @@ function IdentityMethod(props){
         return ( 
             <div className="send">
                 <label className="inp">
-                    <input placeholder="&nbsp;" value={props.passportNumber} onChange={props.handlePassportID}/>
+                    <input placeholder="&nbsp;" value={props.passportNumber} onChange={props.processIdentification}/>
                     <span className="label">Enter Passport Number</span>
                     <span className="border"></span>
                 </label>
@@ -63,190 +65,105 @@ function IdentityMethod(props){
 class ForgotPassword extends React.PureComponent{
     constructor(props) {
         super(props);
-        this.state = {
-            loading: false,
-            sendEmail: false,
-            sendPassword: false,
-            idType: '',/*id or passport */
-            useID: false,
-            usePassport: false,
-            sendVia: '',/*email or phone sms */
-            sendViaPhone: false,
-            sendViaEmail: false,
-            passportNumber: '', /*string with either id or passport */
-            phoneEmail: '', /*string with either phone or email */
-            validEmail: null,
-            validID: null,
-            validPassport: null,
-            validPhone: null
-        };
-
-        this.handleEmailCheck = this.handleEmailCheck.bind(this);
-        this.handlePasswordCheck = this.handlePasswordCheck.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleIDorPassprt = this.handleIDorPassprt.bind(this);
-        this.handlePassportID = this.handlePassportID.bind(this);
+        this.handleIDorPassport = this.handleIDorPassport.bind(this);
+        this.processIdentification = this.processIdentification.bind(this);
         this.handlePhoneOrEmail = this.handlePhoneOrEmail.bind(this);
         this.handleEmailPhone = this.handleEmailPhone.bind(this);
         this.render = this.render.bind(this);
+        this.displayError = this.displayError.bind(this);
         
     }
 
+    displayError(error){
+        switch (error) {
+        case 'failedPost':
+            return 'Password change failed. Please check your details and try again';
+        case 'wrongCredentials':
+            return 'Password change failed. Please check your details and try again';
+        default:
+            return '';
+        }
+    }
+    componentDidMount(){
+        this.props.updateMessengerValidity(true);
+        this.props.updateIdentificationValidity(true);
+    }
+
     handleSubmit(){
-        if (this.state.sendVia === 'email' && this.state.validEmail){
+        if (this.props.emailOrSMS && this.props.validMessenger){
             const body = { 
-                passportNumber: this.state.passportNumber, 
-                email: this.state.phoneEmail 
+                passportNumber: this.props.identification, 
+                email: this.props.messenger 
             };
-            if ( this.state.useID && this.state.validID || this.state.usePassport && this.state.validPassport) {
-                this.setState({ loading: true }, () => {
-                    axios.post(BASE_URL + FORGOT_PASSWORD_EMAIL, body)
-                        .then(() => {
-                            this.setState({
-                                loading: false
-                            });
-                            alert('Forgot password request succesfully sent to email');
-                            localStorage.setItem('sentTo', 'email');
-                            window.location = '/forgotPasswordSuccess';
-                        })
-                        .catch((error) => {
-                            this.setState({
-                                loading: false
-                            });
-                            alert('Oops something went wrong' + error);
-                        });
-                });
-               
+            if (this.props.validIdentification) {
+                this.props.sendPasswordReset(body, this.props.emailOrSMS);
             } else {
-                alert('Passport or ID is invalid');
+                this.props.updateError('wrongCredentials');
             }
             
-        } else if (this.state.sendVia === 'phone' && this.state.validPhone) {
-            let myStr = this.state.phoneEmail;
-            let phoneNumber = myStr.substring(ZERO, ZERO) + '+27' + myStr.substring(ONE);
-            const body = { 
-                passportNumber: this.state.passportNumber, 
-                phonenumber: phoneNumber
-            };
-            alert(body);
-            if (this.state.useID && this.state.validID || this.state.usePassport && this.state.validPassport) {
-                this.setState({ loading: true }, () => { 
-                    axios.post(BASE_URL + FORGOT_PASSWORD_PHONE, body)
-                        .then(() => {
-                            this.setState({
-                                loading: false
-                            });
-                            alert('Forgot password request succesfully sent to phone number');
-                            window.location = '/forgotPasswordSuccess';
-                        })
-                        .catch((error) => {
-                            this.setState({
-                                loading: false
-                            });
-                            alert('Oops something went wrong' + error);
-                        });
-                });
-               
-            } else {
-                alert('Passport or ID is invalid');
-            }
-            
+        } else if (!this.props.emailOrSMS && this.props.validMessenger) {               
+            //TODO Show that phone number isnt supported at the moment            
         } else {
-            alert('Email or Phone Number is invalid');
+            this.props.updateError('wrongCredentials');
         }
     }
-    
-    handlePasswordCheck(event){
-        this.setState({ sendPassword: event.target.checked });
-    }
-    handleEmailCheck(event){
-        this.setState({ sendEmail: event.target.checked });
-    }
-    handleIDorPassprt(event){
-        this.setState({ idType: event.target.value });
+
+    handleIDorPassport(event){
+        this.props.updateIdentificationValidity(false);
         if (event.target.value === 'ID'){
-            this.setState({
-                usePassport: false,
-                useID:true 
-            });
-        } else if (event.target.value === 'Passport') {
-            this.setState({
-                usePassport: true,
-                useID:false 
-            });
+            this.props.updatePassportOrID(true);
+            this.props.updateIdentitySelected(true);
+        } else if (event.target.value === 'Passport'){
+            this.props.updatePassportOrID(false);
+            this.props.updateIdentitySelected(true);
         } else {
-            this.setState({
-                usePassport: false,
-                useID:false 
-            });
+            this.props.updateIdentitySelected(false);
         }
     }
-    handlePassportID(event) {
-        this.setState({ passportNumber: event.target.value });
-        const checkPassportID = event.target.value;
-        if ( this.state.idType === 'ID' ){
+
+    processIdentification(event) {
+        this.props.updateIdentification(event.target.value);
+        let value = event.target.value;
+        if ( this.props.passportOrID){
             const ID_CHARS = 13;
-            if (this.state.useID && checkPassportID.length === ID_CHARS && checkPassportID.match(/[0-9]{13}/)) {
-                this.setState({
-                    validID: true
-                });
+            if (this.props.passportOrID && value.length === ID_CHARS && value.match(/[0-9]{13}/)) {
+                this.props.updateIdentificationValidity(true);
             } else {
-                this.setState({
-                    validID: false
-                });
+                this.props.updateIdentificationValidity(false);
             }
-        } else if ( this.state.idType === 'Passport' ){
-            if (this.state.usePassport && checkPassportID.match(/^[A-Za-z0-9]+$/)) {
-                this.setState({
-                    validPassport: true
-                });
+        } else {
+            if (this.props.identification.match(/^[A-Za-z0-9]+$/)) {
+                this.props.updateIdentificationValidity(true);
             } else {
-                this.setState({
-                    validPassport: false
-                });
+                this.props.updateIdentificationValidity(false);
             }
         }
     }
     handleEmailPhone(event) {
-        const checkPhoneEmail = event.target.value;
-        this.setState({ phoneEmail: event.target.value });
-        
-        if (this.state.sendViaEmail) {
-            const emailValid = checkPhoneEmail.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
-            this.setState({
-                validEmail: emailValid
-            });
-        } else if (this.state.sendViaPhone) {
-            if (checkPhoneEmail.charAt(ZERO) === '0' && checkPhoneEmail.length === TEN && checkPhoneEmail.match(/[0-9]{10}/) ) {
-                this.setState({
-                    validPhone: true
-                });
+        this.props.updateMessenger(event.target.value);
+        if (this.props.emailOrSMS) {
+            this.props.updateMessengerValidity(this.props.messenger.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,3})+$/));
+            this.props.updateMessengerSelected(true);
+        } else {
+            if (this.props.messenger.charAt(ZERO) === '0' && this.props.messenger.length === TEN && this.props.messenger.match(/[0-9]{10}/)) {
+                this.props.updateMessengerValidity(true);
+                this.props.updateMessengerSelected(true);
             } else {
-                this.setState({
-                    validPhone: false
-                });
+                this.props.updateMessengerValidity(false);
             }
         }
     }
     handlePhoneOrEmail(event) {
-        this.setState({ sendVia: event.target.value });
+        this.props.updateMessengerValidity(false);
         if (event.target.value === 'phone') {
-            localStorage.setItem('sentTo', 'SMS');
-            this.setState({
-                sendViaEmail: false,
-                sendViaPhone:true 
-            });
+            this.props.updateEmailOrSMS(false);
+            this.props.updateMessengerSelected(true);
         } else if (event.target.value === 'email') {
-            localStorage.setItem('sentTo', 'email');
-            this.setState({
-                sendViaEmail: true,
-                sendViaPhone:false 
-            });
-        } else {
-            this.setState({
-                sendViaEmail: false,
-                sendViaPhone: false 
-            });
+            this.props.updateEmailOrSMS(true);
+            this.props.updateMessengerSelected(true);
+        } else { 
+            this.props.updateMessengerSelected(false);
         }
     }
     
@@ -266,15 +183,13 @@ class ForgotPassword extends React.PureComponent{
                     <div className="sendWhat">
                         <strong className="send bold">Identification Type</strong>
                         <br/>
-                        <select className="selectHead send" onChange={this.handleIDorPassprt} >
+                        <select className="selectHead send" onChange={this.handleIDorPassport} >
                             <option className="selectHead" value="" >please select</option>
                             <option className="selectOption" value ="ID">SA ID</option>
                             <option className="selectOption" value ="Passport">Passport</option>
                         </select>
-                        {this.state.useID && <IdentityMethod passportNumber={this.state.passportNumber} handlePassportID={this.handlePassportID} idType="ID"/> }
-                        {this.state.usePassport && <IdentityMethod passportNumber={this.state.passportNumber} handlePassportID={this.handlePassportID} idType="Passport" />}
-                        {!this.state.validPassport && this.state.usePassport && <p className="send error">Invalid Passport Number</p>}
-                        {!this.state.validID && this.state.useID && <p className="send error">Invalid ID Number</p>}
+                        {this.props.identitySelected && (this.props.passportOrID ? <IdentityMethod passportNumber={this.props.identification} processIdentification={this.processIdentification} idType="ID"/> : <IdentityMethod passportNumber={this.props.identification} processIdentification={this.processIdentification} idType="Passport" />)}
+                        {!this.props.validIdentification && (this.props.passportOrID ? <p className="send error">Invalid ID Number</p> : <p className="send error">Invalid Passport Number</p>)}
                     </div>
                     <div className="sendWhat">
                         <strong id="via" className="send bold">Send Via</strong>
@@ -285,17 +200,18 @@ class ForgotPassword extends React.PureComponent{
                             <option className="selectOption" value="email">Email</option>
                         </select>
                         
-                        {this.state.sendViaEmail && <RecieveMethod phoneEmail={this.state.phoneEmail}handleEmailPhone={this.handleEmailPhone} sendVia="email"/> }
-                        {this.state.sendViaPhone && <RecieveMethod phoneEmail={this.state.phoneEmail} handleEmailPhone={this.handleEmailPhone} sendVia="phone" />}
-                        {!this.state.validEmail && this.state.sendViaEmail && <p className="send error">Invalid Email</p>}
-                        {!this.state.validPhone && this.state.sendViaPhone && <p className="send error">Invalid Phone Number</p>}
+                        {this.props.messengerSelected && (this.props.emailOrSMS ? <RecieveMethod phoneEmail={this.props.messenger} handleEmailPhone={this.handleEmailPhone} sendVia="email"/> : <RecieveMethod phoneEmail={this.props.messenger} handleEmailPhone={this.handleEmailPhone} sendVia="phone" />)}
+                        {!this.props.validMessenger && (this.props.emailOrSMS ? <p className="send error">Invalid Email</p> : <p className="send error">Invalid Phone Number</p>)}
                     </div>
                     
                     <div className="sendWhat">
                         <button id="btnSend" onClick={this.handleSubmit} >Send</button>
                     </div> 
                     <div className="loading">
-                        {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                        {this.props.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                    </div>
+                    <div style={{ display: this.props.error == '' ? 'none' : 'inline-block', color: 'red', textAlign: 'center', marginLeft: '50px' }}>
+                        <br />{this.displayError(this.props.error)}
                     </div>
                 </div>
                 <Footer />
@@ -306,4 +222,57 @@ class ForgotPassword extends React.PureComponent{
     
 }
 
-export default connect()(ForgotPassword);
+ForgotPassword.propTypes = {
+    sendPasswordReset: PropTypes.func.isRequired,
+    updateIdentification: PropTypes.func.isRequired,
+    updateMessenger: PropTypes.func.isRequired,
+    updateIdentificationValidity: PropTypes.func.isRequired,
+    updateMessengerValidity: PropTypes.func.isRequired,
+    updateError: PropTypes.func.isRequired,
+    updateEmailOrSMS: PropTypes.func.isRequired,
+    updateIdentitySelected: PropTypes.func.isRequired,
+    updateMessengerSelected: PropTypes.func.isRequired,
+    updatePassportOrID: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    validIdentification: PropTypes.bool.isRequired,
+    validMessenger: PropTypes.bool.isRequired,
+    emailOrSMS: PropTypes.bool.isRequired,
+    passportOrID: PropTypes.bool.isRequired,
+    identitySelected: PropTypes.bool.isRequired,
+    messengerSelected: PropTypes.bool.isRequired,
+    messenger: PropTypes.string.isRequired,
+    identification: PropTypes.string.isRequired,
+    sendPassword: PropTypes.bool.isRequired,
+    messageSent: PropTypes.bool.isRequired,
+    error: PropTypes.string.isRequired
+};
+
+const mapStateToProps = state => ({
+    loading: state.forgotPasswordState.loading,
+    validMessenger: state.forgotPasswordState.validMessenger,
+    validIdentification: state.forgotPasswordState.validIdentification,
+    emailOrSMS: state.forgotPasswordState.emailOrSMS,
+    passportOrID: state.forgotPasswordState.passportOrID,
+    identitySelected: state.forgotPasswordState.identitySelected,
+    messengerSelected: state.forgotPasswordState.messengerSelected,
+    identification: state.forgotPasswordState.identification,
+    messenger: state.forgotPasswordState.messenger,
+    sendPassword: state.forgotPasswordState.sendPassword,
+    messageSent: state.forgotPasswordState.messageSent,
+    error: state.forgotPasswordState.error
+});
+
+const mapActionsToProps = (dispatch) => ({
+    sendPasswordReset: bindActionCreators(ForgotPasswordActions.sendPasswordReset, dispatch),
+    updateIdentification: bindActionCreators(ForgotPasswordActions.updateIdentification, dispatch),
+    updateEmailOrSMS: bindActionCreators(ForgotPasswordActions.updateEmailOrSMS, dispatch),
+    updateIdentificationValidity: bindActionCreators(ForgotPasswordActions.updateIdentificationValidity, dispatch),
+    updateMessengerValidity: bindActionCreators(ForgotPasswordActions.updateMessengerValidity, dispatch),
+    updateMessenger: bindActionCreators(ForgotPasswordActions.updateMessenger, dispatch),
+    updateIdentitySelected: bindActionCreators(ForgotPasswordActions.updateIdentitySelected, dispatch),
+    updateMessengerSelected: bindActionCreators(ForgotPasswordActions.updateMessengerSelected, dispatch),
+    updatePassportOrID: bindActionCreators(ForgotPasswordActions.updatePassportOrID, dispatch),
+    updateError: bindActionCreators(ForgotPasswordActions.updateError, dispatch)
+});
+
+export default connect(mapStateToProps, mapActionsToProps)(ForgotPassword);
