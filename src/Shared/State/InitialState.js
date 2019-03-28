@@ -18,13 +18,18 @@ const InitialState = {
         error: ''
     },
     forgotPasswordState:{
-        sending: null,
-        sendEmail:null,
-        sendPassword:null,
-        idType: '',/*id or passport */
-        sendVia:'',/*actual  */
-        passportNumber: null,
-        phoneEmail: null
+        loading: false,
+        validMessenger: false,
+        validIdentification: false,
+        emailOrSMS: false,
+        passportOrID: false,
+        sendPassword: false,
+        identitySelected: false,
+        messengerSelected: false,
+        identification: '',
+        messenger: '',
+        messageSent: false,
+        error: ''
     },
     changePasswordState:{
         password:null,
