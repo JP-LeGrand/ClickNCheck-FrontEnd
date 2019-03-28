@@ -143,7 +143,7 @@ class ForgotPassword extends React.PureComponent{
     handleEmailPhone(event) {
         this.props.updateMessenger(event.target.value);
         if (this.props.emailOrSMS) {
-            this.props.updateMessengerValidity(this.props.messenger.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/));
+            this.props.updateMessengerValidity(this.props.messenger.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,3})+$/));
             this.props.updateMessengerSelected(true);
         } else {
             if (this.props.messenger.charAt(ZERO) === '0' && this.props.messenger.length === TEN && this.props.messenger.match(/[0-9]{10}/)) {
