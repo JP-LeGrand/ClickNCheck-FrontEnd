@@ -90,15 +90,16 @@ class AllChecksTable extends React.PureComponent {
             );
         }
         return (
-            <div>
-                <form>
+            <div className = "scrollbar">
+              <div className = "force-overflow">
                     <table id="checksTable">
                         <tbody>
                             {checks}
                         </tbody>
                     </table>
-                </form>
-            </div>
+                </div>
+                </div>
+           
 
         );
     }

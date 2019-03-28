@@ -100,13 +100,13 @@
     }
   
     #formContainer {
-      width: 1286px;
+      width: 70%;
       border-radius: 8px;
       border: solid 1px rgba(43, 56, 68, 0.15);
       background-color: #ffffff;
-      margin: 110px;
+      margin: 0 228px;
       margin-bottom: 65px;
-      margin-top: 43px;
+      margin-top: 10px;
     }
   
     #draggableContainer{
@@ -927,7 +927,7 @@
       letter-spacing: 0.4px;
       color: #02529c;
       margin-left: -15px;
-      margin: 0 110px;
+      margin: 0 228px;
     }
     .Job-Profile {
       display: block;
@@ -945,7 +945,7 @@
     }
   
     #spanHolder {
-      height: 5px
+      height: 33px;
     }
     #selectElement{
       position: relative;
@@ -1112,7 +1112,7 @@
         padding-inline-start: 0;
         margin-left: 31px;
         margin-right: 31px;
-        
+        margin-top:0px;
       }
       img{
         margin-right:10px;
@@ -1130,6 +1130,7 @@
         color: #2b3844;
         border: solid 1px #e6e9ec;
         vertical-align: middle;
+        margin-bottom: 2px;
       }
       li > *{
         display: inline-block;
@@ -1187,7 +1188,7 @@
       height: 10px;
       background: #f9f9f9;
       position: absolute;
-      left: -43.3%;
+      left: -54.3%;
       top: 18px;
       z-index: 0;
   }
