@@ -70,43 +70,51 @@ class CaptureCandidateDetails extends React.PureComponent {
     }
 
     submitIndividual() {
-        if (this.state.firstName !== '' && this.state.surname !== '' && this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== '') {
-            let body = {
-                Name: this.state.firstName,
-                Surname: this.state.surname,
-                Maiden_Surname: this.state.mSurname,
-                Email: this.state.email,
-                Phone: this.state.phone,
-                ID_Type: 'ID',
-                ID_Passport: this.state.idNumber,
-
-            };
-            let aryCandaidate = [...this.state.candidates];
-            aryCandaidate.push(body);
-            this.setState({
-                candidates: aryCandaidate
-            });
-            this.props.udpateIndividual(aryCandaidate);
-            this.setState({
-                firstName: '',
-                surname: '',
-                mSurname: '',
-                email: '',
-                phone: '',
-                idNumber: '',
-                emailValid: true,
-                idValid: true,
-                numberValid: true,
-
-                fieldID: 'inp',
-                fieldEmail: 'inp',
-                fieldPhone: 'inp',
-            });
+        this.props.clearTable('');
+        console.log(this.props.tableValid)
+        if (this.props.tableValid){
+            if (this.state.firstName !== '' && this.state.surname !== '' || this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== '') {
+                let body = {
+                    Name: this.state.firstName,
+                    Surname: this.state.surname,
+                    Maiden_Surname: this.state.mSurname,
+                    Email: this.state.email,
+                    Phone: this.state.phone,
+                    ID_Type: 'ID',
+                    ID_Passport: this.state.idNumber,
+    
+                };
+                let aryCandaidate = [...this.state.candidates];
+                aryCandaidate.push(body);
+                this.setState({
+                    candidates: aryCandaidate
+                });
+                this.props.udpateIndividual(aryCandaidate);
+                this.setState({
+                    firstName: '',
+                    surname: '',
+                    mSurname: '',
+                    email: '',
+                    phone: '',
+                    idNumber: '',
+                    emailValid: true,
+                    idValid: true,
+                    numberValid: true,
+                    fieldID: 'inp',
+                    fieldEmail: 'inp',
+                    fieldPhone: 'inp',
+                });
+            } else {
+                toast.warn('Oops! All fields must be field before saving', {
+                    autoClose: 5000
+                });
+            }
         } else {
-            toast.warn('Oops! All fields must be field before saving', {
+            toast.warn('Oops! All  must be field before saving', {
                 autoClose: 5000
             });
         }
+       
 
     }
 
@@ -127,8 +135,11 @@ class CaptureCandidateDetails extends React.PureComponent {
         });
     }
     userIdNumber(event) {
-        this.validateField(event.target.name, event.target.value);
-        this.setState({ idNumber: event.target.value });
+        if (event.target.value.length <= 13) {
+            this.validateField(event.target.name, event.target.value);
+            this.setState({ idNumber: event.target.value });
+        }
+       
     }
     usermSurnameHandler(event) {
 
@@ -139,8 +150,12 @@ class CaptureCandidateDetails extends React.PureComponent {
         this.setState({ email: event.target.value });
     }
     userPhoneHandler(event) {
-        this.validateField(event.target.name, event.target.value);
-        this.setState({ phone: event.target.value });
+    
+        if (event.target.value.length <= 10){
+            this.validateField(event.target.name, event.target.value);
+            this.setState({ phone: event.target.value });
+        }
+     
     }
     userChoice(event) {
         this.setState({ idChoice: event.target.value });
@@ -215,16 +230,21 @@ class CaptureCandidateDetails extends React.PureComponent {
         this.setState(
             {
                 tableErrors: tableValidationErrors,
-                emailValid: emailValid,
-                numberValid: numberValid,
-                idValid: idValid
-            },
-          
-            this.props.checkTableValid( this.state.emailValid, this.state.idValid)
-        );
+                emailValid: tableValidationErrors.email,
+                numberValid: tableValidationErrors.phone,
+                idValid: tableValidationErrors.id,
+            });
+                if(tableValidationErrors.email && tableValidationErrors.phone && tableValidationErrors.id) {
+                   this.props.checkTableValid(true);
+                }
+        console.log('number', this.state.numberValid);
+        console.log('id', this.state.idValid);
+        console.log('email', this.state.emailValid);
+        
+       
     }
     addCandidate() {
-
+        
         if (this.state.firstName !== '' && this.state.surname !== '' && this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== '') {
             let body = {
                 Name: this.state.firstName,
@@ -252,13 +272,14 @@ class CaptureCandidateDetails extends React.PureComponent {
                 emailValid: true,
                 idValid: true,
                 numberValid: true,
-
                 fieldID: 'inp',
                 fieldEmail: 'inp',
                 fieldPhone: 'inp',
             });
         } else {
-            window.alert('All fields must be filled');
+            toast.warn('Oops! All fields must be field before saving', {
+                autoClose: 5000
+            });
         }
 
     }
@@ -346,7 +367,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                 <div className="form-group">
                                                     <img src={userImg} />
                                                     <label className={this.state.fieldID}>
-                                                        <input id="idNumberForm" placeholder="&nbsp;" maxLength={'13'} name="id" value={this.state.idNumber} onChange={(event) => this.userIdNumber(event)} />
+                                                        <input id="idNumberForm" placeholder="&nbsp;" type="number" name="id" value={this.state.idNumber} onChange={(event) => this.userIdNumber(event)} />
                                                         <span className="label">ID Number</span>
                                                         <span className="border"></span>
                                                         <label className="error">
@@ -375,7 +396,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                                                 <div className="form-group">
                                                     <img src={phone} />
                                                     <label className={this.state.fieldPhone}>
-                                                        <input id="phone" placeholder="&nbsp;" name="phone" maxLength={'10'} value={this.state.phone} onChange={(event) => this.userPhoneHandler(event)} />
+                                                        <input id="phone" placeholder="&nbsp;" name="phone" type="number" maxLength={'10'} value={this.state.phone} onChange={(event) => this.userPhoneHandler(event)} />
                                                         <span className="label">Telephone Number</span>
                                                         <span className="border"></span>
                                                         <label className="error">
@@ -412,6 +433,7 @@ const mapStateToProps = state => ({
 const mapActionToProps = (dispatch) => ({
     udpateIndividual : bindActionCreators (CandidateActions.updateArray, dispatch),
     checkTableValid : bindActionCreators (CandidateActions.isTableValid, dispatch),
-    sendBulk : bindActionCreators(CandidateActions.submitCandidate, dispatch)
+    sendBulk : bindActionCreators(CandidateActions.submitCandidate, dispatch),
+    clearTable : bindActionCreators (CandidateActions.clearTable, dispatch)
 });
 export default connect(mapStateToProps, mapActionToProps) (CaptureCandidateDetails);

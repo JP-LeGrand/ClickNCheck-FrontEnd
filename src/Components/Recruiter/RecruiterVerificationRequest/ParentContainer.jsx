@@ -96,7 +96,7 @@ class ParentContainer extends React.PureComponent {
                                 <button id="prev" onClick={this.backstep}>BACK</button>
                                 <button id="next" onClick={this.sendCandidate} >SUBMIT</button>
                                 <div className="loading">
-                                   {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                                    {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
                                 </div>`
                             </div>
                         </div>
