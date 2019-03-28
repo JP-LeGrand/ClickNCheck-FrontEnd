@@ -29,7 +29,8 @@ const InitialState = {
     verificationChecksState: {
         jobProfileChecks: [],
         allChecks: [],
-        displayChecks: true
+        displayChecks: true,
+        reorderChecks: false
     },
     jobProfileState: {
         jobProfiles: [],

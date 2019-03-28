@@ -33,7 +33,16 @@ const ReviewChecksReducer = (state = InitialState.verificationChecksState, actio
             ...state,
             allChecks: action.payload
         };
-
+    case Types.UPDATE_REORDER_CHECKS:
+        return {
+            ...state,
+            reorderChecks: action.payload
+        };
+    case Types.UPDATE_PROFILE_CHECKS:
+        return {
+            ...state,
+            jobProfileChecks: action.payload
+        };
     default: 
         return state;
     }

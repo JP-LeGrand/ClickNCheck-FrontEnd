@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React from 'react';
+import React, { Fragment } from 'react';
 import './MainContainerStyle.scss';
 import Footer from '../../Shared/Footer/Footer';
 import { BASE_URL } from '../../../Shared/Constants';
@@ -12,6 +12,7 @@ import * as ReviewChecksActions from './ReviewChecksActions';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { prototype } from 'events';
+import { ToastContainer } from 'mdbreact';
 
 class ReviewChecks extends React.Component {
     constructor(props) {
@@ -34,8 +35,7 @@ class ReviewChecks extends React.Component {
     addRemoveChecks() {
         if (this.props.displayChecks) {
             this.props.toggleDisplay(false);
-        }
-        else {
+        } else {
             this.props.toggleDisplay(true);
         }
     }
@@ -110,8 +110,13 @@ class ReviewChecks extends React.Component {
             })
         };
         return (
-
-            <div className="bodyStyles">
+            <Fragment>
+                <ToastContainer
+                    hideProgressBar={true}
+                    newestOnTop={true}
+                    autoClose={5000}
+                />
+                 <div className="bodyStyles">
                 <div className="candidateNav">
                     <NavBar />
                     <div id="spanHolder">
@@ -128,8 +133,8 @@ class ReviewChecks extends React.Component {
                         <ReactSelect customStyle={customStyle} defaultProf={localStorage.getItem('jp')} />
                         <hr className="Line" />
                         {
-                            this.props.displayChecks ? <ProfileChecks addRemove={this.addRemoveChecks} checks={this.props.checks} />
-                                : <AddRemoveChecks updateAllChecks={this.props.updateAllChecks} addRemove={this.addRemoveChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck} />
+                            this.props.displayChecks ? <ProfileChecks addRemove={this.addRemoveChecks} reorderChecks={this.props.updateReorderChecks} checks={this.props.checks} updateOrder={this.props.updateProfileChecks}/>
+                                : <AddRemoveChecks addRemove={this.addRemoveChecks} updateAllChecks={this.props.updateAllChecks} allChecks={this.props.allChecks} defaultChecks={this.props.checks} addCheck={this.props.addProfileCheck} removeCheck={this.props.removeProfileCheck} />
                         }
                     </div>
                     <div id="buttonFooter">
@@ -139,24 +144,31 @@ class ReviewChecks extends React.Component {
                     <Footer />
                 </div>
             </div>
+            </Fragment>
         );
     }
 }
 
 ReviewChecks.propTypes = {
     fetchChecks: PropTypes.func.isRequired,
+    fetchAllChecks: PropTypes.func.isRequired,
     checks: PropTypes.array,
     toggleDisplay: PropTypes.func,
+    updateAllChecks: PropTypes.func,
+    updateReorderChecks: PropTypes.func,
+    reorderChecks: PropTypes.bool,
     displayChecks: PropTypes.bool,
     allChecks: PropTypes.array,
     addProfileCheck: PropTypes.func,
-    removeProfileCheck: PropTypes.func
+    removeProfileCheck: PropTypes.func,
+    updateProfileChecks: PropTypes.func
 };
 
 const mapStateToProps = state => ({
     checks: state.reviewChecksState.jobProfileChecks,
     displayChecks: state.reviewChecksState.displayChecks,
-    allChecks: state.reviewChecksState.allChecks
+    allChecks: state.reviewChecksState.allChecks,
+    reorderChecks: state.reviewChecksState.reorderChecks
 });
 
 const mapActionsToProps = (dispatch) => ({
@@ -165,7 +177,9 @@ const mapActionsToProps = (dispatch) => ({
     fetchAllChecks: bindActionCreators(ReviewChecksActions.fetchAllChecks, dispatch),
     addProfileCheck: bindActionCreators(ReviewChecksActions.addProfileCheck, dispatch),
     removeProfileCheck: bindActionCreators(ReviewChecksActions.removeProfileCheck, dispatch),
-    updateAllChecks: bindActionCreators(ReviewChecksActions.updateAllChecks, dispatch)
+    updateAllChecks: bindActionCreators(ReviewChecksActions.updateAllChecks, dispatch),
+    updateReorderChecks: bindActionCreators(ReviewChecksActions.updateReorderChecks, dispatch),
+    updateProfileChecks: bindActionCreators(ReviewChecksActions.updateProfileChecks, dispatch)
 });
 
 export default connect(mapStateToProps, mapActionsToProps)(ReviewChecks);

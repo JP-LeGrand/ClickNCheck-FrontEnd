@@ -57,6 +57,7 @@ class AddRemoveChecks extends React.Component {
     }
 
     render() {
+        console.log(this.props.allChecks);
         let checks = [];
         for (let c = 0; c < this.props.allChecks.length; c++) {
             for (let k = 0; k < this.props.defaultChecks.length; k++) {
@@ -66,7 +67,7 @@ class AddRemoveChecks extends React.Component {
             }
         }
 
-        var verticalAlignWell = {
+        let verticalAlignWell = {
             margin: '0 0 7% 15%',
             verticalAlign: 'middle'
         };
