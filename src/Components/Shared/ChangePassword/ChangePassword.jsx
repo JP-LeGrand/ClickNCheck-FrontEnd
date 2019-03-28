@@ -132,9 +132,6 @@ class ChangePassword extends React.PureComponent{
                             <button id="btnSend" onClick={this.handleSubmit} disabled={!(this.props.passwordsValid && this.props.passwordsMatch) }>Send</button>
                         </div>
                     </div><br/>
-                    <div>
-                        { this.state.buttonClicked && this.props.errorMessage }
-                    </div>
                     <div className="loading" style={{ color: 'red' }}>
                         {this.props.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
                     </div>

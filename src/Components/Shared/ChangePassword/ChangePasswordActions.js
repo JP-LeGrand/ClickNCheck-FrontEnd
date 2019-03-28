@@ -91,7 +91,11 @@ export const sendPasswordReset =(data) =>{
                         .then((response) => response.json())  
                         .then(
                             () => {
-                                window.location = '/otp';
+                                dispatch({
+                                    type: Types.UPDATE_ERROR_MESSAGE,
+                                    payload: ''
+                                });
+                                //window.location = '/otp';
                             },
                             (error) => {
                                 dispatch({
@@ -112,7 +116,7 @@ export const sendPasswordReset =(data) =>{
                     });
                     dispatch({
                         type: Types.UPDATE_ERROR_MESSAGE,
-                        payload: 'Something went wrong loading the updating your password. Please try again later'
+                        payload: 'Something went wrong while updating your password. Please try again later'
                     });
                 }
             );
