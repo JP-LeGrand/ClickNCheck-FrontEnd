@@ -54,7 +54,8 @@
     width: 393px;
     height: 27px;
     font-family: Roboto;
-    font-size: $headFont;
+    font-size: 19px;
+    margin-right: 45px;
     font-weight: 300;
     font-style: normal;
     font-stretch: normal;
@@ -133,14 +134,16 @@
     padding-bottom: 50px;
   }
   .innerFormBox {
+    display: -webkit-flex;
     display: flex;
+    -webkit-flex-direction: row;
     flex-direction: row;
     height: 400px;
     margin: auto;
     margin-left: 1%;
-    margin-top: 20px;
+    /* margin-top: -1px; */
     margin-right: 2%;
-    width: 970px;
+    width: 1130px;
     border-top: #0091d1;
   }
   .indi {
@@ -311,11 +314,50 @@
   }
 
   .candidatesRow{
-    border-top: 0.5px solid rgb(189, 176, 176);
-    margin-bottom: 37px;
-    margin-top: 29px;
-
+    
   } 
+  .scrollbar
+{
+  overflow-y: scroll;
+  border-top: 0.5px solid rgb(189, 176, 176);
+  margin-bottom: 37px;
+  height: 350px;  
+  margin-top: 29px;
+	margin-left: 30px;
+	float: left;
+	height: 350px;
+
+	
+	//margin-bottom: 25px;
+}
+
+.force-overflow
+{
+	min-height: 450px;
+}
+
+
+#style-1::-webkit-scrollbar-track
+{
+//	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+#style-1::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+//	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #0091d1;
+}
+
+
   .buttonsLayout {
     width: 100%;
     height: 80px;
@@ -366,7 +408,7 @@
     display: block;
     width: 300px;
     height: 50px;
-    margin: 0 auto;
+    margin: 5px auto;
     font-size: 20px;
   }
   .inp input:focus {
@@ -536,6 +578,35 @@
     right: 143px;
   }
 
+  .Rectangle-Copy-14 {
+    width: 198px;
+    height: 50px;
+    border-radius: 7px;
+    background-color: #4e9821;
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #ffffff;
+    float: right;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #saveImg{
+    width: 18px;
+    height: 18px;
+    margin-left: 25px;
+    margin-right: 5px;
+  }
+  #saveBtnText{
+
+  }
+
   
 td {
   //padding: 0 35px;
@@ -558,9 +629,7 @@ td {
   width: -moz-fit-content;
   width: fit-content;
   margin-left: 6px;
-  margin-top: -6px;
-  padding-top: 11px;
-  margin-bottom: -9px;
+  margin-bottom: -4px;
   padding-bottom: -6px;
 }
 .MuiFormGroup-root-12 {
