@@ -1,6 +1,6 @@
 import * as Types from './jobProfileActionTypes';
 import axios from 'axios';
-
+import { BASE_URL, GET_RECRUITERS_NAMES } from '../../../Shared/Constants';
 export const getRecruitersInitiated = () => {
     return {
         type: Types.JP_LOAD_RECRUITERS_INITIATED,
@@ -35,7 +35,13 @@ export const getRecruiters = (userIds) => async (dispatch) => {
     dispatch(getRecruitersInitiated());
 
     try {
-        const response = await axios.post('https://localhost:44347/api/Users/GetRecruiterNames', userIds);
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            }
+        };
+        const response = await axios.post(BASE_URL + GET_RECRUITERS_NAMES, userIds,config);
         dispatch(getRecruitersSuccess(response.data));
     } catch (e) {
         dispatch(getRecruitersFailed(e));
