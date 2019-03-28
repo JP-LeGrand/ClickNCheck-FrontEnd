@@ -1,11 +1,12 @@
 /* eslint-disable indent */
-import React from 'react';
+import React, {Fragment} from 'react';
 import './CreateJobProfile.scss';
 import Footer from '../../Shared/Footer/Footer';
 import { BASE_URL, GET_ALL_SERVICES } from '../../../Shared/Constants';
 import NavBar from '../AdminNavBar/adminNavBar';
 import AllChecksTable from './AllChecksTable';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'mdbreact';
 
 class CreateJobProfilePage2 extends React.Component {
     constructor(props) {
@@ -37,6 +38,12 @@ class CreateJobProfilePage2 extends React.Component {
     render() {
 
         return (
+            <Fragment>
+            <ToastContainer 
+              hideProgressBar={true}
+              newestOnTop={true}
+              autoClose={5000}
+            />
             <div className="bodyPage">
                 <NavBar />
                 <div id="spanHolder">
@@ -59,11 +66,11 @@ class CreateJobProfilePage2 extends React.Component {
                 </div>
                 <div id="buttonFooter">
                     <button id="prev" onClick={this.backSteps}>BACK</button>
-                    <button id="save" onClick={this.saveProgress}>Save and continue later</button>
                     <button id="next" onClick={this.nextSteps}>NEXT</button>
                 </div>
                 <Footer />
             </div>
+            </Fragment>
         );
     }
 
