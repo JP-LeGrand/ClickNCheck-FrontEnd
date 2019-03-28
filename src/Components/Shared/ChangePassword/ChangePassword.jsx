@@ -6,230 +6,182 @@ import imgMain from '../../../Assets/main.svg';
 import { ChangePasswordConstrants } from './ChangePasswordConstants';
 import { BASE_URL, CHANGE_PASSWORD, OTP_AUTHENTICATION } from '../../../Shared/Constants';
 import passImg from '../../../Assets/password.svg';
-import axios from 'axios';
-import SpinnerComponent from '../SpinnerComponent/SpinnerComponent';
-import Axios from 'axios';
 import rollingImg from '../../../Assets/Rolling.svg';
+import { bindActionCreators } from 'redux';
+import * as ChangePasswordActions from './ChangePasswordActions';
+import { throws } from 'assert';
+import { ALPN_ENABLED } from 'constants';
+
 class ChangePassword extends React.PureComponent{
     constructor(props) {
         super(props);
         this.state = {
-            password: '',
-            confirmpassword:'',
-            errorMessage: '',
-            passwordStrength: '',
-            passwordMatchMessage:'',
-            canSubmit:'disabled',
-            loading:false
+            buttonClicked: false
         };
-
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleConfirmChange = this.handleConfirmChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.validate = this.validate.bind(this);
+        this.validatePasswordMatch = this.validatePasswordMatch.bind(this);
     }
-    measureStrength = (password) => {
-        let score = 0;
-        let passwordStrength;
-        let regexPositive = [
-            '[A-Z]',
-            '[a-z]',
-            '[0-9]',
-            '\\W',
-        ];
-        regexPositive.forEach((regex, index) => {
-            if (new RegExp(regex).test(password)) {
-                score += ChangePasswordConstrants.ScoreIncrement;
+    
+    validate = (e) => {
+        let password = e.target.value;
+        let capsCount, smallCount, numberCount, symbolCount;
+        if (password.length < ChangePasswordConstrants.MinPassLenght) {
+            this.props.updateErrorMessage('password must be min 8 characters');
+        } else {
+            capsCount = (password.match(/[A-Z]/g) || []).length;
+            smallCount = (password.match(/[a-z]/g) || []).length;
+            numberCount = (password.match(/[0-9]/g) || []).length;
+            symbolCount = (password.match(/\W/g) || []).length;
+            if (capsCount < ChangePasswordConstrants.MinCapsCount) {
+                this.props.updateErrorMessage('your password must contain atleast one uppercaps character');
+                this.props.updatepasswordsValid(false);
+                return;
+            } else if (smallCount < ChangePasswordConstrants.MinSmallCount) {
+                this.props.updateErrorMessage('your password must contain atleast one lowercase character');
+                this.props.updatepasswordsValid(false);
+                return;
+            } else if (numberCount < ChangePasswordConstrants.MinNumberCount) {
+                this.props.updateErrorMessage('your password must contain atleast one digit');
+                this.props.updatepasswordsValid(false);
+                return;
+            } else if (symbolCount < ChangePasswordConstrants.MinSpecialCount) {
+                this.props.updateErrorMessage('your password must contain atleast one special character');
+                this.props.updatepasswordsValid(false);
+                return;
+            } else {
+                this.props.updatepasswordsValid(true);
+                this.props.updateErrorMessage('');
             }
-        });
-        switch (score) {
-        case ChangePasswordConstrants.ReallyWeak:
-        case ChangePasswordConstrants.Weak:
-            passwordStrength='weak';
-            break;
-        case ChangePasswordConstrants.Good:
-        case ChangePasswordConstrants.ReallyGood:
-            passwordStrength='good';
-            break;
-        case ChangePasswordConstrants.Strong:
-        case ChangePasswordConstrants.ReallyStrong:
-            passwordStrength='strong';     
-            break;
-        default:
         }
+    }
 
-        this.setState({
-            passwordStrength
-        });
+    validatePasswordMatch = (e) =>{
+        this.props.updateConfirmedPassword(e.target.value);
+        let confirmPassword = e.target.value;
+        if (confirmPassword === this.props.password){
+            if (confirmPassword === this.props.password){
+                this.props.updatePasswordsMatch(true);
+                this.props.updateErrorMessage('');
+            } else {
+                this.props.updatePasswordsMatch(false);
+            }
+        }
+        else{
+            this.props.updateErrorMessage('Passwords do not match');
+        }
     }
     
-      validate = (e) => {
-          let password = e.target.value;
-          let errorMessage;
-          let capsCount, smallCount, numberCount, symbolCount;
-          if (password.length < ChangePasswordConstrants.MinPassLenght) {
-              this.setState({
-                  errorMessage: 'password must be min 8 characters',
-              });
-          } else {
-              capsCount = (password.match(/[A-Z]/g) || []).length;
-              smallCount = (password.match(/[a-z]/g) || []).length;
-              numberCount = (password.match(/[0-9]/g) || []).length;
-              symbolCount = (password.match(/\W/g) || []).length;
-              if (capsCount < ChangePasswordConstrants.MinCapsCount) {
-                  errorMessage = 'must contain caps';
-              } else if (smallCount < ChangePasswordConstrants.MinSmallCount) {
-                  errorMessage = 'must contain small';
-              } else if (numberCount < ChangePasswordConstrants.MinNumberCount) {
-                  errorMessage = 'must contain a number';
-              } else if (symbolCount < ChangePasswordConstrants.MinSpecialCount) {
-                  errorMessage = 'must contain a special character';
-              }
-              this.setState({
-                  errorMessage
-              });
-              this.measureStrength(password);
-          }
-      }
-
-      validatePasswordMatch = (e) =>{
-          let confirmPassword = e.target.value;
-          let canSubmit = this.state.canSubmit;
-          let passwordMatchMessage;
-          if (confirmPassword.length >= ChangePasswordConstrants.Mincount && this.state.password.length >= ChangePasswordConstrants.Mincount ){
-              if (confirmPassword !== this.state.password){
-                  passwordMatchMessage = 'passwords do not match';
-              } else {
-                  canSubmit = '';
-                  this.setState({ canSubmit
-                  });
-              }
-          }
-          this.setState({
-              passwordMatchMessage
-          });
-      }
-    
-      handlePasswordChange = (e) => {
-          this.validate(e);
-          this.setState({ password: e.target.value });
-      }
+    handlePasswordChange = (e) => {
+        this.validate(e);
+        this.props.updatePassword(e.target.value);
+    }
       
-      handleConfirmChange = (e) =>{
-          this.validatePasswordMatch(e);
-          this.setState({ confirmpassword: e.target.value });
-      }
+    handleConfirmChange = (e) =>{
+        this.validatePasswordMatch(e);
+        this.props.updateConfirmedPassword(e.target.value);
+    }
 
-      handleSubmit(event){
-          this.setState({ loading:true }, () =>{
-              this.setState({ canSubmit:false });
-              event.preventDefault();
-              let userid = localStorage.getItem('user_id');
-              fetch(BASE_URL+CHANGE_PASSWORD+userid, {
-                  method: 'POST',
-                  mode: 'cors', // no-cors, cors, *same-origin
-                  cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                  credentials: 'same-origin', // include, *same-origin, omit
-                  headers: {
-                      'Content-Type': 'application/json',
-                  },
-                  redirect: 'manual', // manual, *follow, error
-                  referrer: 'no-referrer', // no-referrer, *client
-                  body: JSON.stringify(this.state.password), 
-              } )
-                  .then(
-                      () => {
-                          fetch(BASE_URL + OTP_AUTHENTICATION, {
-                              method: 'POST',
-                              mode: 'cors', // no-cors, cors, *same-origin
-                              cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                              credentials: 'same-origin', // include, *same-origin, omit
-                              headers: {
-                                  'Content-Type': 'application/json',
-                              },
-                              redirect: 'manual', // manual, *follow, error
-                              referrer: 'no-referrer', // no-referrer, *client
-                              body: JSON.stringify(userid), 
-                          } )
-                              .then((response) => response.json())  
-                              .then(
-                                  () => {
-                                      window.location = '/otp';
-                                  },
-                                  (error) => {
-                                      alert(error);
-                                  }     
-                              );
-                          window.redirect = '';
-                      },
-                      (error) => {
-                          alert(error);
-                          this.setState({ loading:false });
-                          this.setState({ canSubmit:true });
-                      }
-                  );
-          });
-      }
+    handleSubmit(event){
+        this.setState({ buttonClicked: true });
+        this.props.updateErrorMessage('true');
+        this.props.sendPasswordReset(this.props.password);
+    }
 
-      render(){
-          return (
-              <div className="changePassword">
-                  <header className="headSection">
-                      <img src={imgMain} alt="Company Logo"/>
-                  </header>
+    render(){
+        return (
+            <div className="changePassword">
+                <header className="headSection">
+                    <img src={imgMain} alt="Company Logo"/>
+                </header>
 
-                  <div className="mainSection">
-                      <div className="registrationHeading">Change Password</div>
-                      <div className="sendWhat">
-                          <label className="passwordSpecDiv">
+                <div className="mainSection">
+                    <div className="registrationHeading">Change Password</div>
+                    <div className="sendWhat">
+                        <label className="passwordSpecDiv">
                               Password Requirements:
-                              <ul>
-                                  <li>A minimum of 8 characters</li>
-                                  <li>Must contain a special character</li>
-                                  <li>Must contain a Number</li>
-                                  <li>Must contain a Caps</li>
-                              </ul>
-                          </label>
-                          <div className="form-group">
-                              <img src={passImg} alt="Lock"/>
-                              <label className="inp">
-                                  <input type="password" value={this.state.password} onChange={this.handlePasswordChange} placeholder="&nbsp;"/>
-                                  <span className="label">Password</span>
-                                  <span className="border"></span>
-                              </label>
-                          </div>
-                          <div className="form-group">
-                              <img src={passImg} alt="Lock"/>
-                              <label className="inp">
-                                  <input type="password" value={this.state.confirmpassword} onChange={this.handleConfirmChange} placeholder="&nbsp;"/>
-                                  <span className="label">Confirm Password</span>
-                                  <span className="border"></span>
-                                  <label className="error">
-                                      {this.state.passwordMatchMessage}
-                                  </label>
-                              </label>
-                          </div>
-                          <div className="form-group">
-                              <button id="btnSend" onClick={this.handleSubmit} disabled={this.state.canSubmit}>Send</button>
-                          </div>
-                      </div><br/>
-                      <div className="loading">
-                          {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
-                      </div>
-                  </div>
-              </div>
-          );
-      }
+                            <ul>
+                                <li>A minimum of 8 characters</li>
+                                <li>Must contain a special character</li>
+                                <li>Must contain a Number</li>
+                                <li>Must contain a Caps</li>
+                            </ul>
+                        </label>
+                        <div className="form-group">
+                            <img src={passImg} alt="Lock"/>
+                            <label className="inp">
+                                <input type="password" onChange={this.handlePasswordChange} placeholder="&nbsp;"/>
+                                <span className="label">Password</span>
+                                <span className="border"></span>
+                            </label>
+                        </div>
+                        <div className="form-group">
+                            <img src={passImg} alt="Lock"/>
+                            <label className="inp">
+                                <input type="password" onChange={this.handleConfirmChange} placeholder="&nbsp;"/>
+                                <span className="label">Confirm Password</span>
+                                <span className="border"></span>
+                                <label className="error">
+                                    {!this.state.buttonClicked && this.props.errorMessage}
+                                </label>
+                            </label>
+                        </div>
+                        <div className="form-group">
+                            <button id="btnSend" onClick={this.handleSubmit} disabled={!(this.props.passwordsValid && this.props.passwordsMatch) }>Send</button>
+                        </div>
+                    </div><br/>
+                    <div>
+                        { this.state.buttonClicked && this.props.errorMessage }
+                    </div>
+                    <div className="loading" style={{ color: 'red' }}>
+                        {this.props.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                    </div>
+                </div>
+            </div>
+        );
+    }
 }
 
 ChangePassword.propTypes = {
-    homeState: PropTypes.shape({
-        message: PropTypes.string.isRequired
-    })
+    updatePassword: PropTypes.func.isRequired,
+    sendPasswordReset: PropTypes.func.isRequired,
+    updatePasswordsMatch: PropTypes.func.isRequired,
+    updatepasswordsValid: PropTypes.func.isRequired,
+    updateConfirmedPassword: PropTypes.func.isRequired,
+    updateLoading: PropTypes.func.isRequired,
+    updateErrorMessage: PropTypes.func.isRequired,
+    password: PropTypes.string.isRequired,
+    passwordConfirmed: PropTypes.string.isRequired,
+    passwordMatchMessage: PropTypes.string.isRequired,
+    canSubmit: PropTypes.bool.isRequired,
+    loading: PropTypes.bool.isRequired,
+    passwordsValid: PropTypes.bool.isRequired,
+    passwordsMatch: PropTypes.bool.isRequired,
+    errorMessage: PropTypes.string.isRequired
+    
 };
 
-const mapStateToProps = (state) => {
-    return {
-        changePasswordState: state
-    };
-};
-export default connect()(ChangePassword);
+const mapStateToProps = state => ({
+    password: state.changePasswordState.password,
+    confirmpassword: state.changePasswordState.confirmPassword,
+    errorMessage: state.changePasswordState.errorMessage,
+    passwordMatchMessage: state.changePasswordState.passwordMatchMessage,
+    canSubmit:state.changePasswordState.canSubmit,
+    loading: state.changePasswordState.loading,
+    passwordsMatch: state.changePasswordState.passwordsMatch,
+    passwordsValid: state.changePasswordState.passwordsValid
+});
+
+const mapActionsToProps = (dispatch) => ({
+    updatePassword: bindActionCreators(ChangePasswordActions.updatePassword, dispatch),
+    updateConfirmedPassword: bindActionCreators(ChangePasswordActions.updateConfirmedPassword, dispatch),
+    updateLoading: bindActionCreators(ChangePasswordActions.updateLoading, dispatch),
+    updateErrorMessage: bindActionCreators(ChangePasswordActions.updateErrorMessage, dispatch),
+    updatepasswordsValid: bindActionCreators(ChangePasswordActions.updatePasswordsValid, dispatch),
+    updatePasswordsMatch: bindActionCreators(ChangePasswordActions.updatePasswordsMatch, dispatch),
+    sendPasswordReset: bindActionCreators(ChangePasswordActions.sendPasswordReset, dispatch)
+});
+
+export default connect(mapStateToProps, mapActionsToProps)(ChangePassword);
