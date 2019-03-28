@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'mdbreact';
+import { Divider } from 'material-ui';
 
 class ParentContainer extends React.PureComponent {
 
@@ -63,24 +64,30 @@ class ParentContainer extends React.PureComponent {
                                             <li className="active"><b>Candidate Details</b></li>
                                             <li>Next Steps</li>
                                         </ul>
-                                        <label className="candidateDetails">Capture Candidate Details</label><br />
+                                       
                                         {this.props.candidateState ?
-                                            <div className="switchButton">
-                                                <button className="indi" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
-                                                <button className="bulk" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
+                                            <div>
+                                                <label className="candidateDetails">Capture Candidate Details</label><br />
+                                                <div className="switchButton">
+                                                    <button className="indi" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
+                                                    <button className="bulk" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
 
+                                                </div>
                                             </div>
                                             :
+
                                             this.props.fileState ?
+                                                <div>
+                                                    <label className="candidateDetails">Capture Candidate Details</label><br />
+                                                    <div className="switchButton">
+                                                        <button className="indiNew" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
+                                                        <button className="bulkNew" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
 
-                                                <div className="switchButton">
-                                                    <button className="indiNew" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
-                                                    <button className="bulkNew" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
-
+                                                    </div>
                                                 </div>
                                                 :
                                                 <div className="">
-                                                    <label className="reviewDetails">Review Candidate Details</label><br /><br />
+                                                    <label className="reviewDetails">Review Uploaded Candidate Details</label><br /><br />
                                                     <label className="reviewDetails"><strong>{this.props.fileSize} Entries</strong> (click to edit)</label><br />
                                                 </div>
 
