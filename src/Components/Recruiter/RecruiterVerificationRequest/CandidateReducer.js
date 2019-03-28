@@ -30,6 +30,11 @@ const CandidateReducer = (state = InitialState.candidateState, action) => {
             ...state,
             tableValid: action.payload
         };
+    case Types.CLEAR_TABLE : 
+        return {
+            ...state,
+            tableValid : action.payload
+        };
 
     case Types.ID_VALID : 
         return {

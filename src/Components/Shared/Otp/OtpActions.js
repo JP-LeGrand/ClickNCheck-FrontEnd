@@ -1,6 +1,6 @@
 import * as Types from './OtpActionTypes';
 import { BASE_URL, CHECK_OTP, OTP_AUTHENTICATION } from '../../../Shared/Constants';
-import { ZERO, ONE, TWO, THREE } from '../../../Shared/IntConstants';
+import { ZERO, ONE, TWO, THREE, FIVE } from '../../../Shared/IntConstants';
 import { toast } from 'mdbreact';
 
 export const handleChangeDigit1 = (digit1) => {
@@ -46,57 +46,76 @@ export const handleChangeDigit5 = (digit5) => {
 export const submitOtp = (user_id,otp) => {
     return function (dispatch) {
         dispatch({
-            type: Types.SUBMIT_OTP,
+            type: Types.SUBMIT_CLICKED,
             payload: true
         });
-        let user_otp = [ user_id, otp ];
-        fetch(BASE_URL + CHECK_OTP, {
-            method: 'POST',
-            mode: 'cors', // no-cors, cors, *same-origin
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'omit', // include, *same-origin, omit
-            headers: {
-                'Content-Type': 'application/json'
-                // "Content-Type": "application/x-www-form-urlencoded",
-            },
-            redirect: 'follow', // manual, *follow, error
-            referrer: 'no-referrer', // no-referrer, *client
-            body: JSON.stringify(user_otp)
-        })
-            .then(response => response.json())
-            .then(
-                response => {
-                    dispatch({
-                        type: Types.SUBMIT_OTP,
-                        payload: false
-                    });
-                    sessionStorage.setItem('token', response[ZERO]);
-                    sessionStorage.setItem('user_name', response[TWO]);
-                    sessionStorage.setItem('user_img', response[THREE]);
-                    let id_pass_manager = localStorage.getItem('id_pass_manager');
-                    
-                    if (id_pass_manager === null) {
-                        if (response[ONE] === 'recruiter') {
-                            localStorage.clear();
-                            window.location = '/NewVerificationRequest';
-                        } else if (response[ONE] === 'admin') {
-                            localStorage.clear();
-                            window.location = '/admin/recuiterJopProfiles';
-                        }
-                    } else {
-                        alert('other');
-                    }
+        if (otp.length === FIVE) {
+            dispatch({
+                type: Types.SUBMIT_OTP,
+                payload: true
+            });
+            let user_otp = [ user_id, otp ];
+            fetch(BASE_URL + CHECK_OTP, {
+                method: 'POST',
+                mode: 'cors', // no-cors, cors, *same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'omit', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                error => {
-                    dispatch({
-                        type: Types.SUBMIT_OTP,
-                        payload: false
-                    });
-                    toast.error('Error. Please enter the correct credentials.', {
-                        autoClose: 3000
-                    });
-                }
-            );
+                redirect: 'follow', // manual, *follow, error
+                referrer: 'no-referrer', // no-referrer, *client
+                body: JSON.stringify(user_otp)
+            })
+                .then(response => response.json())
+                .then(
+                    response => {
+                        dispatch({
+                            type: Types.SUBMIT_OTP,
+                            payload: false
+                        });
+                        if (response.title === 'Unauthorized') {
+                            toast.error('Error. Please enter the correct credentials.', {
+                                autoClose: 3000
+                            });
+                        } else {
+                            sessionStorage.setItem('token', response[ZERO]);
+                            sessionStorage.setItem('user_name', response[TWO]);
+                            sessionStorage.setItem('user_img', response[THREE]);
+                            let id_pass_manager = localStorage.getItem('id_pass_manager');
+
+                            if (id_pass_manager === null) {
+                                if (response[ONE] === 'recruiter') {
+                                    localStorage.clear();
+                                    window.location = '/NewVerificationRequest';
+                                } else if (response[ONE] === 'admin') {
+                                    localStorage.clear();
+                                    window.location = '/admin/recuiterJopProfiles';
+                                }
+                            } else {
+                                toast.warn('The System presently only has pages for Recuiters and Admins', {
+                                    autoClose: 5000
+                                });
+                            }
+                        }
+
+                    },
+                    error => {
+                        dispatch({
+                            type: Types.SUBMIT_OTP,
+                            payload: false
+                        });
+                        toast.error('Error. Please double check and re-enter the correct otp.', {
+                            autoClose: 3000
+                        });
+                    }
+                );
+        } else {
+            dispatch({
+                type: Types.SUBMIT_OTP,
+                payload: false
+            });
+        }
     };
 };
 export const resendOtp = (userid) => {

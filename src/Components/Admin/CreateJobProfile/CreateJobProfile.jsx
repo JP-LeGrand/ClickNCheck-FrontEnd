@@ -31,12 +31,12 @@ class CreateJobProfile extends React.Component {
     }
 
     profile(e){
-        this.setState({profile: e.target.value});
+        this.setState({ profile: e.target.value });
         this.props.updateSelectedProfile(this.state.profile);
     }
     
     code(e){
-        this.setState({code: e.target.value});
+        this.setState({ code: e.target.value });
         this.props.updateCode(this.state.code);
     }
 
@@ -84,22 +84,25 @@ class CreateJobProfile extends React.Component {
         let view = this.props.nowDisplaying == 'default' ? def : selectVendors;
         let activeClass = this.props.nowDisplaying == 'default' ? '' : 'active';
         return (
-            <div className="createJobProfile">
+            <div>
                 <NavBar />
-                <div id="spanHolder">
-                    <span className="New-Job-Profile">New Job Profile</span>
+                <div className="createJobProfile">
+                    <div id="spanHolder">
+                        <span className="New-Job-Profile">New Job Profile</span>
+                    </div>
+                    <div id="formContainer">
+                        <ul id="progress_bar">
+                            <li className="active">Job Profile Name</li>
+                            <li className={activeClass}>Select Verification Checks</li>
+                            <li>Re-order Check Sequence</li>
+                            <li>Next Steps</li>
+                        </ul>
+                        {view}
+                    </div>
+                    <UpperFooter prevPage={this.prevDisplay} nextPage={this.nextDisplay}/>
                 </div>
-                <div id="formContainer">
-                    <ul id="progress_bar">
-                        <li className="active">Job Profile Name</li>
-                        <li className={activeClass}>Select Verification Checks</li>
-                        <li>Re-order Check Sequence</li>
-                        <li>Next Steps</li>
-                    </ul>
-                    {view}
-                </div>
-                <UpperFooter prevPage={this.prevDisplay} nextPage={this.nextDisplay}/>
             </div>
+            
         );
     }
 

@@ -1,11 +1,11 @@
 .adminNavBar {
- 
+  padding: 0 228px;
+  border-bottom: solid 1px #f9f9f9;
 .navbar {
   .topnav {
     overflow: hidden;
     background-color: white;
-    padding: 0 0vw;
-    border-bottom: solid 1px #f9f9f9;
+    
   }
 
   .topnav a {
@@ -22,6 +22,9 @@
     margin: 0px 5px;
   }
 
+  .topnav a:first-child{
+    margin-left: 0;
+  }
   .topnav a:hover {
     border-bottom: 2px solid #02529c;
     cursor: pointer;

@@ -35,13 +35,22 @@ export const fetchChecks = () =>{
                     alert(error);
                 });
     };
-}
+};
 
 export const toggleDisplay = (toggle) => {
     return function (dispatch){
         dispatch({
             type: Types.TOGGLE_DISPLAY,
             payload: toggle
+        });
+    };
+};
+
+export const updateReorderChecks = (data) => {
+    return function (dispatch){
+        dispatch({
+            type: Types.UPDATE_REORDER_CHECKS,
+            payload: data
         });
     };
 };
@@ -115,6 +124,15 @@ export const updateAllChecks = (data) => {
     return function (dispatch){
         dispatch({
             type: Types.UPDATE_ALL_CHECKS,
+            payload: data
+        });
+    };
+};
+
+export const updateProfileChecks = (data) => {
+    return function (dispatch){
+        dispatch({
+            type: Types.UPDATE_PROFILE_CHECKS,
             payload: data
         });
     };

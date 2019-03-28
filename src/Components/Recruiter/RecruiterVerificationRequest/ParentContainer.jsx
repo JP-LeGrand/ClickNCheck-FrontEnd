@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'mdbreact';
+import { Divider } from 'material-ui';
 
 class ParentContainer extends React.PureComponent {
 
@@ -22,7 +23,7 @@ class ParentContainer extends React.PureComponent {
         this.sendCandidate = this.sendCandidate.bind(this);
         this.backstep = this.backstep.bind(this);
     }
-
+    
     changeDiv(e) {
         this.props.changeView(e);
     }
@@ -63,24 +64,30 @@ class ParentContainer extends React.PureComponent {
                                             <li className="active"><b>Candidate Details</b></li>
                                             <li>Next Steps</li>
                                         </ul>
-                                        <label className="candidateDetails">Capture Candidate Details</label><br />
+                                       
                                         {this.props.candidateState ?
-                                            <div className="switchButton">
-                                                <button className="indi" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
-                                                <button className="bulk" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
+                                            <div>
+                                                <label className="candidateDetails">Capture Candidate Details</label><br />
+                                                <div className="switchButton">
+                                                    <button className="indi" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
+                                                    <button className="bulk" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
 
+                                                </div>
                                             </div>
                                             :
+
                                             this.props.fileState ?
+                                                <div>
+                                                    <label className="candidateDetails">Capture Candidate Details</label><br />
+                                                    <div className="switchButton">
+                                                        <button className="indiNew" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
+                                                        <button className="bulkNew" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
 
-                                                <div className="switchButton">
-                                                    <button className="indiNew" id="individual" onClick={() => this.changeDiv(true)}>INDIVIDUAL</button>
-                                                    <button className="bulkNew" id="bulk" onClick={() => this.changeDiv(false)}> BULK</button>
-
+                                                    </div>
                                                 </div>
                                                 :
                                                 <div className="">
-                                                    <label className="reviewDetails">Review Candidate Details</label><br /><br />
+                                                    <label className="reviewDetails">Review Uploaded Candidate Details</label><br /><br />
                                                     <label className="reviewDetails"><strong>{this.props.fileSize} Entries</strong> (click to edit)</label><br />
                                                 </div>
 
@@ -92,13 +99,29 @@ class ParentContainer extends React.PureComponent {
                                 </div>
 
                             </fieldset>
-                            <div id="buttonFooter">
-                                <button id="prev" onClick={this.backstep}>BACK</button>
-                                <button id="next" onClick={this.sendCandidate} >SUBMIT</button>
-                                <div className="loading">
-                                   {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
-                                </div>`
-                            </div>
+                            {this.props.candidateState ? 
+                                <div id="buttonFooter">
+                                    <button id="prev" onClick={this.backstep}>BACK</button>
+                                    <button id="next" onClick={this.sendCandidate} >SUBMIT</button>
+                                    <div className="loading">
+                                        {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                                    </div>
+                                </div>
+                                :
+                                this.props.fileState ? 
+                                    <div id="buttonFooter">
+                                        <button id="prev" onClick={this.backstep}>BACK</button>
+                                    </div>
+                                    : 
+                                    <div id="buttonFooter">
+                                        <button id="prev" onClick={this.backstep}>BACK</button>
+                                        <button id="next" onClick={this.sendCandidate} >SUBMIT</button>
+                                        <div className="loading">
+                                            {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                                        </div>
+                                    </div>
+                            }
+                            
                         </div>
                         <Footer />
                     </div>

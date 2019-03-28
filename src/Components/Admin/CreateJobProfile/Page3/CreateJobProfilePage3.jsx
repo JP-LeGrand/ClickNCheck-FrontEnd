@@ -11,7 +11,7 @@ import { BASE_URL, CREATE_JOBPROFILE } from '../../../../Shared/Constants';
 import Axios from 'axios';
 import { element } from 'prop-types';
 
-const SortableItem = sortableElement(({ value }) => <li><img src={gridview}/>{value}</li>);
+const SortableItem = sortableElement(({ value }) => <li><img src={gridview} />{value}</li>);
 
 const SortableContainer = sortableContainer(({ children }) => {
     return <ul>{children}</ul>;
@@ -28,7 +28,7 @@ class CreateJobProfilePage3 extends React.PureComponent {
             checks: JSON.parse(sessionStorage.getItem('services')),
             isRecruiter: localStorage.getItem('isRecruiter')
         };
-         
+
         this.nextStep = this.nextStep.bind(this);
         this.saveProgress = this.saveProgress.bind(this);
         this.prevStep = this.prevStep.bind(this);
@@ -60,65 +60,69 @@ class CreateJobProfilePage3 extends React.PureComponent {
         }));
     };
 
-    createJobProfile(){
-        
-        let ids = this.state.checks.map(x=>x.id);
-        const JobProfile = { 'title':this.state.jobProfileName,
-            'code':this.state.jobProfileCode,
-            'isCompleted':true,
-            'checks':ids,
-            'checksNeedVerification':true
+    createJobProfile() {
+
+        let ids = this.state.checks.map(x => x.id);
+        const JobProfile = {
+            'title': this.state.jobProfileName,
+            'code': this.state.jobProfileCode,
+            'isCompleted': true,
+            'checks': ids,
+            'checksNeedVerification': true
         };
-        const url = BASE_URL+CREATE_JOBPROFILE;
+        const url = BASE_URL + CREATE_JOBPROFILE;
         const config = {
             headers: {
                 'content-type': 'application/json',
-                'Authorization': 'Bearer ' +sessionStorage.getItem('token')
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
             }
         };
 
-        return Axios.post(url,JobProfile,config);
+        return Axios.post(url, JobProfile, config);
     }
 
     render() {
         const { checks } = this.state;
         return (
-            <div className="createJobProfile3">
+            <div>
                 <NavBar />
-                <div id="spanHolder">
-                    <span className="New-Verification-Req">New Job Profile</span>
-                </div>
-                <div id="formContainer">
-                    <ul id="progress_bar_taf">
-                        <li className="active">Job Profile Name</li>
-                        <li className="active">Select Verification Checks</li>
-                        <li className="active">Re-order Check Sequence</li>
-                        <li >Next Steps</li>
-                    </ul>
-                    <h3 className="Re-order-Check-Seque">Re-order Check Sequence for</h3>
-                    <h4 className="Re-order-Check-Seque text-style-1">{this.state.jobProfileName} {this.state.jobProfileCode}</h4>
-                    <p className="The-checks-with-the">The checks with the highest candidate failure / dropout rates will be done first</p>
-                    <hr className="Line" />
-                    <div className="flex-container">
-                        <img src={dragImg} alt="gridview image"></img>
-                        <p className="Change-the-sequence">Change the sequence by dragging items to re-order. </p>
+                <div className="createJobProfile3">
+                    <div id="spanHolder">
+                        <span className="New-Verification-Req">New Job Profile</span>
                     </div>
-                    <div id="Sortable-Checks">
-                        <SortableContainer onSortEnd={this.onSortEnd}>
-                            {checks.map((value, index) => <SortableItem key={`item-${value.id}`} index={index} value={value.name} />)}
-                        </SortableContainer>
-                    </div>
-                    <div id="buttonFooter">
-                        <button id="prev" onClick={this.prevStep}>BACK</button>
-                        <div id="saveButtonDiv">
-                            <img src={saveImg} alt="save img"/>
-                            <button id="save" onClick={this.saveProgress}>Save and continue later</button>
+                    <div id="formContainer">
+                        <ul id="progress_bar_taf">
+                            <li className="active">Job Profile Name</li>
+                            <li className="active">Select Verification Checks</li>
+                            <li className="active">Re-order Check Sequence</li>
+                            <li >Next Steps</li>
+                        </ul>
+                        <h3 className="Re-order-Check-Seque">Re-order Check Sequence for</h3>
+                        <h4 className="Re-order-Check-Seque text-style-1">{this.state.jobProfileName} {this.state.jobProfileCode}</h4>
+                        <p className="The-checks-with-the">The checks with the highest candidate failure / dropout rates will be done first</p>
+                        <hr className="Line" />
+                        <div className="flex-container">
+                            <img src={dragImg} alt="gridview image"></img>
+                            <p className="Change-the-sequence">Change the sequence by dragging items to re-order. </p>
                         </div>
-                        <button id="next" onClick={this.nextStep}>NEXT</button>
+                        <div id="Sortable-Checks">
+                            <SortableContainer onSortEnd={this.onSortEnd}>
+                                {checks.map((value, index) => <SortableItem key={`item-${value.id}`} index={index} value={value.name} />)}
+                            </SortableContainer>
+                        </div>
+                        <div id="buttonFooter">
+                            <button id="prev" onClick={this.prevStep}>BACK</button>
+                            <div id="saveButtonDiv">
+                                <img src={saveImg} alt="save img"/>
+                                <button id="save" onClick={this.saveProgress}>Save and continue later</button>
+                            </div>
+                            <button id="next" onClick={this.nextStep}>NEXT</button>
+                        </div>
                     </div>
+                    <Footer />
                 </div>
-                <Footer />
             </div>
+            
         );
     }
 }

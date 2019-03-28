@@ -30,8 +30,7 @@ export const submitCandidate = (ver_check, candidate) => {
                 'Authorization': 'Bearer ' +sessionStorage.getItem('token')
             }
         };
-        console.log(candidate.length);
-        let candidateArray = {
+       let candidateArray = {
             candidates : candidate
         };
         if (candidate.length !== 0){
@@ -66,11 +65,20 @@ export const getFileSize = (size) => {
     };
 };
 
-export const isTableValid = (idValid, emailValid) => {
+export const isTableValid = (value) => {
     return function (dispatch) {
         dispatch ({
             type: Types.TABLE_VALID,
-            payload: idValid && emailValid  
+            payload: value
+        });
+    };
+};
+
+export const clearTable = (value) => {
+    return function (dispatch) {
+        dispatch ({
+            type: Types.CLEAR_TABLE,
+            payload: value
         });
     };
 };

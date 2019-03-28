@@ -140,7 +140,6 @@
     flex-direction: row;
     height: 400px;
     margin: auto;
-    margin-left: 1%;
     /* margin-top: -1px; */
     margin-right: 2%;
     width: 1130px;
@@ -583,6 +582,7 @@
     height: 50px;
     border-radius: 7px;
     background-color: #4e9821;
+    margin-top: 32px;
     border: none;
     font-size: 12px;
     font-weight: bold;
@@ -626,7 +626,7 @@ td {
 .radios {
   display: block;
   width: -webkit-fit-content;
-  width: -moz-fit-content;
+  width: 150px;
   width: fit-content;
   margin-left: 6px;
   margin-bottom: -4px;
@@ -634,6 +634,7 @@ td {
 }
 .MuiFormGroup-root-12 {
     margin-bottom: 15px;
+    width: 100%;
 }
 .saveCandidate{
   margin-left: 9%;
@@ -772,6 +773,23 @@ top: 18px;
 
 svg.MuiSvgIcon-root-38{
   color : #2b3844
+}
+#required{
+  color: #ff0f0f;
+  width: 0px;
+  height: 0px;
+  font-size: 15px;
+  margin: 0px;
+  padding-left: 100%;
+}
+#requiredRadio{
+  color: #ff0f0f;
+  width: 0px;
+  height: 0px;
+  font-size: 15px;
+  margin: 0px;
+  padding-left: 100%;
+  
 }
 
 }
