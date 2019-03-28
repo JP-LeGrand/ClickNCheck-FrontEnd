@@ -22,7 +22,7 @@ class ParentContainer extends React.PureComponent {
         this.sendCandidate = this.sendCandidate.bind(this);
         this.backstep = this.backstep.bind(this);
     }
-
+    
     changeDiv(e) {
         this.props.changeView(e);
     }
@@ -92,13 +92,29 @@ class ParentContainer extends React.PureComponent {
                                 </div>
 
                             </fieldset>
-                            <div id="buttonFooter">
-                                <button id="prev" onClick={this.backstep}>BACK</button>
-                                <button id="next" onClick={this.sendCandidate} >SUBMIT</button>
-                                <div className="loading">
-                                   {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
-                                </div>`
-                            </div>
+                            {this.props.candidateState ? 
+                                <div id="buttonFooter">
+                                    <button id="prev" onClick={this.backstep}>BACK</button>
+                                    <button id="next" onClick={this.sendCandidate} >SUBMIT</button>
+                                    <div className="loading">
+                                        {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                                    </div>
+                                </div>
+                                :
+                                this.props.fileState ? 
+                                    <div id="buttonFooter">
+                                        <button id="prev" onClick={this.backstep}>BACK</button>
+                                    </div>
+                                    : 
+                                    <div id="buttonFooter">
+                                        <button id="prev" onClick={this.backstep}>BACK</button>
+                                        <button id="next" onClick={this.sendCandidate} >SUBMIT</button>
+                                        <div className="loading">
+                                            {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                                        </div>
+                                    </div>
+                            }
+                            
                         </div>
                         <Footer />
                     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './MainContainerStyle.scss';
 import XLSX from 'xlsx';
 import { RecruiterConstants } from './recruiterConstants';
@@ -9,6 +9,7 @@ import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
 import * as CandidateActions from './CandidateActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { ToastContainer, toast } from 'mdbreact';
 
 class MainContainer extends React.PureComponent {
     constructor(props) {
@@ -25,7 +26,6 @@ class MainContainer extends React.PureComponent {
             sloading: false,
         };
         this.submit = this.submit.bind(this);
-      
         this.handleUserInput = this.handleUserInput.bind(this);
         this.removeRow = this.removeRow.bind(this);
         this.nextStep = this.nextStep.bind(this);
@@ -76,7 +76,7 @@ class MainContainer extends React.PureComponent {
             if (testing === null) {
                 document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
                 test = false;
-             this.props.checkEmail(false);
+                this.props.checkEmail(false);
             } else {
                 document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
                 test = true;
@@ -100,7 +100,7 @@ class MainContainer extends React.PureComponent {
         this.setState({
             excelRows: newRows,
         });
-        this.props.update(this.state.excelRows);
+         this.props.update(this.state.excelRows);
 
     }
     nextStep() {
@@ -127,6 +127,7 @@ class MainContainer extends React.PureComponent {
                 excelRows: exceRows,
                
             });
+            this.props.update(this.state.excelRows);
             this.props.getFile(e);
             this.props.getSize(number);
         };
@@ -137,39 +138,46 @@ class MainContainer extends React.PureComponent {
     review() {
 
         return (
-            <fieldset className="field1 current">
-                <table className="ImportTable">
-                    <thead className="Headers">
-                        <tr className="Headers">
-                            <th>First Full Name</th>
-                            <th>Surname</th>
-                            <th>Maiden Name</th>
-                            <th>ID/Passport</th>
-                            <th>Birthday</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody className="Headers">
-                        {this.state.excelRows.map((user, index) => {
-                            return (
-                                <tr className="Shape" key={index}>
-                                    <td className=""><input className="FieldValue" type="text" name="name" value={user.Name} onChange={event => this.handleUserInput(index, event)}/></td>
-                                    <td className=""><input className="FieldValue" type="text" name="surname" value={user.Surname} onChange={event => this.handleUserInput(index, event)}/></td>
-                                    <td className=""><input className="FieldValue" type="text" name="madein" defaultValue={user.Maiden_Surname} onChange={event => this.handleUserInput(index, event)}/></td>
-                                    <td className=""><input className="FieldValue" type="text" id={index+'id'} name="id" maxLength={'13'} value={user.ID_Passport} onChange={event => this.handleUserInput(index, event)}/></td>
-                                    <td className=""><input className="FieldValue" type="text" name="dob" value={user.Birthday} onChange={event => this.handleUserInput(index, event)}/></td>
-                                    <td className=""><input className="FieldValue" type="text" id={index+'email'} name="email" value={user.Email} onChange={event => this.handleUserInput(index, event)}/></td>
-                                    <td className=""><input className="FieldValue" type="text" id={index+'phone'} name="phone" maxLength={'10'} value={user.Phone} onChange={event => this.handleUserInput(index, event)}/></td>
-                                    <td className="trash"><a href="#" onClick={(user) => this.removeRow(index, user)}><img src="https://img.icons8.com/ultraviolet/20/000000/delete.png" /></a></td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>    
+            <Fragment>
+                <ToastContainer
+                    hideProgressBar={true}
+                    newestOnTop={true}
+                    autoClose={5000}
+                />
+                <fieldset className="field1 current">
+                    <table className="ImportTable">
+                        <thead className="Headers">
+                            <tr className="Headers">
+                                <th>First Full Name</th>
+                                <th>Surname</th>
+                                <th>Maiden Name</th>
+                                <th>ID/Passport</th>
+                                <th>Birthday</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody className="Headers">
+                            {this.state.excelRows.map((user, index) => {
+                                return (
+                                    <tr className="Shape" key={index}>
+                                        <td className=""><input className="FieldValue" type="text" name="name" value={user.Name} onChange={event => this.handleUserInput(index, event)}/></td>
+                                        <td className=""><input className="FieldValue" type="text" name="surname" value={user.Surname} onChange={event => this.handleUserInput(index, event)}/></td>
+                                        <td className=""><input className="FieldValue" type="text" name="madein" defaultValue={user.Maiden_Surname} onChange={event => this.handleUserInput(index, event)}/></td>
+                                        <td className=""><input className="FieldValue" type="text" id={index+'id'} name="id" maxLength={'13'} value={user.ID_Passport} onChange={event => this.handleUserInput(index, event)}/></td>
+                                        <td className=""><input className="FieldValue" type="text" name="dob" value={user.Birthday} onChange={event => this.handleUserInput(index, event)}/></td>
+                                        <td className=""><input className="FieldValue" type="text" id={index+'email'} name="email" value={user.Email} onChange={event => this.handleUserInput(index, event)}/></td>
+                                        <td className=""><input className="FieldValue" type="text" id={index+'phone'} name="phone" maxLength={'10'} value={user.Phone} onChange={event => this.handleUserInput(index, event)}/></td>
+                                        <td className="trash"><a href="#" onClick={(user) => this.removeRow(index, user)}><img src="https://img.icons8.com/ultraviolet/20/000000/delete.png" /></a></td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>    
                                     
-                </table>
-            </fieldset>
+                    </table>
+                </fieldset>
+            </Fragment>
         );
     }
 
