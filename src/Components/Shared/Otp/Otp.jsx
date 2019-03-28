@@ -38,6 +38,8 @@ class Otp extends React.PureComponent {
         this.props.handleChangeDigit2(event.target.value);
         if (event.target.value !== '') {
             event.target.nextSibling.focus();
+        } else {
+            event.target.previousSibling.focus();
         }
     }
 
@@ -45,6 +47,8 @@ class Otp extends React.PureComponent {
         this.props.handleChangeDigit3(event.target.value);
         if (event.target.value !== '') {
             event.target.nextSibling.focus();
+        } else {
+            event.target.previousSibling.focus();
         }
     }
 
@@ -52,11 +56,16 @@ class Otp extends React.PureComponent {
         this.props.handleChangeDigit4(event.target.value);
         if (event.target.value !== '') {
             event.target.nextSibling.focus();
+        } else {
+            event.target.previousSibling.focus();
         }
     }
 
     handleChangeDigit5(event) {
         this.props.handleChangeDigit5(event.target.value);
+        if ( event.target.value === '' ) {
+            event.target.previousSibling.focus();
+        }
     }
 
     handleSubmit(event) {
@@ -132,6 +141,8 @@ class Otp extends React.PureComponent {
                                     </a>
                                 </p>
                             </div>
+                            {(!this.props.digit1 || !this.props.digit2 || !this.props.digit3 || !this.props.digit4 || !this.props.digit5) && this.props.clicked && <p className="error">Make sure all 5 digits have been entered</p>}
+                            {this.props.error && <p className="error">{this.props.error}</p>}
                             <div className="loading">
                                 {this.props.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
                             </div>
@@ -152,7 +163,9 @@ Otp.propTypes = {
     digit4: PropTypes.number,
     digit5: PropTypes.number,
     loading: PropTypes.bool,
+    clicked: PropTypes.bool,
     user_id: PropTypes.string,
+    error: PropTypes.string,
     handleChangeDigit1: PropTypes.func.isRequired,
     handleChangeDigit2: PropTypes.func.isRequired,
     handleChangeDigit3: PropTypes.func.isRequired,
@@ -170,7 +183,9 @@ const mapStateToProps = state => ({
     digit4: state.otpState.digit4,
     digit5: state.otpState.digit5,
     loading: state.otpState.loading,
-    user_id: state.otpState.user_id
+    clicked: state.otpState.clicked,
+    user_id: state.otpState.user_id,
+    error: state.otpState.error
 });
 
 const mapActionsToProps = (dispatch) => ({
