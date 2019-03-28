@@ -410,7 +410,14 @@ class CreateAmendUser extends Component {
 
         const select_roles = Object.entries(this.state.selected_roles).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].role}</label> {item[ONE].id !== ONE && <img onClick={() => this.removeRole(item[ONE])} src={smallx}/> }</li>);
 
-        const s_roles = Object.entries(this.state.selected_roles).map((item, index) => item[ONE].role + ',');
+        const s_roles = Object.entries(this.state.selected_roles).map((item, index) => {
+            if (this.state.selected_roles.length-ONE === index) {
+                return item[ONE].role;
+            } else {
+                return item[ONE].role + ', '; 
+            }
+            
+        });
 
         const select_jobs = Object.entries(this.state.selected_jobs).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].title}</label><img onClick={() => this.removeJob(item[ONE])} src={smallx} /></li>);
         const FIELD_REQUIRED = <p className="error"> This Field Is Required</p>;
@@ -425,8 +432,10 @@ class CreateAmendUser extends Component {
                         <div className="userSummary">
                             <div id="usr_img">
                                 <img src={this.state.PictureUrl} />
-                                <label id="name">{this.state.Name + ' ' + this.state.Surname}</label>
-                                <label id="roles"><b>{s_roles}</b></label>
+                                <div className="imgLabels">
+                                    <label id="name">{this.state.Name + ' ' + this.state.Surname + ' '}</label>
+                                    <label id="roles"><b>{s_roles}</b></label>
+                                </div>
                             </div>
 
                             <div id="heading">
