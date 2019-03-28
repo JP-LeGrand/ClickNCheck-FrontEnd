@@ -76,13 +76,14 @@ class CaptureCandidateDetails extends React.PureComponent {
                 let body = {
                     Name: this.state.firstName,
                     Surname: this.state.surname,
-                    Maiden_Surname: this.state.mSurname,
+                    Maiden_Surname: this.state.mSurname || this.state.surname,
                     Email: this.state.email,
                     Phone: this.state.phone,
                     ID_Type: 'ID',
                     ID_Passport: this.state.idNumber,
     
                 };
+                console.log(body)
                 let aryCandaidate = [...this.state.candidates];
                 aryCandaidate.push(body);
                 this.setState({
@@ -240,11 +241,11 @@ class CaptureCandidateDetails extends React.PureComponent {
     }
     addCandidate() {
         this.props.clearTable('');
-        if (this.state.firstName !== '' && this.state.surname !== '' && this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== '') {
+        if (this.state.firstName !== '' && this.state.surname !== '' || this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== '') {
             let body = {
                 Name: this.state.firstName,
                 Surname: this.state.surname,
-                Maiden_Surname: this.state.mSurname,
+                Maiden_Surname: this.state.mSurname || this.state.Surname,
                 Email: this.state.email,
                 Phone: this.state.phone,
                 ID_Type: 'ID',
