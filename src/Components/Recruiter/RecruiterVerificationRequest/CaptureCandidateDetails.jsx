@@ -236,10 +236,6 @@ class CaptureCandidateDetails extends React.PureComponent {
                 if(tableValidationErrors.email && tableValidationErrors.phone && tableValidationErrors.id) {
                    this.props.checkTableValid(true);
                 }
-        console.log('number', this.state.numberValid);
-        console.log('id', this.state.idValid);
-        console.log('email', this.state.emailValid);
-        
        
     }
     addCandidate() {
