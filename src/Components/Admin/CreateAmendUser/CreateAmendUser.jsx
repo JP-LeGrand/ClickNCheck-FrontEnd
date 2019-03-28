@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import smallx from '../../../Assets/smallx.svg';
 import AdminNavBar from '../AdminNavBar/adminNavBar';
 import { BASE_URL, GET_ALL_JOB_PROFILES, CREATE_AMEND_USER, GET_MANAGERS, GET_USER, CHANGE_STATUS } from '../../../Shared/Constants';
-import { ZERO, ONE } from '../../../Shared/IntConstants';
+import { ZERO, ONE , TEN, TWELVE } from '../../../Shared/IntConstants';
 import './CreateAmendUser.scss';
 import { FaTimes } from 'react-icons/fa';
 
@@ -62,6 +62,7 @@ class CreateAmendUser extends Component {
         this.removeRole = this.removeRole.bind(this);
         this.changeStatus = this.changeStatus.bind(this);
         this.clearAll = this.clearAll.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     async componentDidMount(){
@@ -265,15 +266,18 @@ class CreateAmendUser extends Component {
     }
 
     phoneHandler(event) {
-        this.setState({ Phone: event.target.value });
         let phone = event.target.value;
-        if (phone.charAt(ZERO) === '0' && phone.match(/[0-9]{10}/)) {
-            this.setState({ phoneValid: true });
-        } else if (phone === '') {
-            this.setState({ phoneValid: null });
-        } else {
-            this.setState({ phoneValid: false });
+        if ( phone.charAt(ZERO) === '0' && phone.length <= TEN || phone.charAt(ZERO) === '+' && phone.length <= TWELVE || phone.length === ZERO) {
+            this.setState({ Phone: event.target.value });
+            if (phone.match(/[0][0-9]{9}/) || phone.match(/[+][0-9]{11}/)) {
+                this.setState({ phoneValid: true });
+            } else if (phone === '') {
+                this.setState({ phoneValid: null });
+            } else {
+                this.setState({ phoneValid: false });
+            }
         }
+        
     }
 
     emailHandler(event) {
@@ -326,6 +330,7 @@ class CreateAmendUser extends Component {
         this.setState({
             applyClicked: true
         });
+        
         let rec_jobprofiles = '';
         this.state.selected_jobs.forEach(element => {
             if (rec_jobprofiles === '') {
@@ -416,7 +421,6 @@ class CreateAmendUser extends Component {
             } else {
                 return item[ONE].role + ', '; 
             }
-            
         });
 
         const select_jobs = Object.entries(this.state.selected_jobs).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].title}</label><img onClick={() => this.removeJob(item[ONE])} src={smallx} /></li>);
@@ -426,7 +430,6 @@ class CreateAmendUser extends Component {
             <div>
                 < AdminNavBar />
                 <div className="createAmendUser">
-                
                     <p>Create/Amend user</p>
                     <div className="mainSection">
                         <div className="userSummary">
@@ -460,6 +463,7 @@ class CreateAmendUser extends Component {
                                             <br />
                                             <input id="fname" placeholder="&nbsp;" name="name" value={this.state.Name} onChange={(event) => this.nameHandler(event)} />
                                         </div>
+                                        {this.state.applyClicked && this.state.Name === '' && <FIELD_REQUIRED />}
                                     </td>
 
                                     <td>
@@ -468,6 +472,7 @@ class CreateAmendUser extends Component {
                                             <br />
                                             <input id="surname" placeholder="&nbsp;" name="surname" value={this.state.Surname} onChange={(event) => this.surnameHandler(event)} />
                                         </div>
+                                        {this.state.applyClicked && this.state.Surname === '' && <FIELD_REQUIRED />}
                                     </td>
                                 </tr>
 
@@ -476,14 +481,16 @@ class CreateAmendUser extends Component {
                                         <span className="dateLabel">end date</span>
                                         <br/>
                                         <input id="end_date" type="date" placeholder="&nbsp;" name="end_date" value={ this.state.user_id !== '' ? this.state.EndDate : null } onChange={(event) => this.endDateHandler(event)} />
+                                        {this.state.applyClicked && this.state.EndDate === null && <FIELD_REQUIRED />}
                                     </td>
 
                                     <td>
                                         <div className="form-group">
                                             <label>Phone Number</label>
                                             <br />
-                                            <input id="phone" placeholder="&nbsp;" name="phone" maxLength="10" value={this.state.Phone} onChange={(event) => this.phoneHandler(event)} />
+                                            <input id="phone" placeholder="&nbsp;" name="phone" maxLength="12" value={this.state.Phone} onChange={(event) => this.phoneHandler(event)} />
                                         </div>
+                                        {this.state.applyClicked && this.state.Phone === null && <FIELD_REQUIRED />}
                                         {this.state.phoneValid === true && <p className="success">Phone number is correct</p>}
                                         {this.state.phoneValid === false && <p className="error">Phone Number is incorrect</p>}
                                     </td>
@@ -494,8 +501,9 @@ class CreateAmendUser extends Component {
                                             <br />
                                             <input id="email" placeholder="&nbsp;" name="email" value={this.state.Email} onChange={(event) => this.emailHandler(event)} />
                                         </div>
+                                        {this.state.applyClicked && this.state.Email === null && <FIELD_REQUIRED />}
                                         {this.state.emailValid === true && <p className="success">Email is correct</p>}
-                                        {this.state.emailValid === false && <p className="error">Email is incorrect</p> }
+                                        {this.state.emailValid === false && <p className="error">Email is incorrect</p>}
                                     </td>
 
                                 </tr>
@@ -506,9 +514,8 @@ class CreateAmendUser extends Component {
                                             <label>Manager</label>
                                             <br />
                                             <select onChange={this.managerHandler} value={ this.state.user_id !== '' ? this.state.rec_manager : null }><option>...</option>{manager_resultItems}</select>
-                                        
                                         </div>
-
+                                        {this.state.applyClicked && this.state.rec_manager === null && <FIELD_REQUIRED />}
                                     </td>
                                     <td>
                                         <div className="form-group">
@@ -519,7 +526,7 @@ class CreateAmendUser extends Component {
                                             </ul>
                                             <select onChange={(event) => this.rolesHandler(event)}><option>...</option>{role_resultItems}</select>
                                         </div>
-
+                                        {this.state.applyClicked && this.state.selected_roles === null && <FIELD_REQUIRED />}
                                     </td>
                                     <td>
                                         <div className="form-group">
@@ -530,6 +537,7 @@ class CreateAmendUser extends Component {
                                             </ul>
                                             <select onChange={(event) => this.jobsHandler(event)}><option>...</option>{job_resultItems}</select>
                                         </div>
+                                        {this.state.applyClicked && this.state.selected_jobs === null && <FIELD_REQUIRED />}
                                     </td>
                                 </tr>
                             </table>
