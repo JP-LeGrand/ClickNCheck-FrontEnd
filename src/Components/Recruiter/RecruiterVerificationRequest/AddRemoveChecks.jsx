@@ -1,5 +1,6 @@
 import React from 'react';
 import './MainContainerStyle.scss';
+import './candidateUploadContainer.scss';
 import { BASE_URL } from '../../../Shared/Constants';
 import { connect } from 'react-redux';
 
@@ -94,14 +95,15 @@ class AddRemoveChecks extends React.Component {
         }
         return (
             <div>
-                <form>
+                <form className="formChecks">
                     <table id="checksTable">
                         <tbody>
                             {checks}
                         </tbody>
                     </table>
+                    <a id="addRemoveChecks" onClick={this.props.addRemove}> Back to check order</a>
                 </form>
-                <a id="addRemoveChecks" onClick={this.props.addRemove}> Back to check order</a>
+                
             </div>
 
         );

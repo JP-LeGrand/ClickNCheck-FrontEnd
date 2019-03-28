@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://localhost:44347/api/';/* alternative url for testing on local db https://clickncheck.azurewebsites.net/api/ or https://clicknchecksite.z13.web.core.windows.net/api/ */
+export const BASE_URL = 'https://clickncheck.azurewebsites.net/api/';/* alternative url for testing on local db https://clickncheck.azurewebsites.net/api/ */
 export const IS_LOGGED_IN = 'authentication/isLoggedIn';
 export const ADD_USER = 'Users/PostUsers';
 export const GET_USER_TYPES = 'Users/userTypes';
@@ -24,8 +24,10 @@ export const GET_ALL_JOB_PROFILES = 'JobProfiles/GetAllJobProfilesRecruiters';
 export const GET_UNASSIGNED_JOB_PROFILES = 'JobProfiles/GetUnassignedJobProfilesRecruiters';
 export const GET_ASSIGNED_JOB_PROFILES = 'JobProfiles/GetAssignedJobProfilesRecruiters';
 export const GET_ALL_SERVICES = 'Available/services';
-export const GET_MANAGERS = 'users/recruiter/organisation/managers/';
+export const GET_MANAGERS = 'users/managers/';
+export const GET_OPERATORS = 'users/operators/';
 export const CREATE_AMEND_USER = 'Users/CreateAmendUser';
 export const CREATE_JOBPROFILE = 'JobProfiles/CreateJobProfile';
 export const GET_RECRUITERS_NAMES='Users/GetRecruiterNames';
 export const GET_ALL_USERS='Users/GetAllUsers';
+export const GET_USER='Users/User/';

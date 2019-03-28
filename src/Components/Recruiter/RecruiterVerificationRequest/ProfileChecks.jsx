@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import React from 'react';
 import './MainContainerStyle.scss';
+import './candidateUploadContainer.scss';
 import { connect } from 'react-redux';
 import { BASE_URL } from '../../../Shared/Constants';
 
@@ -35,7 +36,7 @@ class ProfileChecks extends React.Component {
             color: '#0091d1'
         };
         return (
-            <div>
+            <div className="">
                 <p className="Verification-checks">Verification checks required for {localStorage.getItem('jp')}</p>
                 <ul>
                     {listItems}
