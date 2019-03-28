@@ -7,7 +7,7 @@ import ChangPasswordReducer from '../../Components/Shared/ChangePassword/ChangeP
 import ReviewChecksReducer from '../../Components/Recruiter/RecruiterVerificationRequest/ReviewChecksReducer';
 import CandidateReducer from '../../Components/Recruiter/RecruiterVerificationRequest/CandidateReducer';
 import JobProfileReducer from '../../Components/Admin/CreateJobProfile/JobProfileReducer';
-
+import OtpReducer from '../../Components/Shared/Otp/OtpReducer';
 const RootReducer = combineReducers({
     homeState: HomeReducer,
     consentState: ConsentReducer,
@@ -15,7 +15,8 @@ const RootReducer = combineReducers({
     changePasswordState: ChangPasswordReducer,
     reviewChecksState: ReviewChecksReducer,
     candidateState: CandidateReducer,
-    jobProfileState: JobProfileReducer
+    jobProfileState: JobProfileReducer,
+    otpState: OtpReducer
 });
 
 export default RootReducer;

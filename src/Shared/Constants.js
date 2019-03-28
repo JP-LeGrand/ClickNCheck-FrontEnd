@@ -25,6 +25,7 @@ export const GET_UNASSIGNED_JOB_PROFILES = 'JobProfiles/GetUnassignedJobProfiles
 export const GET_ASSIGNED_JOB_PROFILES = 'JobProfiles/GetAssignedJobProfilesRecruiters';
 export const GET_ALL_SERVICES = 'Available/services';
 export const GET_MANAGERS = 'users/managers/';
+export const GET_OPERATORS = 'users/operators/';
 export const CREATE_AMEND_USER = 'Users/CreateAmendUser';
 export const CREATE_JOBPROFILE = 'JobProfiles/CreateJobProfile';
 export const GET_RECRUITERS_NAMES='Users/GetRecruiterNames';
