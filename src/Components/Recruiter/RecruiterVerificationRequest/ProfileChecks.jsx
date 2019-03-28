@@ -4,25 +4,50 @@ import './MainContainerStyle.scss';
 import './candidateUploadContainer.scss';
 import { connect } from 'react-redux';
 import { BASE_URL } from '../../../Shared/Constants';
+import { sortableContainer, sortableElement } from 'react-sortable-hoc';
+import arrayMove from 'array-move';
+import { toast } from 'mdbreact';
 
 class ProfileChecks extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            sortable: true,
+            checks: []
+        };
+        this.activateReorder = this.activateReorder.bind(this);
+        this.onSortEnd = this.onSortEnd.bind(this);
     }
 
-    render() {
+    onSortEnd = ({ oldIndex, newIndex }) => {
+        this.props.updateOrder(arrayMove(this.props.checks, oldIndex, newIndex));
+    };
 
+    activateReorder(e){
+        if (this.state.sortable){
+            this.setState({sortable: false});
+            this.props.reorderChecks(false);
+            toast.success('You may now re-order checks',{
+                autoClose:3000
+            });
+        } else {
+            this.setState({sortable: true});
+            this.props.reorderChecks(true);
+        }
+    }
+    
+    render() {
         let imgStyle = {
             width: '15px',
             objectFit: 'contain',
             padding: '0 20px 0 0'
         };
+        const SortableItem = sortableElement(({ value }) => <li id="jobProfileChecks"><img style={imgStyle} src={require('../../../Assets/' + value.toString().toLowerCase() + '.svg')}></img>{value}</li>);
 
-        const listItems = this.props.checks.map((item) => <div className="returnedCheckCategory">
-                <li id="jobProfileChecks"><img style={imgStyle} src={require('../../../Assets/' + item.category.toString().toLowerCase() + '.svg')}></img>   {item.category}</li>
+        const SortableContainer = sortableContainer(({ children }) => {
+            return <ul>{children}</ul>;
+        });
 
-            </div>
-        );
         let addRemoveCheckStyle = {
             width: '592px',
             height: '22px',
@@ -38,11 +63,14 @@ class ProfileChecks extends React.Component {
         return (
             <div className="">
                 <p className="Verification-checks">Verification checks required for {localStorage.getItem('jp')}</p>
-                <ul>
+                {/* <ul>
                     {listItems}
-                </ul>
-                <a id="addRemoveChecks" style={addRemoveCheckStyle} onClick={this.props.addRemove}>+ Add or - Remove verification checks </a>
-                <a id="reorderChecks" onClick={this.props.addRemove}> Re-order sequences of checks </a>
+                </ul> */}
+                <SortableContainer onSortEnd={this.onSortEnd}>
+                    { this.props.checks.map((value, index) => <SortableItem key={`item-${value.id}`} index={index} value={value.category} disabled={this.state.sortable}/>)}
+                </SortableContainer>
+                <a id="addRemoveChecks" style={addRemoveCheckStyle} onClick={this.props.addRemove} >+ Add or - Remove verification checks </a>
+                <a id="reorderChecks" onClick={this.activateReorder} > Re-order sequences of checks </a>
             </div >
         );
     }
