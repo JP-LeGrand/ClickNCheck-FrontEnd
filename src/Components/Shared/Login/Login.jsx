@@ -94,10 +94,10 @@ class Login extends React.PureComponent {
                                 <span className="showHide" onClick={this.handleShowHide}>{this.props.isPasswordVisible ? 'Hide' : 'Show'}</span>
                             </label>
                             
-                                <p>
-                                    <a href="/forgotPassword">Forgot Password?</a>
-                                </p>
-                            </div> 
+                            <p>
+                                <a href="/forgotPassword">Forgot Password?</a>
+                            </p>
+                        </div> 
 
                         <div id="btnDiv" className="form-group">
                             <button onClick={this.handleSubmit}>Login</button>
@@ -110,7 +110,7 @@ class Login extends React.PureComponent {
                         {this.props.isLoading && <img src={rollingImg} id="spinner" alt="loading..." />}
                     </div>
                 </div>
-            </Fragment>
+            </div>
         );
     }
 }
