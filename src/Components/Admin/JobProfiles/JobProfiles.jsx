@@ -128,27 +128,30 @@ class JobProfiles extends Component {
 
     render() {
         return ( 
-            <div className="jobProfiles">
+            <div>
                 <AdminNavBar />
-                <p>Job Profiles</p>
-                <div className="mainSection">  
-                    <div className="filter">
-                        <div id="heading">
-                            <label id="jp">Job Profiles</label>
-                            <label id="count"><b>{this.state.countJobProfiles}</b>/{this.state.countTotalJobProfiles}</label>
+                <div className="jobProfiles">
+                    <p>Job Profiles</p>
+                    <div className="mainSection">  
+                        <div className="filter">
+                            <div id="heading">
+                                <label id="jp">Job Profiles</label>
+                                <label id="count"><b>{this.state.countJobProfiles}</b>/{this.state.countTotalJobProfiles}</label>
+                            </div>
+                            <RadioGroup id="filter" defaultValue="All" className="radios classes.root" onClick={(event) => this.userChoice(event)}>
+                                <FormControlLabel id="All" className="radio" value="All" control={<Radio disableRipple defaultChecked color="primary" />} label="All" />
+                                <FormControlLabel id="Assigned" className="radio" value="Assigned" control={<Radio disableRipple color="primary"/>} label="Assigned" />
+                                <FormControlLabel id="Unassigned" className="radio" value="Unassigned" control={<Radio disableRipple color="primary"/>} label="Unassigned" />
+                            </RadioGroup>
                         </div>
-                        <RadioGroup id="filter" defaultValue="All" className="radios classes.root" onClick={(event) => this.userChoice(event)}>
-                            <FormControlLabel id="All" className="radio" value="All" control={<Radio disableRipple defaultChecked color="primary" />} label="All" />
-                            <FormControlLabel id="Assigned" className="radio" value="Assigned" control={<Radio disableRipple color="primary"/>} label="Assigned" />
-                            <FormControlLabel id="Unassigned" className="radio" value="Unassigned" control={<Radio disableRipple color="primary"/>} label="Unassigned" />
-                        </RadioGroup>
-                    </div>
 
-                    <div className="results">
-                        {this.state.results==='All' || this.state.results==='Assigned' || this.state.results==='Unassigned' ? < JobProfileResults allJobProfiles={this.state.allJobProfiles} /> : <JobProfileResults allJobProfiles={this.state.allJobProfiles}/>}
+                        <div className="results">
+                            {this.state.results==='All' || this.state.results==='Assigned' || this.state.results==='Unassigned' ? < JobProfileResults allJobProfiles={this.state.allJobProfiles} /> : <JobProfileResults allJobProfiles={this.state.allJobProfiles}/>}
+                        </div>
                     </div>
                 </div>
             </div>
+            
         );
     }
 }

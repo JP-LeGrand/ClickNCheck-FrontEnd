@@ -8,6 +8,7 @@ import axios from 'axios';
 import { BASE_URL, GET_RECRUITERS, GET_RECRUITER_JOB_PROFILE } from '../../../Shared/Constants';
 import AdminNavBar from '../AdminNavBar/adminNavBar';
 import Footer from '../../Shared/Footer/Footer';
+import { ZERO } from '../../../Shared/IntConstants';
 
 class ViewRecruiterJP extends React.PureComponent{
     constructor(props) {
@@ -23,15 +24,22 @@ class ViewRecruiterJP extends React.PureComponent{
     
     handleRecruiterChange(e){
         let arr = [];
-      
         this.setState({
-            selectedRecruiter: e.label,
-            recruiterID: e.value
+            selectedRecruiter: e.target.value === 'Select Recruiter' ? e.target.value : this.state.recruiters.filter(r => r.value === parseInt(e.target.value, 10))[ZERO].label,
+            recruiterID: e.target.value
+            
         });
-        axios.get(BASE_URL + GET_RECRUITER_JOB_PROFILE + e.value)
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': 'Bearer ' +sessionStorage.getItem('token')
+            }
+        };
+        axios.get(BASE_URL + GET_RECRUITER_JOB_PROFILE + e.target.value, config)
             .then((response) => {
-                response.data.map((index, row) => {
-                    arr.push({ title :index.title, id:index.id } );
+                response.data.map((index) => {
+                    console.log(index);
+                    arr.push({ title :index.title, id:index.id, code :index.jobCode } );
                 });
                 this.setState({
                     JobProfiles: arr
@@ -40,45 +48,60 @@ class ViewRecruiterJP extends React.PureComponent{
        
     }
     render() {
+        const recruiters = this.state.recruiters.map((item, index) => <option key={index} value={item.value}>{item.label}</option>);
+
         return (
-            <div className="ViewRecruiterJP">
+            <div>
                 <AdminNavBar/>
-                <div className="title">
-                    <p>Dashboard</p><FaAngleRight id="angleRight" /><p id="bold">Recruiter Overview</p>
-                </div>
-                <div className="head">
-                    <div id="headTitle">Recruiter Overview</div>
-                    <ReactSelect defaultRec={this.state.selectedRecruiter} recruiters={this.state.recruiters} handleRecruiterChange={this.handleRecruiterChange} />
-                </div>
-                <div id="contTable">
-                    <div className="tHead">
-                        <div className="tHeading">
-                            <img className="hImage" src={JobProfile} alt="JP" />
-                            <label >Job Profile</label>
-                        </div>
-                        <div className="tHeading">
-                            <img className="hImage" src={userImg} alt="REC" />
-                            <label>Recruiter</label>
-                        </div>
+                <div className="ViewRecruiterJP">
+                
+                    <div className="title">
+                        <p>Dashboard <span id="bold"> &gt; Recruiter Overview</span></p>
                     </div>
-                    {
-                        this.state.JobProfiles.map((index, row) => {
-                            return (
-                                <div key={row} className="tBody">
-                                    <div className="tContent">
-                                        <label>{index.title}</label>
+
+                    <div className="head">
+                        <label id="headTitle">Recruiter Overview</label>
+                        <select id="selectElement" onChange={this.handleRecruiterChange}><option>Select Recruiter</option>{recruiters}</select>
+                    </div>
+            
+                    <div id="contTable">
+                        { 
+                            this.state.selectedRecruiter === 'Select Recruiter' ? 
+                                <p>Please select a recruiter</p> : 
+                        
+                                this.state.JobProfiles.length > ZERO ? <div id="table">
+                                    <div className="tHead">
+                                        <div className="tHeading">
+                                            <label >Job Code</label>
+                                        </div>
+                                        <div className="tHeading">
+                                            <label>Job Title</label>
+                                        </div>
                                     </div>
-                                    <div className="tContent">
-                                        <label>{this.state.selectedRecruiter}</label>
-                                    </div>
-                                </div>
-                            );
-                        })
-                    }
+                                    {
+                                        this.state.JobProfiles.map((index, row) => {
+                                            return (
+                                                <div key={row} className="tBody" id="row">
+                                                    <div className="tContent">
+                                                        <label>{index.code}</label>
+                                                    </div>
+                                                    <div className="tContent">
+                                                        <label>{index.title}</label>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })
+                                    }
                     
+                                </div> : <p>No job profiles found for {this.state.selectedRecruiter}</p>
+                        }
+                        
+                    </div>
+                
                 </div>
                 <Footer />
             </div>
+            
         );    
     }
 
