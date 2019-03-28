@@ -30,7 +30,6 @@ export const submitCandidate = (ver_check, candidate) => {
                 'Authorization': 'Bearer ' +sessionStorage.getItem('token')
             }
         };
-        console.log(candidate.length);
         let candidateArray = {
             candidates : candidate
         };

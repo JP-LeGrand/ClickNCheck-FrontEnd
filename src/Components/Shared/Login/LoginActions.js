@@ -34,8 +34,6 @@ export const loginProcess = (email, password) => {
                             type: Types.UPDATE_ERROR,
                             payload: 'wrongCredentials'
                         });
-
-                        return;
                     }
                     localStorage.setItem('user_id', response);
                     let userid = localStorage.getItem('user_id');
