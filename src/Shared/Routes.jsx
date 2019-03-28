@@ -39,7 +39,7 @@ const Routes = () => {
                 <Route path="/candidate/consent" exact component={Consent} />
                 <Route path="/candidate/consented" exact component={Consented} />
                 <Route path="/forgotPassword" exact component={ForgotPassword} />
-                <Route path="/forgotPasswordSuccess" exact component={ForgotPasswordSuccess} />
+                <Route path="/forgotPasswordSuccess" exact component={ForgotPasswordSuccess} /> 
                 <Route path="/changePassword" exact component={ChangePassword} />
                 <Route path="/ReviewChecks" exact component={ReviewChecks} />
                 <Route path="/NewVerificationRequest" exact component={NewVerificationRequest} />

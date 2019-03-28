@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "applicationinsights": "^1.2.0",
     "array-move": "^2.0.0",
     "axios": "^0.18.0",
     "cross-env": "^5.2.0",
@@ -20,6 +21,7 @@
     "path-to-regexp": "^3.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.1",
+    "react-appinsights": "^2.0.2",
     "react-dnd": "^7.3.1",
     "react-dnd-html5-backend": "^7.2.0",
     "react-dom": "^16.8.1",

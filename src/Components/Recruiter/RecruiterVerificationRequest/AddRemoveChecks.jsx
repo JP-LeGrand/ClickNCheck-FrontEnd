@@ -67,7 +67,7 @@ class AddRemoveChecks extends React.Component {
             }
         }
 
-        var verticalAlignWell = {
+        let verticalAlignWell = {
             margin: '0 0 7% 15%',
             verticalAlign: 'middle'
         };
