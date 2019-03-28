@@ -32,9 +32,12 @@ const InitialState = {
         error: ''
     },
     changePasswordState:{
-        password:null,
-        passwordStrength:null,
-        errorMessage:null
+        password: '',
+        confirmpassword:'',
+        errorMessage: '',
+        passwordsValid: false,
+        passwordsMatch: false,
+        loading:false
     },
     verificationChecksState: {
         jobProfileChecks: [],
