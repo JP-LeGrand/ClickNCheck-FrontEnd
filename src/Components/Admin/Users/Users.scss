@@ -28,4 +28,12 @@
     display: flex;
     flex-flow: row;
   }
+  tbody{
+    display: block;
+    overflow: auto;
+    height: 450px;
+  }
+  .col{
+    width: 22.5%;
+  }
 }
