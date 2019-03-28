@@ -109,7 +109,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                 });
             }
         } else {
-            toast.warn('Oops! All  must be field before saving', {
+            toast.warn('Oops! There is an invalid field. Please correct', {
                 autoClose: 5000
             });
         }
@@ -276,7 +276,7 @@ class CaptureCandidateDetails extends React.PureComponent {
                 fieldPhone: 'inp',
             });
         } else {
-            toast.warn('Oops! All fields must be field before saving', {
+            toast.warn('Oops! All fields must be filled before saving', {
                 autoClose: 5000
             });
         }
