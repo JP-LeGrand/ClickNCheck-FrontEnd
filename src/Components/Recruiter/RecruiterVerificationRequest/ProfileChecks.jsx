@@ -4,6 +4,7 @@ import './MainContainerStyle.scss';
 import './candidateUploadContainer.scss';
 import { connect } from 'react-redux';
 import { BASE_URL } from '../../../Shared/Constants';
+import reorder from '../../../Assets/reorder.svg';
 import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import { toast } from 'mdbreact';
@@ -60,6 +61,26 @@ class ProfileChecks extends React.Component {
             letterSpacing: '0.9px',
             color: '#0091d1'
         };
+
+        let reOrderChecks = {
+            width: '592px',
+            height: '22px',
+            fontFamily: 'Roboto',
+            fontSize: '14px',
+            fontWeight: 'bold',
+            fontStyle: 'normal',
+            fontStretch: 'normal',
+            lineHeight: '1.57',
+            letterSpacing: '0.9px',
+            color: '#4e9821',
+            'margin-left': '50px'
+        };
+
+        let imgStyling = {
+            position: 'absolute',
+            'padding-left': '23px'
+        };
+
         return (
             <div className="">
                 <p className="Verification-checks">Verification checks required for {localStorage.getItem('jp')}</p>
@@ -69,8 +90,8 @@ class ProfileChecks extends React.Component {
                 <SortableContainer onSortEnd={this.onSortEnd}>
                     { this.props.checks.map((value, index) => <SortableItem key={`item-${value.id}`} index={index} value={value.category} disabled={this.state.sortable}/>)}
                 </SortableContainer>
-                <a id="addRemoveChecks" style={addRemoveCheckStyle} onClick={this.props.addRemove} >+ Add or - Remove verification checks </a>
-                <a id="reorderChecks" onClick={this.activateReorder} > Re-order sequences of checks </a>
+                <a id="addRemoveChecks" style={addRemoveCheckStyle} onClick={this.props.addRemove} >+ Add or - Remove verification checks </a> 
+                <img src = {reorder} style={imgStyling} /><a id="reorderChecks" style={reOrderChecks} onClick={this.activateReorder} > Re-order sequences of checks </a>
             </div >
         );
     }

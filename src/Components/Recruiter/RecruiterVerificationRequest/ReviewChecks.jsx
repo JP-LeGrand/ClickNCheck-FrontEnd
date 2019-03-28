@@ -8,6 +8,7 @@ import NavBar from '../NavBar/NavBar';
 import ReactSelect from '../RecruiterVerificationRequest/ReactSelect';
 import { connect } from 'react-redux';
 import AddRemoveChecks from './AddRemoveChecks';
+import rollingImg from '../../../Assets/Rolling.svg';
 import ProfileChecks from './ProfileChecks';
 import * as ReviewChecksActions from './ReviewChecksActions';
 import PropTypes from 'prop-types';
@@ -18,6 +19,9 @@ import { prototype } from 'events';
 class ReviewChecks extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loading: false
+        };
         this.addRemoveChecks = this.addRemoveChecks.bind(this);
         this.individualForm = this.individualForm.bind(this);
         this.verificationChecks = this.verificationChecks.bind(this);
@@ -46,6 +50,9 @@ class ReviewChecks extends React.Component {
     }
 
     individualForm() {
+        this.setState({
+            loading: true
+        });
         let checks = [];
         this.props.checks.forEach((check) => {
             checks.push(check.id);
@@ -147,6 +154,9 @@ class ReviewChecks extends React.Component {
                     <div id="buttonFooter">
                         <button id="prev" onClick={this.verificationChecks}>BACK</button>
                         <button id="next" onClick={this.individualForm}>NEXT</button>
+                        <div className="loading">
+                         {this.state.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
+                        </div>
                     </div>
                     <Footer />
                 </div>
