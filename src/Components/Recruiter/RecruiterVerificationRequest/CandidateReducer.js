@@ -18,16 +18,31 @@ const CandidateReducer = (state = InitialState.candidateState, action) => {
             ...state,
             fileState : action.payload    
         };
+
     case Types.FILE_SIZE :
         return {
             ...state,
             fileSize : action.payload
-        };    
+        };
+
     case Types.TABLE_VALID :
         return {
             ...state,
             tableValid: action.payload
         };
+
+    case Types.ID_VALID : 
+        return {
+            ...state,
+            idValid : action.payload
+        };
+
+    case Types.EMAIL_VALID : 
+        return {
+            ...state,
+            emailValid : action.payload
+        };
+
     default:
         return state;
     }

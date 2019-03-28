@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './CaptureCandidateDetailStyle.scss';
 import './MainContainerStyle.scss';
 import Radio from '@material-ui/core/Radio';
@@ -22,6 +22,8 @@ import Axios from 'axios';
 import { RecruiterConstants } from './recruiterConstants';
 import { rollingImg } from '../../../Assets/Rolling.svg';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
+import { ToastContainer, toast } from 'mdbreact';
+import saveImg from '../../../Assets/save_white.svg';
 //import { Form, Radio } from 'semantic-ui-react';
 
 class CaptureCandidateDetails extends React.PureComponent {
@@ -58,34 +60,56 @@ class CaptureCandidateDetails extends React.PureComponent {
         this.userPhoneHandler = this.userPhoneHandler.bind(this);
         this.addCandidate = this.addCandidate.bind(this);
         this.userChoice = this.userChoice.bind(this);
-        this.sendCandidates = this.sendCandidates.bind(this);
         this.validateField = this.validateField.bind(this);
         this.userDobHandler = this.userDobHandler.bind(this);
+        this.submitIndividual = this.submitIndividual.bind(this);
     }
 
     prevStep() {
         window.location = '/ReviewChecks';
     }
 
-    sendCandidates() {
-        this.setState({
-            loading: true
-        });
-        let candidate = {
-            candidates: this.state.candidates,
-        };
-        let ver_check = localStorage.getItem('ver_check');
+    submitIndividual() {
+        if (this.state.firstName !== '' && this.state.surname !== '' && this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== '') {
+            let body = {
+                Name: this.state.firstName,
+                Surname: this.state.surname,
+                Maiden_Surname: this.state.mSurname,
+                Email: this.state.email,
+                Phone: this.state.phone,
+                ID_Type: 'ID',
+                ID_Passport: this.state.idNumber,
 
-        Axios.post(BASE_URL + CREATE_CANDIDATE + ver_check, candidate)
-            .then((response) => {
-                window.location = '/VerificationConfirmed';
-            },
-            (error) => {
-             
-            }
+            };
+            let aryCandaidate = [...this.state.candidates];
+            aryCandaidate.push(body);
+            this.setState({
+                candidates: aryCandaidate
+            });
+            this.props.udpateIndividual(aryCandaidate);
+            this.setState({
+                firstName: '',
+                surname: '',
+                mSurname: '',
+                email: '',
+                phone: '',
+                idNumber: '',
+                emailValid: true,
+                idValid: true,
+                numberValid: true,
 
-            );
+                fieldID: 'inp',
+                fieldEmail: 'inp',
+                fieldPhone: 'inp',
+            });
+        } else {
+            toast.warn('Oops! All fields must be field before saving', {
+                autoClose: 5000
+            });
+        }
+
     }
+
     userNameHandler(event) {
         const name = event.target.name;
         const value = event.target.value;
@@ -241,126 +265,141 @@ class CaptureCandidateDetails extends React.PureComponent {
 
     render() {
         return (
-            <div className= "candidatesRow">
-                <div className="innerFormBox ">
-                    <div className="candidatesColumn">
-                        <h1 className="candidateHeader">Candidate(s)</h1>
-                        {this.state.candidates.map((user, index) => {
-                            return (
-                                <div className="wrappingDiv" key={index}>
-                                    <div className="Rectangle">
-                                        <p className="Candidate">{user.Name} {user.Surname}</p>
-                                    </div>
+            <Fragment>
+                <ToastContainer
+                    hideProgressBar={true}
+                    newestOnTop={true}
+                    autoClose={5000}/>
+                <div className="scrollbar" id="style-1">
+                    <div className="force-overflow">
+                        <div className="innerFormBox ">
+                            <div className="candidatesColumn">
+                                <h1 className="candidateHeader">Candidate(s)</h1>
+                                {this.state.candidates.map((user, index) => {
+                                    return (
+                                        <div className="wrappingDiv" key={index}>
+                                            <div className="Rectangle">
+                                                <p className="Candidate">{user.Name} {user.Surname}</p>
+                                            </div>
 
-                                </div>
-                            );
-                        })
-                        }
-                        <p className="Add-another-candid">{this.props.tableValid ? <a href="#" onClick={this.addCandidate}>+ Add another candidate</a> : "Add another candidate"}</p>
+                                        </div>
+                                    );
+                                })
+                                }
+                                <p className="Add-another-candid">{this.props.tableValid ? <a href="#" onClick={this.addCandidate}>+ Add another candidate</a> : 'Add another candidate'}</p>
 
-                    </div>
-                    <div id="singleForm">
+                            </div>
+                            <div id="singleForm">
 
-                        <table className="rightTable">
-                            <thead />
+                                <table className="rightTable">
+                                    <thead />
 
-                            <tbody>
-                                <h1 className="personalHeader"><strong>Personal</strong> Details</h1>
-                                <tr>
-                                    <td>
-                                        <div className="form-group">
-                                            <img src={userImg} />
-                                            <label className="inp">
-                                                <input id="firstName" placeholder="&nbsp;" name="firstName" value={this.state.firstName} onChange={this.userNameHandler} />
-                                                <span className="label">Full First Name</span>
-                                                <span className="border"></span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="form-group">
-                                            <img src={userImg} />
-                                            <label className="inp">
-                                                <input id="surname" placeholder="&nbsp;" name="surname" value={this.state.surname} onChange={this.userSurnameHandler} />
-                                                <span className="label">Surname</span>
-                                                <span className="border"></span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="form-group">
-                                            <img src={userImg} />
-                                            <label className="inp">
-                                                <input id="maidenName" placeholder="&nbsp;" name="maidenName" value={this.state.mSurname} onChange={this.usermSurnameHandler} />
-                                                <span className="label">Maiden Surname</span>
-                                                <span className="border"></span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <div className="radios">
-                                        <FormControl component="fieldset">
-                                            <FormLabel component="legend" />
-                                            <RadioGroup roboto-label="ID or Passport" name="ID or Passport" className="radios" color="black" onClick={(event) => this.userChoice(event)}>
-                                                <FormControlLabel id="ID" className="" value="ID" control={<Radio />} label="ID" />
-                                                <FormControlLabel id="passport" className="" value="Passport" control={<Radio />} label="Passport" />
-                                            </RadioGroup>
-                                        </FormControl>
-                                    </div>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="form-group">
-                                            <img src={userImg} />
-                                            <label className={this.state.fieldID}>
-                                                <input id="idNumberForm" placeholder="&nbsp;" maxLength={'13'} name="id" value={this.state.idNumber} onChange={(event) => this.userIdNumber(event)} />
-                                                <span className="label">ID Number</span>
-                                                <span className="border"></span>
-                                                <label className="error">
-                                                    {this.state.errorID}
-                                                </label>
-                                            </label>
-                                        </div>
-                                    </td>
+                                    <tbody>
+                                        <h1 className="personalHeader"><strong>Personal</strong> Details</h1>
+                                        <tr>
+                                            <td>
+                                                <div className="form-group">
+                                                    <img src={userImg} />
+                                                    <label className="inp">
+                                                        <input id="firstName" placeholder="&nbsp;" name="firstName" value={this.state.firstName} onChange={this.userNameHandler} />
+                                                        <span className="label">Full First Name</span>
+                                                        <span className="border"></span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className="form-group">
+                                                    <img src={userImg} />
+                                                    <label className="inp">
+                                                        <input id="surname" placeholder="&nbsp;" name="surname" value={this.state.surname} onChange={this.userSurnameHandler} />
+                                                        <span className="label">Surname</span>
+                                                        <span className="border"></span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div className="form-group">
+                                                    <img src={userImg} />
+                                                    <label className="inp">
+                                                        <input id="maidenName" placeholder="&nbsp;" name="maidenName" value={this.state.mSurname} onChange={this.usermSurnameHandler} />
+                                                        <span className="label">Maiden Surname</span>
+                                                        <span className="border"></span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <div className="radios">
+                                                <FormControl component="fieldset">
+                                                    <FormLabel component="legend" />
+                                                    <RadioGroup roboto-label="ID or Passport" name="ID or Passport" className="radios" color="black" onClick={(event) => this.userChoice(event)}>
+                                                        <FormControlLabel id="ID" className="" value="ID" control={<Radio />} label="ID" />
+                                                        <FormControlLabel id="passport" className="" value="Passport" control={<Radio />} label="Passport" />
+                                                    </RadioGroup>
+                                                </FormControl>
+                                            </div>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div className="form-group">
+                                                    <img src={userImg} />
+                                                    <label className={this.state.fieldID}>
+                                                        <input id="idNumberForm" placeholder="&nbsp;" maxLength={'13'} name="id" value={this.state.idNumber} onChange={(event) => this.userIdNumber(event)} />
+                                                        <span className="label">ID Number</span>
+                                                        <span className="border"></span>
+                                                        <label className="error">
+                                                            {this.state.errorID}
+                                                        </label>
+                                                    </label>
+                                                </div>
+                                            </td>
                             
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="form-group">
-                                            <img src={email} />
-                                            <label className={this.state.fieldEmail}>
-                                                <input id="email" placeholder="&nbsp;" name="email" value={this.state.email} onChange={(event) => this.userEmailHandler(event)} />
-                                                <span className="label">Email Address</span>
-                                                <span className="border"></span>
-                                                <label className="error">
-                                                    {this.state.errorEmail}
-                                                </label>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="form-group">
-                                            <img src={phone} />
-                                            <label className={this.state.fieldPhone}>
-                                                <input id="phone" placeholder="&nbsp;" name="phone" maxLength={'10'} value={this.state.phone} onChange={(event) => this.userPhoneHandler(event)} />
-                                                <span className="label">Telephone Number</span>
-                                                <span className="border"></span>
-                                                <label className="error">
-                                                    {this.state.errorPhone}
-                                                </label>
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div className="form-group">
+                                                    <img src={email} />
+                                                    <label className={this.state.fieldEmail}>
+                                                        <input id="email" placeholder="&nbsp;" name="email" value={this.state.email} onChange={(event) => this.userEmailHandler(event)} />
+                                                        <span className="label">Email Address</span>
+                                                        <span className="border"></span>
+                                                        <label className="error">
+                                                            {this.state.errorEmail}
+                                                        </label>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className="form-group">
+                                                    <img src={phone} />
+                                                    <label className={this.state.fieldPhone}>
+                                                        <input id="phone" placeholder="&nbsp;" name="phone" maxLength={'10'} value={this.state.phone} onChange={(event) => this.userPhoneHandler(event)} />
+                                                        <span className="label">Telephone Number</span>
+                                                        <span className="border"></span>
+                                                        <label className="error">
+                                                            {this.state.errorPhone}
+                                                        </label>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                            </td>
+                                            <button type="button" onClick={this.submitIndividual} placeholder="Save Candidate" className="Rectangle-Copy-14">
+                                                <img id="saveImg" src={saveImg } /><p id="saveBtnText">Save Candidate</p>
+                                            </button>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-                    </div>
+                            </div>
+                        </div>
+                    </div> 
                 </div>
-            </div>       
+            </Fragment>
         );
     }
 }

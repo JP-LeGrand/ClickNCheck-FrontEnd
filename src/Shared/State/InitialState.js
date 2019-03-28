@@ -54,6 +54,8 @@ const InitialState = {
         candidateBody: [],
         fileState: true,
         fileSize : '',
+        idValid : '',
+        emailValid : '',
         tableValid : false
     },
     otpState: {
