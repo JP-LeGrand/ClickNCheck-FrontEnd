@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import './CreateJobProfile.scss';
 import Footer from '../../Shared/Footer/Footer';
 import NavBar from '../AdminNavBar/adminNavBar';
@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import SelectVendors from './SelectVendors';
 import saveImg from '../../../Assets/save.svg';
 import UpperFooter from '../../Shared/FooterPreviousNext/FooterPreviousNext';
+import { ToastContainer, toast } from 'mdbreact';
 
 class CreateJobProfile extends React.Component {
     constructor(props) {
@@ -41,25 +42,36 @@ class CreateJobProfile extends React.Component {
     }
 
     nextDisplay(e){  
-        switch (this.props.nowDisplaying){
-        case 'default':
-            this.props.updateSelectedProfile(this.state.profile);
-            this.props.updateCode(this.state.code);
-            this.props.updateDisplay('selectVendors');
-            localStorage.setItem('jobProfile', this.state.profile);
-            localStorage.setItem('jobCode', this.state.code);
-            break;
-        case 'selectVendors':
-            if (this.props.selectedChecks == undefined){
-                return;
+        if (this.state.profile !== '' && this.state.code !== ''){
+            switch (this.props.nowDisplaying){
+            case 'default':
+                this.props.updateSelectedProfile(this.state.profile);
+                this.props.updateCode(this.state.code);
+                this.props.updateDisplay('selectVendors');
+                localStorage.setItem('jobProfile', this.state.profile);
+                localStorage.setItem('jobCode', this.state.code);
+                break;
+            case 'selectVendors':
+                if (this.props.selectedChecks == undefined){
+                    toast.warn('Must select at least one check',{
+                        autoClose:3500
+                    });
+                    return;
+                }
+                this.props.updateDisplay('reorderChecks');
+                sessionStorage.setItem('services', JSON.stringify(this.props.selectedChecks));
+                window.location = '/Admin/CreateJobProfilePage3';
+                break;
+            default: 
+                this.props.updateDisplay(this.props.nowDisplaying);
             }
-            this.props.updateDisplay('reorderChecks');
-            sessionStorage.setItem('services', JSON.stringify(this.props.selectedChecks));
-            window.location = '/Admin/CreateJobProfilePage3';
-            break;
-        default: 
-            this.props.updateDisplay(this.props.nowDisplaying);
+        } else {
+            toast.warn('Please enter the required fields.', {
+                autoSave : 3500
+            });
+            return;
         }
+    
     }
 
     prevDisplay(e){
@@ -84,25 +96,31 @@ class CreateJobProfile extends React.Component {
         let view = this.props.nowDisplaying == 'default' ? def : selectVendors;
         let activeClass = this.props.nowDisplaying == 'default' ? '' : 'active';
         return (
-            <div>
-                <NavBar />
-                <div className="createJobProfile">
-                    <div id="spanHolder">
-                        <span className="New-Job-Profile">New Job Profile</span>
+            <Fragment>
+                <ToastContainer 
+                    hideProgressBar={true}
+                    newestOnTop={true}
+                    autoClose={5000}
+                />
+                <div>
+                    <NavBar />
+                    <div className="createJobProfile">
+                        <div id="spanHolder">
+                            <span className="New-Job-Profile">New Job Profile</span>
+                        </div>
+                        <div id="formContainer">
+                            <ul id="progress_bar">
+                                <li className="active">Job Profile Name</li>
+                                <li className={activeClass}>Select Verification Checks</li>
+                                <li>Re-order Check Sequence</li>
+                                <li>Next Steps</li>
+                            </ul>
+                            {view}
+                        </div>
+                        <UpperFooter prevPage={this.prevDisplay} nextPage={this.nextDisplay}/>
                     </div>
-                    <div id="formContainer">
-                        <ul id="progress_bar">
-                            <li className="active">Job Profile Name</li>
-                            <li className={activeClass}>Select Verification Checks</li>
-                            <li>Re-order Check Sequence</li>
-                            <li>Next Steps</li>
-                        </ul>
-                        {view}
-                    </div>
-                    <UpperFooter prevPage={this.prevDisplay} nextPage={this.nextDisplay}/>
                 </div>
-            </div>
-            
+            </Fragment> 
         );
     }
 

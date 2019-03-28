@@ -22,6 +22,7 @@
     display: flex;
     flex-flow: column;
     text-align: center;  
+    margin-top: 10px;
   }
 
   #progress_bar{
@@ -142,12 +143,57 @@
   }
 
   #checksTable {
-    display: block;
-    margin-top: 40px;
-    margin-left: 42px;
-    margin-right: 77px;
-    width: 980px;
+    overflow-y: scroll;
+    width: 923px;
+    height: 299px;
+    padding-left: 11%;
+    margin-top: -12px;
+    margin-right: -6px;
   }
+  .scrollbar
+  {
+    height: 299px;
+    overflow-y: scroll;
+
+  
+    // border-top: 0.5px solid rgb(189, 176, 176);
+    // margin-bottom: 37px;
+  
+    // margin-left: 30px;
+    // float: left;
+    // height: 350px;
+  
+    
+    //margin-bottom: 25px;
+  }
+  
+  .force-overflow
+  {
+    min-height: 450px;
+  }
+  
+  
+  #c1::-webkit-scrollbar-track
+  {
+  //	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+  
+  #style-1::-webkit-scrollbar
+  {
+    width: 12px;
+    background-color: #F5F5F5;
+  }
+  
+  #style-1::-webkit-scrollbar-thumb
+  {
+    border-radius: 10px;
+  //	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #0091d1;
+  }
+  
+  
 
   #checksTable tbody tr td{
     width: 400px;
@@ -155,10 +201,10 @@
 
   #checksTable tbody tr td img{
     margin-left: 30px;
-    margin-bottom: 40px;
-    float:left;
-    width: 80px;
-    height: 80px;
+    margin-bottom: 10px;
+    float: left;
+    width: 75px;
+    height: 75px;
   }
 
   td label{
