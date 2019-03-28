@@ -14,7 +14,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { ToastContainer, toast } from 'mdbreact';
 import { prototype } from 'events';
-import { ToastContainer } from 'mdbreact';
 
 class ReviewChecks extends React.Component {
     constructor(props) {
