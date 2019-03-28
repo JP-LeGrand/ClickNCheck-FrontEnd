@@ -100,8 +100,7 @@ class MainContainer extends React.PureComponent {
         this.setState({
             excelRows: newRows,
         });
-        console.log(this.props.bulkArray)
-        this.props.update(this.state.excelRows);
+         this.props.update(this.state.excelRows);
 
     }
     nextStep() {
