@@ -322,10 +322,10 @@ class CreateAmendUser extends Component {
     }
 
     handleSubmit(event) {
-        /*event.preventDefault();
+        event.preventDefault();
         this.setState({
             applyClicked: true
-        });*/
+        });
         let rec_jobprofiles = '';
         this.state.selected_jobs.forEach(element => {
             if (rec_jobprofiles === '') {
@@ -408,7 +408,7 @@ class CreateAmendUser extends Component {
 
         const manager_resultItems = Object.entries(this.state.all_managers).map((item, index) => <option key={index} value={item[ONE].ID}>{item[ONE].Name + ' ' + item[ONE].Surname}</option>);
 
-    const select_roles = Object.entries(this.state.selected_roles).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].role}</label> {item[ONE].id !== ONE && <img onClick={() => this.removeRole(item[ONE])} src={smallx}/> }</li>);
+        const select_roles = Object.entries(this.state.selected_roles).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].role}</label> {item[ONE].id !== ONE && <img onClick={() => this.removeRole(item[ONE])} src={smallx}/> }</li>);
 
         const s_roles = Object.entries(this.state.selected_roles).map((item, index) => item[ONE].role + ',');
 
