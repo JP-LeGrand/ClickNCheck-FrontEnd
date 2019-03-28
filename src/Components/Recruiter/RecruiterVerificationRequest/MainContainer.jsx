@@ -21,9 +21,9 @@ class MainContainer extends React.PureComponent {
             number: '',
             tableErrors: { email: '', id: '', phone: '' },
             emailValid: '',
-            idValid: false,
-            numberValid: false,
-            sloading: false,
+            idValid: '',
+            numberValid: '',
+            loading: false,
         };
         this.submit = this.submit.bind(this);
         this.handleUserInput = this.handleUserInput.bind(this);
@@ -44,6 +44,10 @@ class MainContainer extends React.PureComponent {
 
     }
     handleUserInput(index, event) {
+        let emailValid = this.state.emailValid;
+        let idValid = this.state.idValid;
+        let numberValid = this.state.numberValid;
+        let tableValidationErrors = this.state.tableErrors;
 
         let propName = '';
         switch (event.target.name) {
@@ -58,7 +62,9 @@ class MainContainer extends React.PureComponent {
             break;
         case 'id':
             propName = 'ID_Passport';
-            if (event.target.value.length !== RecruiterConstants.idNumberLen) {
+            idValid = event.target.value.length === RecruiterConstants.idNumberLen;
+            tableValidationErrors.id = idValid ? true : false;
+            if (!tableValidationErrors.id) {
                 document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
                 this.props.checkID(false);
             } else {
@@ -71,8 +77,9 @@ class MainContainer extends React.PureComponent {
             break;
         case 'email':
             propName = 'Email';
-            let testing = event.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) 
-            if (testing === null) {
+            emailValid = event.target.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+            tableValidationErrors.email = emailValid ? true : false;
+            if (!tableValidationErrors.email) {
                 document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
                 this.props.checkEmail(false);
             } else {
@@ -83,12 +90,14 @@ class MainContainer extends React.PureComponent {
             break;
         default:
             propName = 'Phone';
-            if (event.target.value.length !== RecruiterConstants.phoneNumberLen) {
+            numberValid = event.target.value.length === RecruiterConstants.phoneNumberLen;
+            tableValidationErrors.phone = numberValid ? true : false;
+            if (!tableValidationErrors.phone) {
                 document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
-
+                this.props.checkNumber(false)
             } else {
                 document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
-           
+                this.props.checkNumber(true)
             }
         }
 
@@ -97,8 +106,14 @@ class MainContainer extends React.PureComponent {
         this.setState({
             excelRows: newRows,
         });
-        this.props.update(this.state.excelRows);
 
+        this.props.update(this.state.excelRows);
+        if (tableValidationErrors.id && tableValidationErrors.email && tableValidationErrors.phone) {
+            this.props.checkTableValid(true);
+        } else if (!tableValidationErrors.email || !tableValidationErrors.phone || !tableValidationErrors.id){
+            this.props.checkTableValid(false);
+        }
+     
     }
     nextStep() {
         window.location = '/VerificationConfirmed';
@@ -124,15 +139,13 @@ class MainContainer extends React.PureComponent {
                 excelRows: exceRows,
                
             });
-
-          
+            
             this.props.update(this.state.excelRows);
             this.props.getFile(e);
             this.props.getSize(number);
         };
         reader.readAsBinaryString(inputFile.files[0]);
     }
-
 
     review() {
 
@@ -224,7 +237,9 @@ class MainContainer extends React.PureComponent {
 const mapStateToProps = state => ({
     bulkArray : state.candidateState.candidateBody,
     getFileState : state.candidateState.fileState,
-    idValid : state.candidateState.idValid 
+    idValid : state.candidateState.idValid,
+    numberValid : state.candidateState.numberValid,
+    emailValid : state.candidateState.emailValid
   
 });
 
@@ -234,7 +249,8 @@ const mapActionToProps = (dispatch) => ({
     getSize : bindActionCreators (CandidateActions.getFileSize, dispatch),
     checkTableValid : bindActionCreators (CandidateActions.isTableValid, dispatch),
     checkID : bindActionCreators (CandidateActions.idValid, dispatch),
-    checkEmail : bindActionCreators (CandidateActions.emailValid, dispatch)
+    checkEmail : bindActionCreators (CandidateActions.emailValid, dispatch),
+    checkNumber : bindActionCreators (CandidateActions.numberValid, dispatch)
 
 });
 export default connect(mapStateToProps, mapActionToProps)(MainContainer);

@@ -38,11 +38,7 @@ export const submitCandidate = (ver_check, candidate) => {
                 .then((response) => {
                     window.location = '/VerificationConfirmed';
                 });
-        } else {
-            toast.warn('Oops! Please Save Candidate before Submission', {
-                autoClose: 5000
-            });
-        }
+        } 
         
     };
 };
@@ -97,6 +93,15 @@ export const emailValid = (emailBool) => {
         dispatch ({
             type: Types.EMAIL_VALID,
             payload: emailBool
+        });
+      };
+};
+
+export const numberValid = (numberValid) => {
+    return function (dispatch) {
+        dispatch ({
+            type: Types.NUMBER_VALID,
+            payload: numberValid
         });
     };
 };
