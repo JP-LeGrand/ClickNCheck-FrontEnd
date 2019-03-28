@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'mdbreact';
 class VerificationConfirmed extends React.PureComponent{
     render() {
         return (
+        
             <Fragment>
                 <ToastContainer 
                     hideProgressBar={true}
@@ -16,10 +17,10 @@ class VerificationConfirmed extends React.PureComponent{
                     autoClose={5000}
                 />
                 <div className="verifcationConfirmed">
+               
                     <NavBar />
                     <h2 className="New-verification-req"> New verification request</h2>
                     <h3 className="Job-Profile">Job Profile </h3>
-               
                     <div>
                         <div id="formContainer">
                             <ul id="progress_bar">
@@ -44,10 +45,13 @@ class VerificationConfirmed extends React.PureComponent{
                                 <a href="/recruter/dashboard"><button id="btnDashboard" disabled >RETURN TO DASHBOARD</button></a>
                                 <a id="logout" href="/login">Logout</a>
                             </div>
+                           
                         </div>
-                    </div>
-                    <Footer />
+                       
+                    </div> 
+                 
                 </div>
+              
             </Fragment>
         );
     }
