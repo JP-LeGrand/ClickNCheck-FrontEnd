@@ -83,7 +83,6 @@ class CaptureCandidateDetails extends React.PureComponent {
                     ID_Passport: this.state.idNumber,
 
                 };
-                console.log(body)
                 let aryCandaidate = [...this.state.candidates];
                 aryCandaidate.push(body);
                 this.setState({
