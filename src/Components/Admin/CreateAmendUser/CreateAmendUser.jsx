@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import smallx from '../../../Assets/smallx.svg';
 import AdminNavBar from '../AdminNavBar/adminNavBar';
 import { BASE_URL, GET_ALL_JOB_PROFILES, CREATE_AMEND_USER, GET_MANAGERS, GET_USER } from '../../../Shared/Constants';
-import { ONE } from '../../../Shared/IntConstants';
+import { ZERO, ONE } from '../../../Shared/IntConstants';
 import './CreateAmendUser.scss';
+import { FaTimes } from 'react-icons/fa';
 
 class CreateAmendUser extends Component {
     constructor(props) {
@@ -37,8 +38,11 @@ class CreateAmendUser extends Component {
                 {
                     id: 5,
                     role: 'Operator'
-                } ]
-
+                }
+            ],
+            applyClicked: false,
+            phoneValid: '',
+            emailValid: ''
         };
 
         this.allJobProfiles = this.allJobProfiles.bind(this);
@@ -191,10 +195,26 @@ class CreateAmendUser extends Component {
 
     phoneHandler(event) {
         this.setState({ Phone: event.target.value });
+        let phone = event.target.value;
+        if (phone.charAt(ZERO) === '0' && phone.match(/[0-9]{10}/)) {
+            this.setState({ phoneValid: true });
+        } else if (phone === '') {
+            this.setState({ phoneValid: null });
+        } else {
+            this.setState({ phoneValid: false });
+        }
     }
 
     emailHandler(event) {
         this.setState({ Email: event.target.value });
+        let email = event.target.value;
+        if (email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+            this.setState({ emailValid: true });
+        } else if (email === '') {
+            this.setState({ emailValid: null });
+        } else {
+            this.setState({ emailValid: false });
+        }
     }
 
     rolesHandler(event) {
@@ -231,6 +251,10 @@ class CreateAmendUser extends Component {
     }
 
     handleSubmit(event) {
+        /*event.preventDefault();
+        this.setState({
+            applyClicked: true
+        });*/
         let rec_jobprofiles = '';
         this.state.selected_jobs.forEach(element => {
             if (rec_jobprofiles === '') {
@@ -307,27 +331,18 @@ class CreateAmendUser extends Component {
     }
   
     render() {
-        const job_resultItems = Object.entries(this.state.available_jobs).map((item, index) => <option key={index} value={item[ONE].id}>{item[ONE].code} - {item[ONE].title}</option>
+        const job_resultItems = Object.entries(this.state.available_jobs).map((item, index) => <option key={index} value={item[ONE].id}>{item[ONE].code} - {item[ONE].title}</option>);
 
-        );
+        const role_resultItems = this.state.available_roles.map((item, index) => <option key={index} value={item.id}>{item.role}</option>);
 
-        const role_resultItems = this.state.available_roles.map((item, index) => <option key={index} value={item.id}>{item.role}</option>
+        const manager_resultItems = Object.entries(this.state.all_managers).map((item, index) => <option key={index} value={item[ONE].ID}>{item[ONE].Name + ' ' + item[ONE].Surname}</option>);
 
-        );
-
-        const manager_resultItems = Object.entries(this.state.all_managers).map((item, index) => <option key={index} value={item[ONE].ID}>{item[ONE].Name + ' ' + item[ONE].Surname}</option>
-
-        );
-
-        const select_roles = Object.entries(this.state.selected_roles).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].role}</label><img onClick={(event) => this.removeRole(event, item[ONE])} src={smallx}/></li>
-
-        );
+        const select_roles = Object.entries(this.state.selected_roles).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].role}</label><img onClick={(event) => this.removeRole(event, item[ONE])} src={smallx}/></li>);
 
         const s_roles = Object.entries(this.state.selected_roles).map((item, index) => item[ONE].role + ',');
 
-        const select_jobs = Object.entries(this.state.selected_jobs).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].title}</label><img onClick={ (event) => this.removeJob(event, item[ONE])} src={smallx}/></li>
-
-        );
+        const select_jobs = Object.entries(this.state.selected_jobs).map((item, index) => <li key={index}><label value={item[ONE].id}>{item[ONE].title}</label><img onClick={(event) => this.removeJob(event, item[ONE])} src={smallx} /></li>);
+        const FIELD_REQUIRED = <p className="error"> This Field Is Required</p>;
         
         return (
             <div className="createAmendUser">
@@ -355,6 +370,7 @@ class CreateAmendUser extends Component {
                                         <span className="dateLabel">end date</span>
                                         <input id="start_date" type="date" placeholder="&nbsp;" name="start_date" value={ this.state.user_id !== '' ? this.state.StartDate : null } onChange={(event) => this.startDateHandler(event)} />
                                     </div>
+                                    {this.state.applyClicked && this.state.StartDate === '' && <FIELD_REQUIRED />}
                                 </td>
 
                                 <td>
@@ -385,8 +401,10 @@ class CreateAmendUser extends Component {
                                     <div className="form-group">
                                         <label>Phone Number</label>
                                         <br />
-                                        <input id="phone" placeholder="&nbsp;" name="phone" value={this.state.Phone} onChange={(event) => this.phoneHandler(event)} />
+                                        <input id="phone" placeholder="&nbsp;" name="phone" maxLength="10" value={this.state.Phone} onChange={(event) => this.phoneHandler(event)} />
                                     </div>
+                                    {this.state.phoneValid === true && <p className="success">Phone number is correct</p>}
+                                    {this.state.phoneValid === false && <p className="error">Phone Number is incorrect</p>}
                                 </td>
 
                                 <td>
@@ -395,6 +413,8 @@ class CreateAmendUser extends Component {
                                         <br />
                                         <input id="email" placeholder="&nbsp;" name="email" value={this.state.Email} onChange={(event) => this.emailHandler(event)} />
                                     </div>
+                                    {this.state.emailValid === true && <p className="success">Email is correct</p>}
+                                    {this.state.emailValid === false && <p className="error">Email is incorrect</p> }
                                 </td>
 
                             </tr>
@@ -432,8 +452,15 @@ class CreateAmendUser extends Component {
                                 </td>
                             </tr>
                         </table>
-
-                        <button id="apply" onClick={(event) => this.handleSubmit(event)}>APPLY</button>
+                        <div className="userButtons">
+                            <div className="alignLeft">
+                                <button id="btnClearAll">Clear All</button>
+                            </div>
+                            <div className="alignRight">
+                                <button id="btnDeactivate"><FaTimes id="closeIcon"/>DEACTIVATE USER</button>
+                                <button id="apply" onClick={(event) => this.handleSubmit(event)}>APPLY</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div> 
