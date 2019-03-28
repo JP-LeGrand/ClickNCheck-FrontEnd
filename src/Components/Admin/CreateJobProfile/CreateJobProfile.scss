@@ -67,7 +67,6 @@
   }
 
   #progress_bar li:after {
-      margin-left: 268px;
       position: relative;
       content: "";
       width: 100%;
@@ -87,7 +86,7 @@
       */
   }
 
-  #progress_bar :last-child::after{
+  #progress_bar :first-child::after{
     display: none;
   }
 
@@ -142,29 +141,33 @@
     margin-left:5px;
   }
 
-
   #checksTable {
     display: block;
     margin-top: 40px;
     margin-left: 42px;
+    margin-right: 77px;
     width: 980px;
   }
 
-  td img{
-    margin-left: 30px;
-    margin-bottom: 40px;
-    width: 50px;
-    height: 50px;
-    background-color: #f9f9f9;
+  #checksTable tbody tr td{
+    width: 400px;
   }
 
-  td div label{
+  #checksTable tbody tr td img{
+    margin-left: 30px;
+    margin-bottom: 40px;
+    float:left;
+    width: 80px;
+    height: 80px;
+  }
+
+  td label{
     position: relative;
     border-bottom: solid 1px #e6e9ec;
     float: left;
     margin-left: 20px;
   }
-  td div label{
+  td label{
     border-top: solid 1px #e6e9ec;
   }
 
@@ -190,6 +193,11 @@
     border-bottom: 1px solid rgba(43, 56, 68, 0.15);
     border-right: 1px solid rgba(43, 56, 68, 0.15);
   }
+
+  td div:nth-child(even){
+    color: red;
+  }
+
   #checksTable tr td {
     border-bottom: 1px solid rgba(43, 56, 68, 0.15);
   }
@@ -217,9 +225,9 @@
 
   #inputWrapper{
     position: relative;
-    margin-left: 450px;
+    margin-left: 400px;
     width: 300px;
     margin-top: 50px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 }

@@ -3,20 +3,60 @@ import * as Types from './ForgotPasswordActionTypes';
 
 const ForgotPasswordReducer = (state = InitialState.forgotPasswordState, action) => {
     switch (action.type) {
-    case Types.FORGOT_PASSWORD_REQUEST_INITIATED:
+    case Types.UPDATE_IDENTIFICATION:
         return {
             ...state,
-            ...action.forgotPasswordState
+            identification: action.payload,
         };
-    case Types.FORGOT_PASSWORD_REQUEST_SUCCEEDED:
+    case Types.UPDATE_ID_OR_PASSPORT:
         return {
             ...state,
-            ...action.forgotPasswordState
+            passportOrID: action.payload,
         };
-    case Types.FORGOT_PASSWORD_REQUEST_FAILED:
+    case Types.UPDATE_MESSENGER:
         return {
             ...state,
-            ...action.forgotPasswordState
+            messenger: action.payload
+        };
+    case Types.UPDATE_MESSENGER_VALIDITY:
+        return {
+            ...state,
+            validMessenger: action.payload
+        };
+    case Types.UPDATE_MESSAGE_SENT:
+        return {
+            ...state,
+            messageSent: action.payload
+        };
+    case Types.UPDATE_LOADING:
+        return {
+            ...state,
+            loading: action.payload
+        };
+    case Types.UPDATE_IDENTIFICATION_VALIDITY:
+        return {
+            ...state,
+            validIdentification: action.payload
+        };
+    case Types.UPDATE_EMAIL_SMS:
+        return {
+            ...state,
+            emailOrSMS: action.payload
+        };
+    case Types.UPDATE_MESSENGER_SELECTED:
+        return {
+            ...state,
+            messengerSelected: action.payload
+        };
+    case Types.UPDATE_IDENTITY_SELECTED:
+        return {
+            ...state,
+            identitySelected: action.payload
+        };
+    case Types.UPDATE_ERROR:
+        return {
+            ...state,
+            error: action.payload,
         };
     default: 
         return state;
