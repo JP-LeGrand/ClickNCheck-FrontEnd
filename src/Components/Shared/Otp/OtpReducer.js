@@ -38,6 +38,16 @@ const OtpReducer = (state = InitialState.otpState, action) => {
             ...state,
             loading: action.payload
         };
+    case Types.SUBMIT_CLICKED:
+        return {
+            ...state,
+            clicked: action.payload
+        };
+    case Types.ERROR_MESSAGE:
+        return {
+            ...state,
+            error: action.payload
+        };
     default:
         return state;
     }
