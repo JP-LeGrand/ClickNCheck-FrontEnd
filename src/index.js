@@ -7,17 +7,16 @@ import { Provider } from 'react-redux';
 import App from './Components/App/App';
 import ReactAI from 'react-appinsights';
 import { Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import history from "./history";
 
-// let history = createBrowserHistory();
-// ReactAI.init({instrumentationKey:'fa2f4b1a-34ae-4964-9ec9-461b50c51e04', history });
-// ReactAI.setAppContext({ urlReferrer: document.referrer });
-// let appInsights = ReactAI.ai();
-// appInsights.trackPageView();
-// appInsights.trackEvent();
-// appInsights.trackException();
-// appInsights.trackMetric();
-// appInsights.trackDependency();
+ReactAI.init({instrumentationKey:'fa2f4b1a-34ae-4964-9ec9-461b50c51e04', history });
+ReactAI.setAppContext({ urlReferrer: document.referrer });
+let appInsights = ReactAI.ai();
+appInsights.trackPageView();
+appInsights.trackEvent();
+appInsights.trackException();
+appInsights.trackMetric();
+appInsights.trackDependency();
 ReactDOM.render(<Provider store={createAppState()}>
 
     <App />

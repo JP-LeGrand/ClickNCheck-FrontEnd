@@ -2,8 +2,7 @@
 @import '../../../Shared/Styles/variables';
 
 .createAmendUser {
-    width: 1285px;
-    margin: auto;
+    margin: 0 228px;
 
     p {
         width: 557px;
@@ -20,7 +19,7 @@
     .userSummary {
         margin: 10px 30px;
         padding-bottom: 30px;
-        width: 1215px;
+        width: 1000px;
         border-bottom: 1px solid #333333;
         display: inline-flex;
     }
@@ -41,7 +40,8 @@
         border-radius: 8px;
         border: solid 1px #e6e9ec;
         background-color: #ffffff;
-        overflow: auto;
+        height: 500px;
+        overflow-y: auto;
     }
 
     table {
@@ -79,7 +79,7 @@
         background: none;
         outline: none;
     }
-      
+
     .details label {
         font-size: 12px;
         font-weight: bold;
@@ -91,8 +91,8 @@
     }
       
     input, select{
-        width: 295px;
         border: 0;
+        width: 295px;
         border-bottom: solid 1px #e6e9ec;
         background: none;
         border-radius: 0;
@@ -105,15 +105,37 @@
         color: #222a31;
     }
 
+    input[type="date"] {
+        padding-left: 80px;
+        width:215px;
+    }
+
     select option:first-child{
         color: white;
     }
 
     td {
-        padding: 30px 149px;
+        padding: 10px 46px;
         padding-left: 0;
     }
 
+    .dateLabel {
+        width: 60px;
+        height: 22px;
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 3.75;
+        letter-spacing: 0.3px;
+        color: #2b3844;
+        position: relative;
+        bottom: -34px;
+    }
+
+    #start{
+        left:-105px;
+    }
     .details button {
         float: right;
         width: 120px;
@@ -178,6 +200,7 @@
       font-stretch: normal;
       letter-spacing: 0.3px;
       position: relative;
+      font-weight: bold;
       bottom: 7px;
     }
     .error{

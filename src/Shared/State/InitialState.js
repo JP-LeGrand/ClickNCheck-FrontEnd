@@ -32,9 +32,12 @@ const InitialState = {
         error: ''
     },
     changePasswordState:{
-        password:null,
-        passwordStrength:null,
-        errorMessage:null
+        password: '',
+        confirmpassword:'',
+        errorMessage: '',
+        passwordsValid: false,
+        passwordsMatch: false,
+        loading:false
     },
     verificationChecksState: {
         jobProfileChecks: [],
@@ -60,13 +63,15 @@ const InitialState = {
         tableValid : ''
     },
     otpState: {
-        digit1: '',
-        digit2: '',
-        digit3: '',
-        digit4: '',
-        digit5: '',
+        digit1: undefined,
+        digit2: undefined,
+        digit3: undefined,
+        digit4: undefined,
+        digit5: undefined,
         loading: false,
-        user_id: ''
+        clicked: false,
+        user_id: '',
+        error:''
     },
 };
 

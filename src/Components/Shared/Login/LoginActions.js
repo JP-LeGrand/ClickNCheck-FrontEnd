@@ -21,20 +21,6 @@ export const loginProcess = (email, password) => {
             .then((response) => response.json())
             .then(
                 response => {
-                    if (response.status != 200){
-                        dispatch({
-                            type: Types.UPDATE_LOADING,
-                            payload: false
-                        });
-                        dispatch({
-                            type: Types.UPDATE_LOGIN_STATUS,
-                            payload: 'failed'
-                        });
-                        dispatch({
-                            type: Types.UPDATE_ERROR,
-                            payload: 'wrongCredentials'
-                        });
-                    }
                     localStorage.setItem('user_id', response);
                     let userid = localStorage.getItem('user_id');
                     fetch(BASE_URL + PASS_EXPIRED + response, {
@@ -84,6 +70,7 @@ export const loginProcess = (email, password) => {
                                                 window.location = '/otp';
                                             },
                                             (error) => {
+                                                console.log('Error in otp')
                                                 dispatch({
                                                     Types: types.UPDATE_LOADING,
                                                     payload: false
@@ -102,6 +89,7 @@ export const loginProcess = (email, password) => {
                             },
                             (error) => {
                                 //Credentials incorrect
+                                console.log('password expiry error');
                                 dispatch({
                                     type: Types.UPDATE_LOADING,
                                     payload: false
@@ -115,6 +103,7 @@ export const loginProcess = (email, password) => {
                         );
                 },
                 (error) => {
+                    console.log('Credentials validation error: '+error)
                     dispatch({
                         type: Types.UPDATE_LOADING,
                         payload: false

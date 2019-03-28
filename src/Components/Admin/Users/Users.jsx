@@ -159,31 +159,35 @@ class Users extends Component {
 
     render() {
         return ( 
-            <div className="jobProfiles">
+            <div>
                 <AdminNavBar />
-                <div className="headSection">
-                    <p>Users</p>
-                    <a href="/Admin/Users/CreateAmendUser"><button>CREATE USER</button></a>
-                </div>
-                <div className="mainSection">  
-                    <div className="filter">
-                        <div id="heading">
-                            <label id="jp">Users</label>
-                            <label id="count"><b>{this.state.countJobProfiles}</b>/{this.state.countTotalJobProfiles}</label>
-                        </div>
-                        <RadioGroup id="filter" defaultValue="All" className="radios classes.root" onClick={(event) => this.userChoice(event)}>
-                            <FormControlLabel id="All" className="radio" value="All" control={<Radio disableRipple defaultChecked color="primary" />} label="All" />
-                            <FormControlLabel id="Recruiters" className="radio" value="Recruiters" control={<Radio disableRipple color="primary"/>} label="Recruiters" />
-                            <FormControlLabel id="Managers" className="radio" value="Managers" control={<Radio disableRipple color="primary"/>} label="Managers" />
-                            <FormControlLabel id="Operators" className="radio" value="Operators" control={<Radio disableRipple color="primary"/>} label="Operators" />
-                        </RadioGroup>
+                <div className="jobProfiles">
+                
+                    <div className="headSection">
+                        <p>Users</p>
+                        <a href="/Admin/Users/CreateAmendUser"><button>CREATE USER</button></a>
                     </div>
+                    <div className="mainSection">  
+                        <div className="filter">
+                            <div id="heading">
+                                <label id="jp">Users</label>
+                                <label id="count"><b>{this.state.countJobProfiles}</b>/{this.state.countTotalJobProfiles}</label>
+                            </div>
+                            <RadioGroup id="filter" defaultValue="All" className="radios classes.root" onClick={(event) => this.userChoice(event)}>
+                                <FormControlLabel id="All" className="radio" value="All" control={<Radio disableRipple defaultChecked color="primary" />} label="All" />
+                                <FormControlLabel id="Recruiters" className="radio" value="Recruiters" control={<Radio disableRipple color="primary"/>} label="Recruiters" />
+                                <FormControlLabel id="Managers" className="radio" value="Managers" control={<Radio disableRipple color="primary"/>} label="Managers" />
+                                <FormControlLabel id="Operators" className="radio" value="Operators" control={<Radio disableRipple color="primary"/>} label="Operators" />
+                            </RadioGroup>
+                        </div>
 
-                    <div className="results">
-                        {this.state.results==='All' || this.state.results==='Recruiters' || this.state.results==='Managers' || this.state.results==='Operator' ? < UserResults allJobProfiles={this.state.allJobProfiles} /> : <UserResults allJobProfiles={this.state.allJobProfiles}/>}
+                        <div className="results">
+                            {this.state.results==='All' || this.state.results==='Recruiters' || this.state.results==='Managers' || this.state.results==='Operator' ? < UserResults allJobProfiles={this.state.allJobProfiles} /> : <UserResults allJobProfiles={this.state.allJobProfiles}/>}
+                        </div>
                     </div>
                 </div>
             </div>
+            
         );
     }
 }
