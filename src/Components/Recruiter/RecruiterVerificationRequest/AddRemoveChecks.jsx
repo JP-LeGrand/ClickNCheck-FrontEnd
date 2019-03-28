@@ -95,13 +95,15 @@ class AddRemoveChecks extends React.Component {
         }
         return (
             <div>
-                <form className="formChecks">
+                <form className="formChecks" id="style-1">
+                <div className="force-overflow">
                     <table id="checksTable">
                         <tbody>
                             {checks}
                         </tbody>
                     </table>
                     <a id="addRemoveChecks" onClick={this.props.addRemove}> Back to check order</a>
+                    </div>
                 </form>
                 
             </div>

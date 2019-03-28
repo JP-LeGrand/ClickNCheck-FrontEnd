@@ -41,7 +41,7 @@ class VerificationConfirmed extends React.PureComponent{
                             </div>
                             <div className="bottom">
                                 <p>Would you like to</p>
-                                <a href="/recruter/dashboard"><button id="btnDashboard" href="" disabled >RETURN TO DASHBOARD</button></a>
+                                <a href="/recruter/dashboard"><button id="btnDashboard" disabled >RETURN TO DASHBOARD</button></a>
                                 <a id="logout" href="/login">Logout</a>
                             </div>
                         </div>

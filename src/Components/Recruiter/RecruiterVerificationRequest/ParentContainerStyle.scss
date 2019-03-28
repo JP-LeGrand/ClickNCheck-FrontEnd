@@ -12,9 +12,11 @@
 
 .switchButton {
   position: relative;
+  margin-top: 14px;
   display: -ms-inline-flexbox;
   display: inline-flex;
   vertical-align: middle;
+  
   /* height: 0px; */
   padding-left: 30px;
 }
