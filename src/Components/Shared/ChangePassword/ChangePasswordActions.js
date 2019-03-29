@@ -95,20 +95,11 @@ export const sendPasswordReset =(data) =>{
                         },
                         redirect: 'manual', // manual, *follow, error
                         referrer: 'no-referrer', // no-referrer, *client
-                        body: JSON.stringify(userid), 
+                        body: JSON.stringify(100), 
                     })
-                        .then((response) => response.json(),
-                            dispatch({
-                                type: Types.UPDATE_FETCH_ERROR,
-                                payload: 'Something went wrong updating your password. Please try again later'
-                            }),
-                            dispatch({
-                                type: Types.UPDATE_LOADING,
-                                payload: false
-                            })
-                        )  
-                        .then(
-                            (response) => {
+                        .then((response) => {
+                            response.json();
+                            if(response.status === 200){
                                 dispatch({
                                     type: Types.UPDATE_FETCH_ERROR,
                                     payload: ''
@@ -118,19 +109,39 @@ export const sendPasswordReset =(data) =>{
                                     payload: false
                                 });
                                 window.location = '/otp';
-                            },
-                            (error) => {
+                            } else {
+                                dispatch({
+                                    type: Types.UPDATE_FETCH_ERROR,
+                                    payload: 'Something went wrong updating your password. Please try again later'
+                                });
                                 dispatch({
                                     type: Types.UPDATE_LOADING,
                                     payload: false
                                 });
-                                dispatch({
-                                    type: Types.UPDATE_FETCH_ERROR,
-                                    payload: 'Something went wrong loading the otp. Please try again later'
-                                });
                                 return;
-                            }     
-                        );
+                            }
+                        }, 
+                        (error) =>{
+                            dispatch({
+                                type: Types.UPDATE_FETCH_ERROR,
+                                payload: 'Something went wrong updating your password. Please try again later'
+                            });
+                            dispatch({
+                                type: Types.UPDATE_LOADING,
+                                payload: false
+                            });
+
+                        })
+                        .catch((error) => {
+                            dispatch({
+                                type: Types.UPDATE_FETCH_ERROR,
+                                payload: 'Something went wrong updating your password. Please try again later'
+                            });
+                            dispatch({
+                                type: Types.UPDATE_LOADING,
+                                payload: false
+                            });
+                        })
                 },
                 (error) => {
                     dispatch({
