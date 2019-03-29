@@ -5,11 +5,12 @@ import '../Page3/CreateJobProfilePage3.scss';
 import gridview from '../../../../Assets/gridview.svg';
 import saveImg from '../../../../Assets/save.svg';
 import dragImg from '../../../../Assets/drag.svg';
-import { sortableContainer, sortableElement } from 'react-sortable-hoc';
+import { sortableContainer, sortableElement, sortableHandle } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import { BASE_URL, CREATE_JOBPROFILE } from '../../../../Shared/Constants';
 import Axios from 'axios';
 import { element } from 'prop-types';
+import { toast } from 'mdbreact';
 
 const SortableItem = sortableElement(({ value }) => <li><img src={gridview} />{value}</li>);
 
@@ -49,7 +50,9 @@ class CreateJobProfilePage3 extends React.PureComponent {
             window.location = '/Admin/CreateJobProfilePage4';
         },
         (error) => {
-            alert(error);
+            toast.error('Oops! An error occured while creating the Job Profile. Please try again later', {
+                autoClose: 3000
+            });
         }
         );
     }

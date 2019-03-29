@@ -19,10 +19,10 @@ class JobProfileResults extends Component {
     render() {
         // eslint-disable-next-line react/prop-types
         const resultItems = Object.entries(this.props.allJobProfiles).map((item,index) => <tr key={index}>
-            <td>{ item[ONE]['JobCode']}</td>
-            <td>{ item[ONE]['Title']}</td>
-            <td>{ item[ONE]['AssignedRecruiter']}</td>
-            <td className="action" id={ item[ONE]['ID']} onClick={(event) => this.assignRecruiter(event)}>
+            <td className="jpCols">{ item[ONE]['JobCode']}</td>
+            <td className="jpCols">{ item[ONE]['Title']}</td>
+            <td className="jpCols">{ item[ONE]['AssignedRecruiter']}</td>
+            <td className="action jpCols" id={ item[ONE]['ID']} onClick={(event) => this.assignRecruiter(event)}>
                 <u>Assign Recruiter</u>
             </td>
         </tr>
@@ -32,10 +32,10 @@ class JobProfileResults extends Component {
             <table>
                 <tbody>
                     <tr className="thead">
-                        <td>Job Code</td>
-                        <td>Job Title</td>
-                        <td>Assigned Recruiter</td>
-                        <td>Action</td>
+                        <td className="jpCols">Job Code</td>
+                        <td className="jpCols">Job Title</td>
+                        <td className="jpCols">Assigned Recruiter</td>
+                        <td className="jpCols">Action</td>
                     </tr>                
                 
                     {resultItems}

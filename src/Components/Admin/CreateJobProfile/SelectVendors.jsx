@@ -1,7 +1,8 @@
 /* eslint-disable no-invalid-this */
-import React from 'react';
+import React, { Fragment } from 'react';
 import './CreateJobProfile.scss';
 import { connect } from 'react-redux';
+import { ToastContainer, toast } from 'mdbreact';
 
 class SelectVendors extends React.Component {
     constructor(props) {
@@ -108,18 +109,25 @@ class SelectVendors extends React.Component {
 
     render() {
         return (
-            <div>
-                <h3>Select verification checks required for {this.props.jobProfile}</h3>
-                <hr className="Line" />
-                <p id='jpParagraph'>Verification checks required for <span id="jpSpan">{this.props.jobProfile}</span></p>
-                <form>
-                    <table id="checksTable">  
-                        <tbody>
-                            {this.state.elements}
-                        </tbody>
-                    </table>
-                </form>
-            </div>
+            <Fragment>
+                <ToastContainer 
+                  hideProgressBar={true}
+                  newestOnTop={true}
+                  autoClose={5000}
+                />
+                <div>
+                    <h3>Select verification checks required for {this.props.jobProfile}</h3>
+                    <hr className="Line" />
+                    <p id='jpParagraph'>Verification checks required for <span id="jpSpan">{this.props.jobProfile}</span></p>
+                    <form className="scrollbar" id="style-1">
+                        <table id="checksTable">  
+                            <tbody>
+                                {this.state.elements}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </Fragment>
         );
     }
 

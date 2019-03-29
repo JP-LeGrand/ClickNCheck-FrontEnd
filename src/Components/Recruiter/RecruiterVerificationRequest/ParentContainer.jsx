@@ -29,13 +29,26 @@ class ParentContainer extends React.PureComponent {
     }
 
     sendCandidate() {
-        this.setState({
-            loading: true
-        });
-        let candidates = this.props.candidateArray
+        if (this.props.tableValid){
+            let candidates = this.props.candidateArray
+            if (candidates.length !== 0) {
+                this.setState({
+                    loading: true
+                }); 
+                let ver_check = localStorage.getItem('ver_check');
+                this.props.sendBulk('1', candidates);
+            } else {
+                toast.warn('Oops! Please Save Candidate before Submission', {
+                    autoClose: 3000
+                });
+            }
+           
+        } else {
+            toast.error('Oops! Error please check validility of fields', {
+                autoClose: 3000
+            });
+        }
       
-        let ver_check = localStorage.getItem('ver_check');
-        this.props.sendBulk('1', candidates);
 
     }
     backstep() {

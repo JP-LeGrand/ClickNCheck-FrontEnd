@@ -61,7 +61,8 @@ const InitialState = {
         fileSize : '',
         idValid : '',
         emailValid : '',
-        tableValid : ''
+        tableValid : true,
+        numberValid: ''
     },
     otpState: {
         digit1: undefined,
