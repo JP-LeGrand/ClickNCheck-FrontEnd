@@ -64,7 +64,6 @@ class Login extends React.PureComponent {
             this.props.updateError('noInput');
             return;
         }
-
         this.props.loginProcess(this.props.email, this.props.password);
     } 
     
