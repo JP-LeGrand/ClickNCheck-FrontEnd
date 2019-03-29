@@ -132,6 +132,9 @@ class ChangePassword extends React.PureComponent{
                             <button id="btnSend" onClick={this.handleSubmit} disabled={!(this.props.passwordsValid && this.props.passwordsMatch) }>Send</button>
                         </div>
                     </div><br/>
+                    <div style={{ color: 'red' }}>
+                        { this.props.fetchError === '' ? ' ' : this.props.fetchError }
+                    </div>
                     <div className="loading" style={{ color: 'red' }}>
                         {this.props.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
                     </div>
@@ -156,7 +159,8 @@ ChangePassword.propTypes = {
     loading: PropTypes.bool.isRequired,
     passwordsValid: PropTypes.bool.isRequired,
     passwordsMatch: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.string.isRequired
+    errorMessage: PropTypes.string.isRequired,
+    fetchError: PropTypes.string.isRequired
     
 };
 
@@ -168,7 +172,8 @@ const mapStateToProps = state => ({
     canSubmit:state.changePasswordState.canSubmit,
     loading: state.changePasswordState.loading,
     passwordsMatch: state.changePasswordState.passwordsMatch,
-    passwordsValid: state.changePasswordState.passwordsValid
+    passwordsValid: state.changePasswordState.passwordsValid,
+    fetchError: state.changePasswordState.fetchError
 });
 
 const mapActionsToProps = (dispatch) => ({
@@ -178,7 +183,8 @@ const mapActionsToProps = (dispatch) => ({
     updateErrorMessage: bindActionCreators(ChangePasswordActions.updateErrorMessage, dispatch),
     updatepasswordsValid: bindActionCreators(ChangePasswordActions.updatePasswordsValid, dispatch),
     updatePasswordsMatch: bindActionCreators(ChangePasswordActions.updatePasswordsMatch, dispatch),
-    sendPasswordReset: bindActionCreators(ChangePasswordActions.sendPasswordReset, dispatch)
+    sendPasswordReset: bindActionCreators(ChangePasswordActions.sendPasswordReset, dispatch),
+    updateFetchError: bindActionCreators(ChangePasswordActions.updateFetchError, dispatch)
 });
 
 export default connect(mapStateToProps, mapActionsToProps)(ChangePassword);
