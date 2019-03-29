@@ -37,7 +37,8 @@ const InitialState = {
         errorMessage: '',
         passwordsValid: false,
         passwordsMatch: false,
-        loading:false
+        loading:false,
+        fetchError: ''
     },
     verificationChecksState: {
         jobProfileChecks: [],

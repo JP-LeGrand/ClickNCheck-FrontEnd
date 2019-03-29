@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { ToastContainer, toast } from 'mdbreact';
 import { prototype } from 'events';
+import ReactAI from 'react-appinsights';
 
 class ReviewChecks extends React.Component {
     constructor(props) {
@@ -199,4 +200,4 @@ const mapActionsToProps = (dispatch) => ({
     updateProfileChecks: bindActionCreators(ReviewChecksActions.updateProfileChecks, dispatch)
 });
 
-export default connect(mapStateToProps, mapActionsToProps)(ReviewChecks);
+export default ReactAI.withTracking(connect(mapStateToProps, mapActionsToProps)(ReviewChecks));

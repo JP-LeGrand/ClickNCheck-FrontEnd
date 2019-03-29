@@ -6,6 +6,8 @@ import './CreateJobProfilePage4.scss';
 import './modal.scss';
 import 'typeface-roboto';
 import AssignRecruiters from '../../AssignRecruiters/assignRecruiters';
+import ReactAI from 'react-appinsights';
+
 class CreateJobProfilePage4 extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -80,4 +82,4 @@ class CreateJobProfilePage4 extends React.PureComponent {
         );
     }
 }
-export default CreateJobProfilePage4;
+export default ReactAI.withTracking(CreateJobProfilePage4);

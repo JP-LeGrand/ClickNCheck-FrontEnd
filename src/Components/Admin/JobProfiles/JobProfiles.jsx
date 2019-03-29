@@ -8,6 +8,8 @@ import JobProfileResults from './JobProfileResults';
 import { BASE_URL, GET_ALL_JOB_PROFILES, GET_UNASSIGNED_JOB_PROFILES, GET_ASSIGNED_JOB_PROFILES } from '../../../Shared/Constants';
 import './JobProfiles.scss';
 import imgLoading from '../../../Assets/Rolling.svg';
+import ReactAI from 'react-appinsights';
+import Footer from '../../Shared/Footer/Footer';
 
 class JobProfiles extends Component {
     constructor(props) {
@@ -167,9 +169,10 @@ class JobProfiles extends Component {
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
             
         );
     }
 }
-export default connect()(JobProfiles);
+export default ReactAI.withTracking(connect()(JobProfiles));

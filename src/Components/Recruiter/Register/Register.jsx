@@ -9,6 +9,7 @@ import rollingImg from '../../../Assets/Rolling.svg';
 import { ZERO } from '../../../Shared/IntConstants';
 import Axios from 'axios';
 import { ToastContainer, toast } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
 class Register extends React.PureComponent{
     constructor(props) {
@@ -320,4 +321,4 @@ class Register extends React.PureComponent{
       }
 }
 
-export default connect()(Register);
+export default ReactAI.withTracking(connect()(Register));

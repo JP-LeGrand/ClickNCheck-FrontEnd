@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'mdbreact';
 import { Divider } from 'material-ui';
+import ReactAI from 'react-appinsights';
 
 class ParentContainer extends React.PureComponent {
 
@@ -166,4 +167,4 @@ const mapActionsToProps = (dispatch) => ({
     clearTable: bindActionCreators(CandidateActions.clearTable, dispatch)
 
 });
-export default connect(mapStateToProps, mapActionsToProps)(ParentContainer);
+export default ReactAI.withTracking(connect(mapStateToProps, mapActionsToProps)(ParentContainer));

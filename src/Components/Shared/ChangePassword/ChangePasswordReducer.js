@@ -1,5 +1,5 @@
 import InitialState from '../../../Shared/State/InitialState';
-import { UPDATE_ERROR_MESSAGE, UPDATE_CONFIRMED_PASSWORD, UPDATE_PASSWORDS_MATCH, UPDATE_PASSWORDS_VALID } from './ChangePasswordActionTypes';
+import { UPDATE_ERROR_MESSAGE, UPDATE_CONFIRMED_PASSWORD, UPDATE_PASSWORDS_MATCH, UPDATE_PASSWORDS_VALID, UPDATE_FETCH_ERROR } from './ChangePasswordActionTypes';
 import { UPDATE_PASSWORD, UPDATE_LOADING } from '../Login/LoginActionTypes';
 
 const ChangePasswordReducer = (state = InitialState.changePasswordState, action) => {
@@ -18,6 +18,11 @@ const ChangePasswordReducer = (state = InitialState.changePasswordState, action)
         return {
             ...state,
             confirmedPassword: action.payload
+        };
+    case UPDATE_FETCH_ERROR:
+        return {
+            ...state,
+            fetchError: action.payload
         };
     case UPDATE_LOADING:
         return {

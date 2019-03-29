@@ -70,7 +70,6 @@ export const loginProcess = (email, password) => {
                                                 window.location = '/otp';
                                             },
                                             (error) => {
-                                                console.log('Error in otp')
                                                 dispatch({
                                                     Types: types.UPDATE_LOADING,
                                                     payload: false
@@ -88,8 +87,6 @@ export const loginProcess = (email, password) => {
                                 }
                             },
                             (error) => {
-                                //Credentials incorrect
-                                console.log('password expiry error');
                                 dispatch({
                                     type: Types.UPDATE_LOADING,
                                     payload: false
@@ -103,7 +100,6 @@ export const loginProcess = (email, password) => {
                         );
                 },
                 (error) => {
-                    console.log('Credentials validation error: '+error)
                     dispatch({
                         type: Types.UPDATE_LOADING,
                         payload: false
