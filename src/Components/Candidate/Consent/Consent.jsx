@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import imgMain from '../../../Assets/main.svg';
 import './Consent.scss';
+import ReactAI from 'react-appinsights';
+
 class Consent extends React.PureComponent {
     render() {
         return ( 
@@ -74,4 +76,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(Consent);
+export default ReactAI.withTracking(connect(mapStateToProps)(Consent));

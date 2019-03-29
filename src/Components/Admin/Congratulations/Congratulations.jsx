@@ -4,6 +4,7 @@ import './congratulations.scss';
 import * as JobProfileActions from '../AssignRecruiters/jobProfileActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactAI from 'react-appinsights';
 
 class Congratulations extends Component {
     state={
@@ -55,4 +56,4 @@ const mapActionsToProps = (dispatch) => ({
     jobProfileActions: bindActionCreators(JobProfileActions, dispatch)
 });
  
-export default connect(mapStateToProps, mapActionsToProps)(Congratulations);
+export default ReactAI.withTracking(connect(mapStateToProps, mapActionsToProps)(Congratulations));

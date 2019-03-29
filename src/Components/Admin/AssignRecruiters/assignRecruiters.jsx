@@ -4,6 +4,7 @@ import RecruitersCheckbox from './RecruitersCheckBox';
 import { BASE_URL, GET_RECRUITERS,GET_RECRUITERS_NAMES } from '../../../Shared/Constants';
 import axios from 'axios';
 import Congratulations from '../Congratulations/Congratulations';
+import ReactAI from 'react-appinsights';
 
 class AssignRecruiters extends Component {
     constructor(props){
@@ -133,4 +134,4 @@ class AssignRecruiters extends Component {
     }
 }
  
-export default AssignRecruiters;
+export default ReactAI.withTracking(AssignRecruiters);

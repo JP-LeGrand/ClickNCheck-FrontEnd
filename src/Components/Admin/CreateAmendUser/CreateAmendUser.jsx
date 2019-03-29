@@ -6,7 +6,10 @@ import { BASE_URL, GET_ALL_JOB_PROFILES, CREATE_AMEND_USER, GET_MANAGERS, GET_US
 import { ZERO, ONE , TEN, TWELVE } from '../../../Shared/IntConstants';
 import './CreateAmendUser.scss';
 import { FaTimes } from 'react-icons/fa';
+import ReactAI from 'react-appinsights';
+
 import { toast, ToastContainer } from 'mdbreact';
+import Footer from '../../Shared/Footer/Footer';
 class CreateAmendUser extends Component {
     constructor(props) {
         super(props);
@@ -573,9 +576,10 @@ class CreateAmendUser extends Component {
                             </div>
                         </div>
                     </div>
+                    <Footer />
                 </div>
             </Fragment>
         );
     }
 }
-export default connect()(CreateAmendUser);
+export default ReactAI.withTracking(connect()(CreateAmendUser));

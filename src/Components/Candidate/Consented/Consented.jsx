@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import imgMain from '../../../Assets/main.svg';
 import './Consented.scss';
+import ReactAI from 'react-appinsights';
+
 class Consented extends React.PureComponent {
     render() {
         return ( 
@@ -23,4 +25,4 @@ class Consented extends React.PureComponent {
     }
 }
 
-export default connect()(Consented);
+export default ReactAI.withTracking(connect()(Consented));
