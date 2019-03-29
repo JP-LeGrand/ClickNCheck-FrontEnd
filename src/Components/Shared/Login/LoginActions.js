@@ -56,7 +56,7 @@ export const loginProcess = (email, password) => {
                                         .then(
                                             () => {
                                                 dispatch({
-                                                    type: Types.UPDATE_LOADING,
+                                                    Types: Types.UPDATE_LOADING,
                                                     payload: false
                                                 });
                                                 dispatch({

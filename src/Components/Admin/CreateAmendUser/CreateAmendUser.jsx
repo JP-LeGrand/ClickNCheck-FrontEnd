@@ -26,7 +26,7 @@ class CreateAmendUser extends Component {
             rec_manager: '',
             all_managers: '',
             available_jobs: '',
-            user_id: '',
+            user_id: 'no_user',
             available_roles: [
                 {
                     id: 3,
@@ -211,31 +211,21 @@ class CreateAmendUser extends Component {
     }
 
     clearAll() {
-        let remove_roles = [];
-        this.state.selected_roles.forEach(element => {
-            if (element.id !== ONE) {
-                const role = { id: element.id, role: element.role };
-                const available = [ ...this.state.available_roles ];
-                available.push(role);
-                remove_roles.push(role);
-                this.setState( { available_roles: available });
-            }
+
+        const newAvailableRoles = [ ...this.state.available_roles, ...this.state.selected_roles.filter(item => item.id !== ONE) ];
+        const newSelectedRoles = [ ...this.state.selected_roles.filter(item => item.id === ONE) ];
+
+        this.setState({
+            available_roles: newAvailableRoles,
+            selected_roles: newSelectedRoles
         });
 
-        remove_roles.forEach(role => {
-            this.setState( { selected_roles: this.state.selected_roles.filter(item => item.id !== role.id) });
-        });
+        const newAvailableJobs = [ ...this.state.available_jobs, ...this.state.selected_jobs.filter(item => item.id !== ONE) ];
+        const newSelectedJobs = [];
 
-        let remove_jobs = [];
-        this.state.selected_jobs.forEach(element => {
-            const job = { id: element.id, title: element.title, code: element.code };
-            const clearedJobs = [ ...this.state.available_jobs ];
-            clearedJobs.push(job);
-            remove_jobs.push(job);
-            this.setState( { available_jobs: clearedJobs });
-        });
-        remove_jobs.forEach(job => {
-            this.setState( { selected_jobs: this.state.selected_jobs.filter(item => item.id !== job.id) });
+        this.setState({
+            available_jobs: newAvailableJobs,
+            selected_jobs: newSelectedJobs
         });
 
         this.setState({ 
@@ -245,7 +235,9 @@ class CreateAmendUser extends Component {
             Phone: '',
             StartDate: '',
             EndDate: '',
-            rec_manager: ''
+            rec_manager: '',
+            phoneValid: '',
+            emailValid: '',
         });  
     }
 
@@ -326,11 +318,8 @@ class CreateAmendUser extends Component {
     }
 
     handleSubmit(event) {
-        event.preventDefault();
-        this.setState({
-            applyClicked: true
-        });
         
+        event.preventDefault();
         let rec_jobprofiles = '';
         this.state.selected_jobs.forEach(element => {
             if (rec_jobprofiles === '') {
@@ -363,9 +352,8 @@ class CreateAmendUser extends Component {
             'usertypes': [ rec_roles ],
             'jobprofiles': [ rec_jobprofiles ]
         };
-        event.preventDefault();
         this.setState({ isLoading: true }, () => {
-            fetch(BASE_URL + CREATE_AMEND_USER + (this.state.user_id !== '' ? '?user_id=' + this.state.user_id : ''), {
+            fetch(BASE_URL + CREATE_AMEND_USER + (this.state.user_id !== 'no_user' ? '?user_id=' + this.state.user_id : ''), {
                 method: 'POST',
                 mode: 'cors', // no-cors, cors, *same-origin
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -452,9 +440,9 @@ class CreateAmendUser extends Component {
                                         <div className="form-group">
                                             <label>Start and End Date</label>
                                             <span className="dateLabel" id="start">start date</span>
-                                            <input id="start_date" type="date" placeholder="&nbsp;" name="start_date" value={ this.state.user_id !== '' ? this.state.StartDate : null } onChange={(event) => this.startDateHandler(event)} />
+                                            <input id="start_date" type="date" placeholder="&nbsp;" name="start_date" value={ this.state.user_id !== '' ? this.state.StartDate : '' } onChange={(event) => this.startDateHandler(event)} />
                                         </div>
-                                        {this.state.applyClicked && this.state.StartDate === '' && <FIELD_REQUIRED />}
+                                        {this.state.StartDate === '' && FIELD_REQUIRED}
                                     </td>
 
                                     <td>
@@ -463,7 +451,7 @@ class CreateAmendUser extends Component {
                                             <br />
                                             <input id="fname" placeholder="&nbsp;" name="name" value={this.state.Name} onChange={(event) => this.nameHandler(event)} />
                                         </div>
-                                        {this.state.applyClicked && this.state.Name === '' && <FIELD_REQUIRED />}
+                                        {this.state.Name === '' && FIELD_REQUIRED}
                                     </td>
 
                                     <td>
@@ -472,7 +460,7 @@ class CreateAmendUser extends Component {
                                             <br />
                                             <input id="surname" placeholder="&nbsp;" name="surname" value={this.state.Surname} onChange={(event) => this.surnameHandler(event)} />
                                         </div>
-                                        {this.state.applyClicked && this.state.Surname === '' && <FIELD_REQUIRED />}
+                                        {this.state.Surname === '' && FIELD_REQUIRED}
                                     </td>
                                 </tr>
 
@@ -481,7 +469,7 @@ class CreateAmendUser extends Component {
                                         <span className="dateLabel">end date</span>
                                         <br/>
                                         <input id="end_date" type="date" placeholder="&nbsp;" name="end_date" value={ this.state.user_id !== '' ? this.state.EndDate : null } onChange={(event) => this.endDateHandler(event)} />
-                                        {this.state.applyClicked && this.state.EndDate === null && <FIELD_REQUIRED />}
+                                        {this.state.EndDate === '' && FIELD_REQUIRED}
                                     </td>
 
                                     <td>
@@ -490,7 +478,7 @@ class CreateAmendUser extends Component {
                                             <br />
                                             <input id="phone" placeholder="&nbsp;" name="phone" maxLength="12" value={this.state.Phone} onChange={(event) => this.phoneHandler(event)} />
                                         </div>
-                                        {this.state.applyClicked && this.state.Phone === null && <FIELD_REQUIRED />}
+                                        {this.state.Phone === '' && FIELD_REQUIRED}
                                         {this.state.phoneValid === true && <p className="success">Phone number is correct</p>}
                                         {this.state.phoneValid === false && <p className="error">Phone Number is incorrect</p>}
                                     </td>
@@ -501,7 +489,7 @@ class CreateAmendUser extends Component {
                                             <br />
                                             <input id="email" placeholder="&nbsp;" name="email" value={this.state.Email} onChange={(event) => this.emailHandler(event)} />
                                         </div>
-                                        {this.state.applyClicked && this.state.Email === null && <FIELD_REQUIRED />}
+                                        {this.state.Email === '' && FIELD_REQUIRED}
                                         {this.state.emailValid === true && <p className="success">Email is correct</p>}
                                         {this.state.emailValid === false && <p className="error">Email is incorrect</p>}
                                     </td>
@@ -515,7 +503,7 @@ class CreateAmendUser extends Component {
                                             <br />
                                             <select onChange={this.managerHandler} value={ this.state.user_id !== '' ? this.state.rec_manager : null }><option>...</option>{manager_resultItems}</select>
                                         </div>
-                                        {this.state.applyClicked && this.state.rec_manager === null && <FIELD_REQUIRED />}
+                                        {this.state.rec_manager === '' && FIELD_REQUIRED}
                                     </td>
                                     <td>
                                         <div className="form-group">
@@ -526,7 +514,7 @@ class CreateAmendUser extends Component {
                                             </ul>
                                             <select onChange={(event) => this.rolesHandler(event)}><option>...</option>{role_resultItems}</select>
                                         </div>
-                                        {this.state.applyClicked && this.state.selected_roles === null && <FIELD_REQUIRED />}
+                                        {this.state.selected_roles.length === ZERO && FIELD_REQUIRED}
                                     </td>
                                     <td>
                                         <div className="form-group">
@@ -537,7 +525,6 @@ class CreateAmendUser extends Component {
                                             </ul>
                                             <select onChange={(event) => this.jobsHandler(event)}><option>...</option>{job_resultItems}</select>
                                         </div>
-                                        {this.state.applyClicked && this.state.selected_jobs === null && <FIELD_REQUIRED />}
                                     </td>
                                 </tr>
                             </table>
@@ -546,7 +533,7 @@ class CreateAmendUser extends Component {
                                     <button id="btnClearAll" onClick={this.clearAll}>Clear All</button>
                                 </div>
                                 <div className="alignRight">
-                                    <button id="apply" onClick={(event) => this.handleSubmit(event)}>APPLY</button>
+                                    <button id="apply" disabled={ this.state.StartDate === '' || this.state.Name === '' || this.state.Surname === '' || this.state.EndDate === '' || this.state.Phone === '' || this.state.Email === '' || this.state.rec_manager === '' || this.state.selected_roles.length === ZERO ? true : false} onClick={(event) => this.handleSubmit(event)}>APPLY</button>
                                     {this.state.user_id !== '' && <button id="btnDeactivate" onClick={this.changeStatus}><FaTimes id="closeIcon"/>{this.state.Status === 'Active' ? 'DEACTIVATE' : 'ACTIVATE'} USER</button>}
                                 
                                 </div>
