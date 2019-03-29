@@ -87,8 +87,6 @@ export const loginProcess = (email, password) => {
                                 }
                             },
                             (error) => {
-                                //Credentials incorrect
-                                console.log('password expiry error');
                                 dispatch({
                                     type: Types.UPDATE_LOADING,
                                     payload: false
@@ -102,7 +100,6 @@ export const loginProcess = (email, password) => {
                         );
                 },
                 (error) => {
-                    console.log('Credentials validation error: '+error)
                     dispatch({
                         type: Types.UPDATE_LOADING,
                         payload: false
