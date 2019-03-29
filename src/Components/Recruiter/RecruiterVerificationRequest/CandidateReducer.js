@@ -36,22 +36,6 @@ const CandidateReducer = (state = InitialState.candidateState, action) => {
             tableValid : action.payload
         };
 
-    case Types.ID_VALID : 
-        return {
-            ...state,
-            idValid : action.payload
-        };
-
-    case Types.EMAIL_VALID : 
-        return {
-            ...state,
-            emailValid : action.payload
-        };
-    case Types.NUMBER_VALID : 
-        return {
-            ...state,
-            numberValid : action.payload
-        };
 
     default:
         return state;

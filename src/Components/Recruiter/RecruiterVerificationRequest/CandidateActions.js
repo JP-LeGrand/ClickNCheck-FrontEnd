@@ -77,30 +77,3 @@ export const clearTable = (value) => {
         });
     };
 };
-
-export const idValid = (idBool) => {
-    return function (dispatch) {
-        dispatch ({
-            type: Types.ID_VALID,
-            payload: idBool
-        });
-    };
-};
-
-export const emailValid = (emailBool) => {
-    return function (dispatch) {
-        dispatch ({
-            type: Types.EMAIL_VALID,
-            payload: emailBool
-        });
-    };
-};
-
-export const numberValid = (numberValid) => {
-    return function (dispatch) {
-        dispatch ({
-            type: Types.NUMBER_VALID,
-            payload: numberValid
-        });
-    };
-};
