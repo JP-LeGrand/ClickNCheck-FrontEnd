@@ -23,7 +23,6 @@ class AssignRecruiters extends Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
    
-
     componentDidMount() {
         fetch(BASE_URL + GET_RECRUITERS, {
             method: 'GET',
@@ -88,9 +87,10 @@ class AssignRecruiters extends Component {
                 'Authorization': 'Bearer ' +sessionStorage.getItem('token')
             }
         };
+        
         axios.post(BASE_URL +'JobProfiles/'+ this.state.jobProfileCode +'/AssignRecruiters', body,config);
-        const response = await axios.post(BASE_URL + GET_RECRUITERS_NAMES, userIds);
-        this.setState({ RecruiterNames:response.data });
+        const response = await axios.post(BASE_URL + GET_RECRUITERS_NAMES, userIds, config);
+        this.setState({ RecruiterNames: response.data });
         this.setState({ done: true });
     }
 
@@ -110,23 +110,23 @@ class AssignRecruiters extends Component {
         return (
             <div>
                 <div className="assignRecruiters">
-                    {!this.state.done && <form className="Rectangle-Copy" onSubmit={this.handleFormSubmit}>
-                        <div>
-                            <label className="Assign-Recruiters">Assign Recruiter(s) to Job Profile:</label>
-                            <br/>
-                            <label className="Call-Centre-Supervis" >{localStorage.getItem('jobProfile')}</label >
-                            <div className="checkBoxesContainer">
-                                {this.createCheckboxes()}
+                    {!this.state.done &&
+                        <form className="Rectangle-Copy" onSubmit={this.handleFormSubmit}>
+                            <div>
+                                <label className="Assign-Recruiters">Assign Recruiter(s) to Job Profile:</label>
+                                <br/>
+                                <label className="Call-Centre-Supervis" >{localStorage.getItem('jobProfile')}</label >
+                                <div className="checkBoxesContainer">
+                                    {this.createCheckboxes()}
+                                </div>
                             </div>
-                        </div>
-                        <div className="assignFooter">
-                            <button type="sumbit" className="Rectangle-Copy-14">Done</button> 
-                            <a href="/Admin/CreateJobProfilePage4" className="Cancel">Cancel</a>
-                        </div>
-                                        
-                    </form>}
-                    { this.state.done && <Congratulations JobProfileName={this.state.JpName} 
-                        RecruitersIDs={this.state.RecruiterNames.map((Names)=> <li key={Names.toString()}>{Names}</li>)}/>}
+                            <div className="assignFooter">
+                                <button type="sumbit" className="Rectangle-Copy-14">Done</button> 
+                                <a href="/Admin/CreateJobProfilePage4" className="Cancel">Cancel</a>
+                            </div>           
+                        </form>
+                    }
+                    {this.state.done && <Congratulations JobProfileName={this.state.JpName} RecruitersIDs={this.state.RecruiterNames.map((Names)=> <li key={Names.toString()}>{Names}</li>)}/>}
                 </div>
             </div>
             

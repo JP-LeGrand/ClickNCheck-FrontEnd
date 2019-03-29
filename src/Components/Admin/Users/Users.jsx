@@ -5,10 +5,11 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import UserResults from './UserResults';
-import { BASE_URL, GET_ASSIGNED_JOB_PROFILES, GET_ALL_USERS, GET_RECRUITERS, GET_MANAGERS, GET_OPERATORS } from '../../../Shared/Constants';
+import { BASE_URL, GET_ALL_USERS, GET_RECRUITERS, GET_MANAGERS, GET_OPERATORS } from '../../../Shared/Constants';
 import './Users.scss';
 import imgLoading from '../../../Assets/Rolling.svg';
 import ReactAI from 'react-appinsights';
+import Footer from '../../Shared/Footer/Footer';
 
 class Users extends Component {
     constructor(props) {
@@ -207,6 +208,7 @@ class Users extends Component {
                         </div>
                     </div>
                 </div>
+                <Footer />
             </div>
             
         );

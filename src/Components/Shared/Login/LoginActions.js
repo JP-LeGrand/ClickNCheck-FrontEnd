@@ -70,7 +70,6 @@ export const loginProcess = (email, password) => {
                                                 window.location = '/otp';
                                             },
                                             (error) => {
-                                                console.log('Error in otp')
                                                 dispatch({
                                                     Types: types.UPDATE_LOADING,
                                                     payload: false

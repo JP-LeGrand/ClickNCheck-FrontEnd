@@ -1,14 +1,12 @@
     .assignRecruiters{
     .Rectangle-Copy {
       margin: 0 auto;
-      /* width: 900px; */
       height: fit-content;
       border-radius: 7px;
       box-shadow: 0 0 22px 0 rgba(0, 0, 0, 0.17);
-      /* border: solid 1px #6849ae; */
       background-color: #ffffff;
       text-align: center;
-      padding-top: 50px;
+      padding-top: 30px;
       }
     .Assign-Recruiters {
         width: 428px;
@@ -63,7 +61,7 @@
       }
       .assignFooter{
         margin-top: 30px;
-        margin-bottom: 53px;
+        margin-bottom: 30px;
         height: 524px;
         height: 40px;
         display: flex;
@@ -75,6 +73,8 @@
         flex-flow: column;
         align-items: left;
         margin-top: 29px;
+        height: 200px;
+        overflow-y: auto;
       }
       .checkbox{
         padding: 0px 213.5px;
