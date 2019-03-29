@@ -8,7 +8,7 @@ export const updateConfirmedPassword = (data) => {
             payload: data
         });
     }
-}
+};
 
 export const updatePassword = (data) => {
     return function (dispatch){
@@ -16,13 +16,22 @@ export const updatePassword = (data) => {
             type: Types.UPDATE_PASSWORD,
             payload: data 
         });
-    }
+    };
 };
 
 export const updateLoading = (data) => {
     return function (dispatch){
         dispatch({
             type: Types.UPDATE_LOADING,
+            payload: data 
+        });
+    }
+};
+
+export const updateFetchError = (data) => {
+    return function (dispatch){
+        dispatch({
+            type: Types.UPDATE_FETCH_ERROR,
             payload: data 
         });
     }
@@ -88,22 +97,51 @@ export const sendPasswordReset =(data) =>{
                         referrer: 'no-referrer', // no-referrer, *client
                         body: JSON.stringify(userid), 
                     })
-                        .then((response) => response.json())  
-                        .then(
-                            () => {
-                                window.location = '/otp';
-                            },
-                            (error) => {
+                        .then((response) => {
+                            response.json();
+                            if (response.status === 200){
+                                dispatch({
+                                    type: Types.UPDATE_FETCH_ERROR,
+                                    payload: ''
+                                });
                                 dispatch({
                                     type: Types.UPDATE_LOADING,
                                     payload: false
                                 });
+                                window.location = '/otp';
+                            } else {
                                 dispatch({
-                                    type: Types.UPDATE_ERROR_MESSAGE,
-                                    payload: 'Something went wrong loading the otp. Please try again later'
+                                    type: Types.UPDATE_FETCH_ERROR,
+                                    payload: 'Something went wrong updating your password. Please try again later'
                                 });
-                            }     
-                        );
+                                dispatch({
+                                    type: Types.UPDATE_LOADING,
+                                    payload: false
+                                });
+                                return;
+                            }
+                        }, 
+                        (error) =>{
+                            dispatch({
+                                type: Types.UPDATE_FETCH_ERROR,
+                                payload: 'Something went wrong updating your password. Please try again later'
+                            });
+                            dispatch({
+                                type: Types.UPDATE_LOADING,
+                                payload: false
+                            });
+
+                        })
+                        .catch((error) => {
+                            dispatch({
+                                type: Types.UPDATE_FETCH_ERROR,
+                                payload: 'Something went wrong updating your password. Please try again later'
+                            });
+                            dispatch({
+                                type: Types.UPDATE_LOADING,
+                                payload: false
+                            });
+                        })
                 },
                 (error) => {
                     dispatch({
@@ -111,8 +149,8 @@ export const sendPasswordReset =(data) =>{
                         payload: false
                     });
                     dispatch({
-                        type: Types.UPDATE_ERROR_MESSAGE,
-                        payload: 'Something went wrong loading the updating your password. Please try again later'
+                        type: Types.UPDATE_FETCH_ERROR,
+                        payload: 'Something went wrong while updating your password. Please try again later'
                     });
                 }
             );
