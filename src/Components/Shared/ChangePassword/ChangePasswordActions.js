@@ -95,11 +95,11 @@ export const sendPasswordReset =(data) =>{
                         },
                         redirect: 'manual', // manual, *follow, error
                         referrer: 'no-referrer', // no-referrer, *client
-                        body: JSON.stringify(100), 
+                        body: JSON.stringify(userid), 
                     })
                         .then((response) => {
                             response.json();
-                            if(response.status === 200){
+                            if (response.status === 200){
                                 dispatch({
                                     type: Types.UPDATE_FETCH_ERROR,
                                     payload: ''
