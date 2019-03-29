@@ -7,6 +7,7 @@ import { ZERO, ONE , TEN, TWELVE } from '../../../Shared/IntConstants';
 import './CreateAmendUser.scss';
 import { FaTimes } from 'react-icons/fa';
 import { toast, ToastContainer } from 'mdbreact';
+import Footer from '../../Shared/Footer/Footer';
 class CreateAmendUser extends Component {
     constructor(props) {
         super(props);
@@ -573,6 +574,7 @@ class CreateAmendUser extends Component {
                             </div>
                         </div>
                     </div>
+                    <Footer />
                 </div>
             </Fragment>
         );
