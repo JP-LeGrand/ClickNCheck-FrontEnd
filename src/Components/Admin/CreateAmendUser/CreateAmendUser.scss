@@ -151,6 +151,10 @@
         color: #ffffff;
     }
 
+    .details button:disabled {
+        opacity: 0.5;
+    }
+
     .details button:hover {
         cursor: pointer;
     }
