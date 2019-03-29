@@ -47,6 +47,11 @@ const CandidateReducer = (state = InitialState.candidateState, action) => {
             ...state,
             emailValid : action.payload
         };
+    case Types.NUMBER_VALID : 
+        return {
+            ...state,
+            numberValid : action.payload
+        };
 
     default:
         return state;

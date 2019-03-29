@@ -9,4 +9,5 @@ export const SEVEN = 7;
 export const EIGHT = 8;
 export const NINE = 9;
 export const TEN = 10;
+export const TWELVE = 12;
 export const THIRTEEN = 13;

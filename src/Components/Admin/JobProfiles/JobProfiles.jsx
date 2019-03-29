@@ -7,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import JobProfileResults from './JobProfileResults';
 import { BASE_URL, GET_ALL_JOB_PROFILES, GET_UNASSIGNED_JOB_PROFILES, GET_ASSIGNED_JOB_PROFILES } from '../../../Shared/Constants';
 import './JobProfiles.scss';
+import imgLoading from '../../../Assets/Rolling.svg';
 
 class JobProfiles extends Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class JobProfiles extends Component {
             results: 'there are no job profiles',
             allJobProfiles: '',
             countTotalJobProfiles: 0,
-            countJobProfiles: 0
+            countJobProfiles: 0,
+            loading: true
         };
         this.userChoice = this.userChoice.bind(this);
         this.assignRecruiter = this.assignRecruiter.bind(this);
@@ -25,13 +27,22 @@ class JobProfiles extends Component {
 
     userChoice(event){
         if (event.target.value === 'All'){
-            this.setState({ results: 'All' });
+            this.setState({
+                results: 'All',
+                loading: true
+            });
             this.allJobProfiles();
         } else if (event.target.value === 'Assigned'){
-            this.setState({ results: 'Assigned' });
+            this.setState({
+                results: 'Assigned',
+                loading: true
+            });
             this.assignedJobProfiles();
         } else {
-            this.setState({ results: 'Unassigned' }); 
+            this.setState({
+                results: 'Unassigned',
+                loading: true
+            });
             this.unassignedJobProfiles();
         }
 
@@ -60,6 +71,7 @@ class JobProfiles extends Component {
                     this.setState({ allJobProfiles: response });
                     this.setState({ countTotalJobProfiles: Object.entries(response).length });
                     this.setState({ countJobProfiles: Object.entries(response).length });
+                    this.setState({ loading: false });
                 },
                 error => {
                     this.setState({
@@ -88,6 +100,7 @@ class JobProfiles extends Component {
                 response => {
                     this.setState({ allJobProfiles: response });
                     this.setState({ countJobProfiles: Object.entries(response).length });
+                    this.setState({ loading: false });
                 },
                 error => {
                     this.setState({
@@ -116,6 +129,7 @@ class JobProfiles extends Component {
                 response => {
                     this.setState({ allJobProfiles: response });
                     this.setState({ countJobProfiles: Object.entries(response).length });
+                    this.setState({ loading: false });
                 },
                 error => {
                     this.setState({
@@ -146,7 +160,10 @@ class JobProfiles extends Component {
                         </div>
 
                         <div className="results">
-                            {this.state.results==='All' || this.state.results==='Assigned' || this.state.results==='Unassigned' ? < JobProfileResults allJobProfiles={this.state.allJobProfiles} /> : <JobProfileResults allJobProfiles={this.state.allJobProfiles}/>}
+                            {this.state.loading
+                                ? <img id="loading" src={imgLoading} alt={'loading...'} />
+                                : this.state.results === 'All' || this.state.results === 'Assigned' || this.state.results === 'Unassigned' ? < JobProfileResults allJobProfiles={this.state.allJobProfiles} /> : <JobProfileResults allJobProfiles={this.state.allJobProfiles} />
+                            }
                         </div>
                     </div>
                 </div>

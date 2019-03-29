@@ -19,11 +19,11 @@ class JobProfileResults extends Component {
     render() {
         // eslint-disable-next-line react/prop-types
         const resultItems = Object.entries(this.props.allJobProfiles).map((item,index) => <tr key={index}>
-            <td>{ item[ONE]['Name']}</td>
-            <td>{ item[ONE]['Surname']}</td>
-            <td>{ item[ONE]['Status']}</td>
-            <td>{ item[ONE]['Roles']}</td>
-            <td><a href={'/Admin/Users/CreateAmendUser?user_id=' + item[ONE]['ID']} >Amend User</a></td>
+            <td className="col" >{ item[ONE]['Name']}</td>
+            <td className="col" >{ item[ONE]['Surname']}</td>
+            <td className="col" >{ item[ONE]['Status']}</td>
+            <td className="col" >{ item[ONE]['Roles']}</td>
+            <td className="col" ><a href={'/Admin/Users/CreateAmendUser?user_id=' + item[ONE]['ID']} >Amend User</a></td>
         </tr>
         );
         
@@ -31,11 +31,11 @@ class JobProfileResults extends Component {
             <table>
                 <tbody>
                     <tr className="thead">
-                        <td>Name</td>
-                        <td>Surname</td>
-                        <td>Status</td>
-                        <td>Role(s)</td>
-                        <td>Action</td>
+                        <td className="col" >Name</td>
+                        <td className="col" >Surname</td>
+                        <td className="col" >Status</td>
+                        <td className="col" >Role(s)</td>
+                        <td className="col" >Action</td>
                     </tr>                
                 
                     {resultItems}
