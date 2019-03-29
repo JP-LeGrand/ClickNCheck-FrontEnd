@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import './CreateJobProfile.scss';
 import { connect } from 'react-redux';
 import { ToastContainer } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
 class ReactSelect extends React.Component {
     constructor(props){
@@ -27,4 +28,4 @@ class ReactSelect extends React.Component {
     }
 }
 
-export default connect() (ReactSelect);
+export default ReactAI.withTracking(connect() (ReactSelect));

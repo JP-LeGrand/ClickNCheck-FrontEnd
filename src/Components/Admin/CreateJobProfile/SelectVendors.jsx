@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import './CreateJobProfile.scss';
 import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
 class SelectVendors extends React.Component {
     constructor(props) {
@@ -133,4 +134,4 @@ class SelectVendors extends React.Component {
 
 }
 
-export default connect() (SelectVendors);
+export default ReactAI.withTracking(connect() (SelectVendors));

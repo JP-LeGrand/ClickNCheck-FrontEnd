@@ -1,5 +1,6 @@
 import React from 'react';
 import { BASE_URL } from '../../../Shared/Constants';
+import ReactAI from 'react-appinsights';
 
 class AllChecksTable extends React.PureComponent {
     constructor(props) {
@@ -104,4 +105,4 @@ class AllChecksTable extends React.PureComponent {
         );
     }
 }
-export default AllChecksTable;
+export default ReactAI.withTracking(AllChecksTable);

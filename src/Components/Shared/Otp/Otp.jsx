@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'mdbreact';
 import * as OtpActions from './OtpActions' ;
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import ReactAI from 'react-appinsights';
 
 class Otp extends React.PureComponent {
     constructor(props) {
@@ -198,4 +199,4 @@ const mapActionsToProps = (dispatch) => ({
     resendOtp: bindActionCreators(OtpActions.resendOtp, dispatch),
     assignUserId: bindActionCreators(OtpActions.assignUserId, dispatch)
 });
-export default connect(mapStateToProps, mapActionsToProps)(Otp);
+export default ReactAI.withTracking(connect(mapStateToProps, mapActionsToProps)(Otp));

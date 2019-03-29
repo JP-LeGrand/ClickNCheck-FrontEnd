@@ -9,6 +9,7 @@ import { ZERO, ONE, TEN } from '../../../Shared/IntConstants';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import * as ForgotPasswordActions from './ForgotPasswordActions';
+import ReactAI from 'react-appinsights';
 
 function RecieveMethod(props){
     if (props.sendVia === 'phone') {
@@ -275,4 +276,4 @@ const mapActionsToProps = (dispatch) => ({
     updateError: bindActionCreators(ForgotPasswordActions.updateError, dispatch)
 });
 
-export default connect(mapStateToProps, mapActionsToProps)(ForgotPassword);
+export default ReactAI.withTracking(connect(mapStateToProps, mapActionsToProps)(ForgotPassword));
