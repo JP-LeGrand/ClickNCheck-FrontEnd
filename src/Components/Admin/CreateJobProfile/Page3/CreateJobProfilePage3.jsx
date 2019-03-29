@@ -50,11 +50,11 @@ class CreateJobProfilePage3 extends React.PureComponent {
             sessionStorage.setItem('JobProfileID', response.data);
             window.location = '/Admin/CreateJobProfilePage4';
         },
-        (error) => {
-            toast.error('Oops! An error occured while creating the Job Profile. Please try again later', {
-                autoClose: 3000
-            });
-        }
+            (error) => {
+                toast.error('Oops! An error occured while creating the Job Profile. Please try again later', {
+                    autoClose: 3000
+                });
+            }
         );
     }
 
@@ -116,17 +116,17 @@ class CreateJobProfilePage3 extends React.PureComponent {
                         </div>
                         <div id="buttonFooter">
                             <button id="prev" onClick={this.prevStep}>BACK</button>
-                            <div id="saveButtonDiv">
+                            {/*TODO: <div id="saveButtonDiv">
                                 <img src={saveImg} alt="save img"/>
                                 <button id="save" onClick={this.saveProgress}>Save and continue later</button>
-                            </div>
+                            </div> */}
                             <button id="next" onClick={this.nextStep}>NEXT</button>
                         </div>
                     </div>
                     <Footer />
                 </div>
             </div>
-            
+
         );
     }
 }
