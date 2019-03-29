@@ -86,10 +86,11 @@ class AssignRecruiters extends Component {
                 'Authorization': 'Bearer ' +sessionStorage.getItem('token')
             }
         };
-        this.setState({ done: true });
+        
         axios.post(BASE_URL +'JobProfiles/'+ this.state.jobProfileCode +'/AssignRecruiters', body,config);
-        const response = await axios.post(BASE_URL + GET_RECRUITERS_NAMES, userIds);
-        this.setState({ RecruiterNames:response.data });
+        const response = await axios.post(BASE_URL + GET_RECRUITERS_NAMES, userIds, config);
+        this.setState({ RecruiterNames: response.data });
+        this.setState({ done: true });
     }
 
     createCheckbox = (label, val) => <RecruitersCheckbox
