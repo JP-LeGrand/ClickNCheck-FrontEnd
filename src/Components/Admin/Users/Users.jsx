@@ -8,6 +8,7 @@ import UserResults from './UserResults';
 import { BASE_URL, GET_ALL_USERS, GET_RECRUITERS, GET_MANAGERS, GET_OPERATORS } from '../../../Shared/Constants';
 import './Users.scss';
 import imgLoading from '../../../Assets/Rolling.svg';
+import ReactAI from 'react-appinsights';
 import Footer from '../../Shared/Footer/Footer';
 
 class Users extends Component {
@@ -213,4 +214,4 @@ class Users extends Component {
         );
     } 
 }
-export default connect()(Users);
+export default ReactAI.withTracking(connect()(Users));

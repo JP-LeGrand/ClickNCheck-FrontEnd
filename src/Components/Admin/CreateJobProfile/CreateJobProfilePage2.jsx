@@ -7,6 +7,7 @@ import NavBar from '../AdminNavBar/adminNavBar';
 import AllChecksTable from './AllChecksTable';
 import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
 class CreateJobProfilePage2 extends React.Component {
     constructor(props) {
@@ -106,4 +107,4 @@ class CreateJobProfilePage2 extends React.Component {
     }
 }
 
-export default connect()(CreateJobProfilePage2);
+export default ReactAI.withTracking(connect()(CreateJobProfilePage2));

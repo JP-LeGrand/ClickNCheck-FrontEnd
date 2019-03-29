@@ -6,6 +6,7 @@ import NavBar from '../NavBar/NavBar';
 import { BASE_URL } from '../../../Shared/Constants';
 import ReactSelect from '../RecruiterVerificationRequest/ReactSelect';
 import { ToastContainer, toast } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
 class NewVerificationRequest extends React.Component {
     constructor(props) {
@@ -140,4 +141,4 @@ class NewVerificationRequest extends React.Component {
     }
 }
 
-export default NewVerificationRequest;
+export default ReactAI.withTracking(NewVerificationRequest);

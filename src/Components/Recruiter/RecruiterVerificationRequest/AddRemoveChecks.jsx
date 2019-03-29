@@ -3,6 +3,7 @@ import './MainContainerStyle.scss';
 import './candidateUploadContainer.scss';
 import { BASE_URL } from '../../../Shared/Constants';
 import { connect } from 'react-redux';
+import ReactAI from 'react-appinsights';
 
 class AddRemoveChecks extends React.Component {
     constructor(props) {
@@ -112,4 +113,4 @@ class AddRemoveChecks extends React.Component {
     }
 }
 
-export default connect()(AddRemoveChecks);
+export default ReactAI.withTracking(connect()(AddRemoveChecks));

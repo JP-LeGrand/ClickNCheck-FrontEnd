@@ -7,6 +7,7 @@ import saveImg from '../../../Assets/save.svg';
 import dragImg from '../../../Assets/drag.svg';
 import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import { arrayMove } from 'array-move';
+import ReactAI from 'react-appinsights';
 
 const SortableItem = sortableElement(({ value }) => <li><img src={gridview}/>{value}</li>);
 
@@ -93,4 +94,4 @@ class CreateJobProfilePage3 extends React.PureComponent {
         );
     }
 }
-export default CreateJobProfilePage3;
+export default ReactAI.withTracking(CreateJobProfilePage3);

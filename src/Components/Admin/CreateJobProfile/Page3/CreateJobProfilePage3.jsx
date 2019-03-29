@@ -11,6 +11,7 @@ import { BASE_URL, CREATE_JOBPROFILE } from '../../../../Shared/Constants';
 import Axios from 'axios';
 import { element } from 'prop-types';
 import { toast } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
 const SortableItem = sortableElement(({ value }) => <li><img src={gridview} />{value}</li>);
 
@@ -129,4 +130,4 @@ class CreateJobProfilePage3 extends React.PureComponent {
         );
     }
 }
-export default CreateJobProfilePage3;
+export default ReactAI.withTracking(CreateJobProfilePage3);

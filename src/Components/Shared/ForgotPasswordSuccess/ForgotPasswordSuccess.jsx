@@ -5,6 +5,8 @@ import './ForgotPasswordSuccess.scss';
 import 'typeface-roboto';
 import Footer from '../Footer/Footer';
 import check from '../../../Assets/green_check.svg';
+import ReactAI from 'react-appinsights';
+
 class ForgotPasswordSuccess extends React.PureComponent {
     render() {
         return ( 
@@ -32,4 +34,4 @@ class ForgotPasswordSuccess extends React.PureComponent {
     }
 }
 
-export default connect()(ForgotPasswordSuccess);
+export default ReactAI.withTracking(connect()(ForgotPasswordSuccess));

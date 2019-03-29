@@ -11,6 +11,7 @@ import SelectVendors from './SelectVendors';
 import saveImg from '../../../Assets/save.svg';
 import UpperFooter from '../../Shared/FooterPreviousNext/FooterPreviousNext';
 import { ToastContainer, toast } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
 class CreateJobProfile extends React.Component {
     constructor(props) {
@@ -162,4 +163,4 @@ const mapActionsToProps = (dispatch) => ({
     updateCode: bindActionCreators(JobProfileActions.updateCode, dispatch)
 });
 
-export default connect(mapStateToProps, mapActionsToProps) (CreateJobProfile);
+export default ReactAI.withTracking(connect(mapStateToProps, mapActionsToProps) (CreateJobProfile));
