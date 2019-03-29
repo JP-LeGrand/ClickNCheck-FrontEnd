@@ -10,6 +10,7 @@ import * as CandidateActions from './CandidateActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ToastContainer, toast } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
 class MainContainer extends React.PureComponent {
     constructor(props) {
@@ -253,4 +254,4 @@ const mapActionToProps = (dispatch) => ({
     checkNumber : bindActionCreators (CandidateActions.numberValid, dispatch)
 
 });
-export default connect(mapStateToProps, mapActionToProps)(MainContainer);
+export default ReactAI.withTracking(connect(mapStateToProps, mapActionToProps)(MainContainer));

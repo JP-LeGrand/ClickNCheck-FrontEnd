@@ -11,6 +11,7 @@ import { bindActionCreators } from 'redux';
 import * as ChangePasswordActions from './ChangePasswordActions';
 import { throws } from 'assert';
 import { ALPN_ENABLED } from 'constants';
+import ReactAI from 'react-appinsights';
 
 class ChangePassword extends React.PureComponent{
     constructor(props) {
@@ -184,4 +185,4 @@ const mapActionsToProps = (dispatch) => ({
     sendPasswordReset: bindActionCreators(ChangePasswordActions.sendPasswordReset, dispatch)
 });
 
-export default connect(mapStateToProps, mapActionsToProps)(ChangePassword);
+export default ReactAI.withTracking(connect(mapStateToProps, mapActionsToProps)(ChangePassword));

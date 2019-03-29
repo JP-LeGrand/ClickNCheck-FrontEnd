@@ -5,6 +5,7 @@ import 'typeface-roboto';
 import NavBar from '../../NavBar/NavBar';
 import Footer from '../../../Shared/Footer/Footer';
 import { ToastContainer, toast } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
 class VerificationConfirmed extends React.PureComponent{
     render() {
@@ -57,4 +58,4 @@ class VerificationConfirmed extends React.PureComponent{
     }
 }
 
-export default VerificationConfirmed;
+export default ReactAI.withTracking(VerificationConfirmed);

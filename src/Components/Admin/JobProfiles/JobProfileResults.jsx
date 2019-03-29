@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ONE } from '../../../Shared/IntConstants';
+import ReactAI from 'react-appinsights';
 
 class JobProfileResults extends Component {
     constructor(props) {
@@ -45,4 +46,4 @@ class JobProfileResults extends Component {
         );
     }
 }
-export default connect()(JobProfileResults);
+export default ReactAI.withTracking(connect()(JobProfileResults));

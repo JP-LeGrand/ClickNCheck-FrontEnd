@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import { connect } from 'react-redux';
+import ReactAI from 'react-appinsights';
 
 class ManagerSelect extends React.Component {
     constructor(props){
@@ -53,4 +54,4 @@ class ManagerSelect extends React.Component {
     }
 }
 
-export default connect() (ManagerSelect);
+export default ReactAI.withTracking(connect() (ManagerSelect));

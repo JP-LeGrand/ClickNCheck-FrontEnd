@@ -10,6 +10,7 @@ import * as LoginActions from './LoginActions';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { ToolbarSeparator } from 'material-ui';
+import ReactAI from 'react-appinsights';
 
 class Login extends React.PureComponent {
     constructor(props) {
@@ -154,4 +155,4 @@ const mapActionsToProps = (dispatch) => ({
     updateError: bindActionCreators(LoginActions.updateError, dispatch)
 });
 
-export default connect(mapStateToProps, mapActionsToProps)(Login);
+export default ReactAI.withTracking(connect(mapStateToProps, mapActionsToProps)(Login));

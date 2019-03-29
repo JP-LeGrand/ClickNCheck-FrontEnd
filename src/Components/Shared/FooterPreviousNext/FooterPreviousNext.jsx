@@ -3,6 +3,7 @@ import './FooterPreviousNext.scss';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import '../Footer/Footer.scss';
 import { connect } from 'react-redux';
+import ReactAI from 'react-appinsights';
 
 class FooterPreviousNext extends React.PureComponent{
     constructor(props){
@@ -35,4 +36,4 @@ class FooterPreviousNext extends React.PureComponent{
     }
 }
 
-export default connect()(FooterPreviousNext);
+export default ReactAI.withTracking(connect()(FooterPreviousNext));

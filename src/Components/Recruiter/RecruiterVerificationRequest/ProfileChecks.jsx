@@ -8,6 +8,7 @@ import reorder from '../../../Assets/reorder.svg';
 import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import { toast } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
 class ProfileChecks extends React.Component {
     constructor(props) {
@@ -97,4 +98,4 @@ class ProfileChecks extends React.Component {
     }
 }
 
-export default connect()(ProfileChecks);
+export default ReactAI.withTracking(connect()(ProfileChecks));
