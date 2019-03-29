@@ -71,7 +71,7 @@ class CaptureCandidateDetails extends React.PureComponent {
     }
 
     submitIndividual() {
-        this.props.clearTable('');
+        
         if (this.props.tableValid) {
             if (this.state.firstName !== '' && this.state.surname !== '' || this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== '') {
                 let body = {
@@ -242,7 +242,7 @@ class CaptureCandidateDetails extends React.PureComponent {
  
     }
     addCandidate() {
-        this.props.clearTable('');
+        
         if (this.state.firstName !== '' && this.state.surname !== '' || this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== '') {
             let body = {
                 Name: this.state.firstName,
