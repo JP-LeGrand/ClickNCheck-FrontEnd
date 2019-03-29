@@ -110,6 +110,7 @@
         margin: 0 auto 10px auto;
         z-index: 10;
         
+        
     }
     
     #progress_bar li:after {
@@ -130,11 +131,14 @@
     #progress_bar li.active:before,  #progress_bar li.active:after{
         color: #FFFFFF;
         background-color: #0091d1;
-        border: 1px solid #FFFFFF;
+        border: 1px solid #0091d1;
         font-weight: bold;
         /*@TODO 
             Make each subsequent text on step bold
         */
+    }
+    #progress_bar li.active:before{
+      content: '\2713';
     }
 
   #draggableContainer{

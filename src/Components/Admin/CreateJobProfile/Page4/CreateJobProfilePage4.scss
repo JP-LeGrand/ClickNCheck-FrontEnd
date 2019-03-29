@@ -101,12 +101,17 @@
         content: none;
     }
 
+    #progress_bar_taf li.active:before{
+        content: '\2713';
+    }
+
     #progress_bar_taf li.active:before,
     #progress_bar_taf li.active:after {
         color: #ffffff;
         background-color: #0091d1;
         border: 1px solid #ffffff;
         font-weight: bold;
+        border-color: #0091d1;
     }
 
     
