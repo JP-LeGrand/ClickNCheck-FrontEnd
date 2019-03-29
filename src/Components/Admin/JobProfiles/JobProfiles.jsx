@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import AdminNavBar from '../AdminNavBar/adminNavBar';
 import Radio from '@material-ui/core/Radio';
@@ -8,6 +8,9 @@ import JobProfileResults from './JobProfileResults';
 import { BASE_URL, GET_ALL_JOB_PROFILES, GET_UNASSIGNED_JOB_PROFILES, GET_ASSIGNED_JOB_PROFILES } from '../../../Shared/Constants';
 import './JobProfiles.scss';
 import imgLoading from '../../../Assets/Rolling.svg';
+import ReactAI from 'react-appinsights';
+import Footer from '../../Shared/Footer/Footer';
+import { ToastContainer, toast } from 'mdbreact';
 
 class JobProfiles extends Component {
     constructor(props) {
@@ -73,11 +76,13 @@ class JobProfiles extends Component {
                     this.setState({ countJobProfiles: Object.entries(response).length });
                     this.setState({ loading: false });
                 },
-                error => {
+                () => {
                     this.setState({
                         loading: false
                     });
-                    alert(error);
+                    toast.error('Error loading job profiles. Please refresh',{
+                        autoClose : 3500
+                    });
                 }
             );
     }
@@ -102,11 +107,13 @@ class JobProfiles extends Component {
                     this.setState({ countJobProfiles: Object.entries(response).length });
                     this.setState({ loading: false });
                 },
-                error => {
+                () => {
                     this.setState({
                         loading: false
                     });
-                    alert(error);
+                    toast.error('Error loading unassigned job profiles. Please refresh',{
+                        autoClose : 3500
+                    });
                 }
             );
     }
@@ -131,45 +138,52 @@ class JobProfiles extends Component {
                     this.setState({ countJobProfiles: Object.entries(response).length });
                     this.setState({ loading: false });
                 },
-                error => {
+                () => {
                     this.setState({
                         loading: false
                     });
-                    alert(error);
+                    toast.error('Error loading assinged job profiles. Please reload');
                 }
             );
     }
 
     render() {
         return ( 
-            <div>
-                <AdminNavBar />
-                <div className="jobProfiles">
-                    <p>Job Profiles</p>
-                    <div className="mainSection">  
-                        <div className="filter">
-                            <div id="heading">
-                                <label id="jp">Job Profiles</label>
-                                <label id="count"><b>{this.state.countJobProfiles}</b>/{this.state.countTotalJobProfiles}</label>
+            <Fragment>
+                <ToastContainer 
+                    hideProgressBar={true}
+                    newestOnTop={true}
+                    autoClose={5000}
+                />
+                <div>
+                    <AdminNavBar />
+                    <div className="jobProfiles">
+                        <p>Job Profiles</p>
+                        <div className="mainSection">  
+                            <div className="filter">
+                                <div id="heading">
+                                    <label id="jp">Job Profiles</label>
+                                    <label id="count"><b>{this.state.countJobProfiles}</b>/{this.state.countTotalJobProfiles}</label>
+                                </div>
+                                <RadioGroup id="filter" defaultValue="All" className="radios classes.root" onClick={(event) => this.userChoice(event)}>
+                                    <FormControlLabel id="All" className="radio" value="All" control={<Radio disableRipple defaultChecked color="primary" />} label="All" />
+                                    <FormControlLabel id="Assigned" className="radio" value="Assigned" control={<Radio disableRipple color="primary"/>} label="Assigned" />
+                                    <FormControlLabel id="Unassigned" className="radio" value="Unassigned" control={<Radio disableRipple color="primary"/>} label="Unassigned" />
+                                </RadioGroup>
                             </div>
-                            <RadioGroup id="filter" defaultValue="All" className="radios classes.root" onClick={(event) => this.userChoice(event)}>
-                                <FormControlLabel id="All" className="radio" value="All" control={<Radio disableRipple defaultChecked color="primary" />} label="All" />
-                                <FormControlLabel id="Assigned" className="radio" value="Assigned" control={<Radio disableRipple color="primary"/>} label="Assigned" />
-                                <FormControlLabel id="Unassigned" className="radio" value="Unassigned" control={<Radio disableRipple color="primary"/>} label="Unassigned" />
-                            </RadioGroup>
-                        </div>
 
-                        <div className="results">
-                            {this.state.loading
-                                ? <img id="loading" src={imgLoading} alt={'loading...'} />
-                                : this.state.results === 'All' || this.state.results === 'Assigned' || this.state.results === 'Unassigned' ? < JobProfileResults allJobProfiles={this.state.allJobProfiles} /> : <JobProfileResults allJobProfiles={this.state.allJobProfiles} />
-                            }
+                            <div className="results">
+                                {this.state.loading
+                                    ? <img id="loading" src={imgLoading} alt={'loading...'} />
+                                    : this.state.results === 'All' || this.state.results === 'Assigned' || this.state.results === 'Unassigned' ? < JobProfileResults allJobProfiles={this.state.allJobProfiles} /> : <JobProfileResults allJobProfiles={this.state.allJobProfiles} />
+                                }
+                            </div>
                         </div>
                     </div>
+                    <Footer />
                 </div>
-            </div>
-            
+            </Fragment>
         );
     }
 }
-export default connect()(JobProfiles);
+export default ReactAI.withTracking(connect()(JobProfiles));

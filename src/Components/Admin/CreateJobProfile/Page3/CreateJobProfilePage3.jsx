@@ -5,16 +5,15 @@ import '../Page3/CreateJobProfilePage3.scss';
 import gridview from '../../../../Assets/gridview.svg';
 import saveImg from '../../../../Assets/save.svg';
 import dragImg from '../../../../Assets/drag.svg';
-import { sortableContainer, sortableElement, sortableHandle } from 'react-sortable-hoc';
+import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import { BASE_URL, CREATE_JOBPROFILE } from '../../../../Shared/Constants';
 import Axios from 'axios';
 import { element } from 'prop-types';
 import { toast } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
-const DragHandle = sortableHandle(() => <span>::</span>);
-
-const SortableItem = sortableElement(({ value }) => <li><DragHandle/><img src={gridview} />{value}</li>);
+const SortableItem = sortableElement(({ value }) => <li><img src={gridview} />{value}</li>);
 
 const SortableContainer = sortableContainer(({ children }) => {
     return <ul>{children}</ul>;
@@ -51,11 +50,11 @@ class CreateJobProfilePage3 extends React.PureComponent {
             sessionStorage.setItem('JobProfileID', response.data);
             window.location = '/Admin/CreateJobProfilePage4';
         },
-        (error) => {
-            toast.error('Oops! An error occured while creating the Job Profile. Please try again later', {
-                autoClose: 3000
-            });
-        }
+            (error) => {
+                toast.error('Oops! An error occured while creating the Job Profile. Please try again later', {
+                    autoClose: 3000
+                });
+            }
         );
     }
 
@@ -117,18 +116,18 @@ class CreateJobProfilePage3 extends React.PureComponent {
                         </div>
                         <div id="buttonFooter">
                             <button id="prev" onClick={this.prevStep}>BACK</button>
-                            <div id="saveButtonDiv">
+                            {/*TODO: <div id="saveButtonDiv">
                                 <img src={saveImg} alt="save img"/>
                                 <button id="save" onClick={this.saveProgress}>Save and continue later</button>
-                            </div>
+                            </div> */}
                             <button id="next" onClick={this.nextStep}>NEXT</button>
                         </div>
                     </div>
                     <Footer />
                 </div>
             </div>
-            
+
         );
     }
 }
-export default CreateJobProfilePage3;
+export default ReactAI.withTracking(CreateJobProfilePage3);

@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import './CreateJobProfile.scss';
 import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'mdbreact';
+import ReactAI from 'react-appinsights';
 
 class SelectVendors extends React.Component {
     constructor(props) {
@@ -15,36 +16,22 @@ class SelectVendors extends React.Component {
     }
 
     checkboxClicked(e){
-        if (e.target.checked){
-            let arr = [];
-            arr.push(e.target.value);
-            arr = this.state.selectedChecks.concat(arr);
-            this.setState({selectedChecks: arr }, function(){
-                let services = [];
-                for (let k = 0; k < this.state.selectedChecks.length; k++) {
-                    for (let c = 0; c < this.props.allChecks.length; c++){
-                        if (this.props.allChecks[c].id.toString() == this.state.selectedChecks[k].toString()){
-                            services.push(this.props.allChecks[c]);
-                        } 
-                    }
-                }
-                this.props.onCheckBoxClicked(services);
-            });
-        } else {
-            this.setState({selectedChecks: this.state.selectedChecks.splice(this.state.selectedChecks.indexOf(e.target.value),1)}, function(){
-                let services = [];
-                for (let k = 0; k < this.state.selectedChecks.length; k++) {
-                    for (let c = 0; c < this.props.allChecks.length; c++){
-                        if (this.props.allChecks[c].id.toString() == this.state.selectedChecks[k].toString()){
-                            services.push(this.props.allChecks[c]);
-                        } 
-                    }
-                }
-                this.props.onCheckBoxClicked(services);
-            });
-        }
-    }
 
+        let value = this.props.allChecks.find(x=>x.id.toString() === e.target.value.toString());
+        let index = this.state.selectedChecks.indexOf(value);
+        if (e.target.checked) {
+            this.state.selectedChecks.push(value);
+              
+        } else {
+            if (this.state.selectedChecks.length === 1) {
+                this.state.selectedChecks.length = 0;
+            } else {
+                this.state.selectedChecks = this.state.selectedChecks.splice(index + 1, 1);
+            }
+        }
+        this.props.onCheckBoxClicked(this.state.selectedChecks);
+    }
+        
     componentDidMount(){
         let checks = [];
         let checkIDs = [];
@@ -111,9 +98,9 @@ class SelectVendors extends React.Component {
         return (
             <Fragment>
                 <ToastContainer 
-                  hideProgressBar={true}
-                  newestOnTop={true}
-                  autoClose={5000}
+                    hideProgressBar={true}
+                    newestOnTop={true}
+                    autoClose={5000}
                 />
                 <div>
                     <h3>Select verification checks required for {this.props.jobProfile}</h3>
@@ -133,4 +120,4 @@ class SelectVendors extends React.Component {
 
 }
 
-export default connect() (SelectVendors);
+export default ReactAI.withTracking(connect() (SelectVendors));

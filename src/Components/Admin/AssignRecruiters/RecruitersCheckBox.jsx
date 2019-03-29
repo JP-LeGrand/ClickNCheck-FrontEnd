@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactAI from 'react-appinsights';
 
 class RecruiterCheckBox extends Component {
     state = { 
@@ -36,4 +37,4 @@ class RecruiterCheckBox extends Component {
      }
 }
  
-export default RecruiterCheckBox;
+export default ReactAI.withTracking(RecruiterCheckBox);

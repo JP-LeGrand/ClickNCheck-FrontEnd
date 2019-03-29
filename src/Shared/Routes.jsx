@@ -29,6 +29,8 @@ import CreateAmendUser from '../Components/Admin/CreateAmendUser/CreateAmendUser
 import adminNavBar from '../Components/Admin/AdminNavBar/adminNavBar';
 import Home from '../Components/Home/Home';
 import Users from '../Components/Admin/Users/Users';
+import ReactAI from 'react-appinsights';
+
 const Routes = () => {
     return (
         <BrowserRouter>
@@ -66,4 +68,4 @@ const Routes = () => {
     );
 };
 
-export default Routes;
+export default ReactAI.withTracking(Routes);

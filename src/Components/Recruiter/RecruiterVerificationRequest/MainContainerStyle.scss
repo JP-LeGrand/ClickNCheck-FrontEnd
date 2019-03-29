@@ -315,6 +315,9 @@
         Make each subsequent text on step bold
     */
 }
+#progress_bar li.active:before{
+  content: '\2713';
+}
 
   #paragraph li:before {
     content: counter(step2);
@@ -810,7 +813,7 @@
     padding: 0;
     position: fixed;
     height: 50px;
-    bottom: 45px;
+    bottom: 24px;
     left: 0;
     right: 0;
   }

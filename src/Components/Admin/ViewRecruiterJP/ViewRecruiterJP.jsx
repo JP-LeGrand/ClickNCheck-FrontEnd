@@ -9,6 +9,7 @@ import { BASE_URL, GET_RECRUITERS, GET_RECRUITER_JOB_PROFILE } from '../../../Sh
 import AdminNavBar from '../AdminNavBar/adminNavBar';
 import Footer from '../../Shared/Footer/Footer';
 import { ZERO } from '../../../Shared/IntConstants';
+import ReactAI from 'react-appinsights';
 
 class ViewRecruiterJP extends React.PureComponent{
     constructor(props) {
@@ -136,4 +137,4 @@ class ViewRecruiterJP extends React.PureComponent{
     }
 }
 
-export default ViewRecruiterJP;
+export default ReactAI.withTracking(ViewRecruiterJP);

@@ -25,6 +25,7 @@ import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
 import { ToastContainer, toast } from 'mdbreact';
 import saveImg from '../../../Assets/save_white.svg';
 //import { Form, Radio } from 'semantic-ui-react';
+import ReactAI from 'react-appinsights';
 
 class CaptureCandidateDetails extends React.PureComponent {
     constructor(props) {
@@ -70,7 +71,7 @@ class CaptureCandidateDetails extends React.PureComponent {
     }
 
     submitIndividual() {
-        this.props.clearTable('');
+        
         if (this.props.tableValid) {
             if (this.state.firstName !== '' && this.state.surname !== '' || this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== '') {
                 let body = {
@@ -241,7 +242,7 @@ class CaptureCandidateDetails extends React.PureComponent {
  
     }
     addCandidate() {
-        this.props.clearTable('');
+        
         if (this.state.firstName !== '' && this.state.surname !== '' || this.state.mSurname !== '' && this.state.email !== '' && this.state.phone !== '' && this.state.idNumber !== '') {
             let body = {
                 Name: this.state.firstName,
@@ -441,4 +442,4 @@ const mapActionToProps = (dispatch) => ({
     sendBulk: bindActionCreators(CandidateActions.submitCandidate, dispatch),
     clearTable: bindActionCreators(CandidateActions.clearTable, dispatch)
 });
-export default connect(mapStateToProps, mapActionToProps)(CaptureCandidateDetails);
+export default ReactAI.withTracking(connect(mapStateToProps, mapActionToProps)(CaptureCandidateDetails));

@@ -4,8 +4,7 @@ import { types } from 'util';
 
 export const loginProcess = (email, password) => {
     return function(dispatch){
-
-        let credentials = [ email, password ];
+        let credentials = [email, password];
         fetch(BASE_URL + AUTHENTICATE_LOGIN, {
             method: 'POST',
             mode: 'cors', // no-cors, cors, *same-origin
@@ -52,9 +51,8 @@ export const loginProcess = (email, password) => {
                                         referrer: 'no-referrer', // no-referrer, *client
                                         body: JSON.stringify(userid),
                                     })
-                                        .then((otp_response) => otp_response.json())
-                                        .then(
-                                            () => {
+                                        .then((otp_response) => {
+                                            if (otp_response.status === 200){
                                                 dispatch({
                                                     Types: Types.UPDATE_LOADING,
                                                     payload: false
@@ -67,16 +65,15 @@ export const loginProcess = (email, password) => {
                                                     type: Types.UPDATE_LOGIN_STATUS,
                                                     payload: 'success'
                                                 });
+                                                
                                                 window.location = '/otp';
-                                            },
-                                            (error) => {
-                                                console.log('Error in otp')
+                                            } else {
                                                 dispatch({
-                                                    Types: types.UPDATE_LOADING,
+                                                    type: Types.UPDATE_LOADING,
                                                     payload: false
                                                 });
                                                 dispatch({
-                                                    Types: types.UPDATE_ERROR,
+                                                    type: Types.UPDATE_ERROR,
                                                     payload: 'loadOTP'
                                                 });
                                                 dispatch({
@@ -84,12 +81,10 @@ export const loginProcess = (email, password) => {
                                                     payload: 'failed'
                                                 });
                                             }
-                                        );
+                                        });
                                 }
                             },
                             (error) => {
-                                //Credentials incorrect
-                                console.log('password expiry error');
                                 dispatch({
                                     type: Types.UPDATE_LOADING,
                                     payload: false
@@ -103,7 +98,6 @@ export const loginProcess = (email, password) => {
                         );
                 },
                 (error) => {
-                    console.log('Credentials validation error: '+error)
                     dispatch({
                         type: Types.UPDATE_LOADING,
                         payload: false

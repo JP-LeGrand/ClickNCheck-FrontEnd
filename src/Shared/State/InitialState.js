@@ -37,7 +37,8 @@ const InitialState = {
         errorMessage: '',
         passwordsValid: false,
         passwordsMatch: false,
-        loading:false
+        loading:false,
+        fetchError: ''
     },
     verificationChecksState: {
         jobProfileChecks: [],
@@ -58,10 +59,8 @@ const InitialState = {
         candidateBody: [],
         fileState: true,
         fileSize : '',
-        idValid : '',
-        emailValid : '',
         tableValid : true,
-        numberValid: ''
+    
     },
     otpState: {
         digit1: undefined,
