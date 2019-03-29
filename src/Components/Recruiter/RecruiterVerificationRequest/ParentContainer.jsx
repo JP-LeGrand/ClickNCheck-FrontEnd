@@ -29,14 +29,15 @@ class ParentContainer extends React.PureComponent {
     }
 
     sendCandidate() {
-        if (this.props.tableValid){
+        if (this.props.tableValid === true){
             let candidates = this.props.candidateArray
             if (candidates.length !== 0) {
                 this.setState({
                     loading: true
                 }); 
                 let ver_check = localStorage.getItem('ver_check');
-                this.props.sendBulk('1', candidates);
+                this.props.sendBulk(ver_check, candidates);
+              
             } else {
                 toast.warn('Oops! Please Save Candidate before Submission', {
                     autoClose: 3000
@@ -44,7 +45,7 @@ class ParentContainer extends React.PureComponent {
             }
            
         } else {
-            toast.error('Oops! Error please check validility of fields', {
+            toast.error('Oops! Please check validility of fields(ID, EMAIL and CELL)', {
                 autoClose: 3000
             });
         }
@@ -90,6 +91,7 @@ class ParentContainer extends React.PureComponent {
                                             :
 
                                             this.props.fileState ?
+                                       
                                                 <div>
                                                     <label className="candidateDetails">Capture Candidate Details</label><br />
                                                     <div className="switchButton">
@@ -99,7 +101,8 @@ class ParentContainer extends React.PureComponent {
                                                     </div>
                                                 </div>
                                                 :
-                                                <div className="">
+                                                
+                                                <div>
                                                     <label className="reviewDetails">Review Uploaded Candidate Details</label><br /><br />
                                                     <label className="reviewDetails"><strong>{this.props.fileSize} Entries</strong> (click to edit)</label><br />
                                                 </div>
@@ -158,7 +161,9 @@ const mapStateToProps = state => ({
 
 const mapActionsToProps = (dispatch) => ({
     changeView: bindActionCreators(CandidateActions.changeView, dispatch),
-    sendBulk: bindActionCreators(CandidateActions.submitCandidate, dispatch)
+    sendBulk: bindActionCreators(CandidateActions.submitCandidate, dispatch),
+    checkTableValid : bindActionCreators (CandidateActions.isTableValid, dispatch),
+    clearTable: bindActionCreators(CandidateActions.clearTable, dispatch)
 
 });
 export default connect(mapStateToProps, mapActionsToProps)(ParentContainer);

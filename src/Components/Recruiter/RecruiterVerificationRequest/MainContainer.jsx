@@ -2,14 +2,11 @@ import React, { Fragment } from 'react';
 import './MainContainerStyle.scss';
 import XLSX from 'xlsx';
 import { RecruiterConstants } from './recruiterConstants';
-import Footer from '../../Shared/Footer/Footer';
-import Axios from 'axios';
-import rollingImg from '../../../Assets/Rolling.svg';
-import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
 import * as CandidateActions from './CandidateActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ToastContainer, toast } from 'mdbreact';
+import { ToastContainer } from 'mdbreact';
+import PropTypes from 'prop-types';
 
 class MainContainer extends React.PureComponent {
     constructor(props) {
@@ -67,10 +64,14 @@ class MainContainer extends React.PureComponent {
             if (!tableValidationErrors.id) {
                 document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
                 this.props.checkID(false);
-            } else {
+                this.check(false);
+            } 
+            if (tableValidationErrors.id) {
                 document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
                 this.props.checkID(true);
+                this.check(true);
             }
+            
             break;
         case 'dob':
             propName = 'Birthday';
@@ -88,17 +89,20 @@ class MainContainer extends React.PureComponent {
             }
            
             break;
-        default:
+        case 'phone' :
             propName = 'Phone';
             numberValid = event.target.value.length === RecruiterConstants.phoneNumberLen;
             tableValidationErrors.phone = numberValid ? true : false;
             if (!tableValidationErrors.phone) {
                 document.getElementById(event.target.id).setAttribute('class', 'InvalidField');
-                this.props.checkNumber(false)
+                this.props.checkNumber(false);
             } else {
                 document.getElementById(event.target.id).setAttribute('class', 'FieldValue');
-                this.props.checkNumber(true)
+                this.props.checkNumber(true);
             }
+            break;
+        default:
+            break;
         }
 
         const newRows = [ ...this.state.excelRows ];
@@ -107,13 +111,21 @@ class MainContainer extends React.PureComponent {
             excelRows: newRows,
         });
 
-        this.props.update(this.state.excelRows);
-        if (tableValidationErrors.id && tableValidationErrors.email && tableValidationErrors.phone) {
+        this.props.update(this.state.excelRows); 
+    }
+    check(){
+        const test=false;
+        const check=true;
+        if (this.props.idValid === check
+            && this.props.numberValid === check
+            && this.props.emailValid === test) {
             this.props.checkTableValid(true);
-        } else if (!tableValidationErrors.email || !tableValidationErrors.phone || !tableValidationErrors.id){
+        } 
+        if (this.props.idValid === test
+            || this.props.numberValid === test
+            || this.props.emailValid === test) {
             this.props.checkTableValid(false);
-        }
-     
+        } 
     }
     nextStep() {
         window.location = '/VerificationConfirmed';
@@ -233,6 +245,21 @@ class MainContainer extends React.PureComponent {
         </div>;
     }
 }
+MainContainer.propTypes = {
+   
+    emailValid :  PropTypes.bool,
+    numberValid :  PropTypes.bool,
+    idValid  : PropTypes.bool,
+    getFileState : PropTypes.func,
+    checkEmail : PropTypes.func,
+    checkNumber : PropTypes.func,
+    checkID : PropTypes.func,
+    checkTableValid : PropTypes.func,
+    getSize : PropTypes.func,
+    getFile : PropTypes.func,
+    update : PropTypes.func
+
+};
 
 const mapStateToProps = state => ({
     bulkArray : state.candidateState.candidateBody,

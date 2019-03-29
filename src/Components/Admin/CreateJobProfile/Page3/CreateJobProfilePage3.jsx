@@ -5,16 +5,14 @@ import '../Page3/CreateJobProfilePage3.scss';
 import gridview from '../../../../Assets/gridview.svg';
 import saveImg from '../../../../Assets/save.svg';
 import dragImg from '../../../../Assets/drag.svg';
-import { sortableContainer, sortableElement, sortableHandle } from 'react-sortable-hoc';
+import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import { BASE_URL, CREATE_JOBPROFILE } from '../../../../Shared/Constants';
 import Axios from 'axios';
 import { element } from 'prop-types';
 import { toast } from 'mdbreact';
 
-const DragHandle = sortableHandle(() => <span>::</span>);
-
-const SortableItem = sortableElement(({ value }) => <li><DragHandle/><img src={gridview} />{value}</li>);
+const SortableItem = sortableElement(({ value }) => <li><img src={gridview} />{value}</li>);
 
 const SortableContainer = sortableContainer(({ children }) => {
     return <ul>{children}</ul>;

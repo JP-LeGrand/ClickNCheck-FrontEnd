@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import * as Types from './CandidateActionTypes';
 import Axios from 'axios';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
@@ -30,11 +29,11 @@ export const submitCandidate = (ver_check, candidate) => {
                 'Authorization': 'Bearer ' +sessionStorage.getItem('token')
             }
         };
-       let candidateArray = {
+        let candidateArray = {
             candidates : candidate
         };
         if (candidate.length !== 0){
-           Axios.post(BASE_URL + CREATE_CANDIDATE + ver_check, candidateArray, config)
+            Axios.post(BASE_URL + CREATE_CANDIDATE + ver_check, candidateArray, config)
                 .then((response) => {
                     window.location = '/VerificationConfirmed';
                 });
@@ -94,7 +93,7 @@ export const emailValid = (emailBool) => {
             type: Types.EMAIL_VALID,
             payload: emailBool
         });
-      };
+    };
 };
 
 export const numberValid = (numberValid) => {
