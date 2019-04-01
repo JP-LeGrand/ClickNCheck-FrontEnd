@@ -5,7 +5,7 @@ import '../Page3/CreateJobProfilePage3.scss';
 import gridview from '../../../../Assets/gridview.svg';
 import saveImg from '../../../../Assets/save.svg';
 import dragImg from '../../../../Assets/drag.svg';
-import { sortableContainer, sortableElement, sortableHandle } from 'react-sortable-hoc';
+import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import { BASE_URL, CREATE_JOBPROFILE } from '../../../../Shared/Constants';
 import Axios from 'axios';

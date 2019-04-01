@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import * as Types from './CandidateActionTypes';
 import Axios from 'axios';
 import { BASE_URL, CREATE_CANDIDATE } from '../../../Shared/Constants';
@@ -30,11 +29,11 @@ export const submitCandidate = (ver_check, candidate) => {
                 'Authorization': 'Bearer ' +sessionStorage.getItem('token')
             }
         };
-       let candidateArray = {
+        let candidateArray = {
             candidates : candidate
         };
         if (candidate.length !== 0){
-           Axios.post(BASE_URL + CREATE_CANDIDATE + ver_check, candidateArray, config)
+            Axios.post(BASE_URL + CREATE_CANDIDATE + ver_check, candidateArray, config)
                 .then((response) => {
                     window.location = '/VerificationConfirmed';
                 });
@@ -75,33 +74,6 @@ export const clearTable = (value) => {
         dispatch ({
             type: Types.CLEAR_TABLE,
             payload: value
-        });
-    };
-};
-
-export const idValid = (idBool) => {
-    return function (dispatch) {
-        dispatch ({
-            type: Types.ID_VALID,
-            payload: idBool
-        });
-    };
-};
-
-export const emailValid = (emailBool) => {
-    return function (dispatch) {
-        dispatch ({
-            type: Types.EMAIL_VALID,
-            payload: emailBool
-        });
-      };
-};
-
-export const numberValid = (numberValid) => {
-    return function (dispatch) {
-        dispatch ({
-            type: Types.NUMBER_VALID,
-            payload: numberValid
         });
     };
 };
