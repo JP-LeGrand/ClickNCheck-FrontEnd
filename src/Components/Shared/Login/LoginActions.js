@@ -54,7 +54,7 @@ export const loginProcess = (email, password) => {
                                         .then((otp_response) => {
                                             if (otp_response.status === 200){
                                                 dispatch({
-                                                    Types: Types.UPDATE_LOADING,
+                                                    type: Types.UPDATE_LOADING,
                                                     payload: false
                                                 });
                                                 dispatch({

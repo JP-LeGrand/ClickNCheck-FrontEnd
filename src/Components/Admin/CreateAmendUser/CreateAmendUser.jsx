@@ -453,107 +453,108 @@ class CreateAmendUser extends Component {
 
                                 <div id="heading">
                                 </div>
-                          </div>
-                          <div className="details">
-                              <table>
-                                  <tr>
-                                      <td>
-                                          <div className="form-group">
-                                              <label>Start and End Date</label>
-                                              <span className="dateLabel" id="start">start date</span>
-                                              <input id="start_date" type="date" placeholder="&nbsp;" name="start_date" value={ this.state.user_id !== '' ? this.state.StartDate : '' } onChange={(event) => this.startDateHandler(event)} />
-                                          </div>
-                                          {this.state.StartDate === '' && FIELD_REQUIRED}
-                                      </td>
-                                      <td>
-                                          <div className="form-group">
-                                              <label>First Name</label>
-                                              <br />
-                                              <input id="fname" placeholder="&nbsp;" name="name" value={this.state.Name} onChange={(event) => this.nameHandler(event)} />
-                                          </div>
-                                          {this.state.Name === '' && FIELD_REQUIRED}
-                                      </td>
-                                      <td>
-                                          <div className="form-group">
-                                              <label>Last Name</label>
-                                              <br />
-                                              <input id="surname" placeholder="&nbsp;" name="surname" value={this.state.Surname} onChange={(event) => this.surnameHandler(event)} />
-                                          </div>
-                                          {this.state.Surname === '' && FIELD_REQUIRED}
-                                      </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span className="dateLabel">end date</span>
-                                        <br/>
-                                        <input id="end_date" type="date" placeholder="&nbsp;" name="end_date" value={ this.state.user_id !== '' ? this.state.EndDate : null } onChange={(event) => this.endDateHandler(event)} />
-                                        {this.state.EndDate === '' && FIELD_REQUIRED}
-                                    </td>
-                                    <td>
-                                        <div className="form-group">
-                                            <label>Phone Number</label>
-                                            <br />
-                                            <input id="phone" placeholder="&nbsp;" name="phone" maxLength="12" value={this.state.Phone} onChange={(event) => this.phoneHandler(event)} />
-                                        </div>
-                                        {this.state.Phone === '' && FIELD_REQUIRED}
-                                        {this.state.phoneValid === true && <p className="success">Phone number is correct</p>}
-                                        {this.state.phoneValid === false && <p className="error">Phone Number is incorrect</p>}
-                                    </td>
-                                    <td>
-                                        <div className="form-group">
-                                            <label>Email Address</label>
-                                            <br />
-                                            <input id="email" placeholder="&nbsp;" name="email" value={this.state.Email} onChange={(event) => this.emailHandler(event)} />
-                                        </div>
-                                        {this.state.Email === '' && FIELD_REQUIRED}
-                                        {this.state.emailValid === true && <p className="success">Email is correct</p>}
-                                        {this.state.emailValid === false && <p className="error">Email is incorrect</p>}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className="form-group">
-                                            <label>Manager</label>
-                                            <br />
-                                            <select onChange={this.managerHandler} value={ this.state.user_id !== '' ? this.state.rec_manager : null }><option>...</option>{manager_resultItems}</select>
-                                        </div>
-                                        {this.state.rec_manager === '' && FIELD_REQUIRED}
-                                    </td>
-                                    <td>
-                                        <div className="form-group">
-                                            <label>Roles</label>
-                                            <br />
-                                            <ul>
-                                                {select_roles}
-                                            </ul>
-                                            <select onChange={(event) => this.rolesHandler(event)}><option>...</option>{role_resultItems}</select>
-                                        </div>
-                                        {this.state.selected_roles.length === ZERO && FIELD_REQUIRED}
-                                    </td>
-                                    <td>
-                                        <div className="form-group">
-                                            <label>Job Profile(s)</label>
-                                            <br />
-                                            <ul>
-                                                {select_jobs}
-                                            </ul>
-                                            <select onChange={(event) => this.jobsHandler(event)}><option>...</option>{job_resultItems}</select>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div className="userButtons">
-                                <div className="alignLeft">
-                                    <button id="btnClearAll" onClick={this.clearAll}>Clear All</button>
-                                </div>
-                                <div className="alignRight">
-                                    <button id="apply" disabled={ this.state.StartDate === '' || this.state.Name === '' || this.state.Surname === '' || this.state.EndDate === '' || this.state.Phone === '' || this.state.Email === '' || this.state.rec_manager === '' || this.state.selected_roles.length === ZERO ? true : false} onClick={(event) => this.handleSubmit(event)}>APPLY</button>
-                                    {this.state.user_id !== '' && <button id="btnDeactivate" onClick={this.changeStatus}><FaTimes id="closeIcon"/>{this.state.Status === 'Active' ? 'DEACTIVATE' : 'ACTIVATE'} USER</button>}
+                            </div>
+                            <div className="details">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div className="form-group">
+                                                <label>Start and End Date</label>
+                                                <span className="dateLabel" id="start">start date</span>
+                                                <input id="start_date" type="date" placeholder="&nbsp;" name="start_date" value={ this.state.user_id !== '' ? this.state.StartDate : '' } onChange={(event) => this.startDateHandler(event)} />
+                                            </div>
+                                            {this.state.StartDate === '' && FIELD_REQUIRED}
+                                        </td>
+                                        <td>
+                                            <div className="form-group">
+                                                <label>First Name</label>
+                                                <br />
+                                                <input id="fname" placeholder="&nbsp;" name="name" value={this.state.Name} onChange={(event) => this.nameHandler(event)} />
+                                            </div>
+                                            {this.state.Name === '' && FIELD_REQUIRED}
+                                        </td>
+                                        <td>
+                                            <div className="form-group">
+                                                <label>Last Name</label>
+                                                <br />
+                                                <input id="surname" placeholder="&nbsp;" name="surname" value={this.state.Surname} onChange={(event) => this.surnameHandler(event)} />
+                                            </div>
+                                            {this.state.Surname === '' && FIELD_REQUIRED}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span className="dateLabel">end date</span>
+                                            <br/>
+                                            <input id="end_date" type="date" placeholder="&nbsp;" name="end_date" value={ this.state.user_id !== '' ? this.state.EndDate : null } onChange={(event) => this.endDateHandler(event)} />
+                                            {this.state.EndDate === '' && FIELD_REQUIRED}
+                                        </td>
+                                        <td>
+                                            <div className="form-group">
+                                                <label>Phone Number</label>
+                                                <br />
+                                                <input id="phone" placeholder="&nbsp;" name="phone" maxLength="12" value={this.state.Phone} onChange={(event) => this.phoneHandler(event)} />
+                                            </div>
+                                            {this.state.Phone === '' && FIELD_REQUIRED}
+                                            {this.state.phoneValid === true && <p className="success">Phone number is correct</p>}
+                                            {this.state.phoneValid === false && <p className="error">Phone Number is incorrect</p>}
+                                        </td>
+                                        <td>
+                                            <div className="form-group">
+                                                <label>Email Address</label>
+                                                <br />
+                                                <input id="email" placeholder="&nbsp;" name="email" value={this.state.Email} onChange={(event) => this.emailHandler(event)} />
+                                            </div>
+                                            {this.state.Email === '' && FIELD_REQUIRED}
+                                            {this.state.emailValid === true && <p className="success">Email is correct</p>}
+                                            {this.state.emailValid === false && <p className="error">Email is incorrect</p>}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div className="form-group">
+                                                <label>Manager</label>
+                                                <br />
+                                                <select onChange={this.managerHandler} value={ this.state.user_id !== '' ? this.state.rec_manager : null }><option>...</option>{manager_resultItems}</select>
+                                            </div>
+                                            {this.state.rec_manager === '' && FIELD_REQUIRED}
+                                        </td>
+                                        <td>
+                                            <div className="form-group">
+                                                <label>Roles</label>
+                                                <br />
+                                                <ul>
+                                                    {select_roles}
+                                                </ul>
+                                                <select onChange={(event) => this.rolesHandler(event)}><option>...</option>{role_resultItems}</select>
+                                            </div>
+                                            {this.state.selected_roles.length === ZERO && FIELD_REQUIRED}
+                                        </td>
+                                        <td>
+                                            <div className="form-group">
+                                                <label>Job Profile(s)</label>
+                                                <br />
+                                                <ul>
+                                                    {select_jobs}
+                                                </ul>
+                                                <select onChange={(event) => this.jobsHandler(event)}><option>...</option>{job_resultItems}</select>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div className="userButtons">
+                                    <div className="alignLeft">
+                                        <button id="btnClearAll" onClick={this.clearAll}>Clear All</button>
+                                    </div>
+                                    <div className="alignRight">
+                                        <button id="apply" disabled={ this.state.StartDate === '' || this.state.Name === '' || this.state.Surname === '' || this.state.EndDate === '' || this.state.Phone === '' || this.state.Email === '' || this.state.rec_manager === '' || this.state.selected_roles.length === ZERO ? true : false} onClick={(event) => this.handleSubmit(event)}>APPLY</button>
+                                        {this.state.user_id !== '' && <button id="btnDeactivate" onClick={this.changeStatus}><FaTimes id="closeIcon"/>{this.state.Status === 'Active' ? 'DEACTIVATE' : 'ACTIVATE'} USER</button>}
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <Footer />
                     </div>
-                    <Footer />
                 </div>
             </Fragment>
         );
