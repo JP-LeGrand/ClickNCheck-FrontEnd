@@ -1,80 +1,73 @@
-.jobProfiles {
-    margin: 0 228px;
-    p {
-        width: 557px;
+.container{
+    .dashNav{
+        display: flex;
+        flex-flow: row;
+        font-size: 12pt;
+        font-style: normal;
+        font-stretch: normal;
+        color: #02529c;
+        #bold{
+            font-weight: bold;
+        }
+    }
+    h1 {
         font-family: Roboto;
-        font-size: 18px;
+        font-size: 14pt;
         font-weight: bold;
         font-style: normal;
         font-stretch: normal;
-        line-height: 2.5;
-        letter-spacing: 0.4px;
         color: #02529c;
     }
-    .filter {
-        margin: 10px 30px;
-        padding-bottom: 30px;
-        border-bottom: 1px dashed #333333;
-    }
-
-    #heading label{
-        display: block;
-        color: #02529c;
-    }
-
-    #filter, #heading{
-        display: inline-table;
-    }
-
-    .radios {
-        display: block;
-        width: fit-content;
-    }
-
     .mainSection {
-        border-radius: 8px;
-        border: solid 1px #e6e9ec;
+        border-radius: 0.5em;
+        border: solid 0.1em #e6e9ec;
         background-color: #ffffff;
+        padding:5%;
     }
 
-    #jp {
-        width: 221px;
-        height: 15px;
-        font-size: 12px;
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 3.75;
-        letter-spacing: 0.3px;
-        
-    }
+    .row {
+        margin-top: -1.5em; 
+        .heading#jp{
+            font-weight: bold;
+            color: #02529c;
+        }
 
-    #count {
-        width: 123px;
-        height: 15px;
-        font-size: 18px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 2.5;
-        letter-spacing: 0.4px;
-    }
+        .heading#count{
+            color: green;
+        }
 
+        #add{
+            margin-right: 0;
+        }
+    }
     .results {
-        margin: 0 30px;
+        padding-top: 1.5em;
+        border-top: 0.1em dashed #333333;
+        width: 100%;
     }
 
     table {
         position: relative;
-        width: 1000px;
-        text-align: center;
         font-style: normal;
         font-stretch: normal;
-        line-height: 1.57;
-        letter-spacing: 0.9px;
-        font-size: 14px;
+        letter-spacing: 0.05em;
+        font-size: 10pt;
         border-collapse: collapse;
+        font-family: roboto;
+        .jpColsTitles{
+            color:#0091d1;
+            width:25%;
+            font-weight: bold;
+            padding-bottom: 1.1em;
+        }
+        .jpCols{
+            border-top: 0.1em dashed #333333;
+            padding:1em 0;
+        }
     }
+}
+/*
+.jobProfiles {
 
     .thead td {
         font-weight: bold;
@@ -103,4 +96,15 @@
     .jpCols{
         width: 25%;
     }
+
+    #heading label{
+        display: block;
+        color: #02529c;
+    }
+    .radios {
+        display: block;
+        width: fit-content;
+    }
+
 }
+*/

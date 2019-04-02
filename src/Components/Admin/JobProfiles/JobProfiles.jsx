@@ -25,7 +25,10 @@ class JobProfiles extends Component {
         };
         this.userChoice = this.userChoice.bind(this);
         this.assignRecruiter = this.assignRecruiter.bind(this);
-        
+        this.newJobProfile = this.newJobProfile.bind(this);
+    }
+    newJobProfile(e){
+        window.location = '/Admin/CreateJobProfile';
     }
 
     userChoice(event){
@@ -155,33 +158,43 @@ class JobProfiles extends Component {
                     newestOnTop={true}
                     autoClose={5000}
                 />
-                <div>
-                    <AdminNavBar />
-                    <div className="jobProfiles">
-                        <p>Job Profiles</p>
-                        <div className="mainSection">  
-                            <div className="filter">
-                                <div id="heading">
-                                    <label id="jp">Job Profiles</label>
-                                    <label id="count"><b>{this.state.countJobProfiles}</b>/{this.state.countTotalJobProfiles}</label>
-                                </div>
-                                <RadioGroup id="filter" defaultValue="All" className="radios classes.root" onClick={(event) => this.userChoice(event)}>
+                <AdminNavBar />
+                <div className="container">
+
+                    <div className="dashNav">
+                        <p>Dashboard <span id="bold"> &gt; Existing Job Profiles</span></p>
+                    </div>
+                    <h1 id="title">Job Profiles</h1>
+
+                    <div className="mainSection">  
+                        <div className="row">
+                            <div className="col-sm">
+                                <label className="heading d-block" id="jp">Job Profiles</label>
+                                <label className="heading d-block" id="count"><b>{this.state.countJobProfiles}</b>/{this.state.countTotalJobProfiles}</label>
+                            </div>
+                           
+                            <div className="col-sm">
+                                <RadioGroup id="filter" defaultValue="All" className="radios classes.root d-inline" onClick={(event) => this.userChoice(event)}>
                                     <FormControlLabel id="All" className="radio" value="All" control={<Radio disableRipple defaultChecked color="primary" />} label="All" />
                                     <FormControlLabel id="Assigned" className="radio" value="Assigned" control={<Radio disableRipple color="primary"/>} label="Assigned" />
                                     <FormControlLabel id="Unassigned" className="radio" value="Unassigned" control={<Radio disableRipple color="primary"/>} label="Unassigned" />
                                 </RadioGroup>
                             </div>
-
-                            <div className="results">
-                                {this.state.loading
-                                    ? <img id="loading" src={imgLoading} alt={'loading...'} />
-                                    : this.state.results === 'All' || this.state.results === 'Assigned' || this.state.results === 'Unassigned' ? < JobProfileResults allJobProfiles={this.state.allJobProfiles} /> : <JobProfileResults allJobProfiles={this.state.allJobProfiles} />
-                                }
+                            
+                            <div className="col-sm">
+                                <button type="button" className="btn btn-secondary float-right" id ="add" onClick={(event) => this.newJobProfile(event)}>Create New Job Profile</button>
                             </div>
                         </div>
+
+                        <div className="results">
+                            {this.state.loading
+                                ? <img id="loading" src={imgLoading} alt={'loading...'} />
+                                : this.state.results === 'All' || this.state.results === 'Assigned' || this.state.results === 'Unassigned' ? < JobProfileResults allJobProfiles={this.state.allJobProfiles} /> : <JobProfileResults allJobProfiles={this.state.allJobProfiles} />
+                            }
+                        </div>
                     </div>
-                    <Footer />
                 </div>
+                <Footer />
             </Fragment>
         );
     }
