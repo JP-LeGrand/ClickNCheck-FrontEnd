@@ -5,8 +5,6 @@
         font-size: 12pt;
         font-style: normal;
         font-stretch: normal;
-        line-height: 3.21;
-        letter-spacing: 0.3;
         color: #02529c;
         #bold{
             font-weight: bold;
@@ -18,8 +16,6 @@
         font-weight: bold;
         font-style: normal;
         font-stretch: normal;
-        line-height: 2.5;
-        letter-spacing: 0.4;
         color: #02529c;
     }
     .mainSection {
@@ -54,7 +50,6 @@
         position: relative;
         font-style: normal;
         font-stretch: normal;
-        line-height: 1.57;
         letter-spacing: 0.05em;
         font-size: 10pt;
         border-collapse: collapse;
@@ -63,6 +58,11 @@
             color:#0091d1;
             width:25%;
             font-weight: bold;
+            padding-bottom: 1.1em;
+        }
+        .jpCols{
+            border-top: 0.1em dashed #333333;
+            padding:1em 0;
         }
     }
 }
