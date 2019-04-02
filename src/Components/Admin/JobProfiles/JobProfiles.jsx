@@ -25,7 +25,7 @@ class JobProfiles extends Component {
         };
         this.userChoice = this.userChoice.bind(this);
         this.assignRecruiter = this.assignRecruiter.bind(this);
-        
+        this.newJobProfile = this.newJobProfile.bind(this);
     }
     newJobProfile(e){
         window.location = '/Admin/CreateJobProfile';
