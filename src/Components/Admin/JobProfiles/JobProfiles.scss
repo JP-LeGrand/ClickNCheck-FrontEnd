@@ -1,40 +1,36 @@
 .container{
-    margin: 0 228px;
     .dashNav{
         display: flex;
         flex-flow: row;
-        font-size: 14px;
+        font-size: 12pt;
         font-style: normal;
         font-stretch: normal;
         line-height: 3.21;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.3;
         color: #02529c;
         #bold{
             font-weight: bold;
         }
-        p{
-            margin: 0px;
-        }
     }
     h1 {
         font-family: Roboto;
-        font-size: 18px;
+        font-size: 14pt;
         font-weight: bold;
         font-style: normal;
         font-stretch: normal;
         line-height: 2.5;
-        letter-spacing: 0.4px;
+        letter-spacing: 0.4;
         color: #02529c;
     }
     .mainSection {
-        border-radius: 8px;
-        border: solid 1px #e6e9ec;
+        border-radius: 0.5em;
+        border: solid 0.1em #e6e9ec;
         background-color: #ffffff;
         padding:5%;
     }
 
     .row {
-        margin-top: -20px; 
+        margin-top: -1.5em; 
         .heading#jp{
             font-weight: bold;
             color: #02529c;
@@ -49,58 +45,28 @@
         }
     }
     .results {
-        padding-top: 20px;
-        border-top: 1px dashed #333333;
+        padding-top: 1.5em;
+        border-top: 0.1em dashed #333333;
         width: 100%;
+    }
+
+    table {
+        position: relative;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.57;
+        letter-spacing: 0.05em;
+        font-size: 10pt;
+        border-collapse: collapse;
+        font-family: roboto;
+        .jpColsTitles{
+            color:#0091d1;
+            width:25%;
+        }
     }
 }
 /*
 .jobProfiles {
-    
-    #heading label{
-        display: block;
-        color: #02529c;
-    }
-    .radios {
-        display: block;
-        width: fit-content;
-    }
-
-    #jp {
-        width: 221px;
-        height: 15px;
-        font-size: 12px;
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 3.75;
-        letter-spacing: 0.3px;
-        
-    }
-
-    #count {
-        width: 123px;
-        height: 15px;
-        font-size: 18px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 2.5;
-        letter-spacing: 0.4px;
-    }
-
-
-    table {
-        position: relative;
-        width: 1000px;
-        text-align: center;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.57;
-        letter-spacing: 0.9px;
-        font-size: 14px;
-        border-collapse: collapse;
-    }
 
     .thead td {
         font-weight: bold;
@@ -129,8 +95,15 @@
     .jpCols{
         width: 25%;
     }
-    .filter, #heading{
-        display: inline-table;
+
+    #heading label{
+        display: block;
+        color: #02529c;
     }
+    .radios {
+        display: block;
+        width: fit-content;
+    }
+
 }
 */

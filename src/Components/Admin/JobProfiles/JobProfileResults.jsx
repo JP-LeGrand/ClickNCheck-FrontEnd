@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ONE } from '../../../Shared/IntConstants';
 import ReactAI from 'react-appinsights';
-
+import './JobProfiles.scss';
 class JobProfileResults extends Component {
     constructor(props) {
         super(props);
@@ -20,10 +20,10 @@ class JobProfileResults extends Component {
     render() {
         // eslint-disable-next-line react/prop-types    
         const resultItems = Object.entries(this.props.allJobProfiles).map((item,index) => <tr key={index}>
-            <td className="jpCols">{ item[ONE]['JobCode']}</td>
-            <td className="jpCols">{ item[ONE]['Title']}</td>
-            <td className="jpCols">{ item[ONE]['AssignedRecruiter']}</td>
-            <td className="action jpCols" id={ item[ONE]['ID']} onClick={(event) => this.assignRecruiter(event)}>
+            <td className="jpCols text-left">{ item[ONE]['JobCode']}</td>
+            <td className="jpCols text-left">{ item[ONE]['Title']}</td>
+            <td className="jpCols text-left">{ item[ONE]['AssignedRecruiter']}</td>
+            <td className="action jpCols text-left" id={ item[ONE]['ID']} onClick={(event) => this.assignRecruiter(event)}>
                 <u>Assign Recruiter</u>
             </td>
         </tr>
@@ -32,13 +32,13 @@ class JobProfileResults extends Component {
         return (
             <table>
                 <tbody>
-                    <tr className="thead">
-                        <td className="jpCols"><b>Job Code</b></td>
-                        <td className="jpCols"><b>Job Title</b></td>
-                        <td className="jpCols"><b>Assigned Recruiter</b></td>
-                        <td className="jpCols"><b>Action</b></td>
+                    <tr>
+                        <td className="jpColsTitles text-left"><b>Job Code</b></td>
+                        <td className="jpColsTitles text-left"><b>Job Title</b></td>
+                        <td className="jpColsTitles text-left"><b>Assigned Recruiter</b></td>
+                        <td className="jpColsTitles text-left"><b>Action</b></td>
                     </tr>
-                    
+
                     {resultItems}
                 </tbody>
                             
