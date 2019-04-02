@@ -1,7 +1,6 @@
-.jobProfiles {
+.container{
     margin: 0 228px;
-    p {
-        width: 557px;
+    h1 {
         font-family: Roboto;
         font-size: 18px;
         font-weight: bold;
@@ -11,30 +10,44 @@
         letter-spacing: 0.4px;
         color: #02529c;
     }
-    .filter {
-        margin: 10px 30px;
-        padding-bottom: 30px;
-        border-bottom: 1px dashed #333333;
-    }
-
-    #heading label{
-        display: block;
-        color: #02529c;
-    }
-
-    #filter, #heading{
-        display: inline-table;
-    }
-
-    .radios {
-        display: block;
-        width: fit-content;
-    }
-
     .mainSection {
         border-radius: 8px;
         border: solid 1px #e6e9ec;
         background-color: #ffffff;
+        padding:5%;
+    }
+
+    .row {
+        margin-top: -20px; 
+        .heading#jp{
+            font-weight: bold;
+            color: blue;
+        }
+
+        .heading#count{
+            color: green;
+        }
+
+        #add{
+             margin-left:50%;
+        }
+    }
+    .results {
+        padding-top: 20px;
+        border-top: 1px dashed #333333;
+        width: 100%;
+    }
+}
+/*
+.jobProfiles {
+    
+    #heading label{
+        display: block;
+        color: #02529c;
+    }
+    .radios {
+        display: block;
+        width: fit-content;
     }
 
     #jp {
@@ -60,9 +73,6 @@
         letter-spacing: 0.4px;
     }
 
-    .results {
-        margin: 0 30px;
-    }
 
     table {
         position: relative;
@@ -103,4 +113,8 @@
     .jpCols{
         width: 25%;
     }
+    .filter, #heading{
+        display: inline-table;
+    }
 }
+*/
