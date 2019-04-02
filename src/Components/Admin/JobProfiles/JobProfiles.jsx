@@ -182,7 +182,7 @@ class JobProfiles extends Component {
                             </div>
                             
                             <div className="col-sm">
-                                <button type="button" className="btn btn-secondary float-right" id ="add" onClick={(event) => this.newJobProfile(event)}>Add Job Profile</button>
+                                <button type="button" className="btn btn-secondary float-right" id ="add" onClick={(event) => this.newJobProfile(event)}>Create New Job Profile</button>
                             </div>
                         </div>
 
