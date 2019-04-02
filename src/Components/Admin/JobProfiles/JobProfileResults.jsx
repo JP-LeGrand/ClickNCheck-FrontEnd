@@ -18,7 +18,7 @@ class JobProfileResults extends Component {
     }
     
     render() {
-        // eslint-disable-next-line react/prop-types
+        // eslint-disable-next-line react/prop-types    
         const resultItems = Object.entries(this.props.allJobProfiles).map((item,index) => <tr key={index}>
             <td className="jpCols">{ item[ONE]['JobCode']}</td>
             <td className="jpCols">{ item[ONE]['Title']}</td>
@@ -33,12 +33,12 @@ class JobProfileResults extends Component {
             <table>
                 <tbody>
                     <tr className="thead">
-                        <td className="jpCols">Job Code</td>
-                        <td className="jpCols">Job Title</td>
-                        <td className="jpCols">Assigned Recruiter</td>
-                        <td className="jpCols">Action</td>
-                    </tr>                
-                
+                        <td className="jpCols"><b>Job Code</b></td>
+                        <td className="jpCols"><b>Job Title</b></td>
+                        <td className="jpCols"><b>Assigned Recruiter</b></td>
+                        <td className="jpCols"><b>Action</b></td>
+                    </tr>
+                    
                     {resultItems}
                 </tbody>
                             

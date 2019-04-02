@@ -1,5 +1,21 @@
 .container{
     margin: 0 228px;
+    .dashNav{
+        display: flex;
+        flex-flow: row;
+        font-size: 14px;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 3.21;
+        letter-spacing: 0.3px;
+        color: #02529c;
+        #bold{
+            font-weight: bold;
+        }
+        p{
+            margin: 0px;
+        }
+    }
     h1 {
         font-family: Roboto;
         font-size: 18px;
@@ -21,7 +37,7 @@
         margin-top: -20px; 
         .heading#jp{
             font-weight: bold;
-            color: blue;
+            color: #02529c;
         }
 
         .heading#count{
@@ -29,7 +45,7 @@
         }
 
         #add{
-             margin-left:50%;
+            margin-right: 20px;
         }
     }
     .results {

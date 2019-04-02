@@ -27,6 +27,9 @@ class JobProfiles extends Component {
         this.assignRecruiter = this.assignRecruiter.bind(this);
         
     }
+    newJobProfile(e){
+        window.location = '/Admin/CreateJobProfile';
+    }
 
     userChoice(event){
         if (event.target.value === 'All'){
@@ -157,7 +160,12 @@ class JobProfiles extends Component {
                 />
                 <AdminNavBar />
                 <div className="container">
+
+                    <div className="dashNav">
+                        <p>Dashboard <span id="bold"> &gt; Existing Job Profiles</span></p>
+                    </div>
                     <h1 id="title">Job Profiles</h1>
+
                     <div className="mainSection">  
                         <div className="row">
                             <div className="col-sm">
@@ -174,7 +182,7 @@ class JobProfiles extends Component {
                             </div>
                             
                             <div className="col-sm">
-                                <button type="button" className="btn btn-primary" id ="add">Add Job Profile</button>
+                                <button type="button" className="btn btn-secondary float-right" id ="add" onClick={(event) => this.newJobProfile(event)}>Add Job Profile</button>
                             </div>
                         </div>
 
