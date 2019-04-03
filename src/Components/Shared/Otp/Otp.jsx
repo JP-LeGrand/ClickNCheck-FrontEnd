@@ -32,7 +32,6 @@ class Otp extends React.PureComponent {
         this.props.assignUserId(localStorage.getItem('user_id'));
     }
     otpI(event) {
-        console.log(JSON.stringify(event));
         this.props.handleChangeDigit1(event);
     }
 
