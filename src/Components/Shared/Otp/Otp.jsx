@@ -109,36 +109,6 @@ class Otp extends React.PureComponent {
                             </div>
 
                             <div className="form-group">
-                                {/* <input
-                                    placeholder="&nbsp;"
-                                    type="number"
-                                    value={this.props.digit1}
-                                    onChange={this.handleChangeDigit1}
-                                />
-                                <input
-                                    placeholder="&nbsp;"
-                                    type="number"
-                                    value={this.props.digit2}
-                                    onChange={this.handleChangeDigit2}
-                                />
-                                <input
-                                    placeholder="&nbsp;"
-                                    type="number"
-                                    value={this.props.digit3}
-                                    onChange={this.handleChangeDigit3}
-                                />
-                                <input
-                                    placeholder="&nbsp;"
-                                    type="number"
-                                    value={this.props.digit4}
-                                    onChange={this.handleChangeDigit4}
-                                />
-                                <input
-                                    placeholder="&nbsp;"
-                                    type="number"
-                                    value={this.props.digit5}
-                                    onChange={this.handleChangeDigit5}
-                                /> */}
                                 <CodeInputField id="otpInput" className="otpInput" type='number' fields={5} onChange={this.otpI} />
                             </div>
                             <br />
