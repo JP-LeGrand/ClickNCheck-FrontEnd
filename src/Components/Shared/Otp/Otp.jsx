@@ -18,10 +18,6 @@ class Otp extends React.PureComponent {
         window.history.forward();
         super(props);
         this.handleChangeDigit1 = this.handleChangeDigit1.bind(this);
-        this.handleChangeDigit2 = this.handleChangeDigit2.bind(this);
-        this.handleChangeDigit3 = this.handleChangeDigit3.bind(this);
-        this.handleChangeDigit4 = this.handleChangeDigit4.bind(this);
-        this.handleChangeDigit5 = this.handleChangeDigit5.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleResubmit = this.handleResubmit.bind(this);
         this.otpI = this.otpI.bind(this);
@@ -41,39 +37,7 @@ class Otp extends React.PureComponent {
         }
     }
 
-    handleChangeDigit2(event) {
-        this.props.handleChangeDigit2(event.target.value);
-        if (event.target.value !== '') {
-            event.target.nextSibling.focus();
-        } else {
-            event.target.previousSibling.focus();
-        }
-    }
 
-    handleChangeDigit3(event) {
-        this.props.handleChangeDigit3(event.target.value);
-        if (event.target.value !== '') {
-            event.target.nextSibling.focus();
-        } else {
-            event.target.previousSibling.focus();
-        }
-    }
-
-    handleChangeDigit4(event) {
-        this.props.handleChangeDigit4(event.target.value);
-        if (event.target.value !== '') {
-            event.target.nextSibling.focus();
-        } else {
-            event.target.previousSibling.focus();
-        }
-    }
-
-    handleChangeDigit5(event) {
-        this.props.handleChangeDigit5(event.target.value);
-        if (event.target.value === '') {
-            event.target.previousSibling.focus();
-        }
-    }
 
     handleSubmit(event) {
         event.preventDefault();
