@@ -1,22 +1,26 @@
 /*Nav bar*/
-nav{
+.adminNavBar{
+  nav{
   border-bottom: 1px solid rgba($color: #727272, $alpha: 0.1  );
   padding-bottom: 0px !important;
-}
-.clickncheckLogo{
-width: 155px;
-height: 25px;
-}
-.navItems{
-font-size: 12px;
-color: #02529c !important;
-font-family: Roboto;
-font-weight: bold;
 }
 
 .navItems:hover, .navItem:focus, .navItems:active {
   color: #02529c;
   text-decoration: none;
+}
+
+.clickncheckLogo{
+width: 155px;
+height: 25px;
+}
+
+.navItems{
+position: relative;
+font-size: 12px;
+color: #02529c !important;
+font-family: Roboto;
+font-weight: bold;
 }
  
 .navItems::before {
@@ -38,27 +42,24 @@ font-weight: bold;
   transform: scale(1, 1);
 }
 
-a{
-  background-color: #000;
-}
 .active {
   color: #02529c;
   border-bottom: 4px solid #02529c;
 }
 
 .navbar .dropdown-menu-right {
-  right: 0 !important;
-  left: auto !important;
-  }
+right: 0 !important;
+left: auto !important;
+}
 
-  .userName{
-    font-size: 14px;
-    font-family: Roboto;
-    color: #02529c
-  }
+.userName{
+font-size: 14px;
+font-family: Roboto;
+color: #02529c
+}
 
-  .dropdown-toggle::after {
-    display: none !important;
+.dropdown-toggle::after {
+display: none !important;
 }
 
 .drops{
@@ -70,6 +71,30 @@ a{
   width: 35px;
   height: 35px;
   border: solid 1px #ffffff;
-  border-radius:100% !important;
+  border-radius:100%;
   margin-top: -5px;
+}
+
+.dropdown-menu:before {
+  position: absolute;
+  top: -7px;
+  right: 9px; /* Example: right:10px; */
+  display: inline-block;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-left: 7px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  content: '';
+}
+
+.dropdown-menu:after {
+  position: absolute;
+  top: -6px;
+  right: 10px; /* Example: right:10px; */
+  display: inline-block;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #ffffff;
+  border-left: 6px solid transparent;
+  content: '';
+}
 }

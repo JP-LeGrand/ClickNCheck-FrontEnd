@@ -1,8 +1,10 @@
 /*Nav bar*/
+.recNavBar{
 nav{
   border-bottom: 1px solid rgba($color: #727272, $alpha: 0.1  );
   padding-bottom: 0px !important;
 }
+
 .navItems:hover, .navItem:focus, .navItems:active {
   color: #02529c;;
   text-decoration: none;
@@ -14,7 +16,11 @@ nav{
   }
 
 .navItems {
-  position: relative;  
+position: relative;
+font-size: 12px;
+color: #02529c !important;
+font-family: Roboto;
+font-weight: bold;  
 }
 
 .navItems::before {
@@ -30,9 +36,7 @@ nav{
   transform: scale(0, 1);
   transition: color 0.1s,transform 0.2s ease-out;
 }
-.navItems:active::before {
-  background-color: #000;
-}
+
 .navItems:hover::before, .navItems:focus::before {
   transform-origin: left top;
   transform: scale(1, 1);
@@ -43,14 +47,19 @@ nav{
   border-bottom: 4px solid #02529c;
 }
 
+.navbar .dropdown-menu-right {
+right: 0 !important;
+left: auto !important;
+}
+
 .userName{
-  font-size: 14px;
-  font-family: Roboto;
-  color: #02529c
+font-size: 14px;
+font-family: Roboto;
+color: #02529c
 }
 
 .dropdown-toggle::after {
-  display: none !important;
+display: none !important;
 }
 
 .drops{
@@ -87,4 +96,5 @@ nav{
   border-bottom: 6px solid #ffffff;
   border-left: 6px solid transparent;
   content: '';
+}
 }
