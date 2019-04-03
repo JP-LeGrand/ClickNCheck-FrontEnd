@@ -43,18 +43,19 @@ export const handleChangeDigit5 = (digit5) => {
         });
     };
 };
-export const submitOtp = (user_id,otp) => {
+export const submitOtp = (user_id, otp) => {
     return function (dispatch) {
         dispatch({
             type: Types.SUBMIT_CLICKED,
             payload: true
         });
+        console.log(otp.length);
         if (otp.length === FIVE) {
             dispatch({
                 type: Types.SUBMIT_OTP,
                 payload: true
             });
-            let user_otp = [ user_id, otp ];
+            let user_otp = [user_id, otp];
             fetch(BASE_URL + CHECK_OTP, {
                 method: 'POST',
                 mode: 'cors', // no-cors, cors, *same-origin
@@ -165,5 +166,5 @@ export const assignUserId = (user_id) => {
             type: Types.ASSIGN_USER,
             payload: user_id
         });
-    };   
+    };
 };
