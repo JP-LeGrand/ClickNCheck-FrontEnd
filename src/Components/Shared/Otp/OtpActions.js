@@ -49,7 +49,7 @@ export const submitOtp = (user_id, otp) => {
             type: Types.SUBMIT_CLICKED,
             payload: true
         });
-        console.log(otp.length);
+
         if (otp.length === FIVE) {
             dispatch({
                 type: Types.SUBMIT_OTP,

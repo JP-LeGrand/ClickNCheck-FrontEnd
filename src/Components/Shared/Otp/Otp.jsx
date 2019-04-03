@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactAI from 'react-appinsights';
 import CodeInputField from 'react-code-input';
-import { FIVE } from '../../../Shared/IntConstants';
+
 
 class Otp extends React.PureComponent {
     constructor(props) {
@@ -150,7 +150,7 @@ class Otp extends React.PureComponent {
                                     </a>
                                 </p>
                             </div>
-                            {this.props.digit1.toString().length < FIVE && this.props.clicked && <p className="error">Make sure all 5 digits have been entered</p>}
+                            {this.props.digit1.toString().length < 5 && this.props.clicked && <p className="error">Make sure all 5 digits have been entered</p>}
                             {this.props.error && <p className="error">{this.props.error}</p>}
                             <div className="loading">
                                 {this.props.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
