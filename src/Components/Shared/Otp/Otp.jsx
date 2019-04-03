@@ -10,8 +10,7 @@ import * as OtpActions from './OtpActions';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactAI from 'react-appinsights';
-import ReactCodeInput from './react-code-input-master/src/ReactCodeInput';
-import CodeInputField from "./react-code-input-master/src/ReactCodeInput";
+import CodeInputField from 'react-code-input';
 import { FIVE } from '../../../Shared/IntConstants';
 
 class Otp extends React.PureComponent {
