@@ -5,7 +5,7 @@ import './Footer.scss';
 class Footer extends React.PureComponent {
     render() {
         return ( 
-            <div>
+            <div className="cncFooter">
                 <footer className="footer">   
                     <div className="container">  
                         
