@@ -25,6 +25,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.1",
     "react-appinsights": "^2.0.2",
+    "react-code-input": "^3.8.1",
     "react-dnd": "^7.3.1",
     "react-dnd-html5-backend": "^7.2.0",
     "react-dom": "^16.8.1",
@@ -42,6 +43,7 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.86.0",
     "sinon": "^7.2.3",
+    "ts-pnp": "^1.0.1",
     "typeface-roboto": "^0.0.54",
     "xlsx": "^0.14.1"
   },
