@@ -6,26 +6,28 @@ import mainImg from '../../../Assets/main.svg';
 import 'typeface-roboto';
 import rollingImg from '../../../Assets/Rolling.svg';
 import { ToastContainer, toast } from 'mdbreact';
-import * as OtpActions from './OtpActions' ;
+import * as OtpActions from './OtpActions';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import ReactAI from 'react-appinsights';
+import CodeInputField from 'react-code-input';
+
 
 class Otp extends React.PureComponent {
     constructor(props) {
         window.history.forward();
         super(props);
         this.handleChangeDigit1 = this.handleChangeDigit1.bind(this);
-        this.handleChangeDigit2 = this.handleChangeDigit2.bind(this);
-        this.handleChangeDigit3 = this.handleChangeDigit3.bind(this);
-        this.handleChangeDigit4 = this.handleChangeDigit4.bind(this);
-        this.handleChangeDigit5 = this.handleChangeDigit5.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleResubmit = this.handleResubmit.bind(this);
+        this.otpI = this.otpI.bind(this);
     }
 
     componentDidMount() {
         this.props.assignUserId(localStorage.getItem('user_id'));
+    }
+    otpI(event) {
+        this.props.handleChangeDigit1(event);
     }
 
     handleChangeDigit1(event) {
@@ -35,47 +37,16 @@ class Otp extends React.PureComponent {
         }
     }
 
-    handleChangeDigit2(event) {
-        this.props.handleChangeDigit2(event.target.value);
-        if (event.target.value !== '') {
-            event.target.nextSibling.focus();
-        } else {
-            event.target.previousSibling.focus();
-        }
-    }
 
-    handleChangeDigit3(event) {
-        this.props.handleChangeDigit3(event.target.value);
-        if (event.target.value !== '') {
-            event.target.nextSibling.focus();
-        } else {
-            event.target.previousSibling.focus();
-        }
-    }
-
-    handleChangeDigit4(event) {
-        this.props.handleChangeDigit4(event.target.value);
-        if (event.target.value !== '') {
-            event.target.nextSibling.focus();
-        } else {
-            event.target.previousSibling.focus();
-        }
-    }
-
-    handleChangeDigit5(event) {
-        this.props.handleChangeDigit5(event.target.value);
-        if ( event.target.value === '' ) {
-            event.target.previousSibling.focus();
-        }
-    }
 
     handleSubmit(event) {
         event.preventDefault();
-        
-        let otp = ''+this.props.digit1 +this.props.digit2 +this.props.digit3 + this.props.digit4 + this.props.digit5;
-        
+
+        // let otp = '' + this.props.digit1 + this.props.digit2 + this.props.digit3 + this.props.digit4 + this.props.digit5;
+        let otp = '' + this.props.digit1;
+
         this.props.submitOtp(this.props.user_id, otp);
-        
+
     }
 
     handleResubmit() {
@@ -98,40 +69,11 @@ class Otp extends React.PureComponent {
 
                         <div className="mainSection">
                             <div className="registrationHeading">
-                            Enter the One-Time Pin sent to you
+                                Enter the One-Time Pin sent to you
                             </div>
 
                             <div className="form-group">
-                                <input
-                                    placeholder="&nbsp;"
-                                    type="number"
-                                    value={this.props.digit1}
-                                    onChange={this.handleChangeDigit1}
-                                />
-                                <input
-                                    placeholder="&nbsp;"
-                                    type="number"
-                                    value={this.props.digit2}
-                                    onChange={this.handleChangeDigit2}
-                                />
-                                <input
-                                    placeholder="&nbsp;"
-                                    type="number"
-                                    value={this.props.digit3}
-                                    onChange={this.handleChangeDigit3}
-                                />
-                                <input
-                                    placeholder="&nbsp;"
-                                    type="number"
-                                    value={this.props.digit4}
-                                    onChange={this.handleChangeDigit4}
-                                />
-                                <input
-                                    placeholder="&nbsp;"
-                                    type="number"
-                                    value={this.props.digit5}
-                                    onChange={this.handleChangeDigit5}
-                                />
+                                <CodeInputField id="otpInput" className="otpInput" type='number' fields={5} onChange={this.otpI} />
                             </div>
                             <br />
                             <br />
@@ -142,14 +84,14 @@ class Otp extends React.PureComponent {
                                     </a>
                                 </p>
                             </div>
-                            {(!this.props.digit1 || !this.props.digit2 || !this.props.digit3 || !this.props.digit4 || !this.props.digit5) && this.props.clicked && <p className="error">Make sure all 5 digits have been entered</p>}
+                            {this.props.digit1.toString().length < 5 && this.props.clicked && <p className="error">Make sure all 5 digits have been entered</p>}
                             {this.props.error && <p className="error">{this.props.error}</p>}
                             <div className="loading">
                                 {this.props.loading && <img src={rollingImg} id="spinner" alt="loading..." />}
                             </div>
                         </div>
                     </div>
-                </Fragment>  
+                </Fragment>
             );
         } else {
             window.location = '/login';
@@ -158,7 +100,7 @@ class Otp extends React.PureComponent {
 }
 
 Otp.propTypes = {
-    digit1: PropTypes.number,
+    digit1: PropTypes.string,
     digit2: PropTypes.number,
     digit3: PropTypes.number,
     digit4: PropTypes.number,

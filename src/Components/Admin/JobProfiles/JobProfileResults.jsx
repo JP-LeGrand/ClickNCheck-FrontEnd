@@ -19,30 +19,27 @@ class JobProfileResults extends Component {
     
     render() {
         // eslint-disable-next-line react/prop-types    
-        const resultItems = Object.entries(this.props.allJobProfiles).map((item,index) => <tr key={index}>
-            <td className="jpCols text-left">{ item[ONE]['JobCode']}</td>
-            <td className="jpCols text-left">{ item[ONE]['Title']}</td>
-            <td className="jpCols text-left">{ item[ONE]['AssignedRecruiter']}</td>
-            <td className="action jpCols text-left" id={ item[ONE]['ID']} onClick={(event) => this.assignRecruiter(event)}>
+        const resultItems = Object.entries(this.props.allJobProfiles).map((item,index) => <ul className="row" id="dataRow" key={index}>
+            <div className="col-sm">{ item[ONE]['JobCode']}</div>
+            <div className="col-sm">{ item[ONE]['Title']}</div>
+            <div className="col-sm">{ item[ONE]['AssignedRecruiter']}</div>
+            <div className="col-sm" id={ item[ONE]['ID']} onClick={(event) => this.assignRecruiter(event)}>
                 <u>Assign Recruiter</u>
-            </td>
-        </tr>
+            </div>
+        </ul>
         );
         
         return (
-            <table>
-                <tbody>
-                    <tr>
-                        <td className="jpColsTitles text-left"><b>Job Code</b></td>
-                        <td className="jpColsTitles text-left"><b>Job Title</b></td>
-                        <td className="jpColsTitles text-left"><b>Assigned Recruiter</b></td>
-                        <td className="jpColsTitles text-left"><b>Action</b></td>
-                    </tr>
-
-                    {resultItems}
-                </tbody>
+            <div className="table">
+                <ul className="row" id="headingRow">
+                    <div className="col-sm font-weight-bold text-primary">Job Code</div>
+                    <div className="col-sm font-weight-bold text-primary">Job Title</div>
+                    <div className="col-sm font-weight-bold text-primary">Assigned Recruiter</div>
+                    <div className="col-sm font-weight-bold text-primary">Action</div>
+                </ul>
+                {resultItems}
                             
-            </table>
+            </div>
         );
     }
 }

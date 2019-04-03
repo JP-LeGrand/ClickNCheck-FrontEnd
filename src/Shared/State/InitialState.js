@@ -5,7 +5,7 @@ const InitialState = {
     consentState: {
         name: 'Candidate Name Here',
         organisation: 'Organisation Name here',
-        checks: [ 'check-1', 'check-2', 'check-3', 'check-4', 'check-5' ]
+        checks: ['check-1', 'check-2', 'check-3', 'check-4', 'check-5']
     },
     loginState: {
         password: '',
@@ -17,7 +17,7 @@ const InitialState = {
         isLoading: false,
         error: ''
     },
-    forgotPasswordState:{
+    forgotPasswordState: {
         loading: false,
         validMessenger: false,
         validIdentification: false,
@@ -31,13 +31,13 @@ const InitialState = {
         messageSent: false,
         error: ''
     },
-    changePasswordState:{
+    changePasswordState: {
         password: '',
-        confirmpassword:'',
+        confirmpassword: '',
         errorMessage: '',
         passwordsValid: false,
         passwordsMatch: false,
-        loading:false,
+        loading: false,
         fetchError: ''
     },
     verificationChecksState: {
@@ -58,12 +58,12 @@ const InitialState = {
         displayCandidate: true,
         candidateBody: [],
         fileState: true,
-        fileSize : '',
-        tableValid : true,
-    
+        fileSize: '',
+        tableValid: true,
+
     },
     otpState: {
-        digit1: undefined,
+        digit1: '',
         digit2: undefined,
         digit3: undefined,
         digit4: undefined,
@@ -71,7 +71,7 @@ const InitialState = {
         loading: false,
         clicked: false,
         user_id: '',
-        error:''
+        error: ''
     },
 };
 
